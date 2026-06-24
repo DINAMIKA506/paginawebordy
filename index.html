@@ -64,9 +64,9 @@
     .hero-right { position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 0; }
     .hero-right img { width: 100%; max-width: 680px; display: block; object-fit: contain; margin: 0 auto; filter: drop-shadow(0 32px 64px rgba(78,75,247,.18)); }
 
-    /* STORY — blanco, full width, no división */
-    .story { background: white; padding: 6rem 2.5rem; }
-    .story-inner { max-width: 900px; margin: 0 auto; }
+    /* STORY — blanco, texto arriba centrado, Ordy grande abajo */
+    .story { background: white; padding: 6rem 2.5rem 0; }
+    .story-inner { max-width: 820px; margin: 0 auto; }
     .story-inner .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
     .story-inner h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.5rem; }
     .story-inner h2 em { font-style: italic; color: var(--ordy); }
@@ -77,10 +77,10 @@
     .chat-mock-cursor { display: inline-block; width: 2px; height: 1em; background: var(--ordy); margin-left: 2px; animation: blink 1s infinite; vertical-align: text-bottom; }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
     .story-inner p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; max-width: 720px; }
-    /* "Ordy nace justo ahí" + mascota en línea */
-    .ordy-nace-row { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
-    .ordy-nace { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 800; color: var(--coral); }
-    .ordy-nace-img { height: 160px; width: auto; flex-shrink: 0; filter: drop-shadow(0 12px 24px rgba(78,75,247,.2)); }
+    /* Ordy grande abajo — ocupa ancho completo de la sección */
+    .story-bottom { margin-top: 3rem; background: var(--lila-bg); border-radius: 32px 32px 0 0; padding: 3rem 2.5rem 0; display: flex; flex-direction: column; align-items: center; max-width: 900px; margin-left: auto; margin-right: auto; overflow: hidden; }
+    .ordy-nace { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 800; color: var(--coral); margin-bottom: 2rem; text-align: center; }
+    .story-bottom img { width: 420px; max-width: 80%; display: block; filter: drop-shadow(0 -8px 32px rgba(78,75,247,.15)); }
 
     /* QUÉ ES — imagen del doctor izquierda, sangra desde abajo */
     .whatis { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; min-height: 80vh; overflow: hidden; }
@@ -313,10 +313,10 @@
     </div>
     <p>Muchas veces queremos usar IA, pero no sabemos qué pedirle. Queremos organizarnos, pero no sabemos por dónde empezar. Esa pantalla en blanco, ese cursor parpadeando, esa sensación de no saber qué escribir primero.</p>
     <p>Tenés el conocimiento. Tenés el negocio. Pero la información vive en tu cabeza, en notas dispersas, en conversaciones que nunca se convierten en un plan.</p>
-    <div class="ordy-nace-row">
-      <p class="ordy-nace">Ordy nace justo ahí.</p>
-      <img src="ordy-inauguration.png" alt="Ordy inaugurando" class="ordy-nace-img float">
-    </div>
+  </div>
+  <div class="story-bottom">
+    <p class="ordy-nace">Ordy nace justo ahí.</p>
+    <img src="ordy-inauguration.png" alt="Ordy inaugurando" class="float">
   </div>
 </section>
 
