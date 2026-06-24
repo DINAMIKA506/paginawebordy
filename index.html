@@ -1,0 +1,608 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordy · Orden y Plan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fraunces:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ordy: #4E4BF7;
+      --ordy-dark: #3230c4;
+      --coral: #F94646;
+      --lila: #BBBBFC;
+      --lila-bg: #EEEEFF;
+      --text: #1A1A2E;
+      --muted: #6B7280;
+      --white: #ffffff;
+      --border: #E5E7EB;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    h1,h2,h3 { font-family: 'Fraunces', serif; line-height: 1.1; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border); height: 68px;
+    }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; height: 100%; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { height: 34px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .9rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color .15s; }
+    .nav-links a:hover { color: var(--ordy); }
+    .nav-cta { background: var(--ordy); color: #fff; padding: .6rem 1.4rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background .15s; }
+    .nav-cta:hover { background: var(--ordy-dark); }
+
+    /* HERO — imagen sangra por abajo */
+    .hero {
+      min-height: 100vh; padding-top: 68px;
+      background: var(--lila-bg);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: end; overflow: hidden;
+      max-width: 100%;
+    }
+    .hero-left { padding: 5rem 2.5rem 5rem 10%; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: white; border: 1px solid var(--lila);
+      color: var(--ordy); font-size: .78rem; font-weight: 700;
+      padding: .35rem .9rem; border-radius: 100px; margin-bottom: 1.75rem;
+      letter-spacing: .04em; text-transform: uppercase;
+    }
+    .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+    .hero h1 { font-size: clamp(2.6rem, 4.5vw, 4rem); font-weight: 900; color: var(--text); margin-bottom: 1.25rem; }
+    .hero h1 em { font-style: italic; color: var(--ordy); }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; max-width: 440px; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--ordy); color: #fff; padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, background .15s; }
+    .btn-primary:hover { background: var(--ordy-dark); transform: translateY(-2px); }
+    .btn-ghost { display: inline-block; border: 2px solid var(--ordy); color: var(--ordy); padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all .15s; }
+    .btn-ghost:hover { background: var(--ordy); color: #fff; }
+    .hero-right { position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 0; }
+    .hero-right img { width: 92%; max-width: 620px; display: block; object-fit: contain; margin: 0 auto; filter: drop-shadow(0 32px 64px rgba(78,75,247,.18)); }
+
+    /* STORY — fondo blanco, mascota grande a la derecha */
+    .story { background: white; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 70vh; overflow: hidden; }
+    .story-left { padding: 5rem 4rem 5rem 10%; }
+    .story-left .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .story-left h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .story-left h2 em { font-style: italic; color: var(--ordy); }
+    .story-left p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .story-left .ordy-nace { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--coral); margin-top: 1.75rem; }
+    .story-right { background: var(--lila-bg); height: 100%; display: flex; align-items: flex-end; justify-content: center; padding: 3rem 2rem 0; overflow: hidden; }
+    .story-right img { width: 80%; max-width: 420px; display: block; }
+
+    /* QUÉ ES — fondo lila, imagen izquierda sangra */
+    .whatis { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 75vh; overflow: hidden; }
+    .whatis-left { display: flex; align-items: flex-end; justify-content: center; padding: 3rem 2rem 0; height: 100%; }
+    .whatis-left img { width: 90%; max-width: 560px; display: block; filter: drop-shadow(0 20px 48px rgba(78,75,247,.14)); }
+    .whatis-right { padding: 5rem 10% 5rem 4rem; }
+    .whatis-right h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .whatis-right h2 span { color: var(--ordy); }
+    .whatis-right p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
+    .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: 2rem; }
+    .pillar { background: white; border-radius: 14px; padding: .9rem 1.1rem; display: flex; align-items: center; gap: .7rem; border: 1px solid var(--border); }
+    .pillar-icon { font-size: 1.3rem; }
+    .pillar-text { font-size: .875rem; font-weight: 600; }
+
+    /* NO EMPEZÁS — blanco, imagen derecha, overflow top */
+    .nocero { background: white; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 75vh; overflow: hidden; }
+    .nocero-left { padding: 5rem 4rem 5rem 10%; }
+    .nocero-left h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .nocero-left p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .nocero-right { height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--lila-bg); padding: 2rem; }
+    .nocero-right img { width: 95%; max-width: 560px; display: block; filter: drop-shadow(0 16px 40px rgba(0,0,0,.1)); border-radius: 20px; }
+    .quote-img { margin-top: 2rem; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,75,247,.12); }
+    .quote-img img { width: 100%; display: block; }
+
+    /* METODOLOGÍA — ordy bg, imagen izquierda */
+    .metodologia { background: #0D0D1F; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 75vh; overflow: hidden; }
+    .metodologia-left { display: flex; align-items: center; justify-content: center; padding: 3rem; }
+    .metodologia-left img { width: 95%; max-width: 560px; display: block; border-radius: 20px; box-shadow: 0 24px 60px rgba(0,0,0,.4); }
+    .metodologia-right { padding: 5rem 10% 5rem 4rem; }
+    .metodologia-right .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--lila); background: rgba(187,187,252,.15); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .metodologia-right h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; color: white; margin-bottom: 1.25rem; }
+    .metodologia-right p { font-size: 1.05rem; color: rgba(255,255,255,.65); line-height: 1.8; margin-bottom: 1rem; }
+    .metodologia-right .note { font-size: .78rem; color: rgba(255,255,255,.35); font-style: italic; margin-top: .5rem; }
+
+    /* CÓMO FUNCIONA — blanco, imagen grande centrada */
+    .funciona { background: white; padding: 7rem 2.5rem; text-align: center; }
+    .funciona-header { margin-bottom: 4rem; }
+    .funciona-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; }
+    .funciona-header p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+    .funciona-hero-img { width: 100%; max-width: 820px; margin: 0 auto 4rem; display: block; filter: drop-shadow(0 24px 60px rgba(78,75,247,.15)); }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .step { background: var(--lila-bg); border-radius: 20px; padding: 2rem 1.5rem; text-align: left; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; color: white; margin-bottom: 1.25rem; }
+    .step-num.n1 { background: var(--ordy); }
+    .step-num.n2 { background: var(--coral); }
+    .step-num.n3 { background: #FF8D8D; }
+    .step-num.n4 { background: var(--lila); color: var(--ordy); }
+    .step h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: .5rem; }
+    .step p { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+    /* DASHBOARDS */
+    .dashboards { background: var(--lila-bg); padding: 7rem 2.5rem; }
+    .dashboards-header { text-align: center; margin-bottom: 4rem; }
+    .dashboards-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; }
+    .dashboards-header p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; }
+    .dashboards-header em { font-style: italic; color: var(--ordy); }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .card { background: white; border-radius: 24px; overflow: hidden; transition: transform .2s, box-shadow .2s; }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,.1); }
+    .card-img { aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: 2rem; overflow: hidden; }
+    .card-img.bg1 { background: #EEEEFF; }
+    .card-img.bg2 { background: #FFF0F0; }
+    .card-img.bg3 { background: #F0EFFF; }
+    .card-img img { width: 100%; height: 100%; object-fit: contain; transition: transform .3s; }
+    .card:hover .card-img img { transform: scale(1.05); }
+    .card-body { padding: 1.75rem 1.75rem 2rem; }
+    .card-body h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 800; margin-bottom: .4rem; }
+    .card-body .tagline { font-size: .85rem; color: var(--muted); font-style: italic; margin-bottom: .9rem; }
+    .card-body p { font-size: .875rem; color: var(--muted); line-height: 1.65; margin-bottom: 1.25rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: .375rem; margin-bottom: 1.5rem; }
+    .tag { font-size: .72rem; font-weight: 600; padding: .25rem .65rem; border-radius: 100px; }
+    .tag.ordy { background: var(--lila-bg); color: var(--ordy); }
+    .tag.coral { background: #FFF0F0; color: var(--coral); }
+    .tag.lila { background: #F0EFFF; color: var(--ordy); }
+    .card-btn { display: block; text-align: center; padding: .75rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: opacity .15s, transform .15s; }
+    .card-btn:hover { opacity: .85; transform: translateY(-1px); }
+    .card-btn.ordy { background: var(--ordy); color: white; }
+    .card-btn.coral { background: var(--coral); color: white; }
+    .card-btn.lila { background: var(--lila); color: var(--ordy); }
+
+    /* PRECIOS */
+    .precios { background: white; padding: 7rem 2.5rem; }
+    .precios-header { text-align: center; margin-bottom: 4rem; }
+    .precios-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; }
+    .precios-header p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
+    .pricing { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; align-items: start; }
+    .pcard { background: var(--lila-bg); border-radius: 24px; padding: 2rem 1.5rem; display: flex; flex-direction: column; position: relative; transition: box-shadow .2s; }
+    .pcard:hover { box-shadow: 0 12px 40px rgba(0,0,0,.08); }
+    .pcard.featured { background: white; border: 2.5px solid var(--ordy); box-shadow: 0 8px 32px rgba(78,75,247,.15); }
+    .pcard.featured-coral { background: white; border: 2.5px solid var(--coral); }
+    .pbadge { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: var(--coral); color: white; font-size: .72rem; font-weight: 800; padding: .3rem .9rem; border-radius: 100px; white-space: nowrap; }
+    .pchar { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; margin: 0 auto 1.25rem; border: 3px solid white; box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .pchar img { width: 100%; height: 100%; object-fit: cover; }
+    .pname { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 800; text-align: center; margin-bottom: .5rem; }
+    .pprice { font-family: 'Fraunces', serif; font-size: 2.2rem; font-weight: 900; color: var(--ordy); text-align: center; line-height: 1; margin-bottom: .25rem; }
+    .pprice.coral { color: var(--coral); }
+    .pnote { font-size: .72rem; font-weight: 700; color: var(--coral); text-align: center; margin-bottom: .25rem; }
+    .pstrike { font-size: .78rem; color: var(--muted); text-align: center; text-decoration: line-through; margin-bottom: .75rem; }
+    .pdesc { font-size: .82rem; color: var(--muted); text-align: center; margin-bottom: 1.25rem; line-height: 1.6; }
+    .pfeatures { list-style: none; margin-bottom: 1.75rem; flex: 1; }
+    .pfeatures li { font-size: .85rem; padding: .4rem 0; border-bottom: 1px solid var(--border); display: flex; gap: .5rem; align-items: flex-start; }
+    .pfeatures li:last-child { border: none; }
+    .pfeatures li::before { content: '✓'; color: var(--ordy); font-weight: 800; flex-shrink: 0; }
+    .pbtn { display: block; text-align: center; padding: .8rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: opacity .15s, transform .15s; }
+    .pbtn:hover { opacity: .85; transform: translateY(-1px); }
+    .pbtn.ordy { background: var(--ordy); color: white; }
+    .pbtn.coral { background: var(--coral); color: white; }
+    .pbtn.rosa { background: #FF8D8D; color: white; }
+
+    /* HERRAMIENTAS — fondo oscuro, imagen izquierda grande */
+    .herramientas { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 70vh; overflow: hidden; }
+    .herramientas-left { display: flex; align-items: center; justify-content: center; padding: 3rem; }
+    .herramientas-left img { width: 95%; max-width: 540px; display: block; filter: drop-shadow(0 20px 48px rgba(78,75,247,.18)); }
+    .herramientas-right { padding: 5rem 10% 5rem 4rem; }
+    .herramientas-right h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .herramientas-right h2 span { color: var(--ordy); }
+    .herramientas-right p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .tools { display: flex; flex-wrap: wrap; gap: .625rem; }
+    .tool { background: white; border: 1.5px solid var(--border); padding: .55rem 1.1rem; border-radius: 100px; font-size: .875rem; font-weight: 600; transition: border-color .15s; }
+    .tool:hover { border-color: var(--ordy); }
+
+    /* FAQ */
+    .faq { background: white; padding: 7rem 2.5rem; }
+    .faq-inner { max-width: 740px; margin: 0 auto; }
+    .faq-header { text-align: center; margin-bottom: 3.5rem; }
+    .faq-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; }
+    .faq-item { border-bottom: 1.5px solid var(--border); }
+    .faq-toggle { width: 100%; text-align: left; padding: 1.4rem 0; display: flex; justify-content: space-between; align-items: center; background: none; border: none; cursor: pointer; font-size: 1rem; font-weight: 600; color: var(--text); font-family: 'Inter', sans-serif; gap: 1rem; }
+    .faq-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--lila-bg); color: var(--ordy); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; transition: transform .3s; flex-shrink: 0; font-weight: 700; }
+    .faq-toggle.open .faq-icon { transform: rotate(45deg); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .faq-answer.open { max-height: 300px; }
+    .faq-answer p { padding: 0 0 1.4rem; font-size: .95rem; color: var(--muted); line-height: 1.75; }
+
+    /* ALIANZAS */
+    .alianzas { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 65vh; overflow: hidden; }
+    .alianzas-left { display: flex; align-items: center; justify-content: center; padding: 3rem; }
+    .alianzas-left img { width: 90%; max-width: 480px; display: block; filter: drop-shadow(0 16px 40px rgba(78,75,247,.14)); }
+    .alianzas-right { padding: 5rem 10% 5rem 4rem; }
+    .alianzas-right h2 { font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .alianzas-right p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; }
+    .btns-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-wa { display: inline-flex; align-items: center; gap: .5rem; background: #25D366; color: white; padding: .9rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, opacity .15s; }
+    .btn-wa:hover { transform: translateY(-2px); opacity: .9; }
+    .btn-outline { display: inline-block; border: 2px solid var(--ordy); color: var(--ordy); padding: .9rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all .15s; }
+    .btn-outline:hover { background: var(--ordy); color: white; }
+
+    /* CTA FINAL */
+    .cta { background: linear-gradient(135deg, #3E3BF0 0%, #5F5CFF 50%, #8B89FF 100%); padding: 8rem 2.5rem; text-align: center; }
+    .cta h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; color: white; margin-bottom: 1rem; }
+    .cta p { color: rgba(255,255,255,.75); font-size: 1.1rem; margin-bottom: 2.75rem; }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-white { display: inline-block; background: white; color: var(--ordy); padding: 1rem 2.25rem; border-radius: 100px; font-weight: 800; font-size: 1rem; text-decoration: none; transition: transform .15s; }
+    .btn-white:hover { transform: translateY(-2px); }
+    .btn-white-ghost { display: inline-block; border: 2px solid rgba(255,255,255,.6); color: white; padding: 1rem 2.25rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: background .15s; }
+    .btn-white-ghost:hover { background: rgba(255,255,255,.15); }
+
+    /* FOOTER */
+    footer { background: white; border-top: 1.5px solid var(--border); padding: 2.5rem 2.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    footer img { height: 30px; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--ordy); }
+    .footer-note { max-width: 1200px; margin: 1.5rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); text-align: center; }
+
+    /* FLOAT */
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .float { animation: float 4s ease-in-out infinite; }
+
+    /* SECTION TAG */
+    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
+
+    /* RESPONSIVE */
+    @media(max-width:960px){
+      .hero,.story,.whatis,.nocero,.metodologia,.herramientas,.alianzas { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left,.story-left,.whatis-right,.nocero-left,.metodologia-right,.herramientas-right,.alianzas-right { padding: 4rem 1.5rem; }
+      .hero-right,.story-right,.whatis-left,.nocero-right,.metodologia-left,.herramientas-left,.alianzas-left { padding: 2rem 1.5rem; min-height: 320px; }
+      .steps,.pricing { grid-template-columns: 1fr 1fr; }
+      .cards { grid-template-columns: 1fr; max-width: 480px; }
+      .nav-links { display:none; }
+      .nocero-right { order: -1; }
+      .metodologia-left { order: -1; }
+    }
+    @media(max-width:600px){
+      .steps,.pricing { grid-template-columns: 1fr; }
+      .pillars { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+    <ul class="nav-links">
+      <li><a href="#funciona">Cómo funciona</a></li>
+      <li><a href="#dashboards">Dashboards</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <a href="#precios" class="nav-cta">Empezar gratis</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-left">
+    <div class="hero-tag"><span></span> Beta abierta · 5 cupos disponibles</div>
+    <h1>Tu negocio,<br><em>ordenado.</em><br>Tu mente, en paz.</h1>
+    <p class="hero-sub">Ordy convierte la información de tu negocio en una ruta clara de orden, decisiones y próximos pasos. Sin hojas en blanco.</p>
+    <div class="hero-btns">
+      <a href="#precios" class="btn-primary">Quiero mi diagnóstico gratis</a>
+      <a href="#funciona" class="btn-ghost">Ver cómo funciona</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="hero-main.png" alt="Emprendedora con Ordy" class="float">
+  </div>
+</header>
+
+<!-- STORYTELLING -->
+<section class="story">
+  <div class="story-left">
+    <span class="section-tag">El problema</span>
+    <h2>La hoja en<br><em>blanco.</em></h2>
+    <p>Querés usar IA, pero no sabés qué pedirle. Querés organizarte, pero no sabés por dónde empezar. Querés mejorar procesos, pero primero necesitás entender qué está pasando.</p>
+    <p>Tenés el conocimiento. Tenés el negocio. Pero la información vive en tu cabeza, en notas dispersas, en conversaciones que nunca se convierten en un plan.</p>
+    <p class="ordy-nace">Ordy nace justo ahí.</p>
+  </div>
+  <div class="story-right">
+    <img src="ordy-inauguration.png" alt="Ordy" class="float">
+  </div>
+</section>
+
+<!-- QUÉ ES -->
+<section class="whatis">
+  <div class="whatis-left">
+    <img src="estilista.png" alt="Profesional con Ordy">
+  </div>
+  <div class="whatis-right">
+    <span class="section-tag">Qué es Ordy</span>
+    <h2>No reemplaza tus herramientas.<br><span>Les da dirección.</span></h2>
+    <p>Ordy convierte la información de tu negocio en una guía clara para que podás tomar mejores decisiones, usar mejor la IA y construir sistemas que realmente se adapten a vos.</p>
+    <p>No es una app de gestión. Es el paso previo que siempre faltó.</p>
+    <div class="pillars">
+      <div class="pillar"><span class="pillar-icon">🤖</span><span class="pillar-text">IA con contexto real</span></div>
+      <div class="pillar"><span class="pillar-icon">📊</span><span class="pillar-text">Dashboards con sentido</span></div>
+      <div class="pillar"><span class="pillar-icon">⚙️</span><span class="pillar-text">Procesos más claros</span></div>
+      <div class="pillar"><span class="pillar-icon">🧘</span><span class="pillar-text">Decisiones con calma</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NO EMPEZÁS DESDE CERO -->
+<section class="nocero">
+  <div class="nocero-left">
+    <span class="section-tag">El proceso</span>
+    <h2>No empezás desde cero.<br>Empezás desde lo que ya tenés.</h2>
+    <p>Los cuestionarios de Ordy no son un examen. Son una guía para ayudarte a contar lo que ya sabés de tu negocio: qué vendés, cómo cobrás, qué dudas se repiten, qué procesos existen.</p>
+    <p>A partir de ahí, Ordy organiza lo que tenés, detecta vacíos y convierte esa información en una ruta clara.</p>
+    <div class="quote-img">
+      <img src="ordy-quote.png" alt="No te pedimos que tengas todas las respuestas">
+    </div>
+  </div>
+  <div class="nocero-right">
+    <img src="adrian-ordy.png" alt="Profesional con Ordy">
+  </div>
+</section>
+
+<!-- METODOLOGÍA -->
+<section class="metodologia">
+  <div class="metodologia-left">
+    <img src="pantalla-ordy.png" alt="Dashboard de Ordy">
+  </div>
+  <div class="metodologia-right">
+    <span class="section-tag" style="color:var(--lila);background:rgba(187,187,252,.15);">Probado en casa</span>
+    <h2>Antes de ayudar a otros negocios, lo usamos en el nuestro.</h2>
+    <p>Ordy nació mientras intentábamos ordenar nuestras propias ideas, procesos y decisiones. Lo que empezó como necesidad interna se convirtió en una metodología que hoy ayuda a otros negocios a encontrar claridad.</p>
+    <p>Sabíamos que funcionaba cuando empezó a darnos paz en nuestro propio negocio.</p>
+    <p class="note">Vista parcial del dashboard interno. Información estratégica ocultada.</p>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="funciona" id="funciona">
+  <div class="funciona-header">
+    <span class="section-tag">El método</span>
+    <h2>¿Cómo funciona Ordy?</h2>
+    <p>Cuatro pasos que convierten el desorden interno de tu negocio en una ruta clara.</p>
+  </div>
+  <img src="ordy-herramientas.png" alt="Ordy con los niveles" class="funciona-hero-img">
+  <div class="steps">
+    <div class="step">
+      <div class="step-num n1">1</div>
+      <h3>Contás lo que ya sabés</h3>
+      <p>Cuestionario guiado sobre tu negocio. No es un examen — es sacar lo que está en tu cabeza y ponerlo en orden.</p>
+    </div>
+    <div class="step">
+      <div class="step-num n2">2</div>
+      <h3>Ordy organiza tus respuestas</h3>
+      <p>Detectamos patrones, vacíos y puntos clave para entender el estado real de tu negocio.</p>
+    </div>
+    <div class="step">
+      <div class="step-num n3">3</div>
+      <h3>Recibís tu dashboard</h3>
+      <p>Vista clara con resumen, hallazgos, recomendaciones y próximos pasos concretos.</p>
+    </div>
+    <div class="step">
+      <div class="step-num n4">4</div>
+      <h3>Usás esa base para avanzar</h3>
+      <p>Tomá decisiones, mejorá procesos, alimentá IA o construí sistemas más útiles desde una base real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARDS -->
+<section class="dashboards" id="dashboards">
+  <div class="dashboards-header">
+    <span class="section-tag">Casos de ejemplo</span>
+    <h2>Mirá cómo se ve Ordy por dentro</h2>
+    <p>Tres negocios ficticios. <em>Los problemas son reales.</em></p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-img bg1"><img src="navi-cafe.png" alt="Navi Café"></div>
+      <div class="card-body">
+        <h3>Navi Café de Ruta</h3>
+        <p class="tagline">Una cafetería marina para quienes necesitan una pausa entre una idea y la siguiente.</p>
+        <p>Navi tenía el café funcionando, pero cada decisión dependía de recordar algo de memoria. Sin sistema, todo vivía en su cabeza.</p>
+        <div class="tags"><span class="tag ordy">Negocio físico</span><span class="tag ordy">Inventario</span><span class="tag ordy">Procesos</span></div>
+        <a href="#" class="card-btn ordy">Explorar dashboard</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img bg2"><img src="velas-regi.png" alt="Velas Regi"></div>
+      <div class="card-body">
+        <h3>Velas Regi</h3>
+        <p class="tagline">Velas aromáticas para quienes sobreviven reuniones y merecen un poco de paz.</p>
+        <p>Regi descubrió algo incómodo: vender más no siempre significaba ganar más. Los costos no cuadraban.</p>
+        <div class="tags"><span class="tag coral">Productos físicos</span><span class="tag coral">Rentabilidad</span><span class="tag coral">Márgenes</span></div>
+        <a href="#" class="card-btn coral">Explorar dashboard</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-img bg3"><img src="cabu-asesor.png" alt="Cabu Coach"></div>
+      <div class="card-body">
+        <h3>Cabu Coach para Dragones Jubilados</h3>
+        <p class="tagline">Porque después de siglos acumulando tesoros, algunos dragones solo quieren propósito.</p>
+        <p>Cabu tenía experiencia y clientes, pero cada uno era atendido diferente. No había proceso. Todo vivía en su memoria.</p>
+        <div class="tags"><span class="tag lila">Servicios</span><span class="tag lila">Atención</span><span class="tag lila">Organización</span></div>
+        <a href="#" class="card-btn lila">Explorar dashboard</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section class="precios" id="precios">
+  <div class="precios-header">
+    <span class="section-tag">Planes</span>
+    <h2>Elegí cómo querés empezar</h2>
+    <p>Desde un diagnóstico gratuito hasta la experiencia completa.</p>
+  </div>
+  <div class="pricing">
+    <div class="pcard">
+      <div class="pchar"><img src="char-ordy.png" alt="Ordy"></div>
+      <div class="pname">Diagnóstico Ordy Base</div>
+      <div class="pprice">Gratis</div>
+      <div class="pnote">5 cupos beta este mes</div>
+      <div class="pdesc">Para negocios que quieren una primera vista clara sin compromiso.</div>
+      <ul class="pfeatures">
+        <li>Nivel 1</li><li>Dashboard base</li>
+        <li>Recomendación de siguiente paso</li>
+        <li>Prompt resumen</li><li>3 mensajes personalizados</li>
+      </ul>
+      <a href="#" class="pbtn ordy">Quiero mi cupo gratis</a>
+    </div>
+    <div class="pcard featured">
+      <div class="pchar"><img src="char-navi.png" alt="Navi"></div>
+      <div class="pname">Ruta Ordy Completa</div>
+      <div class="pprice">₡43.000</div>
+      <div class="pstrike">Precio regular: ₡67.000</div>
+      <div class="pdesc">Para negocios que quieren ordenar procesos, números, clientes y próximos pasos.</div>
+      <ul class="pfeatures">
+        <li>Niveles 2 al 6</li>
+        <li>Dashboard actualizado por nivel</li>
+        <li>2 llamadas estratégicas</li>
+        <li>Seguimiento por WhatsApp</li>
+        <li>Recomendaciones accionables</li>
+      </ul>
+      <a href="https://wa.me/50687037656?text=Quiero%20la%20Ruta%20Ordy%20Completa" target="_blank" class="pbtn ordy">Empezar mi Ruta Ordy</a>
+    </div>
+    <div class="pcard">
+      <div class="pchar"><img src="char-glau.png" alt="Glau"></div>
+      <div class="pname">Radar Ordy</div>
+      <div class="pprice">₡12.000</div>
+      <div class="pnote">🔒 Solo tras completar los niveles</div>
+      <div class="pdesc">Para negocios que sienten que algo se escapa pero no saben dónde.</div>
+      <ul class="pfeatures">
+        <li>Análisis de fugas en tiempo, dinero, energía, clientes, operación y rentabilidad</li>
+      </ul>
+      <a href="https://wa.me/50687037656?text=Quiero%20el%20Radar%20Ordy" target="_blank" class="pbtn rosa">Activar Radar Ordy</a>
+    </div>
+    <div class="pcard featured-coral">
+      <div class="pbadge">Mejor valor</div>
+      <div class="pchar"><img src="char-carey.png" alt="Carey"></div>
+      <div class="pname">Combo Beta Ordy</div>
+      <div class="pprice coral">₡50.000</div>
+      <div class="pdesc">Para quienes quieren la experiencia más completa desde el inicio.</div>
+      <ul class="pfeatures">
+        <li>Ruta Ordy Completa</li><li>Radar Ordy incluido</li>
+        <li>Dashboard completo</li>
+        <li>Seguimiento por WhatsApp</li>
+        <li>2 llamadas estratégicas</li>
+      </ul>
+      <a href="https://wa.me/50687037656?text=Quiero%20el%20Combo%20Beta%20Ordy" target="_blank" class="pbtn coral">Quiero la experiencia completa</a>
+    </div>
+  </div>
+</section>
+
+<!-- HERRAMIENTAS -->
+<section class="herramientas">
+  <div class="herramientas-left">
+    <img src="ordy-herramientas.png" alt="Ordy y los niveles">
+  </div>
+  <div class="herramientas-right">
+    <span class="section-tag">Integración</span>
+    <h2>No reemplaza tus herramientas. <span>Les da dirección.</span></h2>
+    <p>Después de Ordy, usar IA, Notion, Excel, Trello o Canva se vuelve más fácil. Ya no empezás desde una hoja en blanco — empezás con contexto, estructura y una base real.</p>
+    <div class="tools">
+      <span class="tool">🤖 ChatGPT</span>
+      <span class="tool">📝 Notion</span>
+      <span class="tool">📊 Excel</span>
+      <span class="tool">📋 Trello</span>
+      <span class="tool">🎨 Canva</span>
+      <span class="tool">✉️ Gmail</span>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="section-tag">FAQ</span>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-item">
+      <button class="faq-toggle" type="button">¿Ordy es una app? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Ordy es una metodología guiada con dashboards personalizados. En esta etapa beta trabajamos con cuestionarios, análisis y entregables visuales para ayudarte a ordenar tu negocio.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-toggle" type="button">¿Tengo que tener todo claro para empezar? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>No. Justamente Ordy existe para ayudarte a ordenar lo que ya sabés y detectar lo que todavía falta. El punto de partida es lo que vos ya tenés.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-toggle" type="button">¿Esto reemplaza a un contador o asesor financiero? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>No. Ordy te ayuda a tener más claridad sobre tu negocio, pero no sustituye asesoría legal, tributaria, contable o financiera profesional.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-toggle" type="button">¿Puedo usar mi dashboard con IA? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Sí. Tu dashboard se convierte en tu base de conocimiento para pedirle mejores cosas a cualquier herramienta de IA.</p></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-toggle" type="button">¿Qué pasa después del diagnóstico gratis? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Recibís tu dashboard base y una recomendación de siguiente paso. Si querés profundizar, podés avanzar a la Ruta Ordy Completa con acompañamiento personalizado.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALIANZAS -->
+<section class="alianzas">
+  <div class="alianzas-left">
+    <img src="trabajo.png" alt="Equipo Ordy">
+  </div>
+  <div class="alianzas-right">
+    <span class="section-tag">Alianzas</span>
+    <h2>¿Querés trabajar con Ordy?</h2>
+    <p>Estamos construyendo herramientas que ayuden a más personas a ordenar sus negocios. Si representás una organización, comunidad o empresa interesada en alianzas, nos encantará conversar.</p>
+    <div class="btns-row">
+      <a href="https://wa.me/50687037656?text=Quiero%20conversar%20sobre%20alianzas%20con%20Ordy" target="_blank" class="btn-wa">💬 WhatsApp</a>
+      <a href="#" class="btn-outline">✉️ Contacto</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta">
+  <h2>Sacá tu negocio<br>de la cabeza.</h2>
+  <p>Convertí tus ideas, procesos y decisiones en una guía clara para avanzar con más paz.</p>
+  <div class="cta-btns">
+    <a href="#precios" class="btn-white">Quiero mi diagnóstico gratis</a>
+    <a href="https://wa.me/50687037656?text=Quiero%20empezar%20mi%20Ruta%20Ordy" target="_blank" class="btn-white-ghost">Empezar mi Ruta Ordy</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <img src="ordy-logo.png" alt="Ordy">
+    <ul class="footer-links">
+      <li><a href="#funciona">Cómo funciona</a></li>
+      <li><a href="#dashboards">Dashboards</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+  </div>
+  <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const answer = btn.nextElementSibling;
+      const isOpen = answer.classList.contains('open');
+      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+      document.querySelectorAll('.faq-toggle').forEach(b => b.classList.remove('open'));
+      if (!isOpen) { answer.classList.add('open'); btn.classList.add('open'); }
+    });
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+    });
+  });
+</script>
+</body>
+</html>
