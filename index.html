@@ -41,10 +41,10 @@
       min-height: 100vh; padding-top: 68px;
       background: var(--lila-bg);
       display: grid; grid-template-columns: 1fr 1fr;
-      align-items: end; overflow: hidden;
+      align-items: center; overflow: hidden;
       max-width: 100%;
     }
-    .hero-left { padding: 5rem 2.5rem 5rem 10%; }
+    .hero-left { padding: 4rem 2.5rem 4rem 10%; }
     .hero-tag {
       display: inline-flex; align-items: center; gap: .4rem;
       background: white; border: 1px solid var(--lila);
@@ -62,24 +62,31 @@
     .btn-ghost { display: inline-block; border: 2px solid var(--ordy); color: var(--ordy); padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: all .15s; }
     .btn-ghost:hover { background: var(--ordy); color: #fff; }
     .hero-right { position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 0; }
-    .hero-right img { width: 92%; max-width: 620px; display: block; object-fit: contain; margin: 0 auto; filter: drop-shadow(0 32px 64px rgba(78,75,247,.18)); }
+    .hero-right img { width: 100%; max-width: 680px; display: block; object-fit: contain; margin: 0 auto; filter: drop-shadow(0 32px 64px rgba(78,75,247,.18)); }
 
-    /* STORY — fondo blanco, mascota grande a la derecha */
-    .story { background: white; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 70vh; overflow: hidden; }
-    .story-left { padding: 5rem 4rem 5rem 10%; }
-    .story-left .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
-    .story-left h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
-    .story-left h2 em { font-style: italic; color: var(--ordy); }
-    .story-left p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-    .story-left .ordy-nace { font-family: 'Fraunces', serif; font-size: 1.6rem; font-weight: 800; color: var(--coral); margin-top: 1.75rem; }
-    .story-right { background: var(--lila-bg); height: 100%; display: flex; align-items: flex-end; justify-content: center; padding: 3rem 2rem 0; overflow: hidden; }
-    .story-right img { width: 80%; max-width: 420px; display: block; }
+    /* STORY — blanco, full width, no división */
+    .story { background: white; padding: 6rem 2.5rem; }
+    .story-inner { max-width: 900px; margin: 0 auto; }
+    .story-inner .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
+    .story-inner h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.5rem; }
+    .story-inner h2 em { font-style: italic; color: var(--ordy); }
+    /* Chat bubble */
+    .chat-mock { background: var(--lila-bg); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.75rem; border: 1px solid var(--lila); max-width: 520px; }
+    .chat-mock-bubble { font-size: .95rem; color: var(--muted); display: flex; align-items: center; gap: .5rem; }
+    .chat-mock-bubble::before { content: '💬'; flex-shrink: 0; }
+    .chat-mock-cursor { display: inline-block; width: 2px; height: 1em; background: var(--ordy); margin-left: 2px; animation: blink 1s infinite; vertical-align: text-bottom; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .story-inner p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; max-width: 720px; }
+    /* "Ordy nace justo ahí" + mascota en línea */
+    .ordy-nace-row { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; }
+    .ordy-nace { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 800; color: var(--coral); }
+    .ordy-nace-img { height: 160px; width: auto; flex-shrink: 0; filter: drop-shadow(0 12px 24px rgba(78,75,247,.2)); }
 
-    /* QUÉ ES — fondo lila, imagen izquierda sangra */
-    .whatis { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 75vh; overflow: hidden; }
-    .whatis-left { display: flex; align-items: flex-end; justify-content: center; padding: 3rem 2rem 0; height: 100%; }
-    .whatis-left img { width: 90%; max-width: 560px; display: block; filter: drop-shadow(0 20px 48px rgba(78,75,247,.14)); }
-    .whatis-right { padding: 5rem 10% 5rem 4rem; }
+    /* QUÉ ES — imagen del doctor izquierda, sangra desde abajo */
+    .whatis { background: var(--lila-bg); display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; min-height: 80vh; overflow: hidden; }
+    .whatis-left { display: flex; align-items: flex-end; justify-content: center; padding: 0 1rem 0 2rem; overflow: hidden; }
+    .whatis-left img { width: 100%; max-width: 580px; display: block; filter: drop-shadow(0 20px 48px rgba(78,75,247,.14)); object-fit: contain; align-self: flex-end; }
+    .whatis-right { padding: 5rem 10% 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
     .whatis-right h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
     .whatis-right h2 span { color: var(--ordy); }
     .whatis-right p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; }
@@ -88,14 +95,14 @@
     .pillar-icon { font-size: 1.3rem; }
     .pillar-text { font-size: .875rem; font-weight: 600; }
 
-    /* NO EMPEZÁS — blanco, imagen derecha, overflow top */
-    .nocero { background: white; display: grid; grid-template-columns: 1fr 1fr; align-items: center; min-height: 75vh; overflow: hidden; }
-    .nocero-left { padding: 5rem 4rem 5rem 10%; }
-    .nocero-left h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
-    .nocero-left p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-    .nocero-right { height: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: var(--lila-bg); padding: 2rem; }
-    .nocero-right img { width: 95%; max-width: 560px; display: block; filter: drop-shadow(0 16px 40px rgba(0,0,0,.1)); border-radius: 20px; }
-    .quote-img { margin-top: 2rem; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,75,247,.12); }
+    /* NO EMPEZÁS — blanco, full width con imagen centrada grande */
+    .nocero { background: white; padding: 6rem 2.5rem; }
+    .nocero-top { max-width: 900px; margin: 0 auto 3rem; text-align: center; }
+    .nocero-top h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1.25rem; }
+    .nocero-top p { font-size: 1.05rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .nocero-img-wrap { max-width: 860px; margin: 0 auto 2.5rem; }
+    .nocero-img-wrap img { width: 100%; display: block; filter: drop-shadow(0 24px 60px rgba(78,75,247,.18)); }
+    .quote-img { max-width: 640px; margin: 0 auto; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 32px rgba(78,75,247,.12); }
     .quote-img img { width: 100%; display: block; }
 
     /* METODOLOGÍA — ordy bg, imagen izquierda */
@@ -249,14 +256,15 @@
 
     /* RESPONSIVE */
     @media(max-width:960px){
-      .hero,.story,.whatis,.nocero,.metodologia,.herramientas,.alianzas { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left,.story-left,.whatis-right,.nocero-left,.metodologia-right,.herramientas-right,.alianzas-right { padding: 4rem 1.5rem; }
-      .hero-right,.story-right,.whatis-left,.nocero-right,.metodologia-left,.herramientas-left,.alianzas-left { padding: 2rem 1.5rem; min-height: 320px; }
+      .hero,.whatis,.metodologia,.herramientas,.alianzas { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left,.whatis-right,.metodologia-right,.herramientas-right,.alianzas-right { padding: 4rem 1.5rem; }
+      .hero-right,.whatis-left,.metodologia-left,.herramientas-left,.alianzas-left { padding: 2rem 1.5rem; min-height: 320px; }
       .steps,.pricing { grid-template-columns: 1fr 1fr; }
       .cards { grid-template-columns: 1fr; max-width: 480px; }
       .nav-links { display:none; }
-      .nocero-right { order: -1; }
       .metodologia-left { order: -1; }
+      .ordy-nace-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .ordy-nace-img { height: 120px; }
     }
     @media(max-width:600px){
       .steps,.pricing { grid-template-columns: 1fr; }
@@ -299,22 +307,25 @@
 
 <!-- STORYTELLING -->
 <section class="story">
-  <div class="story-left">
+  <div class="story-inner">
     <span class="section-tag">El problema</span>
     <h2>La hoja en<br><em>blanco.</em></h2>
-    <p>Querés usar IA, pero no sabés qué pedirle. Querés organizarte, pero no sabés por dónde empezar. Querés mejorar procesos, pero primero necesitás entender qué está pasando.</p>
+    <div class="chat-mock">
+      <div class="chat-mock-bubble">¿Por dónde querés iniciar tu negocio hoy?<span class="chat-mock-cursor"></span></div>
+    </div>
+    <p>Muchas veces queremos usar IA, pero no sabemos qué pedirle. Queremos organizarnos, pero no sabemos por dónde empezar. Esa pantalla en blanco, ese cursor parpadeando, esa sensación de no saber qué escribir primero.</p>
     <p>Tenés el conocimiento. Tenés el negocio. Pero la información vive en tu cabeza, en notas dispersas, en conversaciones que nunca se convierten en un plan.</p>
-    <p class="ordy-nace">Ordy nace justo ahí.</p>
-  </div>
-  <div class="story-right">
-    <img src="ordy-inauguration.png" alt="Ordy" class="float">
+    <div class="ordy-nace-row">
+      <p class="ordy-nace">Ordy nace justo ahí.</p>
+      <img src="ordy-inauguration.png" alt="Ordy inaugurando" class="ordy-nace-img float">
+    </div>
   </div>
 </section>
 
 <!-- QUÉ ES -->
 <section class="whatis">
   <div class="whatis-left">
-    <img src="estilista.png" alt="Profesional con Ordy">
+    <img src="adrian-ordy.png" alt="Profesional con Ordy">
   </div>
   <div class="whatis-right">
     <span class="section-tag">Qué es Ordy</span>
@@ -332,17 +343,17 @@
 
 <!-- NO EMPEZÁS DESDE CERO -->
 <section class="nocero">
-  <div class="nocero-left">
+  <div class="nocero-top">
     <span class="section-tag">El proceso</span>
     <h2>No empezás desde cero.<br>Empezás desde lo que ya tenés.</h2>
     <p>Los cuestionarios de Ordy no son un examen. Son una guía para ayudarte a contar lo que ya sabés de tu negocio: qué vendés, cómo cobrás, qué dudas se repiten, qué procesos existen.</p>
     <p>A partir de ahí, Ordy organiza lo que tenés, detecta vacíos y convierte esa información en una ruta clara.</p>
-    <div class="quote-img">
-      <img src="ordy-quote.png" alt="No te pedimos que tengas todas las respuestas">
-    </div>
   </div>
-  <div class="nocero-right">
-    <img src="adrian-ordy.png" alt="Profesional con Ordy">
+  <div class="nocero-img-wrap">
+    <img src="ordy-herramientas.png" alt="Ordy con los niveles del negocio">
+  </div>
+  <div class="quote-img">
+    <img src="ordy-quote.png" alt="No te pedimos que tengas todas las respuestas">
   </div>
 </section>
 
@@ -365,7 +376,7 @@
   <div class="funciona-header">
     <span class="section-tag">El método</span>
     <h2>¿Cómo funciona Ordy?</h2>
-    <p>Cuatro pasos que convierten el desorden interno de tu negocio en una ruta clara.</p>
+    <p>Con solo 4 pasos, Ordy convierte tus ideas en una ruta clara de negocio.</p>
   </div>
   <img src="ordy-herramientas.png" alt="Ordy con los niveles" class="funciona-hero-img">
   <div class="steps">
