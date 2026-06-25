@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 1 · Entendé tu negocio | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-1.png" alt="Nivel 1 - Bases claras de mi negocio" class="level-badge">
+  <div class="level-tag">Nivel 1</div>
+  <h1>Bases claras de <em>mi negocio</em></h1>
+  <p>Vamos a construir la ficha de tu negocio: qué es, qué vende, a quién le vende y qué lo hace diferente.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 1 completado!</h2>
+    <p>Excelente. Con esto ya tenemos las bases claras de tu negocio. Ordy está procesando tu información y pronto te enviamos el siguiente paso.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 1 - Entendé tu negocio">
+
+    <div class="section-header"><h2>🏪 Tu negocio en palabras</h2></div>
+
+    <div class="question">
+      <label>Explicá tu negocio como se lo explicarías a alguien en WhatsApp <span class="req">*</span></label>
+      <textarea name="descripcion_whatsapp" placeholder="Hola! Vendo... / Me dedico a... / Ayudo a..." required data-fs-field></textarea>
+      <p class="hint">Sin tecnicismos. Como lo contarías a un amigo.</p>
+      <span data-fs-error="descripcion_whatsapp"></span>
+    </div>
+
+    <div class="section-header"><h2>🛒 Qué vendés</h2></div>
+
+    <div class="question">
+      <label>¿Cuál es tu producto o servicio principal? <span class="req">*</span></label>
+      <input type="text" name="producto_principal" placeholder="Ej: Consultoría de marketing digital" required data-fs-field>
+      <span data-fs-error="producto_principal"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué otros productos o servicios ofrecés?</label>
+      <textarea name="otros_productos" placeholder="Listá lo que ofrecés además del principal..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué problema resolvés para tus clientes? <span class="req">*</span></label>
+      <textarea name="problema_que_resuelves" placeholder="Mis clientes llegan a mí cuando..." required data-fs-field></textarea>
+      <span data-fs-error="problema_que_resuelves"></span>
+    </div>
+
+    <div class="section-header"><h2>👤 Tu cliente</h2></div>
+
+    <div class="question">
+      <label>¿Quién te compra actualmente? <span class="req">*</span></label>
+      <textarea name="cliente_actual" placeholder="Describí a las personas que ya te compran: edad, perfil, situación..." required data-fs-field></textarea>
+      <span data-fs-error="cliente_actual"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Quién sería tu cliente ideal?</label>
+      <textarea name="cliente_ideal" placeholder="Si pudieras elegir, ¿a quién le venderías siempre?"></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Por dónde llegan más clientes? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Instagram"><span>📸 Instagram</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="WhatsApp"><span>💬 WhatsApp</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Facebook"><span>📘 Facebook</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="TikTok"><span>🎵 TikTok</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Referidos"><span>🤝 Referidos / boca a boca</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Landing page / web"><span>🌐 Landing page / web</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Presencial"><span>🏪 Presencial</span></label>
+        <label class="option-item"><input type="checkbox" name="canal_clientes" value="Otro"><span>✳️ Otro</span></label>
+      </div>
+    </div>
+
+    <div class="section-header"><h2>🌟 Tu diferenciador</h2></div>
+
+    <div class="question">
+      <label>¿Qué te diferencia de opciones parecidas? <span class="req">*</span></label>
+      <textarea name="diferenciador" placeholder="¿Por qué alguien te elegiría a vos y no a otra opción?" required data-fs-field></textarea>
+      <span data-fs-error="diferenciador"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué parte de tu negocio te cuesta explicar?</label>
+      <textarea name="cuesta_explicar" placeholder="Eso que cuando alguien pregunta, no sabés muy bien cómo responder..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué oportunidad sentís que no estás aprovechando?</label>
+      <textarea name="oportunidad_perdida" placeholder="Algo que ves posible pero todavía no arrancó..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué frase NO querés que la gente piense de tu negocio?</label>
+      <input type="text" name="frase_no_quiero" placeholder="Ej: Que es caro, que es para todos, que es amateur...">
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

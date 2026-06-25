@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 5 · Clientes y políticas | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-5.png" alt="Nivel 5 - Clientes y políticas" class="level-badge">
+  <div class="level-tag">Nivel 5</div>
+  <h1>Clientes y <em>políticas</em></h1>
+  <p>Vamos a construir tu biblioteca de respuestas: objeciones, políticas, seguimiento y los mensajes que necesitás listos para copiar.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 5 completado!</h2>
+    <p>Perfecto. Con esto Ordy puede generar tus políticas y respuestas personalizadas. Te enviamos el análisis pronto.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 5 - Clientes y políticas">
+
+    <div class="section-header"><h2>❓ Lo que te preguntan</h2></div>
+
+    <div class="question">
+      <label>¿Qué te preguntan siempre antes de comprar? <span class="req">*</span></label>
+      <textarea name="preguntas_frecuentes" placeholder="Las 3 o 4 preguntas que recibís siempre antes de que alguien decida comprar..." required data-fs-field></textarea>
+      <span data-fs-error="preguntas_frecuentes"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuál es la objeción más común? <span class="req">*</span></label>
+      <textarea name="objecion_comun" placeholder="La razón más frecuente por la que alguien no compra o duda..." required data-fs-field></textarea>
+      <span data-fs-error="objecion_comun"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué cosas te cuesta responder?</label>
+      <textarea name="cuesta_responder" placeholder="Preguntas que te incomodan, que no sabés cómo responder bien, o que preferís evitar..."></textarea>
+    </div>
+
+    <div class="section-header"><h2>⚠️ Lo que necesitás definir</h2></div>
+
+    <div class="question">
+      <label>¿Qué cosas aceptás hoy pero te incomodan?</label>
+      <textarea name="situaciones_incomodas" placeholder="Clientes que piden descuentos, cambios fuera de tiempo, condiciones que no te gustan..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué políticas ya tenés claras?</label>
+      <textarea name="politicas_claras" placeholder="Lo que ya tenés definido y comunicás con confianza..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué políticas necesitás definir? <span class="req">*</span></label>
+      <textarea name="politicas_a_definir" placeholder="Lo que sabés que necesitás establecer pero todavía no está claro..." required data-fs-field></textarea>
+      <span data-fs-error="politicas_a_definir"></span>
+    </div>
+
+    <div class="section-header"><h2>🔄 Seguimiento y cierre</h2></div>
+
+    <div class="question">
+      <label>¿Cómo das seguimiento a clientes interesados? <span class="req">*</span></label>
+      <textarea name="seguimiento_clientes" placeholder="¿Escribís de vuelta? ¿Esperás que ellos respondan? ¿Tenés un proceso?" required data-fs-field></textarea>
+      <span data-fs-error="seguimiento_clientes"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuándo considerás que una venta está confirmada?</label>
+      <input type="text" name="venta_confirmada" placeholder="Cuando paga, cuando firma, cuando confirma por WhatsApp...">
+    </div>
+
+    <div class="question">
+      <label>¿Qué pasa si alguien cancela? <span class="req">*</span></label>
+      <textarea name="politica_cancelacion" placeholder="¿Devolvés dinero? ¿Tenés política de cancelación? ¿Qué hacés?" required data-fs-field></textarea>
+      <span data-fs-error="politica_cancelacion"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué pasa si alguien pide cambios extra?</label>
+      <textarea name="cambios_extra" placeholder="Cuando el cliente pide algo que no estaba en el acuerdo original..."></textarea>
+    </div>
+
+    <div class="section-header"><h2>💬 Tu tono y mensajes</h2></div>
+
+    <div class="question">
+      <label>¿Qué tono querés usar con clientes? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="tono_clientes" value="Cercano y casual" required><span>😊 Cercano y casual</span></label>
+        <label class="option-item"><input type="radio" name="tono_clientes" value="Profesional y formal"><span>👔 Profesional y formal</span></label>
+        <label class="option-item"><input type="radio" name="tono_clientes" value="Cálido pero profesional"><span>🤝 Cálido pero profesional</span></label>
+        <label class="option-item"><input type="radio" name="tono_clientes" value="Directo y claro"><span>🎯 Directo y claro</span></label>
+      </div>
+      <span data-fs-error="tono_clientes"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué mensaje necesitás sí o sí listo para copiar? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Explicar qué ofrezco"><span>📢 Explicar qué ofrezco</span></label>
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Responder objeciones de precio"><span>💰 Responder objeciones de precio</span></label>
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Pedir pago o adelanto"><span>🧾 Pedir pago o adelanto</span></label>
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Dar seguimiento a interesados"><span>🔔 Dar seguimiento a interesados</span></label>
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Cerrar proceso con cliente"><span>✅ Cerrar proceso con cliente</span></label>
+        <label class="option-item"><input type="checkbox" name="mensaje_necesario" value="Decir que no amablemente"><span>🚫 Decir que no amablemente</span></label>
+      </div>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

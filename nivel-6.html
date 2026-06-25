@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 6 · Crecimiento | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-6.png" alt="Nivel 6 - Crecimiento" class="level-badge">
+  <div class="level-tag">Nivel 6</div>
+  <h1><em>Crecimiento</em></h1>
+  <p>Vamos a ver tus herramientas actuales, qué querés mejorar y cómo prepararte para crecer sin perder el orden.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 6 completado!</h2>
+    <p>¡Lo lograste! Ya completaste todos los niveles de Ordy. Estamos procesando tu información y pronto te enviamos tu dashboard completo.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 6 - Crecimiento">
+
+    <div class="section-header"><h2>🛠 Tus herramientas actuales</h2></div>
+
+    <div class="question">
+      <label>¿Qué herramientas usás hoy? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="WhatsApp Business"><span>💬 WhatsApp Business</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Google Sheets / Excel"><span>📊 Google Sheets / Excel</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Notion"><span>📝 Notion</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Canva"><span>🎨 Canva</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="ChatGPT / IA"><span>🤖 ChatGPT / IA</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Instagram / TikTok"><span>📱 Instagram / TikTok</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Trello / Asana"><span>📋 Trello / Asana</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Sistema de facturación"><span>🧾 Sistema de facturación</span></label>
+        <label class="option-item"><input type="checkbox" name="herramientas_actuales" value="Ninguna en particular"><span>➖ Ninguna en particular</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label>¿Dónde guardás información de clientes?</label>
+      <input type="text" name="donde_clientes" placeholder="Agenda, libreta, Excel, Notion, en la cabeza...">
+    </div>
+
+    <div class="question">
+      <label>¿Dónde llevás ventas, pagos o pedidos?</label>
+      <input type="text" name="donde_ventas" placeholder="Hoja de Excel, cuaderno, aplicación, nada formal...">
+    </div>
+
+    <div class="section-header"><h2>⏱ Lo que te quita tiempo</h2></div>
+
+    <div class="question">
+      <label>¿Qué hacés manualmente que te quita mucho tiempo? <span class="req">*</span></label>
+      <textarea name="manual_que_quita_tiempo" placeholder="Responder mensajes, hacer cotizaciones, llevar cuentas, actualizar listas..." required data-fs-field></textarea>
+      <span data-fs-error="manual_que_quita_tiempo"></span>
+    </div>
+
+    <div class="section-header"><h2>🚀 Lo que viene</h2></div>
+
+    <div class="question">
+      <label>¿Qué herramienta estás pensando pagar o implementar?</label>
+      <input type="text" name="herramienta_a_pagar" placeholder="Algo que estás evaluando contratar o comprar...">
+    </div>
+
+    <div class="question">
+      <label>¿Qué querés automatizar? <span class="req">*</span></label>
+      <textarea name="que_automatizar" placeholder="Si pudieras dejar de hacerlo manualmente, ¿qué sería?" required data-fs-field></textarea>
+      <span data-fs-error="que_automatizar"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué área querés mejorar primero? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Ventas y captación" required><span>📈 Ventas y captación</span></label>
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Operación y procesos"><span>⚙️ Operación y procesos</span></label>
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Finanzas y costos"><span>💰 Finanzas y costos</span></label>
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Comunicación con clientes"><span>💬 Comunicación con clientes</span></label>
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Organización interna"><span>📋 Organización interna</span></label>
+        <label class="option-item"><input type="radio" name="area_mejorar" value="Presencia digital"><span>📱 Presencia digital</span></label>
+      </div>
+      <span data-fs-error="area_mejorar"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué inversión estás considerando?</label>
+      <textarea name="inversion_considerando" placeholder="Equipo, herramienta, persona, capacitación, publicidad..."></textarea>
+    </div>
+
+    <div class="section-header"><h2>🌊 Tu visión</h2></div>
+
+    <div class="question">
+      <label>¿Qué te da miedo al crecer? <span class="req">*</span></label>
+      <textarea name="miedo_al_crecer" placeholder="Perder calidad, no poder manejarlo, depender de más personas..." required data-fs-field></textarea>
+      <span data-fs-error="miedo_al_crecer"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué sería una señal de que el negocio está listo para crecer?</label>
+      <textarea name="señal_listo" placeholder="¿Qué tendría que pasar para que sintieras que es el momento?"></textarea>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

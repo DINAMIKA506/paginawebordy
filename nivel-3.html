@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 3 · Plata sin autoengaño | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-3.png" alt="Nivel 3 - Plata sin autoengaño" class="level-badge">
+  <div class="level-tag">Nivel 3</div>
+  <h1>Plata sin <em>autoengaño</em></h1>
+  <p>Vamos a ver los números reales: costos, ingresos, márgenes y qué tiene sentido en tu negocio.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 3 completado!</h2>
+    <p>Ya tenemos la foto financiera de tu negocio. Ordy está procesando los datos y pronto te enviamos el análisis.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 3 - Plata sin autoengaño">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 3 - Plata sin autoengaño">
+
+    <div class="section-header"><h2>💸 Tus gastos</h2><p>Aproximados está bien. La honestidad importa más que la exactitud.</p></div>
+
+    <div class="question">
+      <label>¿Cuáles son tus gastos fijos mensuales? <span class="req">*</span></label>
+      <textarea name="gastos_fijos" placeholder="Alquiler, servicios, suscripciones, salarios, seguro social... ¿cuánto es en total?" required data-fs-field></textarea>
+      <span data-fs-error="gastos_fijos"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuáles son tus gastos variables? <span class="req">*</span></label>
+      <textarea name="gastos_variables" placeholder="Materiales, empaque, transporte, publicidad puntual..." required data-fs-field></textarea>
+      <span data-fs-error="gastos_variables"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuánto cuesta producir o entregar tu producto/servicio principal? <span class="req">*</span></label>
+      <textarea name="costo_produccion" placeholder="Materiales + tiempo + entrega, todo incluido..." required data-fs-field></textarea>
+      <span data-fs-error="costo_produccion"></span>
+    </div>
+
+    <div class="section-header"><h2>📈 Tus ingresos</h2></div>
+
+    <div class="question">
+      <label>¿Cuánto vendés en un mes promedio? <span class="req">*</span></label>
+      <input type="text" name="ventas_mes_promedio" placeholder="Ej: ₡400.000 / $800" required data-fs-field>
+      <span data-fs-error="ventas_mes_promedio"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuál es tu mejor mes aproximado?</label>
+      <input type="text" name="mejor_mes" placeholder="Ej: Diciembre, unos ₡700.000">
+    </div>
+
+    <div class="question">
+      <label>¿Cuál es tu mes más bajo aproximado?</label>
+      <input type="text" name="mes_mas_bajo" placeholder="Ej: Enero, unos ₡150.000">
+    </div>
+
+    <div class="section-header"><h2>🏷 Tus precios y rentabilidad</h2></div>
+
+    <div class="question">
+      <label>¿Cuáles son tus precios actuales? <span class="req">*</span></label>
+      <textarea name="precios_actuales" placeholder="Producto A: ₡X / Servicio B: ₡Y..." required data-fs-field></textarea>
+      <span data-fs-error="precios_actuales"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuál producto o servicio deja más ganancia?</label>
+      <input type="text" name="mayor_ganancia" placeholder="El que más margen te deja...">
+    </div>
+
+    <div class="question">
+      <label>¿Cuál consume más tiempo o energía?</label>
+      <input type="text" name="mayor_esfuerzo" placeholder="El que más te desgasta o demanda...">
+    </div>
+
+    <div class="section-header"><h2>🔄 Tu relación con la plata</h2></div>
+
+    <div class="question">
+      <label>¿Reinvertís en el negocio? ¿En qué?</label>
+      <textarea name="reinversion" placeholder="Herramientas, materiales, publicidad, capacitación..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Te pagás salario o sacás plata cuando se puede? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="salario_propio" value="Me pago un salario fijo" required><span>✅ Me pago un salario fijo</span></label>
+        <label class="option-item"><input type="radio" name="salario_propio" value="Saco cuando hay"><span>📊 Saco cuando hay</span></label>
+        <label class="option-item"><input type="radio" name="salario_propio" value="Todavía no me pago nada"><span>⏳ Todavía no me pago nada</span></label>
+      </div>
+      <span data-fs-error="salario_propio"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué número te gustaría entender mejor?</label>
+      <textarea name="numero_a_entender" placeholder="Algo que sentís que no tenés claro o que te gustaría calcular mejor..."></textarea>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

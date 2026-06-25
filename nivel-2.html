@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 2 · Orden operativo | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-2.png" alt="Nivel 2 - Orden operativo" class="level-badge">
+  <div class="level-tag">Nivel 2</div>
+  <h1>Orden <em>operativo</em></h1>
+  <p>Vamos a mapear cómo funciona tu negocio por dentro: qué vendés, cómo cobrás, cómo entregás y dónde se complica.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 2 completado!</h2>
+    <p>Ya tenemos el mapa operativo de tu negocio. Ordy lo está procesando y pronto te enviamos el siguiente nivel.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 2 - Orden operativo">
+
+    <div class="section-header"><h2>📋 Tus líneas de venta</h2></div>
+
+    <div class="question">
+      <label>¿Cuáles son tus líneas principales de venta? <span class="req">*</span></label>
+      <textarea name="lineas_venta" placeholder="Listá cada línea o categoría de lo que vendés. Ej: Consultoría, Talleres, Productos..." required data-fs-field></textarea>
+      <span data-fs-error="lineas_venta"></span>
+    </div>
+
+    <div class="question">
+      <label>Para tu línea principal: ¿qué incluye? <span class="req">*</span></label>
+      <textarea name="incluye_linea_principal" placeholder="Todo lo que el cliente recibe cuando te contrata o compra..." required data-fs-field></textarea>
+      <span data-fs-error="incluye_linea_principal"></span>
+    </div>
+
+    <div class="question">
+      <label>Para tu línea principal: ¿qué NO incluye?</label>
+      <textarea name="no_incluye_linea_principal" placeholder="Lo que queda fuera y a veces genera confusión..."></textarea>
+    </div>
+
+    <div class="section-header"><h2>💳 Cobro y entrega</h2></div>
+
+    <div class="question">
+      <label>¿Cómo inicia el proceso con un cliente? <span class="req">*</span></label>
+      <textarea name="inicio_proceso_cliente" placeholder="El cliente me escribe por... luego le envío... y después..." required data-fs-field></textarea>
+      <span data-fs-error="inicio_proceso_cliente"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cómo cotizás o definís el precio? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="como_cotizas" value="Precio fijo establecido" required><span>🏷 Precio fijo establecido</span></label>
+        <label class="option-item"><input type="radio" name="como_cotizas" value="Cotizo según el proyecto"><span>📝 Cotizo según el proyecto</span></label>
+        <label class="option-item"><input type="radio" name="como_cotizas" value="Precio por hora o tiempo"><span>⏱ Precio por hora o tiempo</span></label>
+        <label class="option-item"><input type="radio" name="como_cotizas" value="Varía mucho, no tengo fórmula clara"><span>🤷 Varía mucho, no tengo fórmula clara</span></label>
+      </div>
+      <span data-fs-error="como_cotizas"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cómo cobra el negocio? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="metodo_cobro" value="SINPE Móvil"><span>📱 SINPE Móvil</span></label>
+        <label class="option-item"><input type="checkbox" name="metodo_cobro" value="Transferencia bancaria"><span>🏦 Transferencia bancaria</span></label>
+        <label class="option-item"><input type="checkbox" name="metodo_cobro" value="Efectivo"><span>💵 Efectivo</span></label>
+        <label class="option-item"><input type="checkbox" name="metodo_cobro" value="Tarjeta (datáfono)"><span>💳 Tarjeta (datáfono)</span></label>
+        <label class="option-item"><input type="checkbox" name="metodo_cobro" value="Plataforma online (PayPal, Stripe)"><span>🌐 Plataforma online (PayPal, Stripe...)</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label>¿Cuándo se paga? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="cuando_se_paga" value="100% antes" required><span>⬆️ 100% antes</span></label>
+        <label class="option-item"><input type="radio" name="cuando_se_paga" value="Adelanto + resto al final"><span>↕️ Adelanto + resto al final</span></label>
+        <label class="option-item"><input type="radio" name="cuando_se_paga" value="100% al finalizar"><span>⬇️ 100% al finalizar</span></label>
+        <label class="option-item"><input type="radio" name="cuando_se_paga" value="Varía según el cliente"><span>🔄 Varía según el cliente</span></label>
+      </div>
+      <span data-fs-error="cuando_se_paga"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cómo entregás el producto o servicio? <span class="req">*</span></label>
+      <textarea name="como_entregas" placeholder="De forma presencial, por WhatsApp, por correo, con envío..." required data-fs-field></textarea>
+      <span data-fs-error="como_entregas"></span>
+    </div>
+
+    <div class="section-header"><h2>🔄 Tu proceso</h2></div>
+
+    <div class="question">
+      <label>¿Qué pasos repetís cada vez que vendés? <span class="req">*</span></label>
+      <textarea name="pasos_repetidos" placeholder="1. El cliente me contacta... 2. Le envío la info... 3..." required data-fs-field></textarea>
+      <p class="hint">No importa si no está perfecto, contalo como lo hacés hoy.</p>
+      <span data-fs-error="pasos_repetidos"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Dónde se te hacen bolas las cosas? <span class="req">*</span></label>
+      <textarea name="donde_se_complica" placeholder="El momento donde más se me complica es cuando..." required data-fs-field></textarea>
+      <span data-fs-error="donde_se_complica"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué información debe saber el cliente antes de comprar?</label>
+      <textarea name="info_previa_cliente" placeholder="Cosas que si el cliente supiera desde antes, evitarían problemas..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué condición necesitás dejar clara para evitar malentendidos?</label>
+      <textarea name="condiciones_importantes" placeholder="Plazos, formas de trabajo, límites del servicio..."></textarea>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

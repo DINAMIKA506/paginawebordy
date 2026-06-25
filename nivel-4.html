@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 4 · Formalización | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-4.png" alt="Nivel 4 - Formalización" class="level-badge">
+  <div class="level-tag">Nivel 4</div>
+  <h1><em>Formalización</em></h1>
+  <p>No es un examen legal. Solo queremos saber qué tenés revisado y qué conviene ordenar. Recomendamos validar con contador/a o abogado/a.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 4 completado!</h2>
+    <p>Ya tenemos el panorama de formalización de tu negocio. Ordy está procesando y pronto te enviamos el siguiente paso.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 4 - Formalización">
+
+    <div class="section-header"><h2>📋 Estado legal y tributario</h2><p>Marcá lo que aplica a tu situación actual.</p></div>
+
+    <div class="question">
+      <label>¿El negocio está inscrito en Hacienda? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="inscrito_hacienda" value="Sí" required><span>✅ Sí</span></label>
+        <label class="option-item"><input type="radio" name="inscrito_hacienda" value="No"><span>❌ No</span></label>
+        <label class="option-item"><input type="radio" name="inscrito_hacienda" value="No sé / no aplica"><span>❓ No sé / no aplica</span></label>
+      </div>
+      <span data-fs-error="inscrito_hacienda"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Factura electrónicamente? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="factura_electronica" value="Sí" required><span>✅ Sí</span></label>
+        <label class="option-item"><input type="radio" name="factura_electronica" value="No"><span>❌ No</span></label>
+        <label class="option-item"><input type="radio" name="factura_electronica" value="A veces / parcialmente"><span>🔄 A veces / parcialmente</span></label>
+      </div>
+      <span data-fs-error="factura_electronica"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Tiene patente municipal? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="patente_municipal" value="Sí" required><span>✅ Sí</span></label>
+        <label class="option-item"><input type="radio" name="patente_municipal" value="No"><span>❌ No</span></label>
+        <label class="option-item"><input type="radio" name="patente_municipal" value="No aplica"><span>➖ No aplica</span></label>
+      </div>
+      <span data-fs-error="patente_municipal"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Está al día con CCSS? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="ccss" value="Sí" required><span>✅ Sí</span></label>
+        <label class="option-item"><input type="radio" name="ccss" value="No"><span>❌ No</span></label>
+        <label class="option-item"><input type="radio" name="ccss" value="No aplica"><span>➖ No aplica</span></label>
+      </div>
+      <span data-fs-error="ccss"></span>
+    </div>
+
+    <div class="section-header"><h2>📁 Registros y documentos</h2></div>
+
+    <div class="question">
+      <label>¿Llevás registro de ingresos y gastos? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="registro_ingresos" value="Sí, de forma organizada" required><span>✅ Sí, de forma organizada</span></label>
+        <label class="option-item"><input type="radio" name="registro_ingresos" value="Sí, pero de forma básica"><span>📊 Sí, pero de forma básica</span></label>
+        <label class="option-item"><input type="radio" name="registro_ingresos" value="No, lo llevo de memoria"><span>🧠 No, lo llevo de memoria</span></label>
+        <label class="option-item"><input type="radio" name="registro_ingresos" value="No llevo registro"><span>❌ No llevo registro</span></label>
+      </div>
+      <span data-fs-error="registro_ingresos"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Guardás comprobantes? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="comprobantes" value="Sí, siempre" required><span>✅ Sí, siempre</span></label>
+        <label class="option-item"><input type="radio" name="comprobantes" value="A veces"><span>🔄 A veces</span></label>
+        <label class="option-item"><input type="radio" name="comprobantes" value="No"><span>❌ No</span></label>
+      </div>
+      <span data-fs-error="comprobantes"></span>
+    </div>
+
+    <div class="section-header"><h2>📄 Políticas y protección</h2></div>
+
+    <div class="question">
+      <label>¿Tenés términos y condiciones definidos? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="terminos_condiciones" value="Sí, por escrito" required><span>✅ Sí, por escrito</span></label>
+        <label class="option-item"><input type="radio" name="terminos_condiciones" value="Sí, pero verbales"><span>🗣 Sí, pero verbales</span></label>
+        <label class="option-item"><input type="radio" name="terminos_condiciones" value="No"><span>❌ No</span></label>
+      </div>
+      <span data-fs-error="terminos_condiciones"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Usás contratos, formularios de autorización o políticas con clientes?</label>
+      <textarea name="contratos_formularios" placeholder="Describí qué documentos usás actualmente, si es que usás alguno..."></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Tenés marca registrada o te interesa protegerla? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="marca_registrada" value="Sí, ya está registrada" required><span>✅ Sí, ya está registrada</span></label>
+        <label class="option-item"><input type="radio" name="marca_registrada" value="No, pero me interesa"><span>💡 No, pero me interesa</span></label>
+        <label class="option-item"><input type="radio" name="marca_registrada" value="No y no lo he pensado"><span>➖ No y no lo he pensado</span></label>
+      </div>
+      <span data-fs-error="marca_registrada"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué tema formal te preocupa más?</label>
+      <textarea name="tema_formal_preocupa" placeholder="Lo que sentís que tenés pendiente o que no entendés bien..."></textarea>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Ordy no da asesoría legal. Este nivel solo ordena qué revisar con tu contador/a o abogado/a.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>

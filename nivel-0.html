@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nivel 0 · Tipo de negocio | Ordy</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ordy-forms.css">
+</head>
+<body>
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <a href="index.html" class="nav-back">← Volver al inicio</a>
+</nav>
+<div class="progress-wrap">
+  <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+  <span class="progress-label">0% completado</span>
+</div>
+<section class="form-hero">
+  <img src="nivel-0.png" alt="Nivel 0 - Tipo de negocio" class="level-badge">
+  <div class="level-tag">Nivel 0</div>
+  <h1>Tipo de <em>negocio</em></h1>
+  <p>Este es el punto de partida. Nos ayuda a entender qué clase de empresa sos para adaptar todo lo que viene después.</p>
+</section>
+<div class="form-body">
+  <div class="form-success">
+    <img src="ordy_celebrando.png" alt="Ordy celebrando">
+    <h2>¡Nivel 0 completado!</h2>
+    <p>Gracias por tomarte el tiempo. Ordy ya tiene tu punto de partida y pronto te enviamos los próximos pasos.</p>
+    <a href="index.html" class="btn-back">Volver al inicio</a>
+  </div>
+  <div class="form-error-global"></div>
+  <form id="ordy-form" data-endpoint="https://formspree.io/f/xojoeadl">
+    <input type="hidden" name="_subject" value="Ordy · Nivel 0 - Tipo de negocio">
+
+    <div class="question">
+      <label>Nombre del negocio <span class="req">*</span></label>
+      <input type="text" name="nombre_negocio" placeholder="Ej: Velas Regi" required data-fs-field>
+      <span data-fs-error="nombre_negocio"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué tipo de negocio es? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Producto físico" required><span>📦 Producto físico</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Servicio"><span>🛠 Servicio</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Alimentos / bebidas"><span>🍽 Alimentos / bebidas</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Comercio"><span>🏪 Comercio</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Educación / cursos"><span>📚 Educación / cursos</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Salud / bienestar"><span>💚 Salud / bienestar</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Creativo / cultural"><span>🎨 Creativo / cultural</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Turismo / hospedaje"><span>✈️ Turismo / hospedaje</span></label>
+        <label class="option-item"><input type="radio" name="tipo_negocio" value="Otro"><span>✳️ Otro</span></label>
+      </div>
+      <span data-fs-error="tipo_negocio"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Cuánto tiempo tiene funcionando? <span class="req">*</span></label>
+      <select name="tiempo_funcionando" required>
+        <option value="">Seleccioná</option>
+        <option>Menos de 6 meses</option>
+        <option>6 meses a 1 año</option>
+        <option>1 a 3 años</option>
+        <option>Más de 3 años</option>
+      </select>
+    </div>
+
+    <div class="question">
+      <label>¿Ya vende actualmente? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="estado_ventas" value="Sí, de forma constante" required><span>✅ Sí, de forma constante</span></label>
+        <label class="option-item"><input type="radio" name="estado_ventas" value="Sí, pero irregular"><span>📊 Sí, pero irregular</span></label>
+        <label class="option-item"><input type="radio" name="estado_ventas" value="Apenas estoy empezando"><span>🌱 Apenas estoy empezando</span></label>
+        <label class="option-item"><input type="radio" name="estado_ventas" value="Todavía no vendo"><span>⏳ Todavía no vendo</span></label>
+      </div>
+      <span data-fs-error="estado_ventas"></span>
+    </div>
+
+    <div class="question">
+      <label>¿El negocio depende principalmente de una persona o de un equipo? <span class="req">*</span></label>
+      <div class="options">
+        <label class="option-item"><input type="radio" name="estructura" value="Principalmente de mí solo/a" required><span>🙋 Principalmente de mí solo/a</span></label>
+        <label class="option-item"><input type="radio" name="estructura" value="Tengo 1-2 personas de apoyo"><span>👥 Tengo 1-2 personas de apoyo</span></label>
+        <label class="option-item"><input type="radio" name="estructura" value="Tengo un equipo de 3 o más"><span>🏢 Tengo un equipo de 3 o más</span></label>
+      </div>
+      <span data-fs-error="estructura"></span>
+    </div>
+
+    <div class="question">
+      <label>¿Qué tan ordenado sentís tu negocio hoy? <span class="req">*</span></label>
+      <div class="scale-wrap">
+        <input type="hidden" name="nivel_orden">
+        <button type="button" class="scale-btn" data-val="1">1</button>
+        <button type="button" class="scale-btn" data-val="2">2</button>
+        <button type="button" class="scale-btn" data-val="3">3</button>
+        <button type="button" class="scale-btn" data-val="4">4</button>
+        <button type="button" class="scale-btn" data-val="5">5</button>
+      </div>
+      <div class="scale-labels"><span>Nada ordenado</span><span>Muy ordenado</span></div>
+    </div>
+
+    <div class="question">
+      <label>¿Qué querés lograr con Ordy? <span class="req">*</span> <span class="hint">Podés marcar más de uno.</span></label>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Entender mejor mi negocio"><span>🔍 Entender mejor mi negocio</span></label>
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Ordenar operación"><span>⚙️ Ordenar operación</span></label>
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Revisar finanzas"><span>💰 Revisar finanzas</span></label>
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Mejorar ventas y respuestas"><span>📈 Mejorar ventas y respuestas</span></label>
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Crecer sin sentir caos"><span>🌊 Crecer sin sentir caos</span></label>
+        <label class="option-item"><input type="checkbox" name="objetivo" value="Todo lo anterior"><span>✨ Todo lo anterior</span></label>
+      </div>
+    </div>
+
+    <hr class="form-divider">
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" data-label="Enviar respuestas">Enviar respuestas →</button>
+      <p class="submit-note">Tus respuestas llegan directo a Ordy. Sin spam, prometido.</p>
+    </div>
+  </form>
+</div>
+<footer><div class="footer-inner"><img src="ordy-logo.png" alt="Ordy" class="footer-logo"><span class="footer-note">Ordy no sustituye asesoría legal, contable o financiera profesional.</span></div></footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script src="ordy-forms.js"></script>
+</body></html>
