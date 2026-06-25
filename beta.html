@@ -44,11 +44,11 @@
     /* HERO */
     .hero {
       background: var(--lila-bg);
-      padding: 5rem 2.5rem 4rem;
+      padding: 4rem 2.5rem 3rem;
       text-align: center;
     }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .hero-mascot { width: 120px; margin: 0 auto 2rem; display: block; animation: float 4s ease-in-out infinite; }
+    .hero-mascot { width: 180px; margin: 0 auto 1.5rem; display: block; animation: float 4s ease-in-out infinite; }
     .section-tag {
       display: inline-flex; align-items: center; gap: .4rem;
       font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
@@ -56,9 +56,19 @@
       padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem;
     }
     .section-tag span { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
-    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text); margin-bottom: 1rem; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text); margin-bottom: 1rem; white-space: nowrap; }
     .hero h1 em { font-style: italic; color: var(--ordy); }
     .hero p { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
+
+    /* FORM INTRO */
+    .form-intro {
+      max-width: 620px; margin: 0 auto 2rem;
+      background: var(--lila-bg); border-radius: 16px;
+      padding: 1.5rem 2rem; border: 1px solid var(--lila);
+      text-align: center;
+    }
+    .form-intro p { font-size: .95rem; color: var(--muted); line-height: 1.7; }
+    .form-intro strong { color: var(--ordy); }
 
     /* CUPOS BADGE */
     .cupos-badge {
@@ -212,10 +222,10 @@
 
 <!-- HERO -->
 <section class="hero">
-  <img src="char-ordy.png" alt="Ordy" class="hero-mascot">
+  <img src="Ordy_con_agenda.png" alt="Ordy con agenda" class="hero-mascot">
   <div class="section-tag"><span></span> Beta abierta</div>
-  <h1>Solicitá tu<br><em>cupo beta.</em></h1>
-  <p>Contanos un poco sobre tu negocio y te confirmamos tu lugar. Son solo 5 cupos disponibles este mes.</p>
+  <h1>Solicitá tu <em>cupo beta.</em></h1>
+  <p>Son solo 5 cupos disponibles este mes. Contanos sobre tu negocio y te confirmamos tu lugar.</p>
   <div class="cupos-badge">
     <div class="cupos-dots">
       <div class="dot active"></div>
@@ -234,14 +244,19 @@
 
     <!-- Success message — shown by Formspree after submission -->
     <div data-fs-success>
-      <div class="success-icon">🎉</div>
-      <h2 style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;margin-bottom:.75rem;">¡Solicitud recibida!</h2>
-      <p style="color:var(--muted);line-height:1.7;margin-bottom:1.5rem;">Gracias por tu interés en Ordy. Te vamos a escribir pronto para confirmar tu cupo y contarte los próximos pasos.</p>
-      <a href="index.html" class="btn-back">Volver al inicio</a>
+      <img src="ordy_celebrando.png" alt="Ordy celebrando" style="width:180px;margin:0 auto 1.25rem;display:block;">
+      <h2 style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;margin-bottom:.75rem;text-align:center;">¡Solicitud recibida!</h2>
+      <p style="color:var(--muted);line-height:1.7;margin-bottom:1.5rem;text-align:center;">Gracias por tu interés en Ordy. Te vamos a escribir pronto para confirmar tu cupo y contarte los próximos pasos.</p>
+      <div style="text-align:center;"><a href="index.html" class="btn-back">Volver al inicio</a></div>
     </div>
 
     <!-- Form-level error -->
     <div data-fs-error style="margin-bottom:1rem;padding:.75rem 1rem;background:#fff0f0;border-radius:10px;border:1px solid var(--coral);"></div>
+
+    <!-- Form intro — visible before submission -->
+    <div class="form-intro">
+      <p>📋 <strong>Completá el siguiente formulario</strong> y Ordy se encarga del resto. No hay respuestas incorrectas — cada negocio tiene su propio punto de partida, y el nuestro es escucharte.</p>
+    </div>
 
     <!-- Form -->
     <form id="beta-form">
