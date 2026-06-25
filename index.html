@@ -301,6 +301,28 @@
       .pillars { grid-template-columns: 1fr; }
       .hero h1 { font-size: 2.2rem; }
     }
+
+    /* EXPLORA MÁS */
+    .explora { background: white; padding: 5rem 2.5rem; border-top: 1.5px solid var(--border); }
+    .explora-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .explora-card { border-radius: 24px; padding: 2.5rem; display: flex; gap: 1.5rem; align-items: center; position: relative; overflow: hidden; }
+    .explora-card.recursos { background: var(--lila-bg); }
+    .explora-card.impacto { background: #FFF5F5; }
+    .explora-icon { font-size: 2rem; flex-shrink: 0; align-self: flex-start; }
+    .explora-text { flex: 1; display: flex; flex-direction: column; gap: .75rem; }
+    .explora-tag { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); }
+    .explora-card.impacto .explora-tag { color: var(--coral); }
+    .explora-text h3 { font-family: "Fraunces", serif; font-size: 1.2rem; font-weight: 900; color: var(--text); line-height: 1.3; }
+    .explora-text p { font-size: .9rem; color: var(--muted); line-height: 1.65; }
+    .explora-btn { display: inline-block; padding: .65rem 1.5rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: transform .15s, opacity .15s; width: fit-content; }
+    .explora-btn.ordy { background: var(--ordy); color: white; }
+    .explora-btn.coral { background: var(--coral); color: white; }
+    .explora-btn:hover { opacity: .88; transform: translateY(-2px); }
+    .explora-img { width: 120px; flex-shrink: 0; }
+    .explora-img img { width: 100%; filter: drop-shadow(0 8px 20px rgba(78,75,247,.12)); }
+    @media(max-width:960px) { .explora-inner { grid-template-columns: 1fr; } }
+    @media(max-width:640px) { .explora { padding: 3.5rem 1.25rem; } .explora-img { display: none; } }
+
   </style>
 </head>
 <body>
@@ -610,6 +632,37 @@
   <div class="cta-btns">
     <a href="beta.html" class="btn-white">Quiero mi diagnóstico gratis</a>
     <a href="https://wa.me/50687037656?text=Quiero%20empezar%20mi%20Ruta%20Ordy" target="_blank" class="btn-white-ghost">Empezar mi Ruta Ordy</a>
+  </div>
+</section>
+
+
+<!-- EXPLORA MÁS -->
+<section class="explora">
+  <div class="explora-inner">
+    <div class="explora-card recursos">
+      <div class="explora-icon">📚</div>
+      <div class="explora-text">
+        <span class="explora-tag">Biblioteca Ordy</span>
+        <h3>Guías para ordenar tu negocio</h3>
+        <p>Ideas, artículos y herramientas para avanzar paso a paso, sin sentir que tenés que resolver todo de una vez.</p>
+        <a href="recursos.html" class="explora-btn ordy">Explorar recursos →</a>
+      </div>
+      <div class="explora-img">
+        <img src="ordy-leyendo.png" alt="Ordy leyendo recursos">
+      </div>
+    </div>
+    <div class="explora-card impacto">
+      <div class="explora-icon">🌊</div>
+      <div class="explora-text">
+        <span class="explora-tag">Impacto Ordy</span>
+        <h3>Negocios que ya empezaron a ordenarse</h3>
+        <p>Mirá cómo otras personas están usando Ordy para pasar de la confusión a la claridad en su negocio.</p>
+        <a href="impacto.html" class="explora-btn coral">Ver historias →</a>
+      </div>
+      <div class="explora-img">
+        <img src="ordy_celebrando.png" alt="Ordy celebrando logros">
+      </div>
+    </div>
   </div>
 </section>
 

@@ -10,33 +10,22 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#4E4BF7">
-  <!-- Open Graph -->
   <meta property="og:title" content="Centro de Recursos Ordy | Guías para ordenar tu negocio">
   <meta property="og:description" content="Guías, ideas y herramientas para ordenar tu negocio, usar mejor la IA y avanzar con más claridad sin empezar desde cero.">
   <meta property="og:image" content="https://www.ordenyplan.com/og-image.png">
   <meta property="og:url" content="https://www.ordenyplan.com/recursos.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Centro de Recursos Ordy">
-  <meta name="twitter:description" content="Guías prácticas para ordenar tu negocio sin empezar desde cero.">
-  <meta name="twitter:image" content="https://www.ordenyplan.com/og-image.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ordy: #4E4BF7;
-      --ordy-dark: #3230c4;
-      --coral: #F94646;
-      --coral-light: #FF8D8D;
-      --lila: #BBBBFC;
-      --lila-bg: #EEEEFF;
-      --text: #1A1A2E;
-      --muted: #6B7280;
-      --white: #ffffff;
-      --border: #E5E7EB;
+      --ordy: #4E4BF7; --ordy-dark: #3230c4; --coral: #F94646;
+      --coral-light: #FF8D8D; --lila: #BBBBFC; --lila-bg: #EEEEFF;
+      --text: #1A1A2E; --muted: #6B7280; --white: #ffffff; --border: #E5E7EB;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    body { font-family: "Inter", sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
 
     /* NAV */
     nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 68px; display: flex; align-items: center; justify-content: space-between; }
@@ -47,102 +36,71 @@
     .nav-cta { background: var(--ordy); color: #fff; padding: .6rem 1.4rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background .15s; }
     .nav-cta:hover { background: var(--ordy-dark); }
 
-    /* HERO DOS COLUMNAS */
-    .hero-recursos {
-      background: linear-gradient(135deg, #f0efff 0%, #ffffff 60%, #eeeeff 100%);
-      padding: 5rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+    /* HERO */
+    .hero-wrapper { background: linear-gradient(135deg, #f0efff 0%, #ffffff 60%, #eeeeff 100%); }
+    .hero-recursos { padding: 5rem 2.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; max-width: 1200px; margin: 0 auto; }
     .hero-left { display: flex; flex-direction: column; gap: 1.25rem; }
     .section-tag { display: inline-flex; align-items: center; gap: .4rem; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); border: 1px solid var(--lila); padding: .35rem .9rem; border-radius: 100px; width: fit-content; }
-    .hero-left h1 { font-family: 'Fraunces', serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 900; color: var(--text); line-height: 1.15; }
+    .hero-left h1 { font-family: "Fraunces", serif; font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 900; line-height: 1.15; }
     .hero-left h1 em { font-style: italic; color: var(--ordy); }
-    .hero-sub { font-size: 1.1rem; color: var(--muted); line-height: 1.75; max-width: 480px; }
-    .hero-body { font-size: .95rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: .5rem; }
+    .hero-sub { font-size: 1.1rem; color: var(--muted); line-height: 1.75; }
+    .hero-body { font-size: .95rem; color: var(--muted); line-height: 1.8; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
     .btn-primary { display: inline-block; background: var(--ordy); color: #fff; padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, background .15s; }
     .btn-primary:hover { background: var(--ordy-dark); transform: translateY(-2px); }
     .btn-ghost { display: inline-block; border: 2px solid var(--border); color: var(--muted); padding: .9rem 2rem; border-radius: 100px; font-weight: 600; font-size: 1rem; text-decoration: none; transition: all .15s; }
     .btn-ghost:hover { border-color: var(--ordy); color: var(--ordy); }
     .hero-right { display: flex; align-items: center; justify-content: center; }
-    .hero-right img { width: 100%; max-width: 440px; filter: drop-shadow(0 20px 48px rgba(78,75,247,.15)); animation: float 5s ease-in-out infinite; }
+    .hero-right img { width: 100%; max-width: 420px; filter: drop-shadow(0 20px 48px rgba(78,75,247,.15)); animation: float 5s ease-in-out infinite; }
     @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-    /* HERO WRAPPER (full width bg) */
-    .hero-wrapper { background: linear-gradient(135deg, #f0efff 0%, #ffffff 60%, #eeeeff 100%); }
-
-    /* SECCIÓN GUÍAS */
+    /* GUÍAS */
     .guias { padding: 6rem 2.5rem; background: white; }
     .guias-inner { max-width: 1100px; margin: 0 auto; }
     .guias-header { text-align: center; margin-bottom: 3.5rem; }
-    .guias-header h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; margin-bottom: .75rem; }
+    .guias-header h2 { font-family: "Fraunces", serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; margin-bottom: .75rem; }
     .guias-header p { color: var(--muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto; line-height: 1.75; }
 
-    /* GRID DE CARDS */
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.75rem;
-    }
+    /* GRID HORIZONTAL — todas iguales, 2 columnas */
+    .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 
-    /* CARD */
+    /* CARD HORIZONTAL */
     .resource-card {
-      background: white;
-      border: 1.5px solid var(--border);
-      border-radius: 20px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform .2s, box-shadow .2s;
-      text-decoration: none;
-      color: inherit;
+      background: white; border: 1.5px solid var(--border); border-radius: 20px;
+      overflow: hidden; display: flex; flex-direction: row;
+      transition: transform .2s, box-shadow .2s; text-decoration: none; color: inherit;
+      min-height: 200px;
     }
-    .resource-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.08); border-color: var(--lila); }
-    .card-cover { aspect-ratio: 16/9; overflow: hidden; }
+    .resource-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.08); border-color: var(--lila); }
+    .card-cover { width: 200px; flex-shrink: 0; overflow: hidden; }
     .card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
     .resource-card:hover .card-cover img { transform: scale(1.04); }
-    .card-body { padding: 1.5rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: .75rem; flex: 1; }
-    .card-cat { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .25rem .75rem; border-radius: 100px; width: fit-content; }
+    .card-body { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; justify-content: center; }
+    .card-cat { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .22rem .7rem; border-radius: 100px; width: fit-content; }
     .cat-org { background: #EEEEFF; color: var(--ordy); }
     .cat-ia  { background: #FFF0F0; color: var(--coral); }
     .cat-her { background: #F0FFF4; color: #16a34a; }
     .cat-fin { background: #FFFBEB; color: #d97706; }
     .cat-efi { background: #FDF4FF; color: #9333ea; }
-    .card-title { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.35; }
-    .card-summary { font-size: .875rem; color: var(--muted); line-height: 1.65; flex: 1; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .5rem; }
-    .card-time { font-size: .78rem; color: var(--muted); font-weight: 500; }
-    .card-cta { font-size: .85rem; font-weight: 700; color: var(--ordy); text-decoration: none; transition: gap .15s; display: flex; align-items: center; gap: .3rem; }
-    .card-cta::after { content: '→'; transition: transform .15s; }
+    .card-title { font-family: "Fraunces", serif; font-size: 1rem; font-weight: 800; color: var(--text); line-height: 1.35; }
+    .card-summary { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .25rem; }
+    .card-time { font-size: .75rem; color: var(--muted); font-weight: 500; }
+    .card-cta { font-size: .82rem; font-weight: 700; color: var(--ordy); display: flex; align-items: center; gap: .25rem; }
+    .card-cta::after { content: "→"; transition: transform .15s; }
     .resource-card:hover .card-cta::after { transform: translateX(3px); }
 
-    /* CARD GRANDE (primera) — ocupa 2 columnas */
-    .resource-card.featured { grid-column: span 2; flex-direction: row; }
-    .resource-card.featured .card-cover { aspect-ratio: auto; flex: 1; min-height: 240px; }
-    .resource-card.featured .card-body { flex: 1; padding: 2rem; }
-    .resource-card.featured .card-title { font-size: 1.25rem; }
-
-    /* SECCIÓN CIERRE */
-    .cierre {
-      background: var(--lila-bg);
-      padding: 6rem 2.5rem;
-      text-align: center;
-    }
-    .cierre-inner { max-width: 620px; margin: 0 auto; }
-    .cierre h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.2; }
+    /* CIERRE */
+    .cierre { background: var(--lila-bg); padding: 6rem 2.5rem; text-align: center; }
+    .cierre-inner { max-width: 580px; margin: 0 auto; }
+    .cierre h2 { font-family: "Fraunces", serif; font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 900; margin-bottom: 1rem; line-height: 1.2; }
     .cierre p { color: var(--muted); font-size: 1.05rem; line-height: 1.75; margin-bottom: 2rem; }
     .btn-coral { display: inline-block; background: var(--coral); color: #fff; padding: 1rem 2.25rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, opacity .15s; }
     .btn-coral:hover { opacity: .88; transform: translateY(-2px); }
 
     /* FOOTER */
-    footer { background: white; border-top: 1.5px solid var(--border); padding: 2.5rem 2.5rem; }
+    footer { background: white; border-top: 1.5px solid var(--border); padding: 2.5rem; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-    footer .nav-logo { height: 30px; }
     .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
     .footer-links a { font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .15s; }
     .footer-links a:hover { color: var(--ordy); }
@@ -152,24 +110,18 @@
     @media(max-width:960px) {
       .hero-recursos { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
       .hero-left { align-items: center; }
-      .hero-right img { max-width: 320px; }
-      .resource-grid { grid-template-columns: 1fr 1fr; }
-      .resource-card.featured { grid-column: span 2; flex-direction: column; }
-      .resource-card.featured .card-cover { aspect-ratio: 16/9; }
+      .resource-grid { grid-template-columns: 1fr; }
     }
     @media(max-width:640px) {
-      nav { padding: 0 1.25rem; }
-      .nav-links { display: none; }
-      .resource-grid { grid-template-columns: 1fr; }
-      .resource-card.featured { grid-column: span 1; }
-      .hero-recursos { padding: 3.5rem 1.5rem; }
-      .guias { padding: 4rem 1.5rem; }
+      nav { padding: 0 1.25rem; } .nav-links { display: none; }
+      .hero-recursos, .guias, .cierre { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .resource-card { flex-direction: column; }
+      .card-cover { width: 100%; height: 180px; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
   <ul class="nav-links">
@@ -183,7 +135,6 @@
   <a href="beta.html" class="nav-cta">Empezar gratis</a>
 </nav>
 
-<!-- HERO -->
 <div class="hero-wrapper">
   <div class="hero-recursos">
     <div class="hero-left">
@@ -202,7 +153,6 @@
   </div>
 </div>
 
-<!-- GUÍAS -->
 <section class="guias" id="guias">
   <div class="guias-inner">
     <div class="guias-header">
@@ -213,32 +163,30 @@
 
     <!--
     PARA AGREGAR UN NUEVO BLOG:
-    1. Duplicar una tarjeta .resource-card (y su link correspondiente)
-    2. Cambiar: categoría (.card-cat), imagen (.card-cover img), título, resumen, tiempo y href
+    1. Duplicar una tarjeta .resource-card
+    2. Cambiar: categoría (.card-cat), src de imagen, título, resumen, tiempo y href
     3. Crear carpeta nueva en /recursos/nombre-del-articulo/
-    4. Agregar index.html usando la plantilla article-template.html
-    5. Agregar la URL al sitemap.xml con <lastmod> actualizado
+    4. Agregar index.html usando article-template.html como base
+    5. Agregar la URL al sitemap.xml
     -->
 
     <div class="resource-grid">
 
-      <!-- TARJETA 1 — DESTACADA -->
-      <a href="recursos/ordenar-negocio/" class="resource-card featured">
+      <a href="recursos/ordenar-negocio/" class="resource-card">
         <div class="card-cover">
-          <img src="blog-ordenar-negocio.png" alt="Cómo ordenar tu negocio cuando no sabés por dónde empezar">
+          <img src="blog-ordenar-negocio.png" alt="Cómo ordenar tu negocio">
         </div>
         <div class="card-body">
           <span class="card-cat cat-org">Organización</span>
           <p class="card-title">Cómo ordenar tu negocio cuando no sabés por dónde empezar</p>
-          <p class="card-summary">Un paso a paso para ganar claridad, definir prioridades y construir un plan simple que te saque del caos. No necesitás tener todo resuelto para empezar a avanzar.</p>
+          <p class="card-summary">Un paso a paso para ganar claridad, definir prioridades y construir un plan simple que te saque del caos.</p>
           <div class="card-footer">
-            <span class="card-time">⏱ 5 min de lectura</span>
+            <span class="card-time">⏱ 5 min</span>
             <span class="card-cta">Leer guía</span>
           </div>
         </div>
       </a>
 
-      <!-- TARJETA 2 -->
       <a href="recursos/ia-respuestas-genericas/" class="resource-card">
         <div class="card-cover">
           <img src="blog-ia-contexto.png" alt="Cómo usar IA sin respuestas genéricas">
@@ -248,55 +196,52 @@
           <p class="card-title">Cómo usar IA para tu negocio sin recibir respuestas genéricas</p>
           <p class="card-summary">Aprendé a darle mejor contexto a la IA para obtener respuestas útiles, personalizadas y accionables.</p>
           <div class="card-footer">
-            <span class="card-time">⏱ 6 min de lectura</span>
+            <span class="card-time">⏱ 6 min</span>
             <span class="card-cta">Leer guía</span>
           </div>
         </div>
       </a>
 
-      <!-- TARJETA 3 -->
       <a href="recursos/preparar-negocio-notion/" class="resource-card">
         <div class="card-cover">
-          <img src="blog-notion.png" alt="Cómo preparar tu negocio antes de usar Notion">
+          <img src="blog-notion.png" alt="Cómo preparar tu negocio para Notion">
         </div>
         <div class="card-body">
           <span class="card-cat cat-her">Herramientas</span>
           <p class="card-title">Cómo preparar tu negocio antes de usar Notion</p>
           <p class="card-summary">Dejá tus ideas, procesos y datos listos para construir un sistema en Notion que realmente te funcione.</p>
           <div class="card-footer">
-            <span class="card-time">⏱ 5 min de lectura</span>
+            <span class="card-time">⏱ 5 min</span>
             <span class="card-cta">Leer guía</span>
           </div>
         </div>
       </a>
 
-      <!-- TARJETA 4 -->
       <a href="recursos/precios-costos-rentabilidad/" class="resource-card">
         <div class="card-cover">
-          <img src="blog-finanzas.png" alt="Cómo revisar precios, costos y rentabilidad">
+          <img src="blog-finanzas.png" alt="Cómo revisar precios y rentabilidad">
         </div>
         <div class="card-body">
           <span class="card-cat cat-fin">Finanzas</span>
           <p class="card-title">Cómo revisar precios, costos y rentabilidad</p>
-          <p class="card-summary">Entendé tus números, revisá tus precios y asegurate de que tu negocio no solo venda, sino que también sea rentable.</p>
+          <p class="card-summary">Entendé tus números y asegurate de que tu negocio no solo venda, sino que también sea rentable.</p>
           <div class="card-footer">
-            <span class="card-time">⏱ 7 min de lectura</span>
+            <span class="card-time">⏱ 7 min</span>
             <span class="card-cta">Leer guía</span>
           </div>
         </div>
       </a>
 
-      <!-- TARJETA 5 -->
       <a href="recursos/fugas-tiempo-dinero-energia/" class="resource-card">
         <div class="card-cover">
-          <img src="blog-fugas.png" alt="Cómo detectar fugas de tiempo, dinero y energía">
+          <img src="blog-fugas.png" alt="Cómo detectar fugas de tiempo y dinero">
         </div>
         <div class="card-body">
           <span class="card-cat cat-efi">Eficiencia</span>
           <p class="card-title">Cómo detectar fugas de tiempo, dinero y energía</p>
           <p class="card-summary">Identificá lo que está drenando recursos en tu negocio para enfocarte en lo que realmente te ayuda a crecer.</p>
           <div class="card-footer">
-            <span class="card-time">⏱ 6 min de lectura</span>
+            <span class="card-time">⏱ 6 min</span>
             <span class="card-cta">Leer guía</span>
           </div>
         </div>
@@ -306,7 +251,6 @@
   </div>
 </section>
 
-<!-- CIERRE -->
 <section class="cierre">
   <div class="cierre-inner">
     <h2>No necesitás hacerlo todo hoy.</h2>
@@ -315,7 +259,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
