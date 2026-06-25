@@ -323,6 +323,23 @@
     @media(max-width:960px) { .explora-inner { grid-template-columns: 1fr; } }
     @media(max-width:640px) { .explora { padding: 3.5rem 1.25rem; } .explora-img { display: none; } }
 
+
+    /* Blog preview cards — sección Recursos en home */
+    .blog-previews { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .blog-card { border: 1.5px solid var(--border); border-radius: 18px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s; background: white; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); border-color: var(--lila); }
+    .blog-card-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
+    .blog-card-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+    .blog-card:hover .blog-card-img img { transform: scale(1.04); }
+    .blog-card-body { padding: 1.25rem 1.5rem 1.5rem; display: flex; flex-direction: column; gap: .5rem; flex: 1; }
+    .blog-cat { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .2rem .65rem; border-radius: 100px; width: fit-content; }
+    .blog-card-title { font-family: "Fraunces", serif; font-size: .95rem; font-weight: 800; color: var(--text); line-height: 1.35; flex: 1; }
+    .blog-card-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: .75rem; }
+    .blog-card-time { font-size: .75rem; color: var(--muted); }
+    .blog-card-cta { font-size: .8rem; font-weight: 700; color: var(--ordy); }
+    @media(max-width:960px) { .blog-previews { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:640px) { .blog-previews { grid-template-columns: 1fr; } }
+
   </style>
 </head>
 <body>
@@ -637,6 +654,12 @@
 
 
 <!-- RECURSOS HOME -->
+<!--
+  PARA AGREGAR UN NUEVO BLOG EN LA HOME:
+  1. Agregá un nuevo .blog-card aquí (duplicá uno existente)
+  2. Actualizá también resources-data.js y recursos.html
+  3. Creá la carpeta /recursos/nombre-nuevo/index.html
+-->
 <section class="home-recursos" id="biblioteca">
   <div class="home-recursos-inner">
     <div class="hr-top">
@@ -646,12 +669,53 @@
         <p>Guías prácticas para entender mejor tu negocio, usar la IA con más contexto, revisar procesos, precios y decisiones… sin empezar desde cero.</p>
       </div>
       <div class="hr-right">
-        <a href="recursos.html" class="btn-recursos">Explorar recursos →</a>
+        <a href="recursos.html" class="btn-recursos">Explorar todos los recursos →</a>
       </div>
     </div>
-    <!-- Blog previews — se renderizan desde resources-data.js -->
-    <div class="blog-previews" id="home-blog-previews">
-      <!-- JS inserta aquí los 3 blogs más recientes automáticamente -->
+    <div class="blog-previews">
+
+      <a href="recursos/fugas-tiempo-dinero-energia/" class="blog-card">
+        <div class="blog-card-img">
+          <img src="blog-fugas.png" alt="Cómo detectar fugas de tiempo, dinero y energía" loading="lazy">
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-cat cat-efi">Eficiencia</span>
+          <p class="blog-card-title">Cómo detectar fugas de tiempo, dinero y energía</p>
+          <div class="blog-card-foot">
+            <span class="blog-card-time">⏱ 6 min</span>
+            <span class="blog-card-cta">Leer →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="recursos/precios-costos-rentabilidad/" class="blog-card">
+        <div class="blog-card-img">
+          <img src="blog-finanzas.png" alt="Cómo revisar precios, costos y rentabilidad" loading="lazy">
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-cat cat-fin">Finanzas</span>
+          <p class="blog-card-title">Cómo revisar precios, costos y rentabilidad</p>
+          <div class="blog-card-foot">
+            <span class="blog-card-time">⏱ 7 min</span>
+            <span class="blog-card-cta">Leer →</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="recursos/ia-respuestas-genericas/" class="blog-card">
+        <div class="blog-card-img">
+          <img src="blog-ia-contexto.png" alt="Cómo usar IA sin respuestas genéricas" loading="lazy">
+        </div>
+        <div class="blog-card-body">
+          <span class="blog-cat cat-ia">IA y contexto</span>
+          <p class="blog-card-title">Cómo usar IA para tu negocio sin recibir respuestas genéricas</p>
+          <div class="blog-card-foot">
+            <span class="blog-card-time">⏱ 6 min</span>
+            <span class="blog-card-cta">Leer →</span>
+          </div>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -705,34 +769,6 @@
   <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
 </footer>
 
-<script src="resources-data.js"></script>
-<script>
-  /* Renderiza los 3 blogs más recientes en la home */
-  (function() {
-    var container = document.getElementById("home-blog-previews");
-    if (!container || typeof ORDY_RESOURCES === "undefined") return;
-    /* Ordenar por fecha descendente y tomar los 3 primeros */
-    var recent = ORDY_RESOURCES
-      .slice()
-      .sort(function(a, b) { return b.publishedAt.localeCompare(a.publishedAt); })
-      .slice(0, 3);
-    container.innerHTML = recent.map(function(r) {
-      return [
-        '<a href="' + r.url + '" class="blog-card">',
-        '  <div class="blog-card-img"><img src="' + r.image + '" alt="' + r.title + '" loading="lazy"></div>',
-        '  <div class="blog-card-body">',
-        '    <span class="blog-cat ' + r.catClass + '">' + r.category + '</span>',
-        '    <p class="blog-card-title">' + r.title + '</p>',
-        '    <div class="blog-card-foot">',
-        '      <span class="blog-card-time">⏱ ' + r.readTime + '</span>',
-        '      <span class="blog-card-cta">Leer →</span>',
-        '    </div>',
-        '  </div>',
-        '</a>'
-      ].join("\n");
-    }).join("\n");
-  })();
-</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <script>
