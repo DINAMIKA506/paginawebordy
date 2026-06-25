@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solicitá tu cupo beta | Ordy</title>
+  <meta name="description" content="Solicitá uno de los 5 cupos beta de Ordy y empezá a ordenar tu negocio con claridad.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.ordenyplan.com/beta.html">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4E4BF7">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ordy: #4E4BF7;
+      --ordy-dark: #3230c4;
+      --coral: #F94646;
+      --lila: #BBBBFC;
+      --lila-bg: #EEEEFF;
+      --text: #1A1A2E;
+      --muted: #6B7280;
+      --white: #ffffff;
+      --border: #E5E7EB;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+
+    /* NAV */
+    nav {
+      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem; height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { height: 34px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .9rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color .15s; }
+    .nav-links a:hover { color: var(--ordy); }
+    .nav-cta { background: var(--ordy); color: #fff; padding: .6rem 1.4rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background .15s; }
+    .nav-cta:hover { background: var(--ordy-dark); }
+
+    /* HERO */
+    .hero {
+      background: var(--lila-bg);
+      padding: 5rem 2.5rem 4rem;
+      text-align: center;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    .hero-mascot { width: 120px; margin: 0 auto 2rem; display: block; animation: float 4s ease-in-out infinite; }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ordy); background: white; border: 1px solid var(--lila);
+      padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem;
+    }
+    .section-tag span { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text); margin-bottom: 1rem; }
+    .hero h1 em { font-style: italic; color: var(--ordy); }
+    .hero p { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
+
+    /* CUPOS BADGE */
+    .cupos-badge {
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: white; border: 1px solid var(--border);
+      border-radius: 100px; padding: .6rem 1.25rem;
+      font-size: .875rem; font-weight: 600; color: var(--text);
+      box-shadow: 0 4px 16px rgba(0,0,0,.06);
+      margin-top: 1.75rem;
+    }
+    .cupos-dots { display: flex; gap: .3rem; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot.active { background: #22c55e; }
+    .dot.inactive { background: var(--border); }
+
+    /* FORM SECTION */
+    .form-section { padding: 4rem 2.5rem 5rem; }
+    .form-wrap {
+      max-width: 620px; margin: 0 auto;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: 0 8px 40px rgba(78,75,247,.08);
+    }
+
+    .form-group { margin-bottom: 1.5rem; }
+    label {
+      display: block; font-size: .875rem; font-weight: 600;
+      color: var(--text); margin-bottom: .5rem;
+    }
+    label span { color: var(--coral); }
+    input[type="text"],
+    input[type="email"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: .85rem 1.1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: .95rem;
+      color: var(--text);
+      background: var(--white);
+      transition: border-color .15s, box-shadow .15s;
+      outline: none;
+      appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--ordy);
+      box-shadow: 0 0 0 3px rgba(78,75,247,.1);
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { resize: vertical; min-height: 100px; }
+    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+
+    /* Checkbox group */
+    .checkbox-group { display: flex; flex-direction: column; gap: .6rem; margin-top: .25rem; }
+    .checkbox-item { display: flex; align-items: center; gap: .6rem; cursor: pointer; }
+    .checkbox-item input[type="checkbox"] {
+      width: 18px; height: 18px; border-radius: 5px; flex-shrink: 0;
+      accent-color: var(--ordy); cursor: pointer;
+    }
+    .checkbox-item span { font-size: .9rem; color: var(--text); }
+
+    /* Hint text */
+    .hint { font-size: .78rem; color: var(--muted); margin-top: .375rem; }
+
+    /* Divider */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    /* Submit */
+    .btn-submit {
+      width: 100%; padding: 1rem;
+      background: var(--ordy); color: white;
+      border: none; border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background .15s, transform .15s;
+    }
+    .btn-submit:hover { background: var(--ordy-dark); transform: translateY(-2px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .form-note {
+      text-align: center; font-size: .78rem;
+      color: var(--muted); margin-top: 1rem; line-height: 1.6;
+    }
+
+    /* SUCCESS STATE */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+    .success-msg.show { display: block; }
+    .success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .success-msg h2 { font-family: 'Fraunces', serif; font-size: 1.75rem; font-weight: 900; margin-bottom: .75rem; }
+    .success-msg p { color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-back {
+      display: inline-block; background: var(--lila-bg); color: var(--ordy);
+      padding: .75rem 1.75rem; border-radius: 100px;
+      font-weight: 700; font-size: .95rem; text-decoration: none;
+      transition: background .15s;
+    }
+    .btn-back:hover { background: var(--lila); }
+
+    /* Formspree error & success states */
+    [data-fs-error] { display: none; font-size: .78rem; color: var(--coral); margin-top: .35rem; }
+    [data-fs-error]:not(:empty) { display: block; }
+    [data-fs-success] { display: none; text-align: center; padding: 3rem 2rem; }
+    [data-fs-success]:not(:empty) { display: block; }
+    input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="true"] {
+      border-color: var(--coral);
+      box-shadow: 0 0 0 3px rgba(249,70,70,.1);
+    }
+
+    /* FOOTER */
+    footer { background: white; border-top: 1px solid var(--border); padding: 2.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    footer img.footer-logo { height: 30px; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--ordy); }
+    .footer-note { max-width: 1200px; margin: 1.5rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); text-align: center; }
+
+    @media(max-width:640px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .form-wrap { padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
+  <ul class="nav-links">
+    <li><a href="index.html#funciona">Cómo funciona</a></li>
+    <li><a href="index.html#dashboards">Dashboards</a></li>
+    <li><a href="index.html#precios">Precios</a></li>
+    <li><a href="index.html#faq">FAQ</a></li>
+    <li><a href="recursos.html">Recursos</a></li>
+    <li><a href="impacto.html">Impacto</a></li>
+  </ul>
+  <a href="index.html" class="nav-cta">← Volver</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="char-ordy.png" alt="Ordy" class="hero-mascot">
+  <div class="section-tag"><span></span> Beta abierta</div>
+  <h1>Solicitá tu<br><em>cupo beta.</em></h1>
+  <p>Contanos un poco sobre tu negocio y te confirmamos tu lugar. Son solo 5 cupos disponibles este mes.</p>
+  <div class="cupos-badge">
+    <div class="cupos-dots">
+      <div class="dot active"></div>
+      <div class="dot active"></div>
+      <div class="dot active"></div>
+      <div class="dot inactive"></div>
+      <div class="dot inactive"></div>
+    </div>
+    3 de 5 cupos tomados
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section">
+  <div class="form-wrap">
+
+    <!-- Success message — shown by Formspree after submission -->
+    <div data-fs-success>
+      <div class="success-icon">🎉</div>
+      <h2 style="font-family:'Fraunces',serif;font-size:1.75rem;font-weight:900;margin-bottom:.75rem;">¡Solicitud recibida!</h2>
+      <p style="color:var(--muted);line-height:1.7;margin-bottom:1.5rem;">Gracias por tu interés en Ordy. Te vamos a escribir pronto para confirmar tu cupo y contarte los próximos pasos.</p>
+      <a href="index.html" class="btn-back">Volver al inicio</a>
+    </div>
+
+    <!-- Form-level error -->
+    <div data-fs-error style="margin-bottom:1rem;padding:.75rem 1rem;background:#fff0f0;border-radius:10px;border:1px solid var(--coral);"></div>
+
+    <!-- Form -->
+    <form id="beta-form">
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label for="nombre">Nombre completo <span>*</span></label>
+        <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required data-fs-field>
+        <span data-fs-error="nombre"></span>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Correo electrónico <span>*</span></label>
+        <input type="email" id="email" name="email" placeholder="tu@correo.com" required data-fs-field>
+        <span data-fs-error="email"></span>
+      </div>
+
+      <!-- Negocio + país -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="negocio">Nombre de tu negocio <span>*</span></label>
+          <input type="text" id="negocio" name="negocio" placeholder="Ej: Velas Regi" required data-fs-field>
+          <span data-fs-error="negocio"></span>
+        </div>
+        <div class="form-group">
+          <label for="pais">País</label>
+          <select id="pais" name="pais">
+            <option value="">Seleccioná</option>
+            <option>Costa Rica</option>
+            <option>México</option>
+            <option>Argentina</option>
+            <option>Colombia</option>
+            <option>Chile</option>
+            <option>España</option>
+            <option>Otro</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tipo de negocio -->
+      <div class="form-group">
+        <label for="tipo">¿Qué tipo de negocio tenés? <span>*</span></label>
+        <select id="tipo" name="tipo" required data-fs-field>
+          <option value="">Seleccioná una opción</option>
+          <option>Productos físicos</option>
+          <option>Servicios</option>
+          <option>Negocio físico (local / tienda)</option>
+          <option>Digital / online</option>
+          <option>Mixto</option>
+          <option>Todavía lo estoy definiendo</option>
+        </select>
+        <span data-fs-error="tipo"></span>
+      </div>
+
+      <!-- Desafío principal -->
+      <div class="form-group">
+        <label for="desafio">¿Cuál es tu principal desafío ahora mismo? <span>*</span></label>
+        <textarea id="desafio" name="desafio" placeholder="Contanos qué te preocupa o qué querés ordenar en tu negocio..." required data-fs-field></textarea>
+        <span data-fs-error="desafio"></span>
+        <p class="hint">No hay respuesta incorrecta. Cuanto más nos contés, mejor podemos ayudarte.</p>
+      </div>
+
+      <!-- Plan de interés -->
+      <div class="form-group">
+        <label>¿Qué plan te interesa? <span>*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="radio" name="plan" value="Diagnóstico Ordy Base (Gratis)" required>
+            <span>🟣 Diagnóstico Ordy Base — Gratis</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="plan" value="Ruta Ordy Completa (₡43.000)">
+            <span>🔵 Ruta Ordy Completa — ₡43.000</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="plan" value="Combo Beta Ordy (₡50.000)">
+            <span>🔴 Combo Beta Ordy — ₡50.000</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="radio" name="plan" value="Todavía no lo sé">
+            <span>🤔 Todavía no lo sé</span>
+          </label>
+        </div>
+        <span data-fs-error="plan"></span>
+      </div>
+
+      <!-- WhatsApp opcional -->
+      <div class="form-group">
+        <label for="whatsapp">WhatsApp (opcional)</label>
+        <input type="text" id="whatsapp" name="whatsapp" placeholder="Ej: +506 8888 8888">
+        <p class="hint">Si lo compartís, te contactamos más rápido por WhatsApp.</p>
+      </div>
+
+      <hr class="divider">
+
+      <button type="submit" class="btn-submit" data-fs-submit-btn>Quiero mi cupo beta →</button>
+      <p class="form-note">Al enviar este formulario aceptás que te contactemos para confirmar tu cupo. Sin spam, prometido.</p>
+
+    </form>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <img src="ordy-logo.png" alt="Ordy" class="footer-logo">
+    <ul class="footer-links">
+      <li><a href="index.html#funciona">Cómo funciona</a></li>
+      <li><a href="index.html#precios">Precios</a></li>
+      <li><a href="recursos.html">Recursos</a></li>
+      <li><a href="impacto.html">Impacto</a></li>
+    </ul>
+  </div>
+  <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
+</footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+
+<!-- Formspree Vanilla JS Ajax SDK -->
+<script>
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#beta-form', formId: 'xojoeadl' });
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
