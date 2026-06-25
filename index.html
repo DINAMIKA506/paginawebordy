@@ -340,6 +340,54 @@
     @media(max-width:960px) { .blog-previews { grid-template-columns: 1fr 1fr; } }
     @media(max-width:640px) { .blog-previews { grid-template-columns: 1fr; } }
 
+
+    /* ══ SECCIÓN RECURSOS HOME ══ */
+    .home-recursos { background: white; padding: 6rem 2.5rem; border-top: 1.5px solid var(--border); }
+    .home-recursos-inner { max-width: 1200px; margin: 0 auto; }
+    .hr-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; margin-bottom: 3rem; flex-wrap: wrap; }
+    .hr-left { max-width: 540px; display: flex; flex-direction: column; gap: .75rem; }
+    .eyebrow { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .3rem .85rem; border-radius: 100px; width: fit-content; }
+    .hr-left h2 { font-family: 'Fraunces', serif; font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 900; color: var(--text); line-height: 1.2; }
+    .hr-left p { font-size: .95rem; color: var(--muted); line-height: 1.75; }
+    .hr-right { display: flex; align-items: center; flex-shrink: 0; }
+    .btn-recursos { display: inline-block; background: var(--ordy); color: white; padding: .8rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .15s, background .15s; white-space: nowrap; }
+    .btn-recursos:hover { background: var(--ordy-dark); transform: translateY(-2px); }
+
+    /* ══ SECCIÓN FARO / IMPACTO ══ */
+    .faro {
+      position: relative; overflow: hidden; min-height: 480px;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0a1440 0%, #0d3060 50%, #0a4080 100%);
+    }
+    /* Cuando exista la imagen, reemplaza el gradiente */
+    .faro-has-img { background: url('ocean-bg.jpg') center center / cover no-repeat; }
+    .faro-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(8,16,50,0.88) 0%, rgba(10,40,80,0.72) 100%); }
+    .faro-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 5rem 2.5rem; width: 100%; display: grid; grid-template-columns: 1.2fr 1fr; gap: 5rem; align-items: center; }
+    .faro-eyebrow { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--lila); background: rgba(187,187,252,.12); border: 1px solid rgba(187,187,252,.3); padding: .3rem .85rem; border-radius: 100px; width: fit-content; }
+    .faro-left { display: flex; flex-direction: column; gap: 1.25rem; }
+    .faro-left h2 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; color: white; line-height: 1.15; }
+    .faro-left p { font-size: 1rem; color: rgba(255,255,255,.78); line-height: 1.8; }
+    .faro-frase { font-size: .9rem; color: rgba(255,255,255,.45); font-style: italic; border-left: 2px solid rgba(187,187,252,.4); padding-left: .85rem; }
+    .btn-faro { display: inline-block; border: 2px solid rgba(255,255,255,.55); color: white; padding: .8rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: all .2s; width: fit-content; }
+    .btn-faro:hover { background: white; color: var(--ordy); border-color: white; }
+    .faro-right { display: flex; flex-direction: column; gap: 1rem; }
+    .faro-stat { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); backdrop-filter: blur(10px); border-radius: 18px; padding: 1.5rem 1.75rem; }
+    .faro-stat-num { font-family: 'Fraunces', serif; font-size: 2.8rem; font-weight: 900; color: white; line-height: 1; }
+    .faro-stat-num em { font-style: normal; color: var(--lila); }
+    .faro-stat-label { font-size: .875rem; color: rgba(255,255,255,.65); margin-top: .4rem; line-height: 1.55; }
+    .faro-chips { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
+    .faro-chip { font-size: .75rem; font-weight: 600; padding: .28rem .8rem; border-radius: 100px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.18); }
+    @media(max-width:960px) {
+      .hr-top { flex-direction: column; }
+      .faro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media(max-width:640px) {
+      .home-recursos { padding: 4rem 1.25rem; }
+      .faro-inner { padding: 4rem 1.25rem; }
+      .faro-left h2 { font-size: 1.8rem; }
+      .faro-chips { display: none; }
+    }
+
   </style>
 </head>
 <body>
@@ -721,7 +769,8 @@
 </section>
 
 <!-- FARO / IMPACTO -->
-<section class="faro faro-no-img" id="faro">
+<!-- Para activar la foto de océano: subí "ocean-bg.jpg" y agregá la clase "faro-has-img" al section -->
+<section class="faro" id="faro">
   <div class="faro-overlay"></div>
   <div class="faro-inner">
     <div class="faro-left">
@@ -734,11 +783,11 @@
     </div>
     <div class="faro-right">
       <div class="faro-stat">
-        <div class="faro-stat-num"><span>5%</span></div>
+        <div class="faro-stat-num"><em>5%</em></div>
         <p class="faro-stat-label">de las ganancias netas destinadas a conservación marina y cuidado del entorno</p>
       </div>
       <div class="faro-stat">
-        <div class="faro-stat-num" style="font-size:1.4rem; color: rgba(255,255,255,.9);">Inspirados en el océano</div>
+        <div class="faro-stat-num" style="font-size:1.3rem;">Inspirados en el océano</div>
         <p class="faro-stat-label">Cada personaje de Ordy representa una especie marina real, muchas de ellas vulnerables.</p>
         <div class="faro-chips">
           <span class="faro-chip">🐬 Lumi</span>
