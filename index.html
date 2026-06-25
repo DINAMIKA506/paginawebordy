@@ -636,31 +636,54 @@
 </section>
 
 
-<!-- EXPLORA MÁS -->
-<section class="explora">
-  <div class="explora-inner">
-    <div class="explora-card recursos">
-      <div class="explora-icon">📚</div>
-      <div class="explora-text">
-        <span class="explora-tag">Biblioteca Ordy</span>
-        <h3>Guías para ordenar tu negocio</h3>
-        <p>Ideas, artículos y herramientas para avanzar paso a paso, sin sentir que tenés que resolver todo de una vez.</p>
-        <a href="recursos.html" class="explora-btn ordy">Explorar recursos →</a>
+<!-- RECURSOS HOME -->
+<section class="home-recursos" id="biblioteca">
+  <div class="home-recursos-inner">
+    <div class="hr-top">
+      <div class="hr-left">
+        <span class="eyebrow">📚 Biblioteca Ordy</span>
+        <h2>Recursos para ordenar tu negocio con más claridad</h2>
+        <p>Guías prácticas para entender mejor tu negocio, usar la IA con más contexto, revisar procesos, precios y decisiones… sin empezar desde cero.</p>
       </div>
-      <div class="explora-img">
-        <img src="ordy-leyendo.png" alt="Ordy leyendo recursos">
+      <div class="hr-right">
+        <a href="recursos.html" class="btn-recursos">Explorar recursos →</a>
       </div>
     </div>
-    <div class="explora-card impacto">
-      <div class="explora-icon">🌊</div>
-      <div class="explora-text">
-        <span class="explora-tag">Impacto Ordy</span>
-        <h3>Negocios que ya empezaron a ordenarse</h3>
-        <p>Mirá cómo otras personas están usando Ordy para pasar de la confusión a la claridad en su negocio.</p>
-        <a href="impacto.html" class="explora-btn coral">Ver historias →</a>
+    <!-- Blog previews — se renderizan desde resources-data.js -->
+    <div class="blog-previews" id="home-blog-previews">
+      <!-- JS inserta aquí los 3 blogs más recientes automáticamente -->
+    </div>
+  </div>
+</section>
+
+<!-- FARO / IMPACTO -->
+<section class="faro faro-no-img" id="faro">
+  <div class="faro-overlay"></div>
+  <div class="faro-inner">
+    <div class="faro-left">
+      <span class="faro-eyebrow">🌊 El Faro de Ordy</span>
+      <h2>Ordenar también puede ser una forma de cuidar</h2>
+      <p>Ordy nació con el océano en el corazón. Nuestro universo está inspirado en especies marinas —muchas de ellas vulnerables o en peligro— y parte de nuestra visión es crecer con propósito.</p>
+      <p>Como compromiso, destinaremos el <strong style="color:white;">5% de las ganancias netas</strong> a proyectos relacionados con conservación marina, especies y cuidado del entorno.</p>
+      <p class="faro-frase">"Crecemos con claridad, pero también con conciencia."</p>
+      <a href="impacto.html" class="btn-faro">Conocer el impacto →</a>
+    </div>
+    <div class="faro-right">
+      <div class="faro-stat">
+        <div class="faro-stat-num"><span>5%</span></div>
+        <p class="faro-stat-label">de las ganancias netas destinadas a conservación marina y cuidado del entorno</p>
       </div>
-      <div class="explora-img">
-        <img src="ordy_celebrando.png" alt="Ordy celebrando logros">
+      <div class="faro-stat">
+        <div class="faro-stat-num" style="font-size:1.4rem; color: rgba(255,255,255,.9);">Inspirados en el océano</div>
+        <p class="faro-stat-label">Cada personaje de Ordy representa una especie marina real, muchas de ellas vulnerables.</p>
+        <div class="faro-chips">
+          <span class="faro-chip">🐬 Lumi</span>
+          <span class="faro-chip">🐢 Carey</span>
+          <span class="faro-chip">🦈 Marty</span>
+          <span class="faro-chip">🐟 Regi</span>
+          <span class="faro-chip">🦑 Pepe</span>
+          <span class="faro-chip">🐉 Glau</span>
+        </div>
       </div>
     </div>
   </div>
@@ -682,6 +705,34 @@
   <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
 </footer>
 
+<script src="resources-data.js"></script>
+<script>
+  /* Renderiza los 3 blogs más recientes en la home */
+  (function() {
+    var container = document.getElementById("home-blog-previews");
+    if (!container || typeof ORDY_RESOURCES === "undefined") return;
+    /* Ordenar por fecha descendente y tomar los 3 primeros */
+    var recent = ORDY_RESOURCES
+      .slice()
+      .sort(function(a, b) { return b.publishedAt.localeCompare(a.publishedAt); })
+      .slice(0, 3);
+    container.innerHTML = recent.map(function(r) {
+      return [
+        '<a href="' + r.url + '" class="blog-card">',
+        '  <div class="blog-card-img"><img src="' + r.image + '" alt="' + r.title + '" loading="lazy"></div>',
+        '  <div class="blog-card-body">',
+        '    <span class="blog-cat ' + r.catClass + '">' + r.category + '</span>',
+        '    <p class="blog-card-title">' + r.title + '</p>',
+        '    <div class="blog-card-foot">',
+        '      <span class="blog-card-time">⏱ ' + r.readTime + '</span>',
+        '      <span class="blog-card-cta">Leer →</span>',
+        '    </div>',
+        '  </div>',
+        '</a>'
+      ].join("\n");
+    }).join("\n");
+  })();
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <script>

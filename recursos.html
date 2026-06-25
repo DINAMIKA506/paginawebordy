@@ -61,21 +61,20 @@
     .guias-header h2 { font-family: "Fraunces", serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; margin-bottom: .75rem; }
     .guias-header p { color: var(--muted); font-size: 1.05rem; max-width: 540px; margin: 0 auto; line-height: 1.75; }
 
-    /* GRID HORIZONTAL — todas iguales, 2 columnas */
-    .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    /* GRID — 2 columnas, cards verticales con imagen 16:9 arriba */
+    .resource-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.75rem; }
 
-    /* CARD HORIZONTAL */
+    /* CARD VERTICAL — imagen landscape arriba, texto abajo */
     .resource-card {
       background: white; border: 1.5px solid var(--border); border-radius: 20px;
-      overflow: hidden; display: flex; flex-direction: row;
+      overflow: hidden; display: flex; flex-direction: column;
       transition: transform .2s, box-shadow .2s; text-decoration: none; color: inherit;
-      min-height: 200px;
     }
-    .resource-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,.08); border-color: var(--lila); }
-    .card-cover { width: 200px; flex-shrink: 0; overflow: hidden; }
+    .resource-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,.08); border-color: var(--lila); }
+    .card-cover { width: 100%; aspect-ratio: 16/9; overflow: hidden; }
     .card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
     .resource-card:hover .card-cover img { transform: scale(1.04); }
-    .card-body { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: .6rem; flex: 1; justify-content: center; }
+    .card-body { padding: 1.5rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: .65rem; flex: 1; }
     .card-cat { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .22rem .7rem; border-radius: 100px; width: fit-content; }
     .cat-org { background: #EEEEFF; color: var(--ordy); }
     .cat-ia  { background: #FFF0F0; color: var(--coral); }
@@ -170,84 +169,10 @@
     5. Agregar la URL al sitemap.xml
     -->
 
-    <div class="resource-grid">
-
-      <a href="recursos/ordenar-negocio/" class="resource-card">
-        <div class="card-cover">
-          <img src="blog-ordenar-negocio.png" alt="Cómo ordenar tu negocio">
-        </div>
-        <div class="card-body">
-          <span class="card-cat cat-org">Organización</span>
-          <p class="card-title">Cómo ordenar tu negocio cuando no sabés por dónde empezar</p>
-          <p class="card-summary">Un paso a paso para ganar claridad, definir prioridades y construir un plan simple que te saque del caos.</p>
-          <div class="card-footer">
-            <span class="card-time">⏱ 5 min</span>
-            <span class="card-cta">Leer guía</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="recursos/ia-respuestas-genericas/" class="resource-card">
-        <div class="card-cover">
-          <img src="blog-ia-contexto.png" alt="Cómo usar IA sin respuestas genéricas">
-        </div>
-        <div class="card-body">
-          <span class="card-cat cat-ia">IA y contexto</span>
-          <p class="card-title">Cómo usar IA para tu negocio sin recibir respuestas genéricas</p>
-          <p class="card-summary">Aprendé a darle mejor contexto a la IA para obtener respuestas útiles, personalizadas y accionables.</p>
-          <div class="card-footer">
-            <span class="card-time">⏱ 6 min</span>
-            <span class="card-cta">Leer guía</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="recursos/preparar-negocio-notion/" class="resource-card">
-        <div class="card-cover">
-          <img src="blog-notion.png" alt="Cómo preparar tu negocio para Notion">
-        </div>
-        <div class="card-body">
-          <span class="card-cat cat-her">Herramientas</span>
-          <p class="card-title">Cómo preparar tu negocio antes de usar Notion</p>
-          <p class="card-summary">Dejá tus ideas, procesos y datos listos para construir un sistema en Notion que realmente te funcione.</p>
-          <div class="card-footer">
-            <span class="card-time">⏱ 5 min</span>
-            <span class="card-cta">Leer guía</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="recursos/precios-costos-rentabilidad/" class="resource-card">
-        <div class="card-cover">
-          <img src="blog-finanzas.png" alt="Cómo revisar precios y rentabilidad">
-        </div>
-        <div class="card-body">
-          <span class="card-cat cat-fin">Finanzas</span>
-          <p class="card-title">Cómo revisar precios, costos y rentabilidad</p>
-          <p class="card-summary">Entendé tus números y asegurate de que tu negocio no solo venda, sino que también sea rentable.</p>
-          <div class="card-footer">
-            <span class="card-time">⏱ 7 min</span>
-            <span class="card-cta">Leer guía</span>
-          </div>
-        </div>
-      </a>
-
-      <a href="recursos/fugas-tiempo-dinero-energia/" class="resource-card">
-        <div class="card-cover">
-          <img src="blog-fugas.png" alt="Cómo detectar fugas de tiempo y dinero">
-        </div>
-        <div class="card-body">
-          <span class="card-cat cat-efi">Eficiencia</span>
-          <p class="card-title">Cómo detectar fugas de tiempo, dinero y energía</p>
-          <p class="card-summary">Identificá lo que está drenando recursos en tu negocio para enfocarte en lo que realmente te ayuda a crecer.</p>
-          <div class="card-footer">
-            <span class="card-time">⏱ 6 min</span>
-            <span class="card-cta">Leer guía</span>
-          </div>
-        </div>
-      </a>
-
+    <div class="resource-grid" id="all-recursos">
+      <!-- JS renderiza todas las guías desde resources-data.js -->
     </div>
+      </div>
   </div>
 </section>
 
@@ -274,6 +199,33 @@
   <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
 </footer>
 
+<script src="../resources-data.js"></script>
+<script>
+  /* Renderiza todas las guías en recursos.html */
+  (function() {
+    var container = document.getElementById("all-recursos");
+    if (!container || typeof ORDY_RESOURCES === "undefined") return;
+    var sorted = ORDY_RESOURCES
+      .slice()
+      .sort(function(a, b) { return b.publishedAt.localeCompare(a.publishedAt); });
+    container.innerHTML = sorted.map(function(r) {
+      return [
+        '<a href="../' + r.url + '" class="resource-card">',
+        '  <div class="card-cover"><img src="../' + r.image + '" alt="' + r.title + '" loading="lazy"></div>',
+        '  <div class="card-body">',
+        '    <span class="card-cat ' + r.catClass + '">' + r.category + '</span>',
+        '    <p class="card-title">' + r.title + '</p>',
+        '    <p class="card-summary">' + r.summary + '</p>',
+        '    <div class="card-footer">',
+        '      <span class="card-time">⏱ ' + r.readTime + '</span>',
+        '      <span class="card-cta">Leer guía</span>',
+        '    </div>',
+        '  </div>',
+        '</a>'
+      ].join("\n");
+    }).join("\n");
+  })();
+</script>
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>
