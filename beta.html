@@ -181,8 +181,11 @@
     /* Formspree error & success states */
     [data-fs-error] { display: none; font-size: .78rem; color: var(--coral); margin-top: .35rem; }
     [data-fs-error]:not(:empty) { display: block; }
-    [data-fs-success] { display: none; text-align: center; padding: 3rem 2rem; }
-    [data-fs-success]:not(:empty) { display: block; }
+    /* Success: oculto por defecto, Formspree agrega .fs-success--visible al enviarse */
+    [data-fs-success] { display: none !important; text-align: center; padding: 3rem 2rem; }
+    [data-fs-success].fs-success--visible,
+    [data-fs-success][style*="display: block"],
+    [data-fs-success][style*="display:block"] { display: block !important; }
     input[aria-invalid="true"], textarea[aria-invalid="true"], select[aria-invalid="true"] {
       border-color: var(--coral);
       box-shadow: 0 0 0 3px rgba(249,70,70,.1);
@@ -377,12 +380,62 @@
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 
-<!-- Formspree Vanilla JS Ajax SDK -->
+<!-- Formspree: submit via fetch para control total del éxito -->
 <script>
-  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
-  formspree('initForm', { formElement: '#beta-form', formId: 'xojoeadl' });
+  const form = document.getElementById('beta-form');
+  const successBlock = document.querySelector('[data-fs-success]');
+  const errorBlock = document.querySelector('[data-fs-error]:not([data-fs-error="nombre"]):not([data-fs-error="email"]):not([data-fs-error="negocio"]):not([data-fs-error="tipo"]):not([data-fs-error="desafio"]):not([data-fs-error="plan"])');
+  const submitBtn = form.querySelector('[data-fs-submit-btn]');
+  const formIntro = document.querySelector('.form-intro');
+
+  // Aseguramos que el success está oculto al cargar
+  successBlock.style.display = 'none';
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Limpiar errores previos
+    document.querySelectorAll('[data-fs-error]').forEach(el => el.textContent = '');
+
+    submitBtn.textContent = 'Enviando...';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/xojoeadl', {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Ocultar intro, formulario y mostrar éxito
+        formIntro.style.display = 'none';
+        form.style.display = 'none';
+        successBlock.style.display = 'block';
+        successBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        // Mostrar errores de campo si vienen de Formspree
+        if (data.errors) {
+          data.errors.forEach(err => {
+            const fieldEl = document.querySelector(`[data-fs-error="${err.field}"]`);
+            if (fieldEl) fieldEl.textContent = err.message;
+          });
+        }
+        submitBtn.textContent = 'Quiero mi cupo beta →';
+        submitBtn.disabled = false;
+      }
+    } catch {
+      submitBtn.textContent = 'Quiero mi cupo beta →';
+      submitBtn.disabled = false;
+      alert('Hubo un problema al enviar. Intentá de nuevo o escribinos a ordenyplan@gmail.com');
+    }
+  });
 </script>
-<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
 
 </body>
 </html>
