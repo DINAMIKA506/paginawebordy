@@ -1,0 +1,22 @@
+{
+  "name": "Ordy | Ordenando mi Negocio",
+  "short_name": "Ordy",
+  "description": "Ordy te ayuda a ordenar la información de tu negocio y convertirla en dashboards claros para tomar mejores decisiones.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4E4BF7",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página no encontrada | Ordy</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ordy: #4E4BF7;
+      --coral: #F94646;
+      --lila-bg: #EEEEFF;
+      --text: #1A1A2E;
+      --muted: #6B7280;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--lila-bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .mascot { width: 200px; margin-bottom: 2rem; animation: float 4s ease-in-out infinite; }
+    .code { font-family: 'Fraunces', serif; font-size: 6rem; font-weight: 900; color: var(--ordy); line-height: 1; margin-bottom: .5rem; }
+    h1 { font-family: 'Fraunces', serif; font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 800; margin-bottom: 1rem; color: var(--text); }
+    p { font-size: 1.05rem; color: var(--muted); max-width: 420px; line-height: 1.7; margin-bottom: 2.5rem; }
+    .btn {
+      display: inline-block;
+      background: var(--ordy);
+      color: white;
+      padding: .9rem 2rem;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform .15s, opacity .15s;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .9; }
+    .logo { margin-top: 3rem; height: 28px; opacity: .5; }
+  </style>
+</head>
+<body>
+  <img src="/Ordy_perdido.png" alt="Ordy perdido" class="mascot">
+  <div class="code">404</div>
+  <h1>Parece que este camino<br>todavía no existe.</h1>
+  <p>La página que buscás no está aquí. Quizás se fue a ordenar sus ideas con Ordy.</p>
+  <a href="/" class="btn">Volver al inicio</a>
+  <img src="/ordy-logo.png" alt="Ordy" class="logo">
+</body>
+</html>
