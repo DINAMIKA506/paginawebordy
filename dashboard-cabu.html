@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Cabu Concierge | Dashboard de ejemplo Ordy</title>
+<meta name="description" content="Explorá cómo un negocio de servicios puede usar Ordy para ordenar procesos, atención al cliente y experiencia de servicio."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.ordenyplan.com/dashboards/cabu"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.ordenyplan.com/dashboards/cabu"/>
+<meta property="og:title" content="Cabu Concierge | Dashboard de ejemplo Ordy"/>
+<meta property="og:description" content="Explorá cómo un negocio de servicios puede usar Ordy para ordenar procesos, atención al cliente y experiencia de servicio."/>
+<meta property="og:image" content="https://www.ordenyplan.com/ordy-social-share.png"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --p:#4e4bf7;--pl:#bbbbfc;--pp:#f0f0ff;
+  --r:#f94646;--rp:#fff0f0;
+  --g:#1a9e6e;--gp:#e6f7f1;
+  --a:#f7a600;--ap:#fff8e6;
+  --dark:#1a1a2e;--text:#2d2d4e;--muted:#8888aa;
+  --border:#e8e8f0;--bg:#f4f4f8;--white:#fff;--cream:#fdf2ed;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sb{width:236px;min-width:236px;background:var(--dark);min-height:100vh;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;overflow-y:auto;z-index:100;}
+.sb-logo{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;cursor:pointer;}
+.sb-logo-av{width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
+.sb-logo-av img{width:40px;height:40px;object-fit:contain;}
+.sb-logo-text span{display:block;font-size:20px;font-weight:900;color:#fff;}
+.sb-logo-text small{font-size:9px;color:var(--pl);letter-spacing:2px;text-transform:uppercase;}
+.sb-sec{padding:14px 14px 6px;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28);}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:1px 6px;border-radius:10px;cursor:pointer;transition:all 0.12s;border:none;background:transparent;width:calc(100% - 12px);text-align:left;}
+.ni:hover{background:rgba(255,255,255,0.06);}
+.ni.on{background:var(--p);}
+.ni-av{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.ni-av img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3));}
+.ni-av.emoji{font-size:16px;}
+.ni-info{flex:1;min-width:0;}
+.ni-name{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ni-lvl{font-size:10px;color:rgba(255,255,255,0.38);}
+.ni.on .ni-lvl{color:var(--pl);}
+.nb{font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;flex-shrink:0;}
+.nb.ok{background:rgba(26,158,110,0.2);color:#4cdf9e;}
+.nb.pro{background:rgba(249,70,70,0.2);color:#ff8a8a;}
+.nb.lock{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);}
+.sb-bottom{margin-top:auto;padding:14px;border-top:1px solid rgba(255,255,255,0.07);}
+.sb-client{background:var(--p);border-radius:10px;padding:12px;}
+.sb-client strong{display:block;font-size:13px;color:#fff;}
+.sb-client span{font-size:10px;color:var(--pl);margin-top:2px;display:block;}
+.main{margin-left:236px;flex:1;display:flex;flex-direction:column;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.tb-left strong{font-size:17px;font-weight:900;color:var(--text);display:block;}
+.tb-left span{font-size:11px;color:var(--muted);}
+.tb-right{display:flex;gap:10px;align-items:center;}
+.pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;}
+.pill.green{background:var(--gp);color:var(--g);}
+.pill.purple{background:var(--pp);color:var(--p);}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.content{padding:24px 28px 0;flex:1;}
+.panel{display:none;}.panel.on{display:block;}
+.mascot-hero{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:24px;margin-bottom:20px;}
+.mh-mascot{width:140px;min-width:140px;display:flex;align-items:center;justify-content:center;}
+.mh-mascot.dark-bg{background:var(--dark);border-radius:16px;padding:8px;width:110px;height:110px;}
+.mh-text .eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--p);margin-bottom:6px;}
+.mh-text h2{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;line-height:1.2;}
+.mh-text p{font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;}
+.mh-badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.badge.purple{background:var(--pp);color:var(--p);}
+.badge.green{background:var(--gp);color:var(--g);}
+.badge.red{background:var(--rp);color:var(--r);}
+.badge.amber{background:var(--ap);color:var(--a);}
+.badge.dark{background:rgba(26,26,46,0.08);color:var(--dark);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.g65{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;margin-bottom:16px;}
+.mb{margin-bottom:16px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ch-title{font-size:14px;font-weight:800;color:var(--text);}
+.prog-wrap{margin-bottom:12px;}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.prog-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:4px;}
+.prog-fill.p{background:var(--p);}.prog-fill.g{background:var(--g);}.prog-fill.r{background:var(--r);}.prog-fill.a{background:var(--a);}
+.lvl-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0;}
+.lvl-chip{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 14px;cursor:pointer;transition:all 0.12s;border:1px solid transparent;flex:1;min-width:190px;}
+.lvl-chip:hover{border-color:var(--p);background:var(--pp);}
+.lvl-chip-av{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.lvl-chip-av img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.12));}
+.lvl-chip-info .name{font-size:12px;font-weight:800;color:var(--text);}
+.lvl-chip-info .sub{font-size:11px;color:var(--muted);}
+.lvl-num{font-size:10px;font-weight:900;padding:2px 8px;border-radius:20px;}
+.lvl-num.done{background:var(--gp);color:var(--g);}.lvl-num.pro{background:var(--rp);color:var(--r);}
+.row-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.row-item:last-child{border-bottom:none;}
+.ri-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ri-icon.p{background:var(--pp);}.ri-icon.g{background:var(--gp);}.ri-icon.r{background:var(--rp);}.ri-icon.a{background:var(--ap);}
+.ri-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:2px;}
+.ri-text{font-size:13px;color:var(--text);line-height:1.5;}
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:10px;margin-bottom:8px;}
+.alert-row:last-child{margin-bottom:0;}
+.alert-row.high{background:var(--rp);border-left:3px solid var(--r);}
+.alert-row.med{background:var(--ap);border-left:3px solid var(--a);}
+.alert-row.low{background:var(--gp);border-left:3px solid var(--g);}
+.alert-row.info{background:var(--pp);border-left:3px solid var(--p);}
+.ar-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.ar-dot.high{background:var(--r);}.ar-dot.med{background:var(--a);}.ar-dot.low{background:var(--g);}.ar-dot.info{background:var(--p);}
+.ar-text{font-size:13px;color:var(--text);line-height:1.5;}
+.check-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.check-row:last-child{border-bottom:none;}
+.cb{width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.cb.urgent{background:var(--r);color:#fff;}.cb.soon{background:var(--a);color:#fff;}.cb.later{background:var(--border);color:var(--muted);border:2px solid var(--border);}
+.check-text{font-size:13px;color:var(--text);line-height:1.5;}
+.ctag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;}
+.ctag.urgent{background:var(--rp);color:var(--r);}.ctag.soon{background:var(--ap);color:var(--a);}.ctag.later{background:var(--border);color:var(--muted);}
+.formula{background:var(--dark);border-radius:12px;padding:16px;}
+.formula-title{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pl);margin-bottom:12px;}
+.formula-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13px;}
+.formula-row:last-child{border-bottom:none;}
+.fl{color:rgba(255,255,255,0.65);}.fv{font-weight:800;color:#fff;}
+.fv.accent{color:var(--pl);}.fv.red{color:#ff8a8a;}.fv.green{color:#4cdf9e;}
+.radar-row{display:flex;align-items:center;gap:12px;margin-bottom:11px;}
+.radar-row:last-child{margin-bottom:0;}
+.rr-name{font-size:12px;font-weight:700;color:var(--text);min-width:130px;}
+.rr-track{flex:1;height:10px;border-radius:5px;background:var(--bg);overflow:hidden;}
+.rr-fill{height:100%;border-radius:5px;}
+.rr-fill.high{background:var(--r);}.rr-fill.med{background:var(--a);}.rr-fill.low{background:var(--g);}
+.rr-tag{font-size:11px;font-weight:800;min-width:40px;text-align:right;}
+.rr-tag.high{color:var(--r);}.rr-tag.med{color:var(--a);}.rr-tag.low{color:var(--g);}
+.action-item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:10px;background:var(--bg);margin-bottom:8px;}
+.action-item:last-child{margin-bottom:0;}
+.a-num{width:26px;height:26px;border-radius:7px;background:var(--p);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.a-num.red{background:var(--r);}
+.a-week{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+.a-text{font-size:13px;color:var(--text);line-height:1.5;padding-top:2px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tool-card{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
+.tool-emoji{font-size:20px;margin-bottom:5px;}
+.tool-name{font-size:12px;font-weight:700;color:var(--text);}.tool-st{font-size:10px;color:var(--muted);margin-top:2px;}
+.dist-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dist-label{font-size:12px;font-weight:700;color:var(--text);min-width:170px;}
+.locked-panel{text-align:center;padding:60px 40px;}
+.lock-icon{font-size:48px;margin-bottom:16px;}
+.lock-title{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.lock-text{font-size:14px;color:var(--muted);line-height:1.7;max-width:440px;margin:0 auto 24px;}
+.lock-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:14px 32px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+.next-level{background:linear-gradient(135deg,var(--pp),#e8e8ff);border:1px solid var(--pl);border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nl-text strong{display:block;font-size:13px;font-weight:800;color:var(--p);margin-bottom:3px;}
+.nl-text span{font-size:12px;color:var(--text);line-height:1.5;}
+.nl-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:10px 20px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;flex-shrink:0;}
+.logro{background:var(--gp);border:1px solid var(--g);border-radius:14px;padding:16px 18px;margin-top:16px;}
+.logro strong{display:block;font-size:11px;font-weight:900;color:var(--g);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.logro span{font-size:13px;color:var(--text);line-height:1.5;}
+.ordy-note{background:var(--cream);border-radius:12px;padding:14px 16px;font-size:12px;color:#8a5a40;line-height:1.6;margin-top:12px;}
+.ordy-note strong{color:#6a3a20;}
+.footer{background:var(--dark);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-logo-av{width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-av img{width:32px;height:32px;object-fit:contain;}
+.footer-logo strong{font-size:14px;font-weight:900;color:#fff;}
+.footer-logo span{font-size:10px;color:var(--pl);display:block;}
+.footer-info{font-size:11px;color:rgba(255,255,255,0.28);}
+@media(max-width:860px){
+  .sb{width:56px;min-width:56px;}
+  .sb-logo-text,.ni-info,.nb,.sb-sec,.sb-bottom{display:none;}
+  .sb-logo{justify-content:center;padding:10px 4px;border-bottom:none;}
+  .sb-logo-av{width:44px;height:44px;border-radius:12px;}
+  .sb-logo-av img{width:44px;height:44px;}
+  .ni{justify-content:center;padding:10px;margin:2px 4px;}
+  .main{margin-left:56px;}
+  .g2,.g65{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .content{padding:16px;}
+  .topbar{padding:0 16px;}
+}
+@media(max-width:540px){
+  .g2,.g3{grid-template-columns:1fr;}
+  .lvl-chips{flex-direction:column;}
+  .next-level{flex-direction:column;}
+  .mascot-hero{flex-direction:column;text-align:center;}
+}
+
+/* SAFE AREA TOP - evita que contenido quede bajo la barra del navegador en móvil */
+.topbar {
+  padding-top: max(12px, env(safe-area-inset-top));
+  height: auto;
+  min-height: 60px;
+}
+.content {
+  padding-top: 20px;
+}
+@media(max-width:860px) {
+  .topbar {
+    padding: max(14px, env(safe-area-inset-top)) 16px 14px;
+  }
+  .main {
+    padding-top: 0;
+  }
+}
+
+/* LOGO BAR */
+.logo-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:#fff;
+  border-bottom:1px solid #e8e8f0;
+  height:52px;
+  display:flex;align-items:center;padding:0 16px;
+  box-shadow:0 1px 8px rgba(78,75,247,0.08);
+}
+.logo-bar img{height:36px;object-fit:contain;}
+
+/* Empujar todo el contenido hacia abajo para no quedar bajo la barra */
+.sb{top:52px;}
+.topbar{top:52px;}
+.main{padding-top:52px;}
+
+@media(max-width:860px){
+  .sb{top:52px;}
+  .main{padding-top:52px;}
+}
+
+/* N3 TABLAS → TARJETAS EN MÓVIL */
+@media(max-width:640px){
+  /* Ocultar encabezado de tabla */
+  table thead { display:none; }
+  /* Cada fila se convierte en tarjeta */
+  table tbody tr {
+    display:block;
+    background:var(--bg);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:10px;
+    border:1px solid var(--border);
+  }
+  /* Cada celda muestra su etiqueta y valor */
+  table tbody td {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:5px 0 !important;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+  }
+  table tbody td:last-child { border-bottom:none; }
+  /* Etiqueta generada con data-label */
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight:800;
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    flex-shrink:0;
+    margin-right:8px;
+  }
+  /* Ajustes generales en móvil */
+  .g2 { grid-template-columns:1fr !important; }
+  .dist-label { min-width:unset; font-size:12px; }
+}
+
+/* PANEL BIENVENIDA */
+.bv{
+  background:#4e4bf7;
+  min-height:calc(100vh - 112px);
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:32px 22px 48px;
+  text-align:center;
+  box-sizing:border-box;
+}
+.bv img.bv-ordy{
+  width:150px;height:150px;border-radius:26px;
+  object-fit:cover;margin-bottom:16px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.22);
+  border:3px solid rgba(255,255,255,0.18);
+  flex-shrink:0;
+}
+.bv .bv-brand{font-size:10px;font-weight:800;color:#bbbbfc;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.bv h2{font-size:26px;font-weight:900;color:#fff;
+  line-height:1.2;margin-bottom:4px;}
+.bv h2 em{color:#fdf2ed;font-style:normal;}
+.bv .bv-line{width:36px;height:2px;background:rgba(255,255,255,0.18);
+  border-radius:2px;margin:14px auto;}
+.bv .bv-desc{font-size:14px;color:rgba(255,255,255,0.65);
+  line-height:1.65;max-width:300px;margin-bottom:22px;}
+.bv .bv-desc b{color:#fff;}
+.bv .bv-list{
+  display:flex;flex-direction:column;gap:8px;
+  width:100%;max-width:340px;margin-bottom:24px;
+}
+.bv .bv-lvl{
+  display:flex;align-items:center;gap:11px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:11px;padding:10px 12px;
+  cursor:pointer;width:100%;
+  font-family:'Nunito',sans-serif;
+  text-align:left;box-sizing:border-box;
+}
+.bv .bv-lvl:active{background:rgba(255,255,255,0.2);}
+.bv .bv-av{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+.bv .bv-av img{width:100%;height:100%;object-fit:cover;}
+.bv .bv-tx{flex:1;min-width:0;}
+.bv .bv-nm{font-size:12px;font-weight:800;color:#fff;display:block;text-align:left;}
+.bv .bv-sb{font-size:10px;color:rgba(255,255,255,0.4);display:block;margin-top:1px;text-align:left;}
+.bv .bv-bg{font-size:10px;font-weight:800;padding:3px 8px;
+  border-radius:20px;flex-shrink:0;white-space:nowrap;}
+.bv .bv-bg.ok{background:rgba(26,158,110,0.3);color:#4cdf9e;}
+.bv .bv-bg.pr{background:rgba(249,70,70,0.3);color:#ff8a8a;}
+.bv .bv-btn{
+  background:#fff;color:#4e4bf7;border:none;
+  border-radius:50px;padding:14px 0;font-size:15px;
+  font-weight:900;cursor:pointer;
+  font-family:'Nunito',sans-serif;
+  width:100%;max-width:340px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  margin-bottom:14px;
+}
+.bv .bv-btn:active{transform:scale(0.98);}
+.bv .bv-ft{font-size:11px;color:rgba(255,255,255,0.22);}
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <img src="logo.png" alt="Ordy · orden y plan"/>
+</div>
+<aside class="sb">
+  <div class="sb-logo" onclick="show('bienvenida',null);">
+    <div class="sb-logo-av"><img src="ordy.png" alt="ordy" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="sb-logo-text"><span>Cabu Coach</span><small>orden y plan ✓</small></div>
+  </div>
+  <div class="sb-sec">General</div>
+  <button class="ni on" onclick="show('overview',this)">
+    <div class="ni-av"><img src="navi.png" alt="navi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="ni-info"><div class="ni-name">Vista General</div><div class="ni-lvl">Panorama del negocio</div></div>
+  </button>
+  <div class="sb-sec">Niveles</div>
+  
+<button class="ni" onclick="show('n1',this)">
+  <div class="ni-av"><img src="lumi.png" alt="lumi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 1</div><div class="ni-lvl">Entendé tu negocio</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n2',this)">
+  <div class="ni-av"><img src="carey.png" alt="carey" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 2</div><div class="ni-lvl">Orden operativo</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n3',this)">
+  <div class="ni-av"><img src="regi.png" alt="regi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 3</div><div class="ni-lvl">Plata sin autoengaño</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n4',this)">
+  <div class="ni-av"><img src="marty.png" alt="marty" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 4</div><div class="ni-lvl">Formalización</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n5',this)">
+  <div class="ni-av"><img src="cabu.png" alt="cabu" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 5</div><div class="ni-lvl">Clientes y políticas</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n6',this)">
+  <div class="ni-av"><img src="pepe.png" alt="pepe" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 6</div><div class="ni-lvl">Crecimiento</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n7',this)">
+  <div class="ni-av"><img src="glau.png" alt="glau" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 7</div><div class="ni-lvl">Radar de fugas</div></div>
+  <span class="nb pro">PRO</span>
+</button>
+  <button class="ni" onclick="show('n8',this)">
+    <div class="ni-av emoji">🔒</div>
+    <div class="ni-info"><div class="ni-name">Nivel 8</div><div class="ni-lvl">Comunidad</div></div>
+    <span class="nb lock">Pronto</span>
+  </button>
+
+  <div class="sb-bottom">
+    <div class="sb-client">
+      <strong>Cabu Coach</strong>
+      <span>Dashboard Pro · 7 niveles activos</span>
+      <span style="margin-top:6px;opacity:0.6;">Generado por Ordy · Jun 2025</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <strong id="page-title">Vista General</strong>
+      <span id="page-sub">Ordy · Sistema de orden Pro</span>
+    </div>
+    <div class="tb-right">
+      <div class="pill green"><div class="pill-dot"></div>En proceso de orden</div>
+      <div class="pill purple">100% completado</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+        <!-- BIENVENIDA -->
+    <div class="panel on" id="panel-bienvenida">
+      <div class="bv">
+        <img class="bv-ordy" src="ordy.png" alt="Ordy"/>
+        <div class="bv-brand">Ordy · Orden y plan ✓</div>
+        <h2>Bienvenida al<br><em>océano de tu negocio</em></h2>
+        <div class="bv-line"></div>
+        <p class="bv-desc">Ordy convierte la información de tu negocio en una <b>ruta clara de niveles, tareas y decisiones</b>. Cada nivel tiene su guía.</p>
+        <div class="bv-list">
+          <button class="bv-lvl" onclick="show('overview',null)"><div class="bv-av"><img src="navi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">Vista General</span><span class="bv-sb">Panorama del negocio</span></div><span class="bv-bg ok">→</span></button>
+          <button class="bv-lvl" onclick="show('n1',null)"><div class="bv-av"><img src="lumi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N1 · Entendé tu negocio</span><span class="bv-sb">Con Lumi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n2',null)"><div class="bv-av"><img src="carey.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N2 · Orden operativo</span><span class="bv-sb">Con Carey</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n3',null)"><div class="bv-av"><img src="regi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N3 · Plata sin autoengaño</span><span class="bv-sb">Con Regi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n4',null)"><div class="bv-av"><img src="marty.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N4 · Formalización</span><span class="bv-sb">Con Marty</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n5',null)"><div class="bv-av"><img src="cabu.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N5 · Clientes y políticas</span><span class="bv-sb">Con Cabu</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n6',null)"><div class="bv-av"><img src="pepe.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N6 · Crecimiento</span><span class="bv-sb">Con Pepe</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n7',null)" style="border-color:rgba(249,70,70,0.3);background:rgba(249,70,70,0.08);"><div class="bv-av"><img src="glau.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N7 · Radar de fugas</span><span class="bv-sb">Con Glau · Pro</span></div><span class="bv-bg pr">PRO</span></button>
+        </div>
+        <button class="bv-btn" onclick="show('overview',null)">Explorar mi diagnóstico →</button>
+        <div class="bv-ft">Dashboard generado por Ordy</div>
+      </div>
+    </div>
+
+<!-- OVERVIEW -->
+    <div class="panel" id="panel-overview">
+      <div style="background:var(--p);border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
+        <img src="ordy.png" alt="Ordy" style="width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));flex-shrink:0;"/>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Ordy · Sistema de orden</div>
+          <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:4px;">¡Hola, Cabu Coach! 👋</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Navi te guiará por el panorama de tu negocio. Explorá cada nivel para ver tu diagnóstico completo.</div>
+        </div>
+      </div>
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="navi.png" alt="navi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Con Navi · Vista general</div>
+          <h2>Exploremos el panorama</h2>
+          <p>Bienvenida al dashboard de <strong>Cabu Coach para Dragones Jubilados</strong>. Aquí vas a ver el estado actual de tu negocio, tu progreso por niveles y los próximos pasos recomendados. Todo lo que está acá salió de tus respuestas: es tu negocio, ordenado.</p>
+          <div class="mh-badges"><span class="badge purple">Coaching boutique</span><span class="badge dark">Dragones jubilados</span><span class="badge green">7 niveles completados</span></div>
+        </div>
+      </div>
+      <div class="g2 mb">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio</div><span class="badge purple">Cabu Coach</span></div>
+          <div class="row-item"><div class="ri-icon p">🐉</div><div><div class="ri-label">Qué es</div><div class="ri-text">Cabu Coach es un servicio de acompañamiento para dragones jubilados que quieren ordenar su nueva etapa de vida sin caer en cursos eternos, frases vacías o retiros espirituales en volcanes carísimos.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">Sesiones individuales, Paquete Brasa Suave, Paquete Tesoro en Orden y Comunidad Dragones en Reposo.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Acompañamiento práctico para dragones que ya vivieron mucho, tienen criterio propio y necesitan estructura, no frases pegadas en pergaminos.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">📱</div><div><div class="ri-label">Canales</div><div class="ri-text">Referencias entre dragones, WhatsApp, Instagram, comunidad privada y alianzas con asesores patrimoniales.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Progreso general</div><span class="badge green">100% ordenado</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N1 · Entendé tu negocio</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N2 · Orden operativo</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N3 · Plata sin autoengaño</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N4 · Formalización</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N5 · Clientes y políticas</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N6 · Crecimiento</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N7 · Radar de fugas</span><span style="color:var(--r);">PRO</span></div><div class="prog-track"><div class="prog-fill r" style="width:100%;"></div></div></div>
+          <div style="background:var(--gp);border-radius:10px;padding:12px;font-size:13px;color:var(--text);line-height:1.6;margin-top:12px;"><strong style="color:var(--g);">Todos los niveles completados.</strong> El siguiente paso es posicionar Brasa Suave como producto principal y definir límites claros de seguimiento.</div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Progreso por niveles · Hacé clic para navegar</div><span class="badge purple">7 activos</span></div>
+        <div class="lvl-chips">
+          <div class="lvl-chip" onclick="show('n1',null)"><div class="lvl-chip-av"><img src="lumi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Entendé tu negocio</div><div class="sub">Base clara de la marca</div></div><span class="lvl-num done">N1</span></div>
+          <div class="lvl-chip" onclick="show('n2',null)"><div class="lvl-chip-av"><img src="carey.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Orden operativo</div><div class="sub">Cómo funciona por dentro</div></div><span class="lvl-num done">N2</span></div>
+          <div class="lvl-chip" onclick="show('n3',null)"><div class="lvl-chip-av"><img src="regi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Plata sin autoengaño</div><div class="sub">Costos y rentabilidad</div></div><span class="lvl-num done">N3</span></div>
+          <div class="lvl-chip" onclick="show('n4',null)"><div class="lvl-chip-av"><img src="marty.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Formalización</div><div class="sub">Obligaciones y riesgos</div></div><span class="lvl-num done">N4</span></div>
+          <div class="lvl-chip" onclick="show('n5',null)"><div class="lvl-chip-av"><img src="cabu.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Clientes y políticas</div><div class="sub">Respuestas y límites</div></div><span class="lvl-num done">N5</span></div>
+          <div class="lvl-chip" onclick="show('n6',null)"><div class="lvl-chip-av"><img src="pepe.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Crecimiento</div><div class="sub">Herramientas e inversión</div></div><span class="lvl-num done">N6</span></div>
+          <div class="lvl-chip" onclick="show('n7',null)" style="border-color:var(--r);background:#fff8f8;"><div class="lvl-chip-av"><img src="glau.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Radar de fugas</div><div class="sub">Análisis profundo PRO</div></div><span class="lvl-num pro">N7</span></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Próximos pasos recomendados</div><span class="badge red">Accionar ahora</span></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 1:</strong> Registrar horas reales por cliente para saber cuánto cuesta realmente cada paquete.</div></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 2:</strong> Definir límites claros de seguimiento por WhatsApp — horarios, tipo de consultas y cuándo se requiere nueva sesión.</div></div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Prioridad 3:</strong> Posicionar Brasa Suave como producto principal usando la sesión individual como entrada al proceso.</div></div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Prioridad 4:</strong> Crear plantillas de resumen por sesión para ahorrar tiempo y estandarizar entregables.</div></div>
+        <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text"><strong>A mediano plazo:</strong> Validar la comunidad con un grupo piloto pequeño antes de escalar o invertir en plataforma.</div></div>
+      </div>
+    </div>
+
+<!-- N1 -->
+    <div class="panel" id="panel-n1">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="lumi.png" alt="lumi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 1 · Con Lumi</div>
+          <h2>"Sin esto, todo lo demás sería humo."</h2>
+          <p>Miramos la base del negocio: qué vendés, a quién, cómo lo explicás. Esta ficha puede compartirse con aliados, asesores o cualquier persona que necesite entender Cabu Coach.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge purple">Cabu Coach</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio · Para compartir</div><span class="badge purple">Shareable</span></div>
+          <div class="row-item"><div class="ri-icon p">🐉</div><div><div class="ri-label">Qué es</div><div class="ri-text">Cabu Coach es un servicio de acompañamiento para dragones jubilados que quieren ordenar su nueva etapa de vida sin caer en cursos eternos, frases vacías o retiros espirituales en volcanes carísimos. Cabu ayuda a convertir siglos de experiencia, cansancio y tesoros acumulados en una rutina más clara, ligera y con propósito.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">Sesiones individuales de claridad, Paquete Brasa Suave (mensual ligero), Paquete Tesoro en Orden (proceso profundo) y Comunidad Dragones en Reposo (mensual).</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🔧</div><div><div class="ri-label">Qué problema resuelve</div><div class="ri-text">Muchos dragones pasaron siglos protegiendo cuevas y acumulando oro, pero al jubilarse no saben cómo llenar su agenda sin sentirse perdidos o tentados a comprar otro curso de "despertá tu fuego interior". Cabu les ayuda a ordenar ideas, energía, tiempo y decisiones para vivir una nueva etapa con más calma y estructura.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">👤</div><div><div class="ri-label">Cliente actual</div><div class="ri-text">Dragones retirados o en transición que tienen recursos, experiencia y mucho tiempo libre, pero poca claridad sobre qué quieren hacer ahora.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Cliente ideal</div><div class="ri-text">Dragones jubilados que quieren acompañamiento práctico, discreto y personalizado para reorganizar su vida, crear nuevos proyectos o recuperar sentido sin sentirse tratados como principiantes.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Análisis estratégico</div><span class="badge amber">Lumi detectó</span></div>
+          <div class="row-item"><div class="ri-icon g">📡</div><div><div class="ri-label">Canales</div><div class="ri-text">Referencias entre dragones, WhatsApp, Instagram, comunidad privada y alianzas con castillos, cuevas premium y asesores patrimoniales.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🌟</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Cabu no vende motivación genérica. Vende acompañamiento práctico para dragones que ya vivieron mucho, tienen criterio propio y necesitan estructura, no frases pegadas en pergaminos.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">💡</div><div><div class="ri-label">Principal oportunidad</div><div class="ri-text">Convertir el servicio en paquetes claros con límites, entregables y seguimiento definido para evitar vender sesiones sueltas sin continuidad.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🎯</div><div><div class="ri-label">Posicionamiento recomendado</div><div class="ri-text">"Coaching discreto para dragones que ya lo tuvieron todo, menos claridad para su siguiente etapa."</div></div></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Los 4 productos</div><span class="badge purple">Estructura comercial</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;"><div style="font-size:20px;margin-bottom:6px;">🔥</div><div style="font-size:13px;font-weight:800;color:var(--p);">Sesión individual</div><div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">75 min · Claridad y siguiente paso · ₡45.000</div><div style="margin-top:6px;"><span class="badge purple">Entrada al proceso</span></div></div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;border:1px solid rgba(26,158,110,0.2);"><div style="font-size:20px;margin-bottom:6px;">🌿</div><div style="font-size:13px;font-weight:800;color:var(--g);">Brasa Suave ⭐</div><div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">2 sesiones + plan mensual + seguimiento · ₡120.000</div><div style="margin-top:6px;"><span class="badge green">Producto principal</span></div></div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;"><div style="font-size:20px;margin-bottom:6px;">💎</div><div style="font-size:13px;font-weight:800;color:#b06040;">Tesoro en Orden</div><div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">4 sesiones + mapa + plan de acción · ₡210.000</div><div style="margin-top:6px;"><span class="badge amber">Ticket alto</span></div></div>
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;"><div style="font-size:20px;margin-bottom:6px;">🏰</div><div style="font-size:13px;font-weight:800;color:var(--text);">Comunidad Dragones en Reposo</div><div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">Encuentros mensuales + recursos + conversación guiada · ₡18.000/mes</div></div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Cabu entiende que no vende "motivación para dragones", sino acompañamiento práctico para una etapa de vida que necesita orden, propósito y límites claros.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Ordenar paquetes, cobro, seguimiento y entregables para no vender acompañamiento infinito.</span></div><button class="nl-btn" onclick="show('n2',null)">Ir al Nivel 2 →</button></div>
+    </div>
+
+<!-- N2 -->
+    <div class="panel" id="panel-n2">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="carey.png" alt="carey" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 2 · Con Carey</div>
+          <h2>"Antes de acompañar a otros, hay que tener orden propio."</h2>
+          <p>Revisamos cómo funciona cada servicio de Cabu Coach: qué incluye, cómo se cobra, cómo se entrega y qué condiciones necesita tener claras para no volverse disponible 24/7.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Mapa operativo por línea</div><span class="badge purple">Estructura</span></div>
+
+          <div style="background:var(--pp);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:var(--p);margin-bottom:4px;">🔥 1. Sesión individual de claridad</div>
+            <div style="font-size:11px;font-weight:700;color:var(--p);opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Entrada al servicio · Diagnóstico inicial</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Primera sesión para entender la situación del dragón. 75 minutos con resumen y siguiente paso. Sirve como puente hacia los paquetes.</div>
+            <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🔥 Sesión 75 min + resumen + siguiente paso — ₡45.000</div>
+          </div>
+
+          <div style="background:var(--gp);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(26,158,110,0.2);">
+            <div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:4px;">🌿 2. Paquete Brasa Suave ⭐</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g);opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Producto principal · Acompañamiento mensual</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Acompañamiento mensual ligero. El producto más equilibrado entre precio, tiempo y valor entregado.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">✓ 2 sesiones individuales</div>
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">✓ Plan mensual personalizado</div>
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">✓ Seguimiento breve por WhatsApp · Total ₡120.000</div>
+            </div>
+          </div>
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:#b06040;margin-bottom:4px;">💎 3. Paquete Tesoro en Orden</div>
+            <div style="font-size:11px;font-weight:700;color:#b06040;opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Ticket alto · Proceso profundo</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Para dragones en transición que quieren un proceso más completo. Buen margen si se mantienen los límites.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(176,96,64,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">✓ 4 sesiones + mapa de prioridades + plan de acción · ₡210.000</div>
+            </div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;">
+            <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:4px;">🏰 4. Comunidad Dragones en Reposo</div>
+            <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Relación a largo plazo · ₡18.000/mes</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;">Encuentros mensuales, recursos y conversación guiada. Buena para continuidad, pero no debe sostener sola el negocio al inicio.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">Sistema de cobro y entrega</div><span class="badge green">Operativo</span></div>
+          <div class="formula">
+            <div class="formula-title">Flujo de cobro</div>
+            <div class="formula-row"><div class="fl">Sesión individual</div><div class="fv accent">Pago completo antes de agendar</div></div>
+            <div class="formula-row"><div class="fl">Brasa Suave</div><div class="fv">50% para reservar + 50% antes de 2ª sesión</div></div>
+            <div class="formula-row"><div class="fl">Tesoro en Orden</div><div class="fv">50% para iniciar + 50% a mitad del proceso</div></div>
+            <div class="formula-row"><div class="fl">Comunidad</div><div class="fv green">Pago mensual anticipado</div></div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Condiciones clave</div>
+            <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text">Paquetes con vigencia de 30 días — no son eternos ni se acumulan.</div></div>
+            <div class="alert-row high" style="margin-top:6px;"><div class="ar-dot high"></div><div class="ar-text">WhatsApp solo para dudas puntuales del proceso, no consultoría ilimitada.</div></div>
+            <div class="alert-row med" style="margin-top:6px;"><div class="ar-dot med"></div><div class="ar-text">Reagendamientos con mínimo 24 horas de anticipación.</div></div>
+            <div class="alert-row info" style="margin-top:6px;"><div class="ar-dot info"></div><div class="ar-text"><strong>Meta inicial:</strong> 4 paquetes Brasa Suave al mes + 10 miembros activos en comunidad.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Cabu ya tiene una estructura de servicio clara para acompañar sin convertirse en dragón disponible 24/7.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con el mapa operativo claro, el siguiente paso es confirmar si los precios y costos sostienen el negocio.</span></div><button class="nl-btn" onclick="show('n3',null)">Ir al Nivel 3 →</button></div>
+    </div>
+
+<!-- N3 -->
+    <div class="panel" id="panel-n3">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="regi.png" alt="regi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 3 · Con Regi</div>
+          <h2>"Un dragón puede tener mucho oro, pero Cabu no debe quemar su tiempo acompañando procesos sin límite."</h2>
+          <p>Revisamos cuánto cuesta realmente cada servicio, cuánto queda disponible y cuántas ventas necesita Cabu para sostener el negocio.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge amber">⚠ Medir horas por cliente</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Piso fijo mensual estimado</div><span class="badge red">₡720.000/mes</span></div>
+          <div class="formula">
+            <div class="formula-title">Desglose de costos fijos</div>
+            <div class="formula-row"><div class="fl">Herramientas digitales</div><div class="fv">₡35.000</div></div>
+            <div class="formula-row"><div class="fl">Espacio / reuniones ocasionales</div><div class="fv">₡80.000</div></div>
+            <div class="formula-row"><div class="fl">Pauta y contenido</div><div class="fv">₡45.000</div></div>
+            <div class="formula-row"><div class="fl">Administración</div><div class="fv">₡35.000</div></div>
+            <div class="formula-row"><div class="fl">Tiempo operativo Cabu</div><div class="fv">₡450.000</div></div>
+            <div class="formula-row"><div class="fl">Formación / supervisión</div><div class="fv">₡45.000</div></div>
+            <div class="formula-row"><div class="fl">Reserva</div><div class="fv">₡30.000</div></div>
+            <div class="formula-row"><div class="fl">Total estimado</div><div class="fv accent">₡720.000</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">División recomendada de ingresos</div><span class="badge purple">Regla simple</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Por cada servicio vendido, distribuir así:</div>
+          <div class="dist-row"><div class="dist-label">Pago profesional (50%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill p" style="width:50%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Operación (20%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill a" style="width:20%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reinversión / formación (15%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:15%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reserva (10%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:10%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Comunidad / contenido (5%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:5%;"></div></div></div></div>
+          <div class="alert-row info" style="margin-top:12px;"><div class="ar-dot info"></div><div class="ar-text"><strong>Con Brasa Suave a ₡120.000:</strong> disponible ₡70.000 · profesional ₡60.000 · operación ₡24.000 · formación ₡18.000 · reserva ₡12.000</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Desglose por servicio</div><span class="badge purple">Costo vs. disponible</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Servicio</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Precio</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Costo dir.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">50% Prof.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">20% Op.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">15% Form.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">10% Res.</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Servicio" style="padding:8px 10px;font-weight:700;">Sesión individual</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡45.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡18.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡27.000</td><td data-label="50% Prof." style="padding:8px 10px;text-align:right;color:var(--p);">₡22.500</td><td data-label="20% Op." style="padding:8px 10px;text-align:right;">₡9.000</td><td data-label="15% Form." style="padding:8px 10px;text-align:right;">₡6.750</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡4.500</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Servicio" style="padding:8px 10px;font-weight:800;color:var(--g);">Brasa Suave ⭐</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡120.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡50.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡70.000</td><td data-label="50% Prof." style="padding:8px 10px;text-align:right;color:var(--p);">₡60.000</td><td data-label="20% Op." style="padding:8px 10px;text-align:right;">₡24.000</td><td data-label="15% Form." style="padding:8px 10px;text-align:right;">₡18.000</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡12.000</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Servicio" style="padding:8px 10px;font-weight:700;">Tesoro en Orden</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡210.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡95.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡115.000</td><td data-label="50% Prof." style="padding:8px 10px;text-align:right;color:var(--p);">₡105.000</td><td data-label="20% Op." style="padding:8px 10px;text-align:right;">₡42.000</td><td data-label="15% Form." style="padding:8px 10px;text-align:right;">₡31.500</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡21.000</td></tr>
+              <tr><td data-label="Servicio" style="padding:8px 10px;font-weight:700;">Comunidad mensual</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡18.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡7.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡11.000</td><td data-label="50% Prof." style="padding:8px 10px;text-align:right;color:var(--p);">₡9.000</td><td data-label="20% Op." style="padding:8px 10px;text-align:right;">₡3.600</td><td data-label="15% Form." style="padding:8px 10px;text-align:right;">₡2.700</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡1.800</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Ventas necesarias para cubrir el piso mensual</div><span class="badge purple">Piso: ₡720.000/mes</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Servicio</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">¿Cuántas ventas cubren el piso?</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Servicio" style="padding:8px 10px;">Sesión individual</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡27.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">27 sesiones/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Servicio" style="padding:8px 10px;font-weight:800;color:var(--g);">Brasa Suave ⭐</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡70.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">11 paquetes/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Servicio" style="padding:8px 10px;">Tesoro en Orden</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡115.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">7 paquetes/mes</td></tr>
+              <tr><td data-label="Servicio" style="padding:8px 10px;">Comunidad mensual</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡11.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">66 miembros/mes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-row low" style="margin-top:12px;"><div class="ar-dot low"></div><div class="ar-text"><strong>Meta realista:</strong> 4 Brasa Suave + 1 Tesoro en Orden + 10 miembros comunidad = ₡490.000 disponibles. Cerca del piso con la mezcla correcta.</div></div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Semáforo financiero por línea</div><span class="badge purple">Lectura rápida</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Sesión individual:</strong> Amarillo — buena entrada, pero no debe sostener todo el negocio por volumen requerido.</div></div>
+            <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text"><strong>Brasa Suave:</strong> Verde — producto más equilibrado. La base del negocio.</div></div>
+          </div>
+          <div>
+            <div class="alert-row low"><div class="ar-dot low"></div><div class="ar-text"><strong>Tesoro en Orden:</strong> Verde con control — buen margen, pero necesita límites para no volverse infinito.</div></div>
+            <div class="alert-row med" style="margin-top:8px;"><div class="ar-dot med"></div><div class="ar-text"><strong>Comunidad:</strong> Amarillo — buena para continuidad, no para sostener sola el negocio al inicio.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:18px 20px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:900;color:var(--pl);margin-bottom:6px;">Frase recordatorio</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;font-style:italic;">"Un dragón puede tener mucho oro, pero Cabu no debe quemar su tiempo acompañando procesos sin límite."</div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Cabu identifica que sus paquetes, no las sesiones sueltas, sostienen mejor el negocio.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con los números más claros, el siguiente paso es revisar qué obligaciones y riesgos necesita ordenar.</span></div><button class="nl-btn" onclick="show('n4',null)">Ir al Nivel 4 →</button></div>
+    </div>
+
+<!-- N4 -->
+    <div class="panel" id="panel-n4">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="marty.png" alt="marty" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 4 · Con Marty</div>
+          <h2>"Un servicio sin límites de responsabilidad puede escupir fuego en la dirección equivocada."</h2>
+          <p>Este nivel no sustituye a una contadora, abogada o institución. Su función es mostrar qué necesita revisar Cabu Coach para operar con más seguridad profesional.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge red">⚠ Registrar horas por cliente</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">🔴 Revisar primero</div><span class="badge red">Prioridad alta</span></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Registro interno · Muy alta prioridad</div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar sesiones vendidas, paquetes activos y comunidad activa<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Medir horas reales por cliente — incluyendo tiempo fuera de sesión<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar seguimiento pendiente e ingresos por línea<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Calcular costo de adquisición por cliente<span class="ctag urgent">Urgente</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Límites de responsabilidad profesional</div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Definir por escrito que Cabu no sustituye terapia psicológica, asesoría financiera, legal ni médica<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Establecer alcance claro del servicio en términos de cada paquete<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Incluir cláusula de no garantía de resultados emocionales, financieros o de vida<span class="ctag soon">Pronto</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Hacienda</div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Actividad económica adecuada para coaching y acompañamiento<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Facturación electrónica, IVA aplicable y deducción de herramientas y formación<span class="ctag soon">Pronto</span></div></div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">🟡 Según crecimiento</div><span class="badge amber">Por etapas</span></div>
+
+          <div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 1 · Servicios individuales</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Registrar ingresos, horas y condiciones de cada proceso. Definir límites de responsabilidad.</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 2 · Paquetes recurrentes</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Formalizar facturación, política de pagos, límites de servicio y términos básicos por escrito.</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 3 · Comunidad o eventos</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Revisar privacidad, protección de datos, condiciones del grupo y responsabilidad profesional con escala.</div>
+          </div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Otros a revisar</div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">CCSS como trabajador/a independiente según ingresos<span class="ctag soon">Revisar</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Patente municipal si atiende presencialmente o alquila espacio<span class="ctag later">Revisar</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Privacidad y protección de datos si la comunidad paga crece<span class="ctag later">Futuro</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Condiciones legales antes de eventos o comunidad más grande<span class="ctag later">Futuro</span></div></div>
+        </div>
+      </div>
+
+      <div class="ordy-note" style="margin-top:16px;"><strong>Nota importante:</strong> Este nivel orienta qué revisar, pero no sustituye asesoría de contador/a o abogado/a. Consultá con un profesional antes de tomar decisiones legales o tributarias.</div>
+
+      <div class="logro" style="margin-top:16px;"><strong>🎉 Logro desbloqueado</strong><span>Cabu sabe qué revisar para ofrecer acompañamiento profesional sin asumir responsabilidades que no le corresponden.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las bases ordenadas, el siguiente paso es definir cómo comunicar valor, condiciones y límites a los clientes.</span></div><button class="nl-btn" onclick="show('n5',null)">Ir al Nivel 5 →</button></div>
+    </div>
+
+<!-- N5 -->
+    <div class="panel" id="panel-n5">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="cabu.png" alt="cabu" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 5 · Con Cabu</div>
+          <h2>"Ahora sí, veamos cómo relacionarnos con los clientes."</h2>
+          <p>Revisamos cómo Cabu Coach habla con interesados y clientes: servicios, precios, límites de WhatsApp, reagendamientos y mensajes listos para no improvisar cada conversación.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Políticas activas</div><span class="badge green">Definidas</span></div>
+          <div class="row-item"><div class="ri-icon p">💳</div><div><div class="ri-label">Pagos</div><div class="ri-text">Sesiones: pago completo antes de agendar. Paquetes: 50% para reservar, 50% a mitad del proceso.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">⏳</div><div><div class="ri-label">Vigencia</div><div class="ri-text">Los paquetes tienen vigencia de 30 días. No se acumulan ni transfieren al siguiente mes.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">📅</div><div><div class="ri-label">Reagendamientos</div><div class="ri-text">Solo con mínimo 24 horas de anticipación. Sin ese plazo, la sesión se pierde.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">💬</div><div><div class="ri-label">WhatsApp</div><div class="ri-text">Para dudas puntuales del proceso. No es consultoría ilimitada ni sesión extendida.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🏰</div><div><div class="ri-label">Comunidad</div><div class="ri-text">No sustituye sesiones individuales. Es para continuidad y pertenencia.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🚫</div><div><div class="ri-label">Alcance</div><div class="ri-text">Cabu no sustituye terapia, asesoría financiera, legal ni médica. Sin garantías de resultados.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Objeción principal detectada</div><span class="badge red">⚠ Preparate</span></div>
+          <div style="background:var(--rp);border:1px solid var(--r);border-radius:12px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:800;color:var(--r);margin-bottom:6px;">💬 "¿Por qué pagar coaching si puedo resolverlo solo?"</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.6;">No se trata de decirle al dragón quién es, sino de ayudarle a organizar qué quiere hacer con todo lo que ya vivió. El mensaje completo está en la biblioteca abajo.</div>
+          </div>
+          <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text">El cliente ideal ya tiene criterio propio. Cabu no vende revelaciones, vende estructura y orden.</div></div>
+          <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text">Ordy generó <strong>12 mensajes listos para copiar</strong> para los escenarios más comunes de Cabu Coach.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:0;">
+        <div class="ch">
+          <div>
+            <div class="ch-title">Biblioteca de respuestas · Lista para usar</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">12 mensajes generados para Cabu Coach</div>
+          </div>
+          <span class="badge green">✓ Lista</span>
+        </div>
+        <div class="alert-row info" style="margin-bottom:16px;">
+          <div class="ar-dot info"></div>
+          <div class="ar-text">Con base en tus respuestas, Ordy preparó una biblioteca inicial de mensajes para que no tengás que improvisar cada conversación. Pensados para comunicar valor, explicar límites y manejar objeciones sin sonar rígido ni motivacional de volcán.</div>
+        </div>
+        <style>
+          .msg-card{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+          .msg-card:last-child{margin-bottom:0;}
+          .msg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;background:var(--bg);gap:12px;}
+          .msg-header:hover{background:#ebebf8;}
+          .msg-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+          .msg-icon{font-size:20px;flex-shrink:0;}
+          .msg-name{font-size:13px;font-weight:800;color:var(--text);}
+          .msg-context{font-size:11px;color:var(--muted);margin-top:1px;line-height:1.4;}
+          .msg-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+          .copy-btn{background:var(--pp);color:var(--p);border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.15s;white-space:nowrap;}
+          .copy-btn:hover{background:var(--p);color:#fff;}
+          .copy-btn.copied{background:var(--gp);color:var(--g);}
+          .chevron{font-size:18px;color:var(--muted);font-weight:700;transition:transform 0.2s;display:inline-block;}
+          .chevron.open{transform:rotate(90deg);}
+          .msg-body{padding:0 16px 16px;background:#fff;}
+          .msg-text{font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;background:var(--bg);border-radius:10px;padding:14px;margin-top:12px;border:1px solid var(--border);}
+          .msg-nota{background:var(--ap);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--text);line-height:1.5;margin-top:10px;}
+        </style>
+        <div id="msg-list-cabu">
+          
+<div class="msg-card" id="card-inicial">
+  <div class="msg-header" onclick="toggleMsg('inicial')">
+    <div class="msg-left">
+      <span class="msg-icon">🐉</span>
+      <div>
+        <div class="msg-name">Consulta inicial</div>
+        <div class="msg-context">Cuando alguien pregunta qué es Cabu Coach.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'inicial')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-inicial">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-inicial" style="display:none;">
+    <pre class="msg-text" id="text-inicial">¡Hola! Cabu acompaña a dragones jubilados que quieren ordenar su nueva etapa con más claridad, calma y estructura.\n\nNo vendemos motivación genérica ni cursos eternos. Ayudamos a convertir siglos de experiencia y tesoros acumulados en una rutina más ligera y con propósito.\n\n¿Qué te trajo hasta acá?</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-sesion">
+  <div class="msg-header" onclick="toggleMsg('sesion')">
+    <div class="msg-left">
+      <span class="msg-icon">🔥</span>
+      <div>
+        <div class="msg-name">Explicar sesión individual</div>
+        <div class="msg-context">Cuando preguntan cómo funciona la primera sesión.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'sesion')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-sesion">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-sesion" style="display:none;">
+    <pre class="msg-text" id="text-sesion">La sesión individual sirve para entender dónde estás, qué querés ordenar y cuál podría ser el siguiente paso más realista para vos.\n\nDura 75 minutos, incluye un resumen breve al final y una recomendación de próximo paso. Se agenda con pago previo.\n\nEl valor es ₡45.000.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Usar esta sesión como entrada, luego ofrecer Brasa Suave como proceso.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-brasa">
+  <div class="msg-header" onclick="toggleMsg('brasa')">
+    <div class="msg-left">
+      <span class="msg-icon">🌿</span>
+      <div>
+        <div class="msg-name">Explicar Paquete Brasa Suave</div>
+        <div class="msg-context">Cuando preguntan por el paquete mensual.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'brasa')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-brasa">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-brasa" style="display:none;">
+    <pre class="msg-text" id="text-brasa">Brasa Suave incluye 2 sesiones, un plan mensual personalizado y seguimiento breve. Es ideal si querés ordenar tu rutina sin meterte en un proceso pesado.\n\nTiene vigencia de 30 días y el valor es ₡120.000 (50% para reservar, 50% antes de la segunda sesión).</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Este es el producto principal. Siempre ofrecerlo después de la sesión individual.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-tesoro">
+  <div class="msg-header" onclick="toggleMsg('tesoro')">
+    <div class="msg-left">
+      <span class="msg-icon">💎</span>
+      <div>
+        <div class="msg-name">Explicar Paquete Tesoro en Orden</div>
+        <div class="msg-context">Cuando buscan algo más completo o intensivo.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'tesoro')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-tesoro">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-tesoro" style="display:none;">
+    <pre class="msg-text" id="text-tesoro">Tesoro en Orden es un proceso más completo. Incluye 4 sesiones, un mapa de prioridades y un plan de acción para una transición más profunda.\n\nEs ideal para dragones que quieren ordenar una etapa nueva de forma más estructurada. Valor: ₡210.000 (50% para iniciar, 50% a mitad del proceso).</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-comunidad">
+  <div class="msg-header" onclick="toggleMsg('comunidad')">
+    <div class="msg-left">
+      <span class="msg-icon">🏰</span>
+      <div>
+        <div class="msg-name">Explicar la Comunidad</div>
+        <div class="msg-context">Cuando preguntan por el espacio comunitario.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'comunidad')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-comunidad">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-comunidad" style="display:none;">
+    <pre class="msg-text" id="text-comunidad">La Comunidad Dragones en Reposo es un espacio privado para dragones que ya completaron algún proceso con Cabu o quieren mantenerse conectados.\n\nIncluye encuentros mensuales, recursos y conversación guiada. No sustituye sesiones individuales. El valor es ₡18.000 al mes, con pago anticipado.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Aclarar que la comunidad no reemplaza el acompañamiento individual.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-objecion_precio">
+  <div class="msg-header" onclick="toggleMsg('objecion_precio')">
+    <div class="msg-left">
+      <span class="msg-icon">🤔</span>
+      <div>
+        <div class="msg-name">Objeción: precio elevado</div>
+        <div class="msg-context">Cuando el cliente dice que le parece caro.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'objecion_precio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-objecion_precio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-objecion_precio" style="display:none;">
+    <pre class="msg-text" id="text-objecion_precio">El valor no está solo en la sesión. Está en tener claridad, estructura, seguimiento y decisiones ordenadas para una etapa que no querés seguir improvisando.\n\nA diferencia de un curso genérico, esto es personalizado para tu situación específica — no para un dragón promedio, sino para vos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No bajar el precio. El cliente ideal entiende el valor del acompañamiento personalizado.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-objecion_solo">
+  <div class="msg-header" onclick="toggleMsg('objecion_solo')">
+    <div class="msg-left">
+      <span class="msg-icon">💭</span>
+      <div>
+        <div class="msg-name">Objeción: puedo resolverlo solo</div>
+        <div class="msg-context">Cuando dicen que no necesitan acompañamiento.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'objecion_solo')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-objecion_solo">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-objecion_solo" style="display:none;">
+    <pre class="msg-text" id="text-objecion_solo">Podés resolver muchas cosas solo. Cabu existe para ayudarte a ordenar lo que ya sabés, priorizar mejor y sostener una nueva etapa sin cargar todo mentalmente.\n\nNo se trata de decirte quién sos, sino de ayudarte a organizar qué querés hacer con todo lo que ya viviste.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-reagendar">
+  <div class="msg-header" onclick="toggleMsg('reagendar')">
+    <div class="msg-left">
+      <span class="msg-icon">📅</span>
+      <div>
+        <div class="msg-name">Reagendar sesión</div>
+        <div class="msg-context">Cuando el cliente quiere cambiar la fecha de su sesión.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'reagendar')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-reagendar">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-reagendar" style="display:none;">
+    <pre class="msg-text" id="text-reagendar">Claro, podemos reagendar con al menos 24 horas de anticipación. Así protegemos tu espacio y la agenda del proceso.\n\nContame qué horario te queda mejor y lo coordinamos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No reagendar si avisan menos de 24 horas. La política existe para proteger el tiempo de Cabu.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-whatsapp">
+  <div class="msg-header" onclick="toggleMsg('whatsapp')">
+    <div class="msg-left">
+      <span class="msg-icon">💬</span>
+      <div>
+        <div class="msg-name">Límites de WhatsApp</div>
+        <div class="msg-context">Cuando el cliente empieza a consultar cosas extensas por WhatsApp.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'whatsapp')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-whatsapp">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-whatsapp" style="display:none;">
+    <pre class="msg-text" id="text-whatsapp">El WhatsApp es para dudas puntuales del proceso, no para sesiones extendidas. Si lo que necesitás requiere más tiempo y profundidad, lo trabajamos en una sesión formal.\n\nPodemos agendar una si lo necesitás.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Ser claro y amable. Si el límite no se define, el WhatsApp se convierte en consultoría ilimitada.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-vencimiento">
+  <div class="msg-header" onclick="toggleMsg('vencimiento')">
+    <div class="msg-left">
+      <span class="msg-icon">⏳</span>
+      <div>
+        <div class="msg-name">Paquete por vencer</div>
+        <div class="msg-context">Cuando el cliente no ha usado sus sesiones a tiempo.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'vencimiento')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-vencimiento">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-vencimiento" style="display:none;">
+    <pre class="msg-text" id="text-vencimiento">Paso a recordarte que tu paquete tiene vigencia de 30 días y está próximo a vencer. Para aprovechar las sesiones restantes, agendemos esta semana.\n\nSi no alcanzamos a usarlas dentro del plazo, no se acumulan para el siguiente mes.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Enviar con anticipación, no el día que vence.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-terapia">
+  <div class="msg-header" onclick="toggleMsg('terapia')">
+    <div class="msg-left">
+      <span class="msg-icon">🚫</span>
+      <div>
+        <div class="msg-name">Aclarar alcance del servicio</div>
+        <div class="msg-context">Cuando el cliente espera que Cabu resuelva algo que va más allá del coaching.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'terapia')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-terapia">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-terapia" style="display:none;">
+    <pre class="msg-text" id="text-terapia">Quiero ser clara con vos: Cabu ofrece acompañamiento para ordenar tu etapa, no terapia psicológica, asesoría financiera, legal ni médica.\n\nSi lo que necesitás requiere esa especialización, con gusto te puedo orientar hacia quién podría ayudarte mejor.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Decirlo con amabilidad pero con firmeza. Es necesario para proteger al cliente y a Cabu.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-cierre">
+  <div class="msg-header" onclick="toggleMsg('cierre')">
+    <div class="msg-left">
+      <span class="msg-icon">✅</span>
+      <div>
+        <div class="msg-name">Cerrar proceso con el cliente</div>
+        <div class="msg-context">Cuando el paquete o proceso llega a su fin.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'cierre')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-cierre">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-cierre" style="display:none;">
+    <pre class="msg-text" id="text-cierre">Ha sido un placer acompañarte en este proceso. Espero que lo que trabajamos juntos te ayude a navegar tu nueva etapa con más claridad y menos ruido en la cabeza.\n\nCuando sientas que querés retomar, ya sabés dónde encontrarme.</pre>
+    
+  </div>
+</div>
+
+        </div>
+        <script>
+          var msgTextsCabu = {
+  'inicial': `¡Hola! Cabu acompaña a dragones jubilados que quieren ordenar su nueva etapa con más claridad, calma y estructura.\n\nNo vendemos motivación genérica ni cursos eternos. Ayudamos a convertir siglos de experiencia y tesoros acumulados en una rutina más ligera y con propósito.\n\n¿Qué te trajo hasta acá?`,
+  'sesion': `La sesión individual sirve para entender dónde estás, qué querés ordenar y cuál podría ser el siguiente paso más realista para vos.\n\nDura 75 minutos, incluye un resumen breve al final y una recomendación de próximo paso. Se agenda con pago previo.\n\nEl valor es ₡45.000.`,
+  'brasa': `Brasa Suave incluye 2 sesiones, un plan mensual personalizado y seguimiento breve. Es ideal si querés ordenar tu rutina sin meterte en un proceso pesado.\n\nTiene vigencia de 30 días y el valor es ₡120.000 (50% para reservar, 50% antes de la segunda sesión).`,
+  'tesoro': `Tesoro en Orden es un proceso más completo. Incluye 4 sesiones, un mapa de prioridades y un plan de acción para una transición más profunda.\n\nEs ideal para dragones que quieren ordenar una etapa nueva de forma más estructurada. Valor: ₡210.000 (50% para iniciar, 50% a mitad del proceso).`,
+  'comunidad': `La Comunidad Dragones en Reposo es un espacio privado para dragones que ya completaron algún proceso con Cabu o quieren mantenerse conectados.\n\nIncluye encuentros mensuales, recursos y conversación guiada. No sustituye sesiones individuales. El valor es ₡18.000 al mes, con pago anticipado.`,
+  'objecion_precio': `El valor no está solo en la sesión. Está en tener claridad, estructura, seguimiento y decisiones ordenadas para una etapa que no querés seguir improvisando.\n\nA diferencia de un curso genérico, esto es personalizado para tu situación específica — no para un dragón promedio, sino para vos.`,
+  'objecion_solo': `Podés resolver muchas cosas solo. Cabu existe para ayudarte a ordenar lo que ya sabés, priorizar mejor y sostener una nueva etapa sin cargar todo mentalmente.\n\nNo se trata de decirte quién sos, sino de ayudarte a organizar qué querés hacer con todo lo que ya viviste.`,
+  'reagendar': `Claro, podemos reagendar con al menos 24 horas de anticipación. Así protegemos tu espacio y la agenda del proceso.\n\nContame qué horario te queda mejor y lo coordinamos.`,
+  'whatsapp': `El WhatsApp es para dudas puntuales del proceso, no para sesiones extendidas. Si lo que necesitás requiere más tiempo y profundidad, lo trabajamos en una sesión formal.\n\nPodemos agendar una si lo necesitás.`,
+  'vencimiento': `Paso a recordarte que tu paquete tiene vigencia de 30 días y está próximo a vencer. Para aprovechar las sesiones restantes, agendemos esta semana.\n\nSi no alcanzamos a usarlas dentro del plazo, no se acumulan para el siguiente mes.`,
+  'terapia': `Quiero ser clara con vos: Cabu ofrece acompañamiento para ordenar tu etapa, no terapia psicológica, asesoría financiera, legal ni médica.\n\nSi lo que necesitás requiere esa especialización, con gusto te puedo orientar hacia quién podría ayudarte mejor.`,
+  'cierre': `Ha sido un placer acompañarte en este proceso. Espero que lo que trabajamos juntos te ayude a navegar tu nueva etapa con más claridad y menos ruido en la cabeza.\n\nCuando sientas que querés retomar, ya sabés dónde encontrarme.`,
+};
+          function toggleMsg(id) {
+            var body = document.getElementById('body-' + id);
+            var chev = document.getElementById('chev-' + id);
+            if (!body) return;
+            if (body.style.display === 'none') { body.style.display = 'block'; chev.classList.add('open'); }
+            else { body.style.display = 'none'; chev.classList.remove('open'); }
+          }
+          function copyMsg(event, id) {
+            event.stopPropagation();
+            var text = msgTextsCabu[id];
+            navigator.clipboard.writeText(text).then(function() {
+              var btn = event.target; var original = btn.textContent;
+              btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+              setTimeout(function() { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
+            });
+          }
+        </script>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Cabu puede comunicar su valor, límites y proceso sin sonar rígido, terapéutico ni motivacional de volcán.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las comunicaciones ordenadas, el siguiente paso es decidir qué herramientas usar y en qué orden crecer.</span></div><button class="nl-btn" onclick="show('n6',null)">Ir al Nivel 6 →</button></div>
+    </div>
+
+<!-- N6 -->
+    <div class="panel" id="panel-n6">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="pepe.png" alt="pepe" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 6 · Con Pepe</div>
+          <h2>"No necesitás más herramientas. Necesitás menos fricción."</h2>
+          <p>Analizamos qué ya tiene Cabu Coach, qué conviene implementar pronto y qué puede esperar para no construir infraestructura antes de validar el modelo.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Herramientas actuales · Ya las tenés</div><span class="badge green">Usar mejor</span></div>
+        <div class="tools-grid">
+          <div class="tool-card"><div class="tool-emoji">💬</div><div class="tool-name">WhatsApp</div><div class="tool-st">Atención y seguimiento</div></div>
+          <div class="tool-card"><div class="tool-emoji">📅</div><div class="tool-name">Google Calendar</div><div class="tool-st">Agenda de sesiones</div></div>
+          <div class="tool-card"><div class="tool-emoji">🎥</div><div class="tool-name">Google Meet / Zoom</div><div class="tool-st">Sesiones virtuales</div></div>
+          <div class="tool-card"><div class="tool-emoji">🎨</div><div class="tool-name">Canva</div><div class="tool-st">Contenido y entregables</div></div>
+          <div class="tool-card"><div class="tool-emoji">☁️</div><div class="tool-name">Google Drive</div><div class="tool-st">Materiales y resúmenes</div></div>
+          <div class="tool-card"><div class="tool-emoji">📸</div><div class="tool-name">Instagram</div><div class="tool-st">Posicionamiento</div></div>
+          <div class="tool-card"><div class="tool-emoji">🤝</div><div class="tool-name">Referencias personales</div><div class="tool-st">Canal principal de entrada</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Implementar pronto</div><span class="badge amber">Prioritario</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Para qué</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Agenda</td><td data-label="Herramienta" style="padding:8px 10px;">Calendly o Google Calendar con link</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Evitar coordinación manual excesiva de sesiones</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Clientes</td><td data-label="Herramienta" style="padding:8px 10px;">Google Sheets o Notion</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Controlar paquetes activos, sesiones usadas y vencimientos</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Pagos</td><td data-label="Herramienta" style="padding:8px 10px;">Carpeta de comprobantes</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Confirmar reservas, pagos y saldos pendientes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Entregables</td><td data-label="Herramienta" style="padding:8px 10px;">Plantillas de resumen de sesión</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Ahorrar tiempo después de cada sesión y estandarizar</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Comunidad</td><td data-label="Herramienta" style="padding:8px 10px;">WhatsApp privado piloto</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Validar membresía sin invertir en plataforma cara</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">Contenido</td><td data-label="Herramienta" style="padding:8px 10px;">Calendario simple de publicaciones</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Explicar problemas comunes de dragones jubilados sin frases de volcán</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Dejar para después</div><span class="badge purple">No gastar todavía</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Por qué espera</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Plataforma de cursos</td><td data-label="Herramienta" style="padding:8px 10px;">LMS (Teachable, Kajabi)</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Cabu no vende cursos todavía</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">App privada</td><td data-label="Herramienta" style="padding:8px 10px;">Desarrollo propio</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">No hay volumen suficiente para justificarlo</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Comunidad premium</td><td data-label="Herramienta" style="padding:8px 10px;">Circle / Mighty Networks</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">WhatsApp basta para validar el modelo primero</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Equipo de coaches</td><td data-label="Herramienta" style="padding:8px 10px;">Contratación</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Primero validar metodología propia</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Eventos grandes</td><td data-label="Herramienta" style="padding:8px 10px;">Producción de eventos</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Iniciar con encuentros pequeños y validar demanda</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">Automatización avanzada</td><td data-label="Herramienta" style="padding:8px 10px;">Flujos complejos</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Primero estabilizar paquetes y seguimiento manual</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Orden de inversiones</div><span class="badge purple">Ejecutar así</span></div>
+        <div class="action-item"><div class="a-num red">1</div><div class="a-text">Plantillas de sesión y resumen por tipo de proceso</div></div>
+        <div class="action-item"><div class="a-num red">2</div><div class="a-text">Sistema de agenda con link de reserva</div></div>
+        <div class="action-item"><div class="a-num red">3</div><div class="a-text">Control de clientes activos, sesiones y vencimientos</div></div>
+        <div class="action-item"><div class="a-num">4</div><div class="a-text">Página simple de servicios con precios y condiciones</div></div>
+        <div class="action-item"><div class="a-num">5</div><div class="a-text">Comunidad piloto con grupo pequeño de WhatsApp</div></div>
+        <div class="action-item"><div class="a-num">6</div><div class="a-text">Testimonios con autorización de dragones satisfechos</div></div>
+        <div class="action-item"><div class="a-num">7</div><div class="a-text">Encuentros pequeños para validar formato grupal</div></div>
+        <div class="action-item"><div class="a-num">8</div><div class="a-text">Plataforma propia si la comunidad crece y lo justifica</div></div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Cabu puede crecer como servicio boutique sin convertirse en curso masivo ni acompañamiento desordenado.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con toda la información acumulada, Glau detecta dónde se escapan los recursos más importantes.</span></div><button class="nl-btn" onclick="show('n7',null)">Ir al Nivel 7 →</button></div>
+    </div>
+
+<!-- N7 -->
+    <div class="panel" id="panel-n7">
+      <div class="mascot-hero" style="background:var(--dark);border-color:var(--dark);">
+        <div class="mh-mascot dark-bg"><img src="glau.png" alt="glau" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 7 · Con Glau · Exclusivo Pro</div>
+          <h2 style="color:#fff;">"Vamos a detectar fugas."</h2>
+          <p style="color:rgba(255,255,255,0.55);">Cabu tiene una propuesta diferenciada, memorable y con alto valor percibido. El mayor riesgo no está en materiales ni inventario, sino en tiempo, límites, expectativas y promesas.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(249,70,70,0.2);color:#ff8a8a;">PRO Activo</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Lectura general</div><span class="badge red">Diagnóstico Ordy</span></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:16px;">Al ser un servicio intangible, el mayor riesgo de Cabu no está en costos de materia prima, sino en horas invisibles, expectativas sin límite y promesas que pueden volverse responsabilidades no acordadas.</div>
+        <div class="g2" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">🔥</div><div style="font-size:13px;font-weight:800;color:var(--p);">Sesión individual</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Entrada al proceso</div></div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(26,158,110,0.2);"><div style="font-size:20px;margin-bottom:6px;">🌿</div><div style="font-size:13px;font-weight:800;color:var(--g);">Brasa Suave</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Producto principal y base del negocio</div></div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">💎</div><div style="font-size:13px;font-weight:800;color:#b06040;">Tesoro en Orden</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Ticket alto con límites claros</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Resumen del radar</div><span class="badge red">5 fugas analizadas</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Fuga</th>
+              <th style="padding:8px 10px;text-align:center;font-weight:800;color:var(--muted);">Alerta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Qué significa</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">⏱️ Servicio demasiado personalizado</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Puede consumir demasiado tiempo por cliente sin método repetible</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">💬 Seguimiento sin límites</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">WhatsApp puede convertirse en disponibilidad constante no cobrada</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🎯 Promesa poco delimitada</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media-alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">El cliente puede esperar transformación total de vida</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🔥 Sesiones sueltas</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Generan ingreso puntual pero no sostienen el negocio a largo plazo</td></tr>
+              <tr><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🏰 Comunidad poco definida</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Puede requerir mucho esfuerzo si no tiene estructura y temario claro</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">⏱️ Servicio demasiado personalizado</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Cada dragón llega con una historia, tesoro y crisis distinta. La personalización es valor, pero sin método repetible puede comerse todo el tiempo de Cabu.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> usar plantillas de sesión, mapas de prioridades y entregables repetibles por tipo de proceso.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">💬 Seguimiento sin límites</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">WhatsApp puede convertirse en "Cabu, estoy teniendo otra revelación en la cueva". El seguimiento acompaña, pero no debe abrir una puerta eterna.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> definir horarios, tipo de dudas incluidas y cuándo se requiere nueva sesión formal.</div></div>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-top:16px;">
+        <div class="card">
+          <div class="ch"><div class="ch-title">🎯 Promesa poco delimitada</div><span class="badge amber">Media-alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">El coaching puede sonar como transformación total de vida. Cabu debe vender claridad y estructura, no garantizar propósito eterno.</div>
+          <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> aclarar alcance, evitar promesas absolutas y diferenciarse de terapia o asesoría financiera/legal.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">🔥 Sesiones sueltas como base</div><span class="badge amber">Media</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Las sesiones individuales generan ingreso, pero pueden dejar procesos incompletos y no sostienen el negocio de forma predecible.</div>
+          <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> usar la sesión individual como diagnóstico y ofrecer Brasa Suave como siguiente paso natural.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:16px;">
+        <div class="ch"><div class="ch-title">🏰 Comunidad poco definida</div><span class="badge amber">Media</span></div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">La comunidad puede volverse un grupo sin foco que pide mucho y retiene poco si no tiene estructura, frecuencia y beneficios claros.</div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> definir frecuencia de encuentros, temas mensuales, reglas del grupo y beneficios concretos antes de escalar.</div></div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Fuga principal detectada</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;margin-bottom:14px;"><strong style="color:var(--pl);">Acompañamiento demasiado personalizado sin límites claros.</strong> Cabu puede dedicar horas invisibles entre sesiones — seguimiento, preparación, respuestas — sin que eso esté cobrado ni medido. Sin ese control, el negocio puede sentirse ocupado pero no rentable.</div>
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Mayor oportunidad detectada</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;">Convertir el coaching en <strong style="color:#fff;">paquetes con metodología clara, entregables simples y seguimiento delimitado</strong>. El Brasa Suave ya existe — lo que falta es medirlo, estandarizarlo y usarlo como base de todo el negocio.</div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Decisiones estratégicas recomendadas</div><span class="badge purple">Próxima etapa</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="action-item"><div class="a-num red">1</div><div class="a-text">Posicionar Brasa Suave como producto principal</div></div>
+            <div class="action-item"><div class="a-num red">2</div><div class="a-text">Usar sesión individual solo como entrada al proceso</div></div>
+            <div class="action-item"><div class="a-num red">3</div><div class="a-text">Crear plantillas de resumen por sesión</div></div>
+            <div class="action-item"><div class="a-num">4</div><div class="a-text">Definir límites claros de WhatsApp y comunicarlos</div></div>
+          </div>
+          <div>
+            <div class="action-item"><div class="a-num">5</div><div class="a-text">Evitar prometer transformación garantizada</div></div>
+            <div class="action-item"><div class="a-num">6</div><div class="a-text">Validar comunidad con grupo piloto pequeño</div></div>
+            <div class="action-item"><div class="a-num">7</div><div class="a-text">Medir horas reales invertidas por cliente</div></div>
+            <div class="action-item"><div class="a-num">8</div><div class="a-text">Crear contenido sobre retiro, propósito y rutina sin frases de volcán</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="logro"><strong>🎯 Valor desbloqueado</strong><span>Cabu puede acompañar con profundidad sin perder estructura, tiempo ni claridad comercial.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Revisión mensual</strong><span>El siguiente paso es revisar paquetes vendidos, horas invertidas, retención en comunidad y claridad de promesa cada mes.</span></div><button class="nl-btn" onclick="show('n8',null)">Ver Nivel 8 →</button></div>
+    </div>
+
+<!-- N8 -->
+    <div class="panel" id="panel-n8">
+      <div class="mascot-hero" style="background:linear-gradient(135deg,#1a1a2e,#2d2d4e);border-color:#2d2d4e;">
+        <div class="mh-mascot" style="font-size:64px;">🔒</div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 8 · Próximamente</div>
+          <h2 style="color:#fff;">Comunidad Ordy</h2>
+          <p style="color:rgba(255,255,255,0.5);">Cuando más negocios usan la plataforma, más claro se vuelve qué herramientas, recursos y mejoras hacen falta.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(187,187,252,0.15);color:var(--pl);">Próximamente</span></div>
+        </div>
+      </div>
+      <div class="locked-panel">
+        <div class="lock-icon">🌊</div>
+        <div class="lock-title">Este nivel se desbloquea con la comunidad</div>
+        <div class="lock-text">El Nivel 8 es el espacio donde los negocios que ya ordenaron su base se juntan para aprender, compartir y votar por las próximas herramientas de Ordy.<br><br>Ingresá a nuestro grupo de networking en WhatsApp y ayudanos a entender qué otras herramientas podríamos integrar.</div>
+        <button class="lock-btn" onclick="window.open('https://chat.whatsapp.com/FiiqKunmfSDJeRsq2TFU5y?s=cl&p=i&ilr=2&amv=0','_blank')">Unirme al grupo de WhatsApp →</button>
+      </div>
+    </div>
+
+    <!-- PLAN 30 -->
+  <div class="footer" style="margin-top:0;">
+    <div class="footer-logo">
+      <div class="footer-logo-av"><img src="ordy.png" alt="ordy" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+      <div><strong>Cabu Coach</strong><span>Un sistema de orden para tu negocio</span></div>
+    </div>
+    <div class="footer-info">Dashboard Pro · Ordy · Junio 2025 · ordy.cr</div>
+  </div>
+</main>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  document.getElementById('panel-' + id).classList.add('on');
+  if (btn) btn.classList.add('on');
+  var titles = {
+    bienvenida:['Inicio · Ordy','Ordy · Sistema de orden'],
+    overview:['Vista General','Ordy · Sistema de orden Pro'],
+    n1:['Nivel 1 · Entendé tu negocio','Con Lumi · Cabu Coach'],
+    n2:['Nivel 2 · Orden operativo','Con Carey · Cabu Coach'],
+    n3:['Nivel 3 · Plata sin autoengaño','Con Regi · Cabu Coach'],
+    n4:['Nivel 4 · Formalización','Con Marty · Cabu Coach'],
+    n5:['Nivel 5 · Clientes y políticas','Con Cabu · Cabu Coach'],
+    n6:['Nivel 6 · Crecimiento ordenado','Con Pepe · Cabu Coach'],
+    n7:['Nivel 7 · Radar de fugas','Con Glau · PRO · Cabu Coach'],
+    n8:['Nivel 8 · Comunidad','Próximamente · Ordy']
+  };
+  if (titles[id]) {
+    document.getElementById('page-title').textContent = titles[id][0];
+    document.getElementById('page-sub').textContent = titles[id][1];
+  }
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

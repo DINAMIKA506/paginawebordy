@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Velas Regi | Dashboard de ejemplo Ordy</title>
+<meta name="description" content="Explorá cómo un negocio de productos puede usar Ordy para revisar costos, márgenes y rentabilidad."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.ordenyplan.com/dashboards/regi"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.ordenyplan.com/dashboards/regi"/>
+<meta property="og:title" content="Velas Regi | Dashboard de ejemplo Ordy"/>
+<meta property="og:description" content="Explorá cómo un negocio de productos puede usar Ordy para revisar costos, márgenes y rentabilidad."/>
+<meta property="og:image" content="https://www.ordenyplan.com/ordy-social-share.png"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --p:#4e4bf7;--pl:#bbbbfc;--pp:#f0f0ff;
+  --r:#f94646;--rp:#fff0f0;
+  --g:#1a9e6e;--gp:#e6f7f1;
+  --a:#f7a600;--ap:#fff8e6;
+  --dark:#1a1a2e;--text:#2d2d4e;--muted:#8888aa;
+  --border:#e8e8f0;--bg:#f4f4f8;--white:#fff;--cream:#fdf2ed;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sb{width:236px;min-width:236px;background:var(--dark);min-height:100vh;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;overflow-y:auto;z-index:100;}
+.sb-logo{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;cursor:pointer;}
+.sb-logo-av{width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
+.sb-logo-av img{width:40px;height:40px;object-fit:contain;}
+.sb-logo-text span{display:block;font-size:20px;font-weight:900;color:#fff;}
+.sb-logo-text small{font-size:9px;color:var(--pl);letter-spacing:2px;text-transform:uppercase;}
+.sb-sec{padding:14px 14px 6px;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28);}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:1px 6px;border-radius:10px;cursor:pointer;transition:all 0.12s;border:none;background:transparent;width:calc(100% - 12px);text-align:left;}
+.ni:hover{background:rgba(255,255,255,0.06);}
+.ni.on{background:var(--p);}
+.ni-av{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.ni-av img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3));}
+.ni-av.emoji{font-size:16px;}
+.ni-info{flex:1;min-width:0;}
+.ni-name{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ni-lvl{font-size:10px;color:rgba(255,255,255,0.38);}
+.ni.on .ni-lvl{color:var(--pl);}
+.nb{font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;flex-shrink:0;}
+.nb.ok{background:rgba(26,158,110,0.2);color:#4cdf9e;}
+.nb.pro{background:rgba(249,70,70,0.2);color:#ff8a8a;}
+.nb.lock{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);}
+.sb-bottom{margin-top:auto;padding:14px;border-top:1px solid rgba(255,255,255,0.07);}
+.sb-client{background:var(--p);border-radius:10px;padding:12px;}
+.sb-client strong{display:block;font-size:13px;color:#fff;}
+.sb-client span{font-size:10px;color:var(--pl);margin-top:2px;display:block;}
+.main{margin-left:236px;flex:1;display:flex;flex-direction:column;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.tb-left strong{font-size:17px;font-weight:900;color:var(--text);display:block;}
+.tb-left span{font-size:11px;color:var(--muted);}
+.tb-right{display:flex;gap:10px;align-items:center;}
+.pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;}
+.pill.green{background:var(--gp);color:var(--g);}
+.pill.purple{background:var(--pp);color:var(--p);}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.content{padding:24px 28px 0;flex:1;}
+.panel{display:none;}.panel.on{display:block;}
+.mascot-hero{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:24px;margin-bottom:20px;}
+.mh-mascot{width:140px;min-width:140px;display:flex;align-items:center;justify-content:center;}
+.mh-mascot.dark-bg{background:var(--dark);border-radius:16px;padding:8px;width:110px;height:110px;}
+.mh-text .eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--p);margin-bottom:6px;}
+.mh-text h2{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;line-height:1.2;}
+.mh-text p{font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;}
+.mh-badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.badge.purple{background:var(--pp);color:var(--p);}
+.badge.green{background:var(--gp);color:var(--g);}
+.badge.red{background:var(--rp);color:var(--r);}
+.badge.amber{background:var(--ap);color:var(--a);}
+.badge.dark{background:rgba(26,26,46,0.08);color:var(--dark);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.g65{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;margin-bottom:16px;}
+.mb{margin-bottom:16px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ch-title{font-size:14px;font-weight:800;color:var(--text);}
+.prog-wrap{margin-bottom:12px;}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.prog-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:4px;}
+.prog-fill.p{background:var(--p);}.prog-fill.g{background:var(--g);}.prog-fill.r{background:var(--r);}.prog-fill.a{background:var(--a);}
+.lvl-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0;}
+.lvl-chip{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 14px;cursor:pointer;transition:all 0.12s;border:1px solid transparent;flex:1;min-width:190px;}
+.lvl-chip:hover{border-color:var(--p);background:var(--pp);}
+.lvl-chip-av{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.lvl-chip-av img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.12));}
+.lvl-chip-info .name{font-size:12px;font-weight:800;color:var(--text);}
+.lvl-chip-info .sub{font-size:11px;color:var(--muted);}
+.lvl-num{font-size:10px;font-weight:900;padding:2px 8px;border-radius:20px;}
+.lvl-num.done{background:var(--gp);color:var(--g);}.lvl-num.pro{background:var(--rp);color:var(--r);}
+.row-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.row-item:last-child{border-bottom:none;}
+.ri-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ri-icon.p{background:var(--pp);}.ri-icon.g{background:var(--gp);}.ri-icon.r{background:var(--rp);}.ri-icon.a{background:var(--ap);}
+.ri-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:2px;}
+.ri-text{font-size:13px;color:var(--text);line-height:1.5;}
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:10px;margin-bottom:8px;}
+.alert-row:last-child{margin-bottom:0;}
+.alert-row.high{background:var(--rp);border-left:3px solid var(--r);}
+.alert-row.med{background:var(--ap);border-left:3px solid var(--a);}
+.alert-row.low{background:var(--gp);border-left:3px solid var(--g);}
+.alert-row.info{background:var(--pp);border-left:3px solid var(--p);}
+.ar-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.ar-dot.high{background:var(--r);}.ar-dot.med{background:var(--a);}.ar-dot.low{background:var(--g);}.ar-dot.info{background:var(--p);}
+.ar-text{font-size:13px;color:var(--text);line-height:1.5;}
+.check-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.check-row:last-child{border-bottom:none;}
+.cb{width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.cb.urgent{background:var(--r);color:#fff;}.cb.soon{background:var(--a);color:#fff;}.cb.later{background:var(--border);color:var(--muted);border:2px solid var(--border);}
+.check-text{font-size:13px;color:var(--text);line-height:1.5;}
+.ctag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;}
+.ctag.urgent{background:var(--rp);color:var(--r);}.ctag.soon{background:var(--ap);color:var(--a);}.ctag.later{background:var(--border);color:var(--muted);}
+.formula{background:var(--dark);border-radius:12px;padding:16px;}
+.formula-title{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pl);margin-bottom:12px;}
+.formula-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13px;}
+.formula-row:last-child{border-bottom:none;}
+.fl{color:rgba(255,255,255,0.65);}.fv{font-weight:800;color:#fff;}
+.fv.accent{color:var(--pl);}.fv.red{color:#ff8a8a;}.fv.green{color:#4cdf9e;}
+.radar-row{display:flex;align-items:center;gap:12px;margin-bottom:11px;}
+.radar-row:last-child{margin-bottom:0;}
+.rr-name{font-size:12px;font-weight:700;color:var(--text);min-width:130px;}
+.rr-track{flex:1;height:10px;border-radius:5px;background:var(--bg);overflow:hidden;}
+.rr-fill{height:100%;border-radius:5px;}
+.rr-fill.high{background:var(--r);}.rr-fill.med{background:var(--a);}.rr-fill.low{background:var(--g);}
+.rr-tag{font-size:11px;font-weight:800;min-width:40px;text-align:right;}
+.rr-tag.high{color:var(--r);}.rr-tag.med{color:var(--a);}.rr-tag.low{color:var(--g);}
+.action-item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:10px;background:var(--bg);margin-bottom:8px;}
+.action-item:last-child{margin-bottom:0;}
+.a-num{width:26px;height:26px;border-radius:7px;background:var(--p);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.a-num.red{background:var(--r);}
+.a-week{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+.a-text{font-size:13px;color:var(--text);line-height:1.5;padding-top:2px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tool-card{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
+.tool-emoji{font-size:20px;margin-bottom:5px;}
+.tool-name{font-size:12px;font-weight:700;color:var(--text);}.tool-st{font-size:10px;color:var(--muted);margin-top:2px;}
+.dist-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dist-label{font-size:12px;font-weight:700;color:var(--text);min-width:170px;}
+.locked-panel{text-align:center;padding:60px 40px;}
+.lock-icon{font-size:48px;margin-bottom:16px;}
+.lock-title{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.lock-text{font-size:14px;color:var(--muted);line-height:1.7;max-width:440px;margin:0 auto 24px;}
+.lock-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:14px 32px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+.next-level{background:linear-gradient(135deg,var(--pp),#e8e8ff);border:1px solid var(--pl);border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nl-text strong{display:block;font-size:13px;font-weight:800;color:var(--p);margin-bottom:3px;}
+.nl-text span{font-size:12px;color:var(--text);line-height:1.5;}
+.nl-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:10px 20px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;flex-shrink:0;}
+.logro{background:var(--gp);border:1px solid var(--g);border-radius:14px;padding:16px 18px;margin-top:16px;}
+.logro strong{display:block;font-size:11px;font-weight:900;color:var(--g);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.logro span{font-size:13px;color:var(--text);line-height:1.5;}
+.ordy-note{background:var(--cream);border-radius:12px;padding:14px 16px;font-size:12px;color:#8a5a40;line-height:1.6;margin-top:12px;}
+.ordy-note strong{color:#6a3a20;}
+.footer{background:var(--dark);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-logo-av{width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-av img{width:32px;height:32px;object-fit:contain;}
+.footer-logo strong{font-size:14px;font-weight:900;color:#fff;}
+.footer-logo span{font-size:10px;color:var(--pl);display:block;}
+.footer-info{font-size:11px;color:rgba(255,255,255,0.28);}
+@media(max-width:860px){
+  .sb{width:56px;min-width:56px;}
+  .sb-logo-text,.ni-info,.nb,.sb-sec,.sb-bottom{display:none;}
+  .sb-logo{justify-content:center;padding:10px 4px;border-bottom:none;}
+  .sb-logo-av{width:44px;height:44px;border-radius:12px;}
+  .sb-logo-av img{width:44px;height:44px;}
+  .ni{justify-content:center;padding:10px;margin:2px 4px;}
+  .main{margin-left:56px;}
+  .g2,.g65{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .content{padding:16px;}
+  .topbar{padding:0 16px;}
+}
+@media(max-width:540px){
+  .g2,.g3{grid-template-columns:1fr;}
+  .lvl-chips{flex-direction:column;}
+  .next-level{flex-direction:column;}
+  .mascot-hero{flex-direction:column;text-align:center;}
+}
+
+/* SAFE AREA TOP - evita que contenido quede bajo la barra del navegador en móvil */
+.topbar {
+  padding-top: max(12px, env(safe-area-inset-top));
+  height: auto;
+  min-height: 60px;
+}
+.content {
+  padding-top: 20px;
+}
+@media(max-width:860px) {
+  .topbar {
+    padding: max(14px, env(safe-area-inset-top)) 16px 14px;
+  }
+  .main {
+    padding-top: 0;
+  }
+}
+
+/* LOGO BAR */
+.logo-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:#fff;
+  border-bottom:1px solid #e8e8f0;
+  height:52px;
+  display:flex;align-items:center;padding:0 16px;
+  box-shadow:0 1px 8px rgba(78,75,247,0.08);
+}
+.logo-bar img{height:36px;object-fit:contain;}
+
+/* Empujar todo el contenido hacia abajo para no quedar bajo la barra */
+.sb{top:52px;}
+.topbar{top:52px;}
+.main{padding-top:52px;}
+
+@media(max-width:860px){
+  .sb{top:52px;}
+  .main{padding-top:52px;}
+}
+
+/* N3 TABLAS → TARJETAS EN MÓVIL */
+@media(max-width:640px){
+  /* Ocultar encabezado de tabla */
+  table thead { display:none; }
+  /* Cada fila se convierte en tarjeta */
+  table tbody tr {
+    display:block;
+    background:var(--bg);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:10px;
+    border:1px solid var(--border);
+  }
+  /* Cada celda muestra su etiqueta y valor */
+  table tbody td {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:5px 0 !important;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+  }
+  table tbody td:last-child { border-bottom:none; }
+  /* Etiqueta generada con data-label */
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight:800;
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    flex-shrink:0;
+    margin-right:8px;
+  }
+  /* Ajustes generales en móvil */
+  .g2 { grid-template-columns:1fr !important; }
+  .dist-label { min-width:unset; font-size:12px; }
+}
+
+/* PANEL BIENVENIDA */
+.bv{
+  background:#4e4bf7;
+  min-height:calc(100vh - 112px);
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:32px 22px 48px;
+  text-align:center;
+  box-sizing:border-box;
+}
+.bv img.bv-ordy{
+  width:150px;height:150px;border-radius:26px;
+  object-fit:cover;margin-bottom:16px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.22);
+  border:3px solid rgba(255,255,255,0.18);
+  flex-shrink:0;
+}
+.bv .bv-brand{font-size:10px;font-weight:800;color:#bbbbfc;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.bv h2{font-size:26px;font-weight:900;color:#fff;
+  line-height:1.2;margin-bottom:4px;}
+.bv h2 em{color:#fdf2ed;font-style:normal;}
+.bv .bv-line{width:36px;height:2px;background:rgba(255,255,255,0.18);
+  border-radius:2px;margin:14px auto;}
+.bv .bv-desc{font-size:14px;color:rgba(255,255,255,0.65);
+  line-height:1.65;max-width:300px;margin-bottom:22px;}
+.bv .bv-desc b{color:#fff;}
+.bv .bv-list{
+  display:flex;flex-direction:column;gap:8px;
+  width:100%;max-width:340px;margin-bottom:24px;
+}
+.bv .bv-lvl{
+  display:flex;align-items:center;gap:11px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:11px;padding:10px 12px;
+  cursor:pointer;width:100%;
+  font-family:'Nunito',sans-serif;
+  text-align:left;box-sizing:border-box;
+}
+.bv .bv-lvl:active{background:rgba(255,255,255,0.2);}
+.bv .bv-av{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+.bv .bv-av img{width:100%;height:100%;object-fit:cover;}
+.bv .bv-tx{flex:1;min-width:0;}
+.bv .bv-nm{font-size:12px;font-weight:800;color:#fff;display:block;text-align:left;}
+.bv .bv-sb{font-size:10px;color:rgba(255,255,255,0.4);display:block;margin-top:1px;text-align:left;}
+.bv .bv-bg{font-size:10px;font-weight:800;padding:3px 8px;
+  border-radius:20px;flex-shrink:0;white-space:nowrap;}
+.bv .bv-bg.ok{background:rgba(26,158,110,0.3);color:#4cdf9e;}
+.bv .bv-bg.pr{background:rgba(249,70,70,0.3);color:#ff8a8a;}
+.bv .bv-btn{
+  background:#fff;color:#4e4bf7;border:none;
+  border-radius:50px;padding:14px 0;font-size:15px;
+  font-weight:900;cursor:pointer;
+  font-family:'Nunito',sans-serif;
+  width:100%;max-width:340px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  margin-bottom:14px;
+}
+.bv .bv-btn:active{transform:scale(0.98);}
+.bv .bv-ft{font-size:11px;color:rgba(255,255,255,0.22);}
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <img src="logo.png" alt="Ordy · orden y plan"/>
+</div>
+<aside class="sb">
+  <div class="sb-logo" onclick="show('bienvenida',null);">
+    <div class="sb-logo-av"><img src="ordy.png" alt="ordy" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="sb-logo-text"><span>Velas Regi</span><small>orden y plan ✓</small></div>
+  </div>
+  <div class="sb-sec">General</div>
+  <button class="ni on" onclick="show('overview',this)">
+    <div class="ni-av"><img src="navi.png" alt="navi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="ni-info"><div class="ni-name">Vista General</div><div class="ni-lvl">Panorama del negocio</div></div>
+  </button>
+  <div class="sb-sec">Niveles</div>
+  
+<button class="ni" onclick="show('n1',this)">
+  <div class="ni-av"><img src="lumi.png" alt="lumi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 1</div><div class="ni-lvl">Entendé tu negocio</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n2',this)">
+  <div class="ni-av"><img src="carey.png" alt="carey" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 2</div><div class="ni-lvl">Orden operativo</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n3',this)">
+  <div class="ni-av"><img src="regi.png" alt="regi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 3</div><div class="ni-lvl">Plata sin autoengaño</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n4',this)">
+  <div class="ni-av"><img src="marty.png" alt="marty" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 4</div><div class="ni-lvl">Formalización</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n5',this)">
+  <div class="ni-av"><img src="cabu.png" alt="cabu" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 5</div><div class="ni-lvl">Clientes y políticas</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n6',this)">
+  <div class="ni-av"><img src="pepe.png" alt="pepe" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 6</div><div class="ni-lvl">Crecimiento</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n7',this)">
+  <div class="ni-av"><img src="glau.png" alt="glau" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 7</div><div class="ni-lvl">Radar de fugas</div></div>
+  <span class="nb pro">PRO</span>
+</button>
+  <button class="ni" onclick="show('n8',this)">
+    <div class="ni-av emoji">🔒</div>
+    <div class="ni-info"><div class="ni-name">Nivel 8</div><div class="ni-lvl">Comunidad</div></div>
+    <span class="nb lock">Pronto</span>
+  </button>
+
+  <div class="sb-bottom">
+    <div class="sb-client">
+      <strong>Velas Regi</strong>
+      <span>Dashboard Pro · 7 niveles activos</span>
+      <span style="margin-top:6px;opacity:0.6;">Generado por Ordy · Jun 2025</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <strong id="page-title">Vista General</strong>
+      <span id="page-sub">Velas Regi · Ordy Pro</span>
+    </div>
+    <div class="tb-right">
+      <div class="pill green"><div class="pill-dot"></div>En proceso de orden</div>
+      <div class="pill purple">100% completado</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+        <!-- BIENVENIDA -->
+    <div class="panel on" id="panel-bienvenida">
+      <div class="bv">
+        <img class="bv-ordy" src="ordy.png" alt="Ordy"/>
+        <div class="bv-brand">Ordy · Orden y plan ✓</div>
+        <h2>Bienvenida al<br><em>océano de tu negocio</em></h2>
+        <div class="bv-line"></div>
+        <p class="bv-desc">Ordy convierte la información de tu negocio en una <b>ruta clara de niveles, tareas y decisiones</b>. Cada nivel tiene su guía.</p>
+        <div class="bv-list">
+          <button class="bv-lvl" onclick="show('overview',null)"><div class="bv-av"><img src="navi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">Vista General</span><span class="bv-sb">Panorama del negocio</span></div><span class="bv-bg ok">→</span></button>
+          <button class="bv-lvl" onclick="show('n1',null)"><div class="bv-av"><img src="lumi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N1 · Entendé tu negocio</span><span class="bv-sb">Con Lumi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n2',null)"><div class="bv-av"><img src="carey.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N2 · Orden operativo</span><span class="bv-sb">Con Carey</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n3',null)"><div class="bv-av"><img src="regi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N3 · Plata sin autoengaño</span><span class="bv-sb">Con Regi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n4',null)"><div class="bv-av"><img src="marty.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N4 · Formalización</span><span class="bv-sb">Con Marty</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n5',null)"><div class="bv-av"><img src="cabu.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N5 · Clientes y políticas</span><span class="bv-sb">Con Cabu</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n6',null)"><div class="bv-av"><img src="pepe.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N6 · Crecimiento</span><span class="bv-sb">Con Pepe</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n7',null)" style="border-color:rgba(249,70,70,0.3);background:rgba(249,70,70,0.08);"><div class="bv-av"><img src="glau.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N7 · Radar de fugas</span><span class="bv-sb">Con Glau · Pro</span></div><span class="bv-bg pr">PRO</span></button>
+        </div>
+        <button class="bv-btn" onclick="show('overview',null)">Explorar mi diagnóstico →</button>
+        <div class="bv-ft">Dashboard generado por Ordy</div>
+      </div>
+    </div>
+
+<!-- OVERVIEW -->
+    <div class="panel" id="panel-overview">
+      <div style="background:var(--p);border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
+        <img src="ordy.png" alt="Ordy" style="width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));flex-shrink:0;"/>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Ordy · Sistema de orden</div>
+          <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:4px;">¡Hola, Velas Regi! 👋</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Navi te guiará por el panorama de tu negocio. Explorá cada nivel para ver tu diagnóstico completo.</div>
+        </div>
+      </div>
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="navi.png" alt="navi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Con Navi · Vista general</div>
+          <h2>Exploremos el panorama</h2>
+          <p>Bienvenida al dashboard de <strong>Velas Regi</strong>. Aquí vas a ver el estado actual de tu negocio, tu progreso por niveles y los próximos pasos recomendados. Todo lo que está acá salió de tus respuestas: es tu negocio, ordenado.</p>
+          <div class="mh-badges"><span class="badge purple">Velas artesanales</span><span class="badge dark">Emprendimiento</span><span class="badge green">7 niveles completados</span></div>
+        </div>
+      </div>
+      <div class="g2 mb">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio</div><span class="badge purple">Velas Regi</span></div>
+          <div class="row-item"><div class="ri-icon p">🕯️</div><div><div class="ri-label">Qué es</div><div class="ri-text">Velas Regi es un emprendimiento de velas aromáticas artesanales creado por Regi. Empezó como hobby creativo, pero la demanda orgánica por Instagram lo convirtió en un negocio que necesita orden antes de seguir creciendo.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">Velas individuales, kits de regalo, ediciones de temporada y personalizados simples.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Velas artesanales con personalidad cercana, estética cuidada y mensajes divertidos para personas que quieren calma sin ponerse demasiado intensas.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">📱</div><div><div class="ri-label">Canales</div><div class="ri-text">Instagram, página web, WhatsApp, boca a boca y ferias pequeñas.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Progreso general</div><span class="badge green">100% ordenado</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N1 · Entendé tu negocio</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N2 · Orden operativo</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N3 · Plata sin autoengaño</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N4 · Formalización</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N5 · Clientes y políticas</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N6 · Crecimiento</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N7 · Radar de fugas</span><span style="color:var(--r);">PRO</span></div><div class="prog-track"><div class="prog-fill r" style="width:100%;"></div></div></div>
+          <div style="background:var(--gp);border-radius:10px;padding:12px;font-size:13px;color:var(--text);line-height:1.6;margin-top:12px;"><strong style="color:var(--g);">Todos los niveles completados.</strong> El siguiente paso es costear cada vela y subir precios gradualmente antes de seguir creciendo.</div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Progreso por niveles · Hacé clic para navegar</div><span class="badge purple">7 activos</span></div>
+        <div class="lvl-chips">
+          <div class="lvl-chip" onclick="show('n1',null)"><div class="lvl-chip-av"><img src="lumi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Entendé tu negocio</div><div class="sub">Base clara de la marca</div></div><span class="lvl-num done">N1</span></div>
+          <div class="lvl-chip" onclick="show('n2',null)"><div class="lvl-chip-av"><img src="carey.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Orden operativo</div><div class="sub">Cómo funciona por dentro</div></div><span class="lvl-num done">N2</span></div>
+          <div class="lvl-chip" onclick="show('n3',null)"><div class="lvl-chip-av"><img src="regi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Plata sin autoengaño</div><div class="sub">Costos y rentabilidad</div></div><span class="lvl-num done">N3</span></div>
+          <div class="lvl-chip" onclick="show('n4',null)"><div class="lvl-chip-av"><img src="marty.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Formalización</div><div class="sub">Obligaciones y riesgos</div></div><span class="lvl-num done">N4</span></div>
+          <div class="lvl-chip" onclick="show('n5',null)"><div class="lvl-chip-av"><img src="cabu.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Clientes y políticas</div><div class="sub">Respuestas y límites</div></div><span class="lvl-num done">N5</span></div>
+          <div class="lvl-chip" onclick="show('n6',null)"><div class="lvl-chip-av"><img src="pepe.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Crecimiento</div><div class="sub">Herramientas e inversión</div></div><span class="lvl-num done">N6</span></div>
+          <div class="lvl-chip" onclick="show('n7',null)" style="border-color:var(--r);background:#fff8f8;"><div class="lvl-chip-av"><img src="glau.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Radar de fugas</div><div class="sub">Análisis profundo PRO</div></div><span class="lvl-num pro">N7</span></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Próximos pasos recomendados</div><span class="badge red">Accionar ahora</span></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 1:</strong> Crear ficha de costo real por vela antes de publicar nuevas colecciones.</div></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 2:</strong> Separar dinero personal del dinero de Velas Regi — cuenta, sobre o apartado.</div></div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Prioridad 3:</strong> Subir precios gradualmente explicando que los anteriores eran de lanzamiento.</div></div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Prioridad 4:</strong> Definir condiciones claras para personalizados, entregas y cambios.</div></div>
+        <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text"><strong>A mediano plazo:</strong> Impulsar el Kit de Regalo como producto estrella — mejor margen y presentación más clara.</div></div>
+      </div>
+    </div>
+
+<!-- N1 -->
+    <div class="panel" id="panel-n1">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="lumi.png" alt="lumi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 1 · Con Lumi</div>
+          <h2>"Sin esto, todo lo demás sería humo."</h2>
+          <p>Miramos la base de tu negocio: qué vendés, a quién le vendés, cómo lo explicás. Esta ficha puede compartirse con otras IA, proveedores, aliados o cualquier persona que necesite entender la marca.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge purple">Velas Regi</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio · Para compartir</div><span class="badge purple">Shareable</span></div>
+          <div class="row-item"><div class="ri-icon p">🕯️</div><div><div class="ri-label">Qué es</div><div class="ri-text">Velas Regi es un emprendimiento de velas aromáticas artesanales creado por Regi después de tomar un curso de elaboración. Empezó como hobby creativo, pero las personas comenzaron a pedirle sus creaciones por Instagram y ahora quiere ordenarse antes de que el negocio crezca sin estructura.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">Velas aromáticas artesanales, velas decorativas, velas por temporada, regalos personalizados y pequeñas colecciones publicadas en Instagram y página web.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🔧</div><div><div class="ri-label">Qué problema resuelve</div><div class="ri-text">Ofrece detalles aromáticos, bonitos y accesibles para personas que quieren regalar calma, decorar espacios o darse un pequeño momento de paz.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">👤</div><div><div class="ri-label">Cliente actual</div><div class="ri-text">Personas cercanas, seguidores de Instagram, amistades, compañeras de trabajo y clientes que compran por impulso cuando ven una vela bonita publicada.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Cliente ideal</div><div class="ri-text">Personas que buscan regalos artesanales, detalles con aroma, productos hechos con cuidado y opciones bonitas para autocuidado o decoración.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Análisis estratégico</div><span class="badge amber">Lumi detectó</span></div>
+          <div class="row-item"><div class="ri-icon g">📡</div><div><div class="ri-label">Canales</div><div class="ri-text">Instagram, página web hecha por Regi, WhatsApp, recomendación boca a boca y ferias pequeñas por temporada.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🌟</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Regi combina velas artesanales con una personalidad cercana, estética cuidada y mensajes divertidos para personas que quieren calma sin ponerse demasiado intensas.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">💡</div><div><div class="ri-label">Principal oportunidad</div><div class="ri-text">Ordenar precios, costos y catálogo antes de aumentar ventas, para evitar que el hobby crezca como negocio sin dejar ganancia.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🎯</div><div><div class="ri-label">Posicionamiento recomendado</div><div class="ri-text">"Velas artesanales para regalar calma sin perder la cabeza en el intento."</div></div></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Productos principales</div><span class="badge purple">Catálogo base</span></div>
+        <div class="g3" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;"><div style="font-size:20px;margin-bottom:6px;">🕯️</div><div style="font-size:13px;font-weight:800;color:var(--p);">Velas individuales</div><div style="font-size:12px;color:var(--text);margin-top:4px;">Pequeña ₡3.500 · Mediana ₡5.500 · Grande ₡8.000</div></div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;border:1px solid rgba(26,158,110,0.2);"><div style="font-size:20px;margin-bottom:6px;">🎁</div><div style="font-size:13px;font-weight:800;color:var(--g);">Kit de regalo ⭐</div><div style="font-size:12px;color:var(--text);margin-top:4px;">Kit Apagá la Reunión · ₡10.000</div><div style="margin-top:6px;"><span class="badge green">Mejor margen</span></div></div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;"><div style="font-size:20px;margin-bottom:6px;">🌸</div><div style="font-size:13px;font-weight:800;color:#b06040;">Temporada / Personalizados</div><div style="font-size:12px;color:var(--text);margin-top:4px;">Temporada desde ₡6.500 · Personalizado ₡12.000</div></div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Velas Regi entiende que ya no está solo jugando con cera y aromas: está iniciando un negocio que necesita precios, costos y límites claros.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Ordenar productos, proceso de producción, sistema de cobro y condiciones antes de vender más.</span></div><button class="nl-btn" onclick="show('n2',null)">Ir al Nivel 2 →</button></div>
+    </div>
+
+<!-- N2 -->
+    <div class="panel" id="panel-n2">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="carey.png" alt="carey" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 2 · Con Carey</div>
+          <h2>"Antes de vender más, hay que saber cómo funciona."</h2>
+          <p>Revisamos cómo produce Velas Regi, cómo cobra, cómo entrega y qué condiciones necesita tener claras para que cada venta no se convierta en un malentendido.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Mapa operativo por línea</div><span class="badge purple">Estructura</span></div>
+
+          <div style="background:var(--pp);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:var(--p);margin-bottom:4px;">🕯️ 1. Velas individuales</div>
+            <div style="font-size:11px;font-weight:700;color:var(--p);opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Producto base · Ventas frecuentes</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Producto principal para probar aromas favoritos y generar ventas constantes. Sirve como entrada al catálogo.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🕯️ Vela pequeña — ₡3.500</div>
+              <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🕯️ Vela mediana — ₡5.500</div>
+              <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🕯️ Vela grande — ₡8.000</div>
+            </div>
+          </div>
+
+          <div style="background:var(--gp);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(26,158,110,0.2);">
+            <div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:4px;">🎁 2. Kits de regalo ⭐</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g);opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Mejor ticket · Mejor margen</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Paquetes listos para regalar que suben el ticket promedio y facilitan compras por ocasión. Es la línea con mejor equilibrio financiero.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🎁 Kit Apagá la Reunión — vela mediana + tarjeta + empaque — ₡10.000</div>
+            </div>
+          </div>
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:#b06040;margin-bottom:4px;">🌸 3. Ediciones de temporada</div>
+            <div style="font-size:11px;font-weight:700;color:#b06040;opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Urgencia · Campañas · Desde ₡6.500</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;">Colecciones pequeñas para fechas especiales. Crean urgencia y permiten campañas dirigidas. Producir en lotes pequeños según demanda.</div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;">
+            <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:4px;">✍️ 4. Personalizados simples</div>
+            <div style="font-size:11px;font-weight:700;color:var(--muted);opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Valor alto · Límites claros · ₡12.000</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;">Velas con aroma, color o mensaje adaptado. Aumentan valor, pero solo con 50% de adelanto y límites claros para no complicar producción.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">Sistema de cobro y entrega</div><span class="badge green">Operativo</span></div>
+          <div class="formula">
+            <div class="formula-title">Flujo de cobro</div>
+            <div class="formula-row"><div class="fl">Pedido individual</div><div class="fv accent">Pago completo antes de entregar</div></div>
+            <div class="formula-row"><div class="fl">Pedido personalizado</div><div class="fv">50% adelanto + 50% antes de entregar</div></div>
+            <div class="formula-row"><div class="fl">Temporada</div><div class="fv accent">Pago anticipado para reservar</div></div>
+            <div class="formula-row"><div class="fl">Métodos</div><div class="fv green">SINPE / transferencia</div></div>
+            <div class="formula-row"><div class="fl">Producción</div><div class="fv">Bajo pedido · 3 a 5 días hábiles</div></div>
+            <div class="formula-row"><div class="fl">Envío</div><div class="fv accent">Se cobra aparte · No incluido</div></div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Condiciones clave</div>
+            <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text">No iniciar personalizados sin adelanto del 50%.</div></div>
+            <div class="alert-row med" style="margin-top:6px;"><div class="ar-dot med"></div><div class="ar-text">Cambios de aroma o color solo antes de producir.</div></div>
+            <div class="alert-row low" style="margin-top:6px;"><div class="ar-dot low"></div><div class="ar-text">Colecciones en lotes pequeños hasta medir demanda real.</div></div>
+            <div class="alert-row info" style="margin-top:6px;"><div class="ar-dot info"></div><div class="ar-text"><strong>Meta inicial:</strong> 25 velas al mes + 8 kits de regalo midiendo costo real por producto.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Velas Regi ya tiene líneas de venta claras y sabe que debe producir con intención, no solo porque una idea olió bonito.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con el mapa operativo claro, el siguiente paso es confirmar si los precios realmente dejan ganancia después de costos.</span></div><button class="nl-btn" onclick="show('n3',null)">Ir al Nivel 3 →</button></div>
+    </div>
+
+<!-- N3 -->
+    <div class="panel" id="panel-n3">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="regi.png" alt="regi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 3 · Con Regi</div>
+          <h2>"Una vela puede empezar como hobby, pero si se vende sin costear, termina derritiendo la ganancia."</h2>
+          <p>Revisamos cuánto cuesta realmente cada vela, cuánto queda disponible y cuántas ventas necesita Regi para que el negocio se sostenga.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge red">⚠ Precios a revisar</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Piso fijo mensual estimado</div><span class="badge red">₡268.000/mes</span></div>
+          <div class="formula">
+            <div class="formula-title">Desglose de costos fijos</div>
+            <div class="formula-row"><div class="fl">Materia prima base</div><div class="fv">₡55.000</div></div>
+            <div class="formula-row"><div class="fl">Envases, pabilos y etiquetas</div><div class="fv">₡35.000</div></div>
+            <div class="formula-row"><div class="fl">Empaques</div><div class="fv">₡20.000</div></div>
+            <div class="formula-row"><div class="fl">Herramientas / reposición</div><div class="fv">₡10.000</div></div>
+            <div class="formula-row"><div class="fl">Envíos / transporte</div><div class="fv">₡15.000</div></div>
+            <div class="formula-row"><div class="fl">Web / dominio</div><div class="fv">₡8.000</div></div>
+            <div class="formula-row"><div class="fl">Pauta / contenido</div><div class="fv">₡20.000</div></div>
+            <div class="formula-row"><div class="fl">Tiempo mínimo de trabajo</div><div class="fv">₡80.000</div></div>
+            <div class="formula-row"><div class="fl">Reserva / reinversión</div><div class="fv">₡25.000</div></div>
+            <div class="formula-row"><div class="fl">Total estimado</div><div class="fv accent">₡268.000</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">División recomendada de ingresos</div><span class="badge purple">Regla simple</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Después de cada venta, distribuir así:</div>
+          <div class="dist-row"><div class="dist-label">Materia prima y empaques (40%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill p" style="width:40%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Pago de trabajo (30%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill a" style="width:30%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reinversión (15%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:15%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Pauta / visibilidad (10%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:10%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reserva (5%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:5%;"></div></div></div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Desglose por producto</div><span class="badge purple">Costo vs. disponible</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Producto</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Precio</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Costo dir.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">40% MP</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">30% Trab.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">15% Reinv.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">5% Res.</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Vela pequeña</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡3.500</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡1.600</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡1.900</td><td data-label="40% MP" style="padding:8px 10px;text-align:right;">₡1.400</td><td data-label="30% Trab." style="padding:8px 10px;text-align:right;">₡1.050</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡525</td><td data-label="5% Res." style="padding:8px 10px;text-align:right;">₡175</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Vela mediana</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡5.500</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡2.700</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡2.800</td><td data-label="40% MP" style="padding:8px 10px;text-align:right;">₡2.200</td><td data-label="30% Trab." style="padding:8px 10px;text-align:right;">₡1.650</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡825</td><td data-label="5% Res." style="padding:8px 10px;text-align:right;">₡275</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Vela grande</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡8.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡4.100</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡3.900</td><td data-label="40% MP" style="padding:8px 10px;text-align:right;">₡3.200</td><td data-label="30% Trab." style="padding:8px 10px;text-align:right;">₡2.400</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡1.200</td><td data-label="5% Res." style="padding:8px 10px;text-align:right;">₡400</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Producto" style="padding:8px 10px;font-weight:800;color:var(--g);">Kit de regalo ⭐</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡10.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡5.300</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡4.700</td><td data-label="40% MP" style="padding:8px 10px;text-align:right;">₡4.000</td><td data-label="30% Trab." style="padding:8px 10px;text-align:right;">₡3.000</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡1.500</td><td data-label="5% Res." style="padding:8px 10px;text-align:right;">₡500</td></tr>
+              <tr><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Personalizado simple</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡12.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡6.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡6.000</td><td data-label="40% MP" style="padding:8px 10px;text-align:right;">₡4.800</td><td data-label="30% Trab." style="padding:8px 10px;text-align:right;">₡3.600</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡1.800</td><td data-label="5% Res." style="padding:8px 10px;text-align:right;">₡600</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Ventas necesarias para cubrir el piso mensual</div><span class="badge purple">Piso: ₡268.000/mes</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Producto</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">¿Cuántas ventas cubren el piso?</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;">Vela pequeña</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡1.900</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">142 ventas/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;">Vela mediana</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡2.800</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">96 ventas/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;">Vela grande</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡3.900</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">69 ventas/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Producto" style="padding:8px 10px;font-weight:800;color:var(--g);">Kit de regalo ⭐</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡4.700</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">58 ventas/mes</td></tr>
+              <tr><td data-label="Producto" style="padding:8px 10px;">Personalizado simple</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡6.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">45 ventas/mes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-row med" style="margin-top:12px;"><div class="ar-dot med"></div><div class="ar-text">El piso es alto para ventas unitarias. La combinación de kits + medianas + personalizados es la estrategia más sostenible.</div></div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Semáforo financiero por producto</div><span class="badge purple">Lectura rápida</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Vela pequeña:</strong> Amarillo con riesgo rojo. Margen muy sensible si lleva empaque y etiqueta.</div></div>
+            <div class="alert-row med" style="margin-top:8px;"><div class="ar-dot med"></div><div class="ar-text"><strong>Vela mediana:</strong> Amarillo. Revisar si el precio contempla pruebas y desperdicios.</div></div>
+            <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text"><strong>Vela grande:</strong> Verde con revisión. Mejor disponible — controlar bien materia prima.</div></div>
+          </div>
+          <div>
+            <div class="alert-row low"><div class="ar-dot low"></div><div class="ar-text"><strong>Kit de regalo:</strong> Verde. Línea más recomendable — mejor ticket y se vende como detalle listo.</div></div>
+            <div class="alert-row med" style="margin-top:8px;"><div class="ar-dot med"></div><div class="ar-text"><strong>Personalizados:</strong> Amarillo. Pueden dejar más, solo con límites claros y sin consumir demasiado tiempo.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:18px 20px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:900;color:var(--pl);margin-bottom:6px;">Frase recordatorio</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;font-style:italic;">"Una vela puede empezar como hobby, pero si se vende sin costear, termina derritiendo la ganancia."</div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Velas Regi confirma que sus precios actuales son útiles para iniciar, pero deben revisarse antes de que el emprendimiento crezca.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con los números más claros, el siguiente paso es saber qué temas legales y contables conviene revisar.</span></div><button class="nl-btn" onclick="show('n4',null)">Ir al Nivel 4 →</button></div>
+    </div>
+
+<!-- N4 -->
+    <div class="panel" id="panel-n4">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="marty.png" alt="marty" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 4 · Con Marty</div>
+          <h2>"Mejor saber qué viene antes de que llegue solo."</h2>
+          <p>Este nivel no sustituye a una contadora, abogada o institución. Su función es mostrar qué necesita revisar Velas Regi para operar con más seguridad según su etapa de crecimiento.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge red">⚠ Registro de costos urgente</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">🔴 Revisar primero</div><span class="badge red">Prioridad alta</span></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Registro financiero interno</div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Crear ficha de costo por vela: materia prima, envase, pabilo, empaque y tiempo<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Separar dinero personal del dinero de Velas Regi<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar cantidad producida, vendida y ganancia por producto<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar inventario de materia prima y pedidos pendientes<span class="ctag urgent">Urgente</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Hacienda</div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Revisar si debe inscribirse o actualizar actividad económica<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Consultar cómo facturar ventas por Instagram y página web<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Consultar si aplica IVA en productos artesanales<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Consultar qué gastos puede deducir: cera, aromas, envases, empaques<span class="ctag soon">Pronto</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">CCSS</div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Revisar si corresponde cotizar como trabajadora independiente según ingresos<span class="ctag soon">Revisar</span></div></div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">🟡 Según crecimiento</div><span class="badge amber">Por etapas</span></div>
+
+          <div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 1 · Hobby con ventas ocasionales</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Registrar costos, ventas y reinversión. No asumir que todo lo que entra es ganancia.</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 2 · Ventas recurrentes por Instagram</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Consultar Hacienda, revisar precios, separar cuentas y definir condiciones de venta.</div>
+          </div>
+          <div style="background:var(--bg);border-radius:10px;padding:14px;">
+            <div style="font-size:12px;font-weight:800;color:var(--text);margin-bottom:6px;">Etapa 3 · Ferias, tiendas o pedidos grandes</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.5;">Revisar patente, permisos, etiquetado, facturación y producción más segura.</div>
+          </div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Permisos a revisar</div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Patente municipal si vende desde casa o en ferias<span class="ctag later">Revisar</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Permiso si la producción artesanal con calor o cera lo requiere<span class="ctag later">Revisar</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Etiquetado con advertencias de uso y condiciones de seguridad del producto<span class="ctag later">Futuro</span></div></div>
+          <div class="check-row"><div class="cb later">—</div><div class="check-text">Requisitos si empieza a vender en tiendas u otras plataformas<span class="ctag later">Futuro</span></div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">🟢 Formalización estratégica</div><span class="badge green">Puede esperar, no ignorarse</span></div>
+        <div class="action-item"><div class="a-num red">1</div><div class="a-text">Crear registro de costos por vela antes de vender más</div></div>
+        <div class="action-item"><div class="a-num red">2</div><div class="a-text">Separar dinero personal del dinero de Velas Regi</div></div>
+        <div class="action-item"><div class="a-num">3</div><div class="a-text">Consultar con contador/a si las ventas se vuelven mensuales</div></div>
+        <div class="action-item"><div class="a-num">4</div><div class="a-text">Revisar requisitos si empieza a participar en ferias o vender en tiendas</div></div>
+      </div>
+
+      <div class="ordy-note"><strong>Nota importante:</strong> Este nivel orienta qué revisar, pero no sustituye asesoría de contador/a o abogado/a. Consultá con un profesional antes de tomar decisiones legales o tributarias.</div>
+
+      <div class="logro" style="margin-top:16px;"><strong>🎉 Logro desbloqueado</strong><span>Regi sabe qué debe revisar para que su hobby pueda crecer sin convertirse en una deuda con aroma a vainilla.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las bases más claras, el siguiente paso es ordenar cómo comunicar precios, tiempos y condiciones a los clientes.</span></div><button class="nl-btn" onclick="show('n5',null)">Ir al Nivel 5 →</button></div>
+    </div>
+
+<!-- N5 -->
+    <div class="panel" id="panel-n5">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="cabu.png" alt="cabu" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 5 · Con Cabu</div>
+          <h2>"Ahora sí, veamos cómo relacionarnos con los clientes."</h2>
+          <p>Revisamos cómo Velas Regi habla con sus clientes: precios, tiempos, devoluciones y mensajes listos para no improvisar cada conversación.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Políticas activas</div><span class="badge green">Definidas</span></div>
+          <div class="row-item"><div class="ri-icon p">💳</div><div><div class="ri-label">Pagos</div><div class="ri-text">Individual: pago completo antes de entregar. Personalizado: 50% adelanto + 50% antes de entregar.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">⏱️</div><div><div class="ri-label">Entrega</div><div class="ri-text">3 a 5 días hábiles. El envío se cobra aparte según zona.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">✍️</div><div><div class="ri-label">Personalizados</div><div class="ri-text">Cambios de aroma o color solo antes de producir. Sin adelanto, sin producción.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">🔄</div><div><div class="ri-label">Devoluciones</div><div class="ri-text">No se aceptan devoluciones por cambio de aroma después de entregado.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🌸</div><div><div class="ri-label">Temporadas</div><div class="ri-text">Lotes pequeños según demanda. Pago anticipado para reservar colecciones especiales.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🖐️</div><div><div class="ri-label">Variaciones</div><div class="ri-text">Productos artesanales pueden tener ligeras variaciones en color y textura — es parte del proceso.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Objeción principal detectada</div><span class="badge red">⚠ Preparate</span></div>
+          <div style="background:var(--rp);border:1px solid var(--r);border-radius:12px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:800;color:var(--r);margin-bottom:6px;">💬 "¿Por qué subió el precio si antes las vendías más baratas?"</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.6;">Al inicio los precios eran simbólicos porque Velas Regi estaba naciendo como hobby. Ahora se ordenaron costos, materiales, empaque y tiempo de producción. El mensaje está en la biblioteca abajo.</div>
+          </div>
+          <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text">Explicar siempre que los precios anteriores eran de lanzamiento, no el precio real del producto.</div></div>
+          <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text">Ordy generó <strong>12 mensajes listos para copiar</strong> para los escenarios más comunes de Velas Regi.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:0;">
+        <div class="ch">
+          <div>
+            <div class="ch-title">Biblioteca de respuestas · Lista para usar</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">12 mensajes generados para Velas Regi</div>
+          </div>
+          <span class="badge green">✓ Lista</span>
+        </div>
+        <div class="alert-row info" style="margin-bottom:16px;">
+          <div class="ar-dot info"></div>
+          <div class="ar-text">Con base en tus respuestas, Ordy preparó una biblioteca inicial de mensajes para que no tengás que improvisar cada conversación. Pensados para vender con claridad, explicar condiciones y poner límites sin sonar distante.</div>
+        </div>
+        <style>
+          .msg-card{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+          .msg-card:last-child{margin-bottom:0;}
+          .msg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;background:var(--bg);gap:12px;}
+          .msg-header:hover{background:#ebebf8;}
+          .msg-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+          .msg-icon{font-size:20px;flex-shrink:0;}
+          .msg-name{font-size:13px;font-weight:800;color:var(--text);}
+          .msg-context{font-size:11px;color:var(--muted);margin-top:1px;line-height:1.4;}
+          .msg-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+          .copy-btn{background:var(--pp);color:var(--p);border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.15s;white-space:nowrap;}
+          .copy-btn:hover{background:var(--p);color:#fff;}
+          .copy-btn.copied{background:var(--gp);color:var(--g);}
+          .chevron{font-size:18px;color:var(--muted);font-weight:700;transition:transform 0.2s;display:inline-block;}
+          .chevron.open{transform:rotate(90deg);}
+          .msg-body{padding:0 16px 16px;background:#fff;}
+          .msg-text{font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;background:var(--bg);border-radius:10px;padding:14px;margin-top:12px;border:1px solid var(--border);}
+          .msg-nota{background:var(--ap);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--text);line-height:1.5;margin-top:10px;}
+        </style>
+        <div id="msg-list-regi">
+          
+<div class="msg-card" id="card-catalogo">
+  <div class="msg-header" onclick="toggleMsg('catalogo')">
+    <div class="msg-left">
+      <span class="msg-icon">🕯️</span>
+      <div>
+        <div class="msg-name">Consulta por catálogo</div>
+        <div class="msg-context">Cuando alguien pregunta qué velas están disponibles.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'catalogo')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-catalogo">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-catalogo" style="display:none;">
+    <pre class="msg-text" id="text-catalogo">¡Holaaa! Claro, te comparto las velas disponibles. Algunas son unidades limitadas porque las hacemos en lotes pequeños.\n\n🕯️ Vela pequeña — ₡3.500\n🕯️ Vela mediana — ₡5.500\n🕯️ Vela grande — ₡8.000\n🎁 Kit Apagá la Reunión — ₡10.000 (vela mediana + tarjeta + empaque)\n\n¿Te interesa alguna en particular o buscás algo para regalar?</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-personalizado">
+  <div class="msg-header" onclick="toggleMsg('personalizado')">
+    <div class="msg-left">
+      <span class="msg-icon">✍️</span>
+      <div>
+        <div class="msg-name">Pedido personalizado</div>
+        <div class="msg-context">Cuando piden una vela con aroma, color o mensaje especial.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'personalizado')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-personalizado">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-personalizado" style="display:none;">
+    <pre class="msg-text" id="text-personalizado">Sí podemos hacer personalizado. Para confirmarlo necesito:\n\n· Aroma preferido\n· Color\n· Tamaño\n· Fecha en que la necesitás\n\nTrabajamos con 50% de adelanto para reservar materiales y producción. El tiempo de entrega es de 3 a 5 días hábiles desde que confirmamos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No arrancar producción sin el adelanto. Cambia de aroma o color solo antes de empezar.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-entrega">
+  <div class="msg-header" onclick="toggleMsg('entrega')">
+    <div class="msg-left">
+      <span class="msg-icon">📦</span>
+      <div>
+        <div class="msg-name">Tiempo de entrega</div>
+        <div class="msg-context">Cuando preguntan cuándo reciben su pedido.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'entrega')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-entrega">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-entrega" style="display:none;">
+    <pre class="msg-text" id="text-entrega">El tiempo regular es de 3 a 5 días hábiles. Como cada vela se hace a mano, preferimos trabajar con tiempo para cuidar el resultado.\n\nEl envío se coordina por mensajería y tiene un costo adicional que varía según zona. Si preferís punto de encuentro, también lo podemos coordinar.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-precio">
+  <div class="msg-header" onclick="toggleMsg('precio')">
+    <div class="msg-left">
+      <span class="msg-icon">💰</span>
+      <div>
+        <div class="msg-name">Consulta por precio</div>
+        <div class="msg-context">Cuando preguntan por qué cuestan lo que cuestan.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'precio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-precio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-precio" style="display:none;">
+    <pre class="msg-text" id="text-precio">El precio contempla cera, aroma, envase, pabilo, etiqueta, empaque y tiempo de producción. No es solo la vela: es todo el proceso para que llegue lista y bonita.\n\nSi buscás algo para regalar, el Kit Apagá la Reunión a ₡10.000 es lo más completo: incluye vela mediana, tarjeta y empaque listo.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-objecion_precio">
+  <div class="msg-header" onclick="toggleMsg('objecion_precio')">
+    <div class="msg-left">
+      <span class="msg-icon">🤔</span>
+      <div>
+        <div class="msg-name">Objeción: precio anterior más bajo</div>
+        <div class="msg-context">Cuando dicen que antes eran más baratas.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'objecion_precio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-objecion_precio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-objecion_precio" style="display:none;">
+    <pre class="msg-text" id="text-objecion_precio">Sí, al inicio teníamos precios más simbólicos porque estábamos probando y aprendiendo. Ahora estamos ajustando para que el emprendimiento pueda sostenerse y seguir creando nuevas velas con los mismos materiales de calidad.\n\nLos precios actuales incluyen materia prima, tiempo de producción, empaque y entrega cuidada.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No bajés el precio. Explicá que los anteriores eran de lanzamiento, no el precio real del producto.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-agotado">
+  <div class="msg-header" onclick="toggleMsg('agotado')">
+    <div class="msg-left">
+      <span class="msg-icon">🚫</span>
+      <div>
+        <div class="msg-name">Producto agotado</div>
+        <div class="msg-context">Cuando piden algo que ya no está disponible.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'agotado')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-agotado">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-agotado" style="display:none;">
+    <pre class="msg-text" id="text-agotado">Esa vela ya se agotó, pero podemos avisarte cuando vuelva a salir o recomendarte un aroma parecido que sí tenemos disponible ahora.\n\n¿Querés que te anote en la lista de espera o te cuento qué hay disponible hoy?</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-envio">
+  <div class="msg-header" onclick="toggleMsg('envio')">
+    <div class="msg-left">
+      <span class="msg-icon">🚚</span>
+      <div>
+        <div class="msg-name">Consulta por envío</div>
+        <div class="msg-context">Cuando preguntan si hacen envíos y cuánto cuesta.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'envio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-envio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-envio" style="display:none;">
+    <pre class="msg-text" id="text-envio">Sí hacemos envíos por mensajería, pero el costo se cobra aparte y varía según la zona.\n\nSi preferís recoger en un punto acordado, también lo podemos coordinar sin costo adicional.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-variaciones">
+  <div class="msg-header" onclick="toggleMsg('variaciones')">
+    <div class="msg-left">
+      <span class="msg-icon">🖐️</span>
+      <div>
+        <div class="msg-name">Variaciones en productos artesanales</div>
+        <div class="msg-context">Cuando preguntan por qué una vela se ve diferente a la foto.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'variaciones')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-variaciones">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-variaciones" style="display:none;">
+    <pre class="msg-text" id="text-variaciones">Como cada vela se hace a mano, pueden haber pequeñas variaciones en el color, la textura o la superficie. Eso es parte del proceso artesanal y hace que cada una sea única.\n\nSi tenés alguna inquietud específica, con gusto te la resuelvo.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-devoluciones">
+  <div class="msg-header" onclick="toggleMsg('devoluciones')">
+    <div class="msg-left">
+      <span class="msg-icon">🔄</span>
+      <div>
+        <div class="msg-name">Devoluciones por aroma</div>
+        <div class="msg-context">Cuando el cliente quiere devolver una vela porque el aroma no le gustó.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'devoluciones')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-devoluciones">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-devoluciones" style="display:none;">
+    <pre class="msg-text" id="text-devoluciones">Para los productos ya entregados no aceptamos devoluciones por cambio de aroma, ya que cada vela se hace especialmente para el pedido.\n\nSi tenés alguna duda antes de comprar, podemos orientarte sobre los aromas disponibles para que elijas con más seguridad.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Mencionarlo con amabilidad, pero ser claro. La política existe para proteger el negocio.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-temporada">
+  <div class="msg-header" onclick="toggleMsg('temporada')">
+    <div class="msg-left">
+      <span class="msg-icon">🌸</span>
+      <div>
+        <div class="msg-name">Consulta por edición de temporada</div>
+        <div class="msg-context">Cuando preguntan si habrá velas para una fecha especial próxima.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'temporada')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-temporada">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-temporada" style="display:none;">
+    <pre class="msg-text" id="text-temporada">Sí hacemos ediciones especiales por temporada. Te puedo anotar para avisarte cuando salga la colección.\n\nLas ediciones son en lotes pequeños, así que si te interesa, es mejor reservar con tiempo.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-kit_regalo">
+  <div class="msg-header" onclick="toggleMsg('kit_regalo')">
+    <div class="msg-left">
+      <span class="msg-icon">🎁</span>
+      <div>
+        <div class="msg-name">Recomendar kit de regalo</div>
+        <div class="msg-context">Cuando alguien busca algo para regalar pero no sabe qué elegir.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'kit_regalo')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-kit_regalo">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-kit_regalo" style="display:none;">
+    <pre class="msg-text" id="text-kit_regalo">Para regalo, el Kit Apagá la Reunión es la opción perfecta: viene con una vela mediana, tarjeta y empaque listo para entregar.\n\nSon ₡10.000 y podemos coordinarlo para que llegue justo a tiempo. ¿Tenés fecha de entrega?</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Siempre ofrecer el kit antes de velas individuales cuando el cliente busca algo para regalar.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-siguiendo">
+  <div class="msg-header" onclick="toggleMsg('siguiendo')">
+    <div class="msg-left">
+      <span class="msg-icon">🔄</span>
+      <div>
+        <div class="msg-name">Seguimiento de pedido</div>
+        <div class="msg-context">Cuando el cliente pregunta cómo va su pedido.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'siguiendo')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-siguiendo">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-siguiendo" style="display:none;">
+    <pre class="msg-text" id="text-siguiendo">¡Hola! Tu pedido está en proceso. Como cada vela se hace a mano, el tiempo estimado es de 3 a 5 días hábiles desde la confirmación.\n\nCuando esté listo te aviso para coordinar la entrega.</pre>
+    
+  </div>
+</div>
+
+        </div>
+        <script>
+          var msgTextsRegi = {
+  'catalogo': `¡Holaaa! Claro, te comparto las velas disponibles. Algunas son unidades limitadas porque las hacemos en lotes pequeños.\n\n🕯️ Vela pequeña — ₡3.500\n🕯️ Vela mediana — ₡5.500\n🕯️ Vela grande — ₡8.000\n🎁 Kit Apagá la Reunión — ₡10.000 (vela mediana + tarjeta + empaque)\n\n¿Te interesa alguna en particular o buscás algo para regalar?`,
+  'personalizado': `Sí podemos hacer personalizado. Para confirmarlo necesito:\n\n· Aroma preferido\n· Color\n· Tamaño\n· Fecha en que la necesitás\n\nTrabajamos con 50% de adelanto para reservar materiales y producción. El tiempo de entrega es de 3 a 5 días hábiles desde que confirmamos.`,
+  'entrega': `El tiempo regular es de 3 a 5 días hábiles. Como cada vela se hace a mano, preferimos trabajar con tiempo para cuidar el resultado.\n\nEl envío se coordina por mensajería y tiene un costo adicional que varía según zona. Si preferís punto de encuentro, también lo podemos coordinar.`,
+  'precio': `El precio contempla cera, aroma, envase, pabilo, etiqueta, empaque y tiempo de producción. No es solo la vela: es todo el proceso para que llegue lista y bonita.\n\nSi buscás algo para regalar, el Kit Apagá la Reunión a ₡10.000 es lo más completo: incluye vela mediana, tarjeta y empaque listo.`,
+  'objecion_precio': `Sí, al inicio teníamos precios más simbólicos porque estábamos probando y aprendiendo. Ahora estamos ajustando para que el emprendimiento pueda sostenerse y seguir creando nuevas velas con los mismos materiales de calidad.\n\nLos precios actuales incluyen materia prima, tiempo de producción, empaque y entrega cuidada.`,
+  'agotado': `Esa vela ya se agotó, pero podemos avisarte cuando vuelva a salir o recomendarte un aroma parecido que sí tenemos disponible ahora.\n\n¿Querés que te anote en la lista de espera o te cuento qué hay disponible hoy?`,
+  'envio': `Sí hacemos envíos por mensajería, pero el costo se cobra aparte y varía según la zona.\n\nSi preferís recoger en un punto acordado, también lo podemos coordinar sin costo adicional.`,
+  'variaciones': `Como cada vela se hace a mano, pueden haber pequeñas variaciones en el color, la textura o la superficie. Eso es parte del proceso artesanal y hace que cada una sea única.\n\nSi tenés alguna inquietud específica, con gusto te la resuelvo.`,
+  'devoluciones': `Para los productos ya entregados no aceptamos devoluciones por cambio de aroma, ya que cada vela se hace especialmente para el pedido.\n\nSi tenés alguna duda antes de comprar, podemos orientarte sobre los aromas disponibles para que elijas con más seguridad.`,
+  'temporada': `Sí hacemos ediciones especiales por temporada. Te puedo anotar para avisarte cuando salga la colección.\n\nLas ediciones son en lotes pequeños, así que si te interesa, es mejor reservar con tiempo.`,
+  'kit_regalo': `Para regalo, el Kit Apagá la Reunión es la opción perfecta: viene con una vela mediana, tarjeta y empaque listo para entregar.\n\nSon ₡10.000 y podemos coordinarlo para que llegue justo a tiempo. ¿Tenés fecha de entrega?`,
+  'siguiendo': `¡Hola! Tu pedido está en proceso. Como cada vela se hace a mano, el tiempo estimado es de 3 a 5 días hábiles desde la confirmación.\n\nCuando esté listo te aviso para coordinar la entrega.`,
+};
+          function toggleMsg(id) {
+            var body = document.getElementById('body-' + id);
+            var chev = document.getElementById('chev-' + id);
+            if (!body) return;
+            if (body.style.display === 'none') {
+              body.style.display = 'block';
+              chev.classList.add('open');
+            } else {
+              body.style.display = 'none';
+              chev.classList.remove('open');
+            }
+          }
+          function copyMsg(event, id) {
+            event.stopPropagation();
+            var text = msgTextsRegi[id];
+            navigator.clipboard.writeText(text).then(function() {
+              var btn = event.target;
+              var original = btn.textContent;
+              btn.textContent = '✓ Copiado';
+              btn.classList.add('copied');
+              setTimeout(function() {
+                btn.textContent = original;
+                btn.classList.remove('copied');
+              }, 2000);
+            });
+          }
+        </script>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Velas Regi ya puede comunicar precios, tiempos y condiciones sin sentir que está cobrando "demasiado" por algo hecho con sus propias manos.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las comunicaciones ordenadas, el siguiente paso es decidir qué herramientas usar y en qué orden invertir.</span></div><button class="nl-btn" onclick="show('n6',null)">Ir al Nivel 6 →</button></div>
+    </div>
+
+<!-- N6 -->
+    <div class="panel" id="panel-n6">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="pepe.png" alt="pepe" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 6 · Con Pepe</div>
+          <h2>"No necesitás más herramientas. Necesitás usar mejor las que ya tenés."</h2>
+          <p>Analizamos qué ya tiene Velas Regi, qué conviene implementar pronto y qué puede esperar para no gastar antes de validar.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Herramientas actuales · Ya las tenés</div><span class="badge green">Usar mejor</span></div>
+        <div class="tools-grid">
+          <div class="tool-card"><div class="tool-emoji">📸</div><div class="tool-name">Instagram</div><div class="tool-st">Catálogo y ventas orgánicas</div></div>
+          <div class="tool-card"><div class="tool-emoji">🌐</div><div class="tool-name">Página web</div><div class="tool-st">Hecha por Regi</div></div>
+          <div class="tool-card"><div class="tool-emoji">💬</div><div class="tool-name">WhatsApp</div><div class="tool-st">Atención y pedidos</div></div>
+          <div class="tool-card"><div class="tool-emoji">🎨</div><div class="tool-name">Canva</div><div class="tool-st">Contenido y piezas visuales</div></div>
+          <div class="tool-card"><div class="tool-emoji">📱</div><div class="tool-name">SINPE Móvil</div><div class="tool-st">Cobros</div></div>
+          <div class="tool-card"><div class="tool-emoji">🕯️</div><div class="tool-name">Curso de velas</div><div class="tool-st">Base de producción</div></div>
+          <div class="tool-card"><div class="tool-emoji">📋</div><div class="tool-name">Registro informal</div><div class="tool-st">Pedidos actuales</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Implementar pronto</div><span class="badge amber">Prioritario</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Para qué</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Costos</td><td data-label="Herramienta" style="padding:8px 10px;">Tabla por producto</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Saber cuánto cuesta cada vela y cuánto deja</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Inventario</td><td data-label="Herramienta" style="padding:8px 10px;">Control de materia prima</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Evitar comprar de más o quedarse sin insumos</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Pedidos</td><td data-label="Herramienta" style="padding:8px 10px;">WhatsApp Business</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Ordenar respuestas, horarios y solicitudes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Producción</td><td data-label="Herramienta" style="padding:8px 10px;">Calendario por lote</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Planificar velas sin trabajar a última hora</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Catálogo</td><td data-label="Herramienta" style="padding:8px 10px;">Página web ordenada</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Mostrar productos, precios y condiciones claras</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">Finanzas</td><td data-label="Herramienta" style="padding:8px 10px;">Cuenta o apartado separado</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">No mezclar dinero personal con ventas</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Dejar para después</div><span class="badge purple">No gastar todavía</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Por qué espera</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Tienda online</td><td data-label="Herramienta" style="padding:8px 10px;">E-commerce completo</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Primero validar precios y productos más vendidos</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Inventario grande</td><td data-label="Herramienta" style="padding:8px 10px;">Producción masiva</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Puede dejar dinero detenido en velas sin vender</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Local físico</td><td data-label="Herramienta" style="padding:8px 10px;">Punto de venta</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">No necesario en etapa inicial</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Ayuda externa</td><td data-label="Herramienta" style="padding:8px 10px;">Producción externa</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Antes debe haber ventas constantes y margen claro</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">Empaques premium</td><td data-label="Herramienta" style="padding:8px 10px;">Packaging de lujo</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Primero asegurar rentabilidad del producto base</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Orden de inversiones</div><span class="badge purple">Ejecutar así</span></div>
+        <div class="action-item"><div class="a-num red">1</div><div class="a-text">Tabla de costos por vela</div></div>
+        <div class="action-item"><div class="a-num red">2</div><div class="a-text">Ajuste gradual de precios</div></div>
+        <div class="action-item"><div class="a-num">3</div><div class="a-text">Registro de inventario de materia prima</div></div>
+        <div class="action-item"><div class="a-num">4</div><div class="a-text">WhatsApp Business con respuestas guardadas</div></div>
+        <div class="action-item"><div class="a-num">5</div><div class="a-text">Fotos claras de productos con precios visibles</div></div>
+        <div class="action-item"><div class="a-num">6</div><div class="a-text">Catálogo en web con condiciones claras</div></div>
+        <div class="action-item"><div class="a-num">7</div><div class="a-text">Pauta pequeña para kits y productos estrella</div></div>
+        <div class="action-item"><div class="a-num">8</div><div class="a-text">Ferias o alianzas si los números ya funcionan</div></div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Velas Regi sabe que no necesita crecer rápido: necesita crecer con costos claros, precios sostenibles y producción ordenada.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con toda la información acumulada, Glau puede detectar dónde se escapan recursos importantes.</span></div><button class="nl-btn" onclick="show('n7',null)">Ir al Nivel 7 →</button></div>
+    </div>
+
+<!-- N7 -->
+    <div class="panel" id="panel-n7">
+      <div class="mascot-hero" style="background:var(--dark);border-color:var(--dark);">
+        <div class="mh-mascot dark-bg"><img src="glau.png" alt="glau" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 7 · Con Glau · Exclusivo Pro</div>
+          <h2 style="color:#fff;">"Vamos a detectar fugas."</h2>
+          <p style="color:rgba(255,255,255,0.55);">Velas Regi tiene una base creativa fuerte y una comunidad inicial interesada, pero todavía funciona como hobby con ventas. La prioridad es ordenar precios, costos, inventario y condiciones antes de que el emprendimiento crezca sin control.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(249,70,70,0.2);color:#ff8a8a;">PRO Activo</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Lectura general</div><span class="badge red">Diagnóstico Ordy</span></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:16px;">Regi no necesita vender más a cualquier precio. Necesita entender cuánto cuesta realmente cada vela y cuánto debe cobrar para que el negocio no le pase factura.</div>
+        <div class="g3" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">🕯️</div><div style="font-size:13px;font-weight:800;color:var(--p);">Velas individuales</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Entrada al catálogo</div></div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(26,158,110,0.2);"><div style="font-size:20px;margin-bottom:6px;">🎁</div><div style="font-size:13px;font-weight:800;color:var(--g);">Kits de regalo</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Mejor margen y ticket</div></div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">🌸</div><div style="font-size:13px;font-weight:800;color:#b06040;">Temporada / Personalizados</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Mayor valor con límites claros</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Resumen del radar</div><span class="badge red">5 fugas analizadas</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Fuga</th>
+              <th style="padding:8px 10px;text-align:center;font-weight:800;color:var(--muted);">Alerta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Qué significa</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">💸 Precio simbólico</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Los precios actuales pueden no cubrir materiales, tiempo y reinversión</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">📊 Costos poco claros</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">No hay certeza de cuánto gana realmente por vela</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">💳 Dinero mezclado</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media-alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">El dinero del hobby se puede confundir con dinero personal</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🎲 Producción por impulso</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Crear sin plan puede generar inventario detenido</td></tr>
+              <tr><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">📋 Falta de condiciones</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Personalizados y entregas pueden consumir más tiempo del esperado</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">💸 Precio simbólico</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Regi empezó vendiendo barato porque era un hobby. El precio de inicio ayudó a probar, pero no debe convertirse en el precio del negocio.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Lectura Ordy:</strong> calcular costo real, subir por etapas y explicar que los precios iniciales eran de lanzamiento.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">📊 Costos poco claros</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">No hay claridad completa sobre cera, aroma, envase, pabilo, empaque y tiempo. Sin costos por vela, cada venta puede sentirse como ganancia aunque no lo sea.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> crear ficha por producto con costo, precio y margen antes de publicar nuevas colecciones.</div></div>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-top:16px;">
+        <div class="card">
+          <div class="ch"><div class="ch-title">💳 Dinero mezclado</div><span class="badge amber">Media-alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Las ventas pueden entrar al mismo flujo personal. Si el dinero se mezcla, Regi no sabrá si el negocio crece o solo se mueve.</div>
+          <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> separar cuenta, sobre o apartado para reinversión, materiales y ganancia.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">🎲 Producción por impulso</div><span class="badge amber">Media</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Regi crea lo que se le ocurre y lo sube a Instagram. La creatividad es valiosa, pero necesita calendario y lotes pequeños.</div>
+          <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> definir productos base, lotes limitados y temporadas planificadas.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:16px;">
+        <div class="ch"><div class="ch-title">📋 Falta de condiciones</div><span class="badge amber">Media</span></div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Sin condiciones claras, cada pedido puede volverse distinto y consumir energía innecesaria. Los personalizados son los más vulnerables.</div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> definir adelantos, tiempos, cambios permitidos y costo de envío antes de seguir vendiendo.</div></div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Fuga principal detectada</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;margin-bottom:14px;"><strong style="color:var(--pl);">Precio simbólico sin costo real por producto.</strong> Regi puede vender con mucho cariño, pero si no costea cada vela, puede trabajar más y ganar menos sin darse cuenta.</div>
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Mayor oportunidad detectada</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;">Convertir las velas en <strong style="color:#fff;">kits de regalo con mejor margen y presentación más clara</strong>. El Kit Apagá la Reunión ya tiene potencial — es el producto que más valor percibido tiene con el menor esfuerzo adicional.</div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Decisiones estratégicas recomendadas</div><span class="badge purple">Próxima etapa</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="action-item"><div class="a-num red">1</div><div class="a-text">Costear cada vela antes de publicar nuevas colecciones</div></div>
+            <div class="action-item"><div class="a-num red">2</div><div class="a-text">Separar dinero personal del dinero del emprendimiento</div></div>
+            <div class="action-item"><div class="a-num">3</div><div class="a-text">Subir precios gradualmente explicando que los anteriores eran de inicio</div></div>
+            <div class="action-item"><div class="a-num">4</div><div class="a-text">Crear 3 productos base: vela individual, kit regalo y temporada</div></div>
+          </div>
+          <div>
+            <div class="action-item"><div class="a-num">5</div><div class="a-text">Producir en lotes pequeños según demanda real</div></div>
+            <div class="action-item"><div class="a-num">6</div><div class="a-text">Usar la página web como catálogo claro, no solo galería bonita</div></div>
+            <div class="action-item"><div class="a-num">7</div><div class="a-text">Definir políticas para personalizados y entregas</div></div>
+            <div class="action-item"><div class="a-num">8</div><div class="a-text">Impulsar el Kit de Regalo como producto estrella</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="logro"><strong>🎯 Valor desbloqueado</strong><span>Velas Regi puede dejar de vender como hobby y empezar a construir un emprendimiento con aroma, margen y paz financiera.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Revisión mensual</strong><span>El siguiente paso es revisar costos, precios, inventario y productos más vendidos cada mes.</span></div><button class="nl-btn" onclick="show('n8',null)">Ver Nivel 8 →</button></div>
+    </div>
+
+<!-- N8 -->
+    <div class="panel" id="panel-n8">
+      <div class="mascot-hero" style="background:linear-gradient(135deg,#1a1a2e,#2d2d4e);border-color:#2d2d4e;">
+        <div class="mh-mascot" style="font-size:64px;">🔒</div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 8 · Próximamente</div>
+          <h2 style="color:#fff;">Comunidad Ordy</h2>
+          <p style="color:rgba(255,255,255,0.5);">Cuando más negocios usan la plataforma, más claro se vuelve qué herramientas, recursos y mejoras hacen falta.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(187,187,252,0.15);color:var(--pl);">Próximamente</span></div>
+        </div>
+      </div>
+      <div class="locked-panel">
+        <div class="lock-icon">🌊</div>
+        <div class="lock-title">Este nivel se desbloquea con la comunidad</div>
+        <div class="lock-text">El Nivel 8 es el espacio donde los negocios que ya ordenaron su base se juntan para aprender, compartir y votar por las próximas herramientas de Ordy.<br><br>Ingresá a nuestro grupo de networking en WhatsApp y ayudanos a entender qué otras herramientas podríamos integrar.</div>
+        <button class="lock-btn" onclick="window.open('https://chat.whatsapp.com/FiiqKunmfSDJeRsq2TFU5y?s=cl&p=i&ilr=2&amv=0','_blank')">Unirme al grupo de WhatsApp →</button>
+      </div>
+    </div>
+
+    <!-- PLAN 30 -->
+  <div class="footer" style="margin-top:0;">
+    <div class="footer-logo">
+      <div class="footer-logo-av"><img src="ordy.png" alt="ordy" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+      <div><strong>Velas Regi</strong><span>Un sistema de orden para tu negocio</span></div>
+    </div>
+    <div class="footer-info">Dashboard Pro · Velas Regi · Junio 2025 · ordy.cr</div>
+  </div>
+</main>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  document.getElementById('panel-' + id).classList.add('on');
+  if (btn) btn.classList.add('on');
+  var titles = {
+    bienvenida:['Inicio · Ordy','Velas Regi · Velas Regi'],
+    overview:['Vista General','Velas Regi · Ordy Pro'],
+    n1:['Nivel 1 · Entendé tu negocio','Con Lumi · Velas Regi'],
+    n2:['Nivel 2 · Orden operativo','Con Carey · Velas Regi'],
+    n3:['Nivel 3 · Plata sin autoengaño','Con Regi · Velas Regi'],
+    n4:['Nivel 4 · Formalización','Con Marty · Velas Regi'],
+    n5:['Nivel 5 · Clientes y políticas','Con Cabu · Velas Regi'],
+    n6:['Nivel 6 · Crecimiento ordenado','Con Pepe · Velas Regi'],
+    n7:['Nivel 7 · Radar de fugas','Con Glau · PRO · Velas Regi'],
+    n8:['Nivel 8 · Comunidad','Próximamente · Ordy']
+  };
+  if (titles[id]) {
+    document.getElementById('page-title').textContent = titles[id][0];
+    document.getElementById('page-sub').textContent = titles[id][1];
+  }
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

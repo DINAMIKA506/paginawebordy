@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Navi Café de Ruta | Dashboard de ejemplo Ordy</title>
+<meta name="description" content="Explorá cómo una cafetería puede usar Ordy para entender mejor sus procesos, números y oportunidades de crecimiento."/>
+<meta name="robots" content="index, follow"/>
+<link rel="canonical" href="https://www.ordenyplan.com/dashboards/navi"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://www.ordenyplan.com/dashboards/navi"/>
+<meta property="og:title" content="Navi Café de Ruta | Dashboard de ejemplo Ordy"/>
+<meta property="og:description" content="Explorá cómo una cafetería puede usar Ordy para entender mejor sus procesos, números y oportunidades de crecimiento."/>
+<meta property="og:image" content="https://www.ordenyplan.com/ordy-social-share.png"/>
+<link rel="icon" type="image/png" href="favicon.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --p:#4e4bf7;--pl:#bbbbfc;--pp:#f0f0ff;
+  --r:#f94646;--rp:#fff0f0;
+  --g:#1a9e6e;--gp:#e6f7f1;
+  --a:#f7a600;--ap:#fff8e6;
+  --dark:#1a1a2e;--text:#2d2d4e;--muted:#8888aa;
+  --border:#e8e8f0;--bg:#f4f4f8;--white:#fff;--cream:#fdf2ed;
+}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh;}
+.sb{width:236px;min-width:236px;background:var(--dark);min-height:100vh;position:fixed;left:0;top:0;bottom:0;display:flex;flex-direction:column;overflow-y:auto;z-index:100;}
+.sb-logo{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;gap:10px;cursor:pointer;}
+.sb-logo-av{width:40px;height:40px;display:flex;align-items:center;justify-content:center;}
+.sb-logo-av img{width:40px;height:40px;object-fit:contain;}
+.sb-logo-text span{display:block;font-size:20px;font-weight:900;color:#fff;}
+.sb-logo-text small{font-size:9px;color:var(--pl);letter-spacing:2px;text-transform:uppercase;}
+.sb-sec{padding:14px 14px 6px;font-size:9px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28);}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 14px;margin:1px 6px;border-radius:10px;cursor:pointer;transition:all 0.12s;border:none;background:transparent;width:calc(100% - 12px);text-align:left;}
+.ni:hover{background:rgba(255,255,255,0.06);}
+.ni.on{background:var(--p);}
+.ni-av{width:34px;height:34px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.ni-av img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.3));}
+.ni-av.emoji{font-size:16px;}
+.ni-info{flex:1;min-width:0;}
+.ni-name{font-size:12px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ni-lvl{font-size:10px;color:rgba(255,255,255,0.38);}
+.ni.on .ni-lvl{color:var(--pl);}
+.nb{font-size:9px;font-weight:800;padding:2px 7px;border-radius:20px;flex-shrink:0;}
+.nb.ok{background:rgba(26,158,110,0.2);color:#4cdf9e;}
+.nb.pro{background:rgba(249,70,70,0.2);color:#ff8a8a;}
+.nb.lock{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.3);}
+.sb-bottom{margin-top:auto;padding:14px;border-top:1px solid rgba(255,255,255,0.07);}
+.sb-client{background:var(--p);border-radius:10px;padding:12px;}
+.sb-client strong{display:block;font-size:13px;color:#fff;}
+.sb-client span{font-size:10px;color:var(--pl);margin-top:2px;display:block;}
+.main{margin-left:236px;flex:1;display:flex;flex-direction:column;}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;}
+.tb-left strong{font-size:17px;font-weight:900;color:var(--text);display:block;}
+.tb-left span{font-size:11px;color:var(--muted);}
+.tb-right{display:flex;gap:10px;align-items:center;}
+.pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;}
+.pill.green{background:var(--gp);color:var(--g);}
+.pill.purple{background:var(--pp);color:var(--p);}
+.pill-dot{width:6px;height:6px;border-radius:50%;background:var(--g);}
+.content{padding:24px 28px 0;flex:1;}
+.panel{display:none;}.panel.on{display:block;}
+.mascot-hero{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:24px 28px;display:flex;align-items:center;gap:24px;margin-bottom:20px;}
+.mh-mascot{width:140px;min-width:140px;display:flex;align-items:center;justify-content:center;}
+.mh-mascot.dark-bg{background:var(--dark);border-radius:16px;padding:8px;width:110px;height:110px;}
+.mh-text .eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--p);margin-bottom:6px;}
+.mh-text h2{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;line-height:1.2;}
+.mh-text p{font-size:13px;color:var(--muted);line-height:1.6;max-width:560px;}
+.mh-badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
+.badge{font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;}
+.badge.purple{background:var(--pp);color:var(--p);}
+.badge.green{background:var(--gp);color:var(--g);}
+.badge.red{background:var(--rp);color:var(--r);}
+.badge.amber{background:var(--ap);color:var(--a);}
+.badge.dark{background:rgba(26,26,46,0.08);color:var(--dark);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px;}
+.g65{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;margin-bottom:16px;}
+.mb{margin-bottom:16px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:20px;}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.ch-title{font-size:14px;font-weight:800;color:var(--text);}
+.prog-wrap{margin-bottom:12px;}
+.prog-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--text);margin-bottom:5px;}
+.prog-track{height:8px;background:var(--bg);border-radius:4px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:4px;}
+.prog-fill.p{background:var(--p);}.prog-fill.g{background:var(--g);}.prog-fill.r{background:var(--r);}.prog-fill.a{background:var(--a);}
+.lvl-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:0;}
+.lvl-chip{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:10px 14px;cursor:pointer;transition:all 0.12s;border:1px solid transparent;flex:1;min-width:190px;}
+.lvl-chip:hover{border-color:var(--p);background:var(--pp);}
+.lvl-chip-av{width:42px;height:42px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.lvl-chip-av img{width:42px;height:42px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.12));}
+.lvl-chip-info .name{font-size:12px;font-weight:800;color:var(--text);}
+.lvl-chip-info .sub{font-size:11px;color:var(--muted);}
+.lvl-num{font-size:10px;font-weight:900;padding:2px 8px;border-radius:20px;}
+.lvl-num.done{background:var(--gp);color:var(--g);}.lvl-num.pro{background:var(--rp);color:var(--r);}
+.row-item{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.row-item:last-child{border-bottom:none;}
+.ri-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.ri-icon.p{background:var(--pp);}.ri-icon.g{background:var(--gp);}.ri-icon.r{background:var(--rp);}.ri-icon.a{background:var(--ap);}
+.ri-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);margin-bottom:2px;}
+.ri-text{font-size:13px;color:var(--text);line-height:1.5;}
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:10px;margin-bottom:8px;}
+.alert-row:last-child{margin-bottom:0;}
+.alert-row.high{background:var(--rp);border-left:3px solid var(--r);}
+.alert-row.med{background:var(--ap);border-left:3px solid var(--a);}
+.alert-row.low{background:var(--gp);border-left:3px solid var(--g);}
+.alert-row.info{background:var(--pp);border-left:3px solid var(--p);}
+.ar-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.ar-dot.high{background:var(--r);}.ar-dot.med{background:var(--a);}.ar-dot.low{background:var(--g);}.ar-dot.info{background:var(--p);}
+.ar-text{font-size:13px;color:var(--text);line-height:1.5;}
+.check-row{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+.check-row:last-child{border-bottom:none;}
+.cb{width:18px;height:18px;border-radius:5px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;}
+.cb.urgent{background:var(--r);color:#fff;}.cb.soon{background:var(--a);color:#fff;}.cb.later{background:var(--border);color:var(--muted);border:2px solid var(--border);}
+.check-text{font-size:13px;color:var(--text);line-height:1.5;}
+.ctag{font-size:9px;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;}
+.ctag.urgent{background:var(--rp);color:var(--r);}.ctag.soon{background:var(--ap);color:var(--a);}.ctag.later{background:var(--border);color:var(--muted);}
+.formula{background:var(--dark);border-radius:12px;padding:16px;}
+.formula-title{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--pl);margin-bottom:12px;}
+.formula-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.07);font-size:13px;}
+.formula-row:last-child{border-bottom:none;}
+.fl{color:rgba(255,255,255,0.65);}.fv{font-weight:800;color:#fff;}
+.fv.accent{color:var(--pl);}.fv.red{color:#ff8a8a;}.fv.green{color:#4cdf9e;}
+.radar-row{display:flex;align-items:center;gap:12px;margin-bottom:11px;}
+.radar-row:last-child{margin-bottom:0;}
+.rr-name{font-size:12px;font-weight:700;color:var(--text);min-width:130px;}
+.rr-track{flex:1;height:10px;border-radius:5px;background:var(--bg);overflow:hidden;}
+.rr-fill{height:100%;border-radius:5px;}
+.rr-fill.high{background:var(--r);}.rr-fill.med{background:var(--a);}.rr-fill.low{background:var(--g);}
+.rr-tag{font-size:11px;font-weight:800;min-width:40px;text-align:right;}
+.rr-tag.high{color:var(--r);}.rr-tag.med{color:var(--a);}.rr-tag.low{color:var(--g);}
+.action-item{display:flex;align-items:flex-start;gap:10px;padding:10px;border-radius:10px;background:var(--bg);margin-bottom:8px;}
+.action-item:last-child{margin-bottom:0;}
+.a-num{width:26px;height:26px;border-radius:7px;background:var(--p);color:#fff;font-size:11px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.a-num.red{background:var(--r);}
+.a-week{font-size:9px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px;}
+.a-text{font-size:13px;color:var(--text);line-height:1.5;padding-top:2px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.tool-card{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
+.tool-emoji{font-size:20px;margin-bottom:5px;}
+.tool-name{font-size:12px;font-weight:700;color:var(--text);}.tool-st{font-size:10px;color:var(--muted);margin-top:2px;}
+.dist-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.dist-label{font-size:12px;font-weight:700;color:var(--text);min-width:170px;}
+.locked-panel{text-align:center;padding:60px 40px;}
+.lock-icon{font-size:48px;margin-bottom:16px;}
+.lock-title{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.lock-text{font-size:14px;color:var(--muted);line-height:1.7;max-width:440px;margin:0 auto 24px;}
+.lock-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:14px 32px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;}
+.next-level{background:linear-gradient(135deg,var(--pp),#e8e8ff);border:1px solid var(--pl);border-radius:14px;padding:18px 20px;margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
+.nl-text strong{display:block;font-size:13px;font-weight:800;color:var(--p);margin-bottom:3px;}
+.nl-text span{font-size:12px;color:var(--text);line-height:1.5;}
+.nl-btn{background:var(--p);color:#fff;border:none;border-radius:50px;padding:10px 20px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;white-space:nowrap;flex-shrink:0;}
+.logro{background:var(--gp);border:1px solid var(--g);border-radius:14px;padding:16px 18px;margin-top:16px;}
+.logro strong{display:block;font-size:11px;font-weight:900;color:var(--g);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.logro span{font-size:13px;color:var(--text);line-height:1.5;}
+.ordy-note{background:var(--cream);border-radius:12px;padding:14px 16px;font-size:12px;color:#8a5a40;line-height:1.6;margin-top:12px;}
+.ordy-note strong{color:#6a3a20;}
+.footer{background:var(--dark);padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-logo{display:flex;align-items:center;gap:10px;}
+.footer-logo-av{width:32px;height:32px;display:flex;align-items:center;justify-content:center;}
+.footer-logo-av img{width:32px;height:32px;object-fit:contain;}
+.footer-logo strong{font-size:14px;font-weight:900;color:#fff;}
+.footer-logo span{font-size:10px;color:var(--pl);display:block;}
+.footer-info{font-size:11px;color:rgba(255,255,255,0.28);}
+@media(max-width:860px){
+  .sb{width:56px;min-width:56px;}
+  .sb-logo-text,.ni-info,.nb,.sb-sec,.sb-bottom{display:none;}
+  .sb-logo{justify-content:center;padding:10px 4px;border-bottom:none;}
+  .sb-logo-av{width:44px;height:44px;border-radius:12px;}
+  .sb-logo-av img{width:44px;height:44px;}
+  .ni{justify-content:center;padding:10px;margin:2px 4px;}
+  .main{margin-left:56px;}
+  .g2,.g65{grid-template-columns:1fr;}
+  .g3{grid-template-columns:1fr 1fr;}
+  .content{padding:16px;}
+  .topbar{padding:0 16px;}
+}
+@media(max-width:540px){
+  .g2,.g3{grid-template-columns:1fr;}
+  .lvl-chips{flex-direction:column;}
+  .next-level{flex-direction:column;}
+  .mascot-hero{flex-direction:column;text-align:center;}
+}
+
+/* SAFE AREA TOP - evita que contenido quede bajo la barra del navegador en móvil */
+.topbar {
+  padding-top: max(12px, env(safe-area-inset-top));
+  height: auto;
+  min-height: 60px;
+}
+.content {
+  padding-top: 20px;
+}
+@media(max-width:860px) {
+  .topbar {
+    padding: max(14px, env(safe-area-inset-top)) 16px 14px;
+  }
+  .main {
+    padding-top: 0;
+  }
+}
+
+/* LOGO BAR */
+.logo-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:#fff;
+  border-bottom:1px solid #e8e8f0;
+  height:52px;
+  display:flex;align-items:center;padding:0 16px;
+  box-shadow:0 1px 8px rgba(78,75,247,0.08);
+}
+.logo-bar img{height:36px;object-fit:contain;}
+
+/* Empujar todo el contenido hacia abajo para no quedar bajo la barra */
+.sb{top:52px;}
+.topbar{top:52px;}
+.main{padding-top:52px;}
+
+@media(max-width:860px){
+  .sb{top:52px;}
+  .main{padding-top:52px;}
+}
+
+/* N3 TABLAS → TARJETAS EN MÓVIL */
+@media(max-width:640px){
+  /* Ocultar encabezado de tabla */
+  table thead { display:none; }
+  /* Cada fila se convierte en tarjeta */
+  table tbody tr {
+    display:block;
+    background:var(--bg);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:10px;
+    border:1px solid var(--border);
+  }
+  /* Cada celda muestra su etiqueta y valor */
+  table tbody td {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:5px 0 !important;
+    border-bottom:1px solid var(--border);
+    font-size:13px;
+  }
+  table tbody td:last-child { border-bottom:none; }
+  /* Etiqueta generada con data-label */
+  table tbody td::before {
+    content: attr(data-label);
+    font-weight:800;
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.5px;
+    flex-shrink:0;
+    margin-right:8px;
+  }
+  /* Ajustes generales en móvil */
+  .g2 { grid-template-columns:1fr !important; }
+  .dist-label { min-width:unset; font-size:12px; }
+}
+
+/* PANEL BIENVENIDA */
+.bv{
+  background:#4e4bf7;
+  min-height:calc(100vh - 112px);
+  display:flex;flex-direction:column;
+  align-items:center;
+  padding:32px 22px 48px;
+  text-align:center;
+  box-sizing:border-box;
+}
+.bv img.bv-ordy{
+  width:150px;height:150px;border-radius:26px;
+  object-fit:cover;margin-bottom:16px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.22);
+  border:3px solid rgba(255,255,255,0.18);
+  flex-shrink:0;
+}
+.bv .bv-brand{font-size:10px;font-weight:800;color:#bbbbfc;
+  letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
+.bv h2{font-size:26px;font-weight:900;color:#fff;
+  line-height:1.2;margin-bottom:4px;}
+.bv h2 em{color:#fdf2ed;font-style:normal;}
+.bv .bv-line{width:36px;height:2px;background:rgba(255,255,255,0.18);
+  border-radius:2px;margin:14px auto;}
+.bv .bv-desc{font-size:14px;color:rgba(255,255,255,0.65);
+  line-height:1.65;max-width:300px;margin-bottom:22px;}
+.bv .bv-desc b{color:#fff;}
+.bv .bv-list{
+  display:flex;flex-direction:column;gap:8px;
+  width:100%;max-width:340px;margin-bottom:24px;
+}
+.bv .bv-lvl{
+  display:flex;align-items:center;gap:11px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:11px;padding:10px 12px;
+  cursor:pointer;width:100%;
+  font-family:'Nunito',sans-serif;
+  text-align:left;box-sizing:border-box;
+}
+.bv .bv-lvl:active{background:rgba(255,255,255,0.2);}
+.bv .bv-av{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+.bv .bv-av img{width:100%;height:100%;object-fit:cover;}
+.bv .bv-tx{flex:1;min-width:0;}
+.bv .bv-nm{font-size:12px;font-weight:800;color:#fff;display:block;text-align:left;}
+.bv .bv-sb{font-size:10px;color:rgba(255,255,255,0.4);display:block;margin-top:1px;text-align:left;}
+.bv .bv-bg{font-size:10px;font-weight:800;padding:3px 8px;
+  border-radius:20px;flex-shrink:0;white-space:nowrap;}
+.bv .bv-bg.ok{background:rgba(26,158,110,0.3);color:#4cdf9e;}
+.bv .bv-bg.pr{background:rgba(249,70,70,0.3);color:#ff8a8a;}
+.bv .bv-btn{
+  background:#fff;color:#4e4bf7;border:none;
+  border-radius:50px;padding:14px 0;font-size:15px;
+  font-weight:900;cursor:pointer;
+  font-family:'Nunito',sans-serif;
+  width:100%;max-width:340px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  margin-bottom:14px;
+}
+.bv .bv-btn:active{transform:scale(0.98);}
+.bv .bv-ft{font-size:11px;color:rgba(255,255,255,0.22);}
+</style>
+</head>
+<body>
+
+<div class="logo-bar">
+  <img src="logo.png" alt="Ordy · orden y plan"/>
+</div>
+<aside class="sb">
+  <div class="sb-logo" onclick="show('bienvenida',null);">
+    <div class="sb-logo-av"><img src="ordy.png" alt="ordy" style="width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="sb-logo-text"><span>Navi Café de Ruta</span><small>orden y plan ✓</small></div>
+  </div>
+  <div class="sb-sec">General</div>
+  <button class="ni on" onclick="show('overview',this)">
+    <div class="ni-av"><img src="navi.png" alt="navi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+    <div class="ni-info"><div class="ni-name">Vista General</div><div class="ni-lvl">Panorama del negocio</div></div>
+  </button>
+  <div class="sb-sec">Niveles</div>
+  
+<button class="ni" onclick="show('n1',this)">
+  <div class="ni-av"><img src="lumi.png" alt="lumi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 1</div><div class="ni-lvl">Entendé tu negocio</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n2',this)">
+  <div class="ni-av"><img src="carey.png" alt="carey" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 2</div><div class="ni-lvl">Orden operativo</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n3',this)">
+  <div class="ni-av"><img src="regi.png" alt="regi" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 3</div><div class="ni-lvl">Plata sin autoengaño</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n4',this)">
+  <div class="ni-av"><img src="marty.png" alt="marty" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 4</div><div class="ni-lvl">Formalización</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n5',this)">
+  <div class="ni-av"><img src="cabu.png" alt="cabu" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 5</div><div class="ni-lvl">Clientes y políticas</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n6',this)">
+  <div class="ni-av"><img src="pepe.png" alt="pepe" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 6</div><div class="ni-lvl">Crecimiento</div></div>
+  <span class="nb ok">✓</span>
+</button>
+  
+<button class="ni" onclick="show('n7',this)">
+  <div class="ni-av"><img src="glau.png" alt="glau" style="width:32px;height:32px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+  <div class="ni-info"><div class="ni-name">Nivel 7</div><div class="ni-lvl">Radar de fugas</div></div>
+  <span class="nb pro">PRO</span>
+</button>
+  <button class="ni" onclick="show('n8',this)">
+    <div class="ni-av emoji">🔒</div>
+    <div class="ni-info"><div class="ni-name">Nivel 8</div><div class="ni-lvl">Comunidad</div></div>
+    <span class="nb lock">Pronto</span>
+  </button>
+
+  <div class="sb-bottom">
+    <div class="sb-client">
+      <strong>Navi Café de Ruta</strong>
+      <span>Dashboard Pro · 7 niveles activos</span>
+      <span style="margin-top:6px;opacity:0.6;">Generado por Ordy · Jun 2025</span>
+    </div>
+  </div>
+</aside>
+
+<main class="main">
+  <div class="topbar">
+    <div class="tb-left">
+      <strong id="page-title">Vista General</strong>
+      <span id="page-sub">Ordy · Sistema de orden Pro</span>
+    </div>
+    <div class="tb-right">
+      <div class="pill green"><div class="pill-dot"></div>En proceso de orden</div>
+      <div class="pill purple">100% completado</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+        <!-- BIENVENIDA -->
+    <div class="panel on" id="panel-bienvenida">
+      <div class="bv">
+        <img class="bv-ordy" src="ordy.png" alt="Ordy"/>
+        <div class="bv-brand">Ordy · Orden y plan ✓</div>
+        <h2>Bienvenida al<br><em>océano de tu negocio</em></h2>
+        <div class="bv-line"></div>
+        <p class="bv-desc">Ordy convierte la información de tu negocio en una <b>ruta clara de niveles, tareas y decisiones</b>. Cada nivel tiene su guía.</p>
+        <div class="bv-list">
+          <button class="bv-lvl" onclick="show('overview',null)"><div class="bv-av"><img src="navi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">Vista General</span><span class="bv-sb">Panorama del negocio</span></div><span class="bv-bg ok">→</span></button>
+          <button class="bv-lvl" onclick="show('n1',null)"><div class="bv-av"><img src="lumi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N1 · Entendé tu negocio</span><span class="bv-sb">Con Lumi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n2',null)"><div class="bv-av"><img src="carey.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N2 · Orden operativo</span><span class="bv-sb">Con Carey</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n3',null)"><div class="bv-av"><img src="regi.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N3 · Plata sin autoengaño</span><span class="bv-sb">Con Regi</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n4',null)"><div class="bv-av"><img src="marty.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N4 · Formalización</span><span class="bv-sb">Con Marty</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n5',null)"><div class="bv-av"><img src="cabu.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N5 · Clientes y políticas</span><span class="bv-sb">Con Cabu</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n6',null)"><div class="bv-av"><img src="pepe.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N6 · Crecimiento</span><span class="bv-sb">Con Pepe</span></div><span class="bv-bg ok">✓</span></button>
+          <button class="bv-lvl" onclick="show('n7',null)" style="border-color:rgba(249,70,70,0.3);background:rgba(249,70,70,0.08);"><div class="bv-av"><img src="glau.png" alt=""/></div><div class="bv-tx"><span class="bv-nm">N7 · Radar de fugas</span><span class="bv-sb">Con Glau · Pro</span></div><span class="bv-bg pr">PRO</span></button>
+        </div>
+        <button class="bv-btn" onclick="show('overview',null)">Explorar mi diagnóstico →</button>
+        <div class="bv-ft">Dashboard generado por Ordy</div>
+      </div>
+    </div>
+
+<!-- OVERVIEW -->
+    <div class="panel" id="panel-overview">
+      <div style="background:var(--p);border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:16px;">
+        <img src="ordy.png" alt="Ordy" style="width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.2));flex-shrink:0;"/>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px;">Ordy · Sistema de orden</div>
+          <div style="font-size:22px;font-weight:900;color:#fff;margin-bottom:4px;">¡Hola, Navi Café de Ruta! 👋</div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.75);line-height:1.5;">Navi te guiará por el panorama de tu negocio. Explorá cada nivel para ver tu diagnóstico completo.</div>
+        </div>
+      </div>
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="navi.png" alt="navi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Con Navi · Vista general</div>
+          <h2>Exploremos el panorama</h2>
+          <p>Bienvenida al dashboard de <strong>Navi Café de Ruta</strong>. Aquí vas a ver el estado actual de tu negocio, tu progreso por niveles y los próximos pasos recomendados. Todo lo que está acá salió de tus respuestas: es tu negocio, ordenado.</p>
+          <div class="mh-badges"><span class="badge purple">Cafetería artesanal</span><span class="badge dark">Arrecife</span><span class="badge green">7 niveles completados</span></div>
+        </div>
+      </div>
+      <div class="g2 mb">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio</div><span class="badge purple">Navi Café de Ruta</span></div>
+          <div class="row-item"><div class="ri-icon p">☕</div><div><div class="ri-label">Qué es</div><div class="ri-text">Navi Café de Ruta es una cafetería pequeña atendida por Navi y su pareja repostera, ubicada al borde del arrecife. Combina café, repostería artesanal hecha en casa y una experiencia tranquila para quienes necesitan parar antes de seguir nadando contra la corriente.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">4 tipos de café, repostería artesanal, combos café + postre y pedidos para llevar.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Café, repostería hecha en casa, atención cercana y un ambiente de arrecife donde hasta el pez más apurado puede respirar un segundo.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">📱</div><div><div class="ri-label">Canales</div><div class="ri-text">Instagram, WhatsApp, Google Maps y boca a boca.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Progreso general</div><span class="badge green">100% ordenado</span></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N1 · Entendé tu negocio</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N2 · Orden operativo</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N3 · Plata sin autoengaño</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N4 · Formalización</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N5 · Clientes y políticas</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N6 · Crecimiento</span><span style="color:var(--g);">✓</span></div><div class="prog-track"><div class="prog-fill g" style="width:100%;"></div></div></div>
+          <div class="prog-wrap"><div class="prog-label"><span>N7 · Radar de fugas</span><span style="color:var(--r);">PRO</span></div><div class="prog-track"><div class="prog-fill r" style="width:100%;"></div></div></div>
+          <div style="background:var(--gp);border-radius:10px;padding:12px;font-size:13px;color:var(--text);line-height:1.6;margin-top:12px;"><strong style="color:var(--g);">Todos los niveles completados.</strong> El siguiente paso prioritario es costear las recetas y actualizar precios antes de pensar en contratar.</div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Progreso por niveles · Hacé clic para navegar</div><span class="badge purple">7 activos</span></div>
+        <div class="lvl-chips">
+          <div class="lvl-chip" onclick="show('n1',null)"><div class="lvl-chip-av"><img src="lumi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Entendé tu negocio</div><div class="sub">Base clara de la marca</div></div><span class="lvl-num done">N1</span></div>
+          <div class="lvl-chip" onclick="show('n2',null)"><div class="lvl-chip-av"><img src="carey.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Orden operativo</div><div class="sub">Cómo funciona por dentro</div></div><span class="lvl-num done">N2</span></div>
+          <div class="lvl-chip" onclick="show('n3',null)"><div class="lvl-chip-av"><img src="regi.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Plata sin autoengaño</div><div class="sub">Costos y rentabilidad</div></div><span class="lvl-num done">N3</span></div>
+          <div class="lvl-chip" onclick="show('n4',null)"><div class="lvl-chip-av"><img src="marty.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Formalización</div><div class="sub">Obligaciones y riesgos</div></div><span class="lvl-num done">N4</span></div>
+          <div class="lvl-chip" onclick="show('n5',null)"><div class="lvl-chip-av"><img src="cabu.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Clientes y políticas</div><div class="sub">Respuestas y límites</div></div><span class="lvl-num done">N5</span></div>
+          <div class="lvl-chip" onclick="show('n6',null)"><div class="lvl-chip-av"><img src="pepe.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Crecimiento</div><div class="sub">Herramientas e inversión</div></div><span class="lvl-num done">N6</span></div>
+          <div class="lvl-chip" onclick="show('n7',null)" style="border-color:var(--r);background:#fff8f8;"><div class="lvl-chip-av"><img src="glau.png" style="width:42px;height:42px;object-fit:contain;"/></div><div class="lvl-chip-info"><div class="name">Radar de fugas</div><div class="sub">Análisis profundo PRO</div></div><span class="lvl-num pro">N7</span></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Próximos pasos recomendados</div><span class="badge red">Accionar ahora</span></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 1:</strong> Costear cada receta — café, postre y combo — antes de seguir operando con precios del día de apertura.</div></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 2:</strong> Revisar permisos de cocina, horno y operación con la institución correspondiente.</div></div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Prioridad 3:</strong> Consultar con contador/a el costo real de contratar 1 persona antes de decidir 2.</div></div>
+        <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Prioridad 4:</strong> Actualizar precios por etapas, empezando por combos y productos de mayor demanda.</div></div>
+        <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text"><strong>A mediano plazo:</strong> Registrar ventas diarias por categoría durante 30 días para tomar decisiones con datos reales.</div></div>
+      </div>
+    </div>
+
+<!-- N1 -->
+    <div class="panel" id="panel-n1">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="lumi.png" alt="lumi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 1 · Con Lumi</div>
+          <h2>"Sin esto, todo lo demás sería humo."</h2>
+          <p>Miramos la base del negocio: qué vendés, a quién, cómo lo explicás. Esta ficha puede compartirse con proveedores, aliados o cualquier persona que necesite entender Navi Café de Ruta.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge purple">Navi Café de Ruta</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Ficha del negocio · Para compartir</div><span class="badge purple">Shareable</span></div>
+          <div class="row-item"><div class="ri-icon p">☕</div><div><div class="ri-label">Qué es</div><div class="ri-text">Navi Café de Ruta es una cafetería pequeña atendida por Navi y su pareja repostera, ubicada al borde del arrecife. Combina café, repostería artesanal hecha en casa y una experiencia tranquila para criaturas marinas que necesitan cargar energía sin salir del arrecife.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🛒</div><div><div class="ri-label">Qué vende</div><div class="ri-text">4 tipos de café, repostería artesanal, combos café + postre, pedidos para llevar y pausas dulces para guías de cardúmenes, peces solitarios y visitantes del arrecife.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🔧</div><div><div class="ri-label">Qué problema resuelve</div><div class="ri-text">Un lugar confiable para tomar café, comer algo rico y desconectarse un momento del caos del arrecife. También cubre la necesidad de quienes trabajan cerca y no siempre tienen tiempo de preparar algo antes de salir.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">👤</div><div><div class="ri-label">Cliente actual</div><div class="ri-text">Guías de cardúmenes que trabajan en la zona, peces de paso, criaturas marinas que compran para llevar y clientes frecuentes que ya conocen a Navi por su atención cercana.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">⭐</div><div><div class="ri-label">Cliente ideal</div><div class="ri-text">Personas que valoran una cafetería pequeña, cálida y artesanal; que buscan café rico, repostería fresca y una experiencia más tranquila que una cadena grande.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Análisis estratégico</div><span class="badge amber">Lumi detectó</span></div>
+          <div class="row-item"><div class="ri-icon g">📡</div><div><div class="ri-label">Canales</div><div class="ri-text">Instagram, WhatsApp, Google Maps y recomendación boca a boca de clientes frecuentes del arrecife.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🌟</div><div><div class="ri-label">Diferenciador</div><div class="ri-text">Navi no vende solo café: vende una pausa marina con repostería hecha en casa, atención cercana y un ambiente donde hasta el pez más apurado puede respirar un segundo.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">💡</div><div><div class="ri-label">Principal oportunidad</div><div class="ri-text">Convertir los combos en la oferta principal para subir el ticket promedio y revisar precios, porque no se han actualizado desde que abrieron.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🎯</div><div><div class="ri-label">Posicionamiento recomendado</div><div class="ri-text">"Café, repostería y pausa rica al borde del arrecife."</div></div></div>
+        </div>
+      </div>
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Productos principales</div><span class="badge purple">Catálogo base</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;">
+            <div style="font-size:20px;margin-bottom:6px;">☕</div><div style="font-size:13px;font-weight:800;color:var(--p);">Cafés</div>
+            <div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">Pequeño ₡1.600 · Especial/frío ₡2.300</div>
+          </div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;border:1px solid rgba(26,158,110,0.2);">
+            <div style="font-size:20px;margin-bottom:6px;">🥐</div><div style="font-size:13px;font-weight:800;color:var(--g);">Combos ⭐</div>
+            <div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">Combo Corriente Suave ₡4.200 · Combos ₡3.800–₡4.500</div>
+            <div style="margin-top:6px;"><span class="badge green">Mejor margen</span></div>
+          </div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;">
+            <div style="font-size:20px;margin-bottom:6px;">🍰</div><div style="font-size:13px;font-weight:800;color:#b06040;">Repostería</div>
+            <div style="font-size:12px;color:var(--text);margin-top:4px;line-height:1.5;">Individual ₡1.800–₡2.500 · Pedidos especiales desde ₡28.000</div>
+          </div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Navi entiende que su negocio no solo vende café: vende una pausa artesanal para criaturas marinas que necesitan cargar energía sin salir del arrecife.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Ordenar productos, permisos, producción y sistema de cobro antes de intentar contratar.</span></div><button class="nl-btn" onclick="show('n2',null)">Ir al Nivel 2 →</button></div>
+    </div>
+
+<!-- N2 -->
+    <div class="panel" id="panel-n2">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="carey.png" alt="carey" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 2 · Con Carey</div>
+          <h2>"Antes de contratar, hay que saber cómo funciona."</h2>
+          <p>Revisamos cómo produce Navi Café de Ruta, cómo cobra, cómo entrega y qué condiciones necesita tener claras para que cada venta no se convierta en un malentendido.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Mapa operativo por línea</div><span class="badge purple">Estructura</span></div>
+
+          <div style="background:var(--pp);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:var(--p);margin-bottom:4px;">☕ 1. Cafés base</div>
+            <div style="font-size:11px;font-weight:700;color:var(--p);opacity:0.7;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Línea principal · Ventas diarias</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">4 tipos de café para consumir en sitio o llevar. Generan el volumen constante del negocio.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">☕ Café pequeño — ₡1.600</div>
+              <div style="background:rgba(78,75,247,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">☕ Café especial / frío — ₡2.300</div>
+            </div>
+          </div>
+
+          <div style="background:var(--gp);border-radius:10px;padding:16px;margin-bottom:12px;border:1px solid rgba(26,158,110,0.2);">
+            <div style="font-size:13px;font-weight:900;color:var(--g);margin-bottom:4px;">🥐 2. Combos café + postre ⭐</div>
+            <div style="font-size:11px;font-weight:700;color:var(--g);opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Mejor ticket · Mejor margen</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Paquetes simples que facilitan la compra y mejoran el margen. Son la línea más sana financieramente.</div>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🥐 Combo Corriente Suave — café + repostería del día — ₡4.200</div>
+              <div style="background:rgba(26,158,110,0.08);border-radius:7px;padding:7px 10px;font-size:12px;color:var(--text);">🥐 Combos disponibles — ₡3.800 a ₡4.500</div>
+            </div>
+          </div>
+
+          <div style="background:var(--cream);border-radius:10px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:900;color:#b06040;margin-bottom:4px;">🍰 3. Repostería artesanal</div>
+            <div style="font-size:11px;font-weight:700;color:#b06040;opacity:0.8;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Diferenciador · Producción propia</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;margin-bottom:8px;">Queques, galletas, panes dulces y postres del día hechos por la pareja repostera. Cambia según producción. Clave para diferenciar la cafetería.</div>
+            <div style="font-size:11px;color:var(--muted);">Individual ₡1.800–₡2.500 · Solo bajo pedido con adelanto para evitar merma</div>
+          </div>
+
+          <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px;">
+            <div style="font-size:13px;font-weight:900;color:var(--text);margin-bottom:4px;">📦 4. Pedidos especiales</div>
+            <div style="font-size:11px;font-weight:700;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px;">Valor alto · 50% adelanto obligatorio</div>
+            <div style="font-size:12px;color:var(--text);line-height:1.6;">Pedidos para llevar a granel o repostería especial bajo encargo. Rentables si se cobran con adelanto y se producen bajo pedido.</div>
+            <div style="margin-top:6px;font-size:11px;color:var(--muted);">Pedido especial pequeño ₡28.000 · Costo directo ₡12.000</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">Sistema de cobro y entrega</div><span class="badge green">Operativo</span></div>
+          <div class="formula">
+            <div class="formula-title">Flujo de cobro</div>
+            <div class="formula-row"><div class="fl">Consumo en local / llevar</div><div class="fv accent">Pago inmediato en caja</div></div>
+            <div class="formula-row"><div class="fl">Pedidos especiales</div><div class="fv">50% adelanto + 50% contra entrega</div></div>
+            <div class="formula-row"><div class="fl">Métodos</div><div class="fv green">SINPE, efectivo y tarjeta</div></div>
+            <div class="formula-row"><div class="fl">Repostería grande</div><div class="fv accent">Solo bajo pedido con adelanto</div></div>
+            <div class="formula-row"><div class="fl">Pedidos WhatsApp</div><div class="fv">Solo en horarios definidos</div></div>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Condiciones clave</div>
+            <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text">No apartar repostería sin pago previo.</div></div>
+            <div class="alert-row med" style="margin-top:6px;"><div class="ar-dot med"></div><div class="ar-text">Productos sujetos a disponibilidad del día — no prometer lo que no está horneado.</div></div>
+            <div class="alert-row low" style="margin-top:6px;"><div class="ar-dot low"></div><div class="ar-text">Cambios en pedidos especiales solo antes de iniciar preparación.</div></div>
+            <div class="alert-row info" style="margin-top:6px;"><div class="ar-dot info"></div><div class="ar-text"><strong>Meta inicial:</strong> 20 combos diarios de lunes a sábado con ticket promedio de ₡4.200.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Navi ya tiene líneas de venta claras y una ruta para ordenar cobro, entrega y producción sin depender de notas sueltas flotando por el arrecife.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con el mapa operativo claro, el siguiente paso es confirmar si los precios realmente dejan ganancia.</span></div><button class="nl-btn" onclick="show('n3',null)">Ir al Nivel 3 →</button></div>
+    </div>
+
+<!-- N3 -->
+    <div class="panel" id="panel-n3">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="regi.png" alt="regi" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 3 · Con Regi</div>
+          <h2>"No todo lo que huele a pan recién horneado deja ganancia."</h2>
+          <p>Revisamos cuánto cuesta realmente cada café, postre y combo, cuánto queda disponible y cuántas ventas necesita Navi para sostener el arrecife.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge red">⚠ Precios sin actualizar</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Piso fijo mensual estimado</div><span class="badge red">₡1.350.000/mes</span></div>
+          <div class="formula">
+            <div class="formula-title">Desglose de costos fijos</div>
+            <div class="formula-row"><div class="fl">Alquiler del local</div><div class="fv">₡250.000</div></div>
+            <div class="formula-row"><div class="fl">Servicios públicos e internet</div><div class="fv">₡70.000</div></div>
+            <div class="formula-row"><div class="fl">Materia prima café/repostería</div><div class="fv">₡320.000</div></div>
+            <div class="formula-row"><div class="fl">Empaques</div><div class="fv">₡45.000</div></div>
+            <div class="formula-row"><div class="fl">Transporte / proveedores</div><div class="fv">₡35.000</div></div>
+            <div class="formula-row"><div class="fl">Pauta / contenido</div><div class="fv">₡35.000</div></div>
+            <div class="formula-row"><div class="fl">Limpieza / mantenimiento</div><div class="fv">₡30.000</div></div>
+            <div class="formula-row"><div class="fl">Pago mínimo Navi + pareja</div><div class="fv">₡500.000</div></div>
+            <div class="formula-row"><div class="fl">Reserva</div><div class="fv">₡65.000</div></div>
+            <div class="formula-row"><div class="fl">Total estimado</div><div class="fv accent">₡1.350.000</div></div>
+          </div>
+          <div class="ordy-note" style="margin-top:10px;">Este piso aún no incluye planilla de personal adicional. Contratar cambia este número significativamente.</div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">División recomendada de ingresos</div><span class="badge purple">Regla simple</span></div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:12px;">Por cada venta, distribuir así:</div>
+          <div class="dist-row"><div class="dist-label">Insumos y empaques (40%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill p" style="width:40%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Operación y trabajo (30%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill a" style="width:30%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reinversión (15%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:15%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Reserva (10%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:10%;"></div></div></div></div>
+          <div class="dist-row"><div class="dist-label">Pauta / promoción (5%)</div><div style="flex:1;"><div class="prog-track"><div class="prog-fill g" style="width:5%;"></div></div></div></div>
+          <div class="alert-row info" style="margin-top:12px;"><div class="ar-dot info"></div><div class="ar-text"><strong>Con el Combo a ₡4.200:</strong> disponible ₡2.600 · insumos ₡1.680 · trabajo ₡1.260 · reinversión ₡630 · reserva ₡420</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Desglose por producto</div><span class="badge purple">Costo vs. disponible</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Producto</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Precio prom.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">Costo dir.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">40% Ins.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">30% Op.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">15% Reinv.</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--muted);">10% Res.</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Café</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡1.900</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡650</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡1.250</td><td data-label="40% Ins." style="padding:8px 10px;text-align:right;">₡760</td><td data-label="30% Op." style="padding:8px 10px;text-align:right;">₡570</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡285</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡190</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Repostería</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡2.200</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡950</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--a);font-weight:800;">₡1.250</td><td data-label="40% Ins." style="padding:8px 10px;text-align:right;">₡880</td><td data-label="30% Op." style="padding:8px 10px;text-align:right;">₡660</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡330</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡220</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Producto" style="padding:8px 10px;font-weight:800;color:var(--g);">Combo ⭐</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡4.200</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡1.600</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡2.600</td><td data-label="40% Ins." style="padding:8px 10px;text-align:right;">₡1.680</td><td data-label="30% Op." style="padding:8px 10px;text-align:right;">₡1.260</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡630</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡420</td></tr>
+              <tr><td data-label="Producto" style="padding:8px 10px;font-weight:700;">Pedido especial</td><td data-label="Precio" style="padding:8px 10px;text-align:right;">₡28.000</td><td data-label="Costo dir." style="padding:8px 10px;text-align:right;color:var(--r);">₡12.000</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;color:var(--g);font-weight:800;">₡16.000</td><td data-label="40% Ins." style="padding:8px 10px;text-align:right;">₡11.200</td><td data-label="30% Op." style="padding:8px 10px;text-align:right;">₡8.400</td><td data-label="15% Reinv." style="padding:8px 10px;text-align:right;">₡4.200</td><td data-label="10% Res." style="padding:8px 10px;text-align:right;">₡2.800</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Ventas necesarias para cubrir el piso mensual</div><span class="badge purple">Piso: ₡1.350.000/mes</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Producto</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">Disponible</th>
+              <th style="padding:8px 10px;text-align:right;font-weight:800;color:var(--p);">¿Cuántas ventas cubren el piso?</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;">Café</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡1.250</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">1.080 cafés/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Producto" style="padding:8px 10px;">Repostería</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡1.250</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--r);">1.080 unidades/mes</td></tr>
+              <tr style="border-bottom:1px solid var(--border);background:rgba(26,158,110,0.04);"><td data-label="Producto" style="padding:8px 10px;font-weight:800;color:var(--g);">Combo ⭐</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡2.600</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--a);">520 combos/mes · ~20/día (lun–sáb)</td></tr>
+              <tr><td data-label="Producto" style="padding:8px 10px;">Pedido especial</td><td data-label="Disponible" style="padding:8px 10px;text-align:right;">₡16.000</td><td data-label="Ventas" style="padding:8px 10px;text-align:right;font-weight:800;color:var(--g);">85 pedidos/mes</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-row low" style="margin-top:12px;"><div class="ar-dot low"></div><div class="ar-text"><strong>Meta alcanzable:</strong> 20 combos diarios de lunes a sábado cubre el piso actual sin contratar. La mezcla diaria de cafés + repostería + combos es la estrategia más real.</div></div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Semáforo financiero por línea</div><span class="badge purple">Lectura rápida</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Café:</strong> Amarillo — buena rotación, pero por sí solo requiere demasiado volumen.</div></div>
+            <div class="alert-row med" style="margin-top:8px;"><div class="ar-dot med"></div><div class="ar-text"><strong>Repostería:</strong> Amarillo con alerta — diferencia la cafetería, pero necesita control de merma y costos actualizados.</div></div>
+          </div>
+          <div>
+            <div class="alert-row low"><div class="ar-dot low"></div><div class="ar-text"><strong>Combos:</strong> Verde — línea más sana. Subir ticket promedio con menos ventas.</div></div>
+            <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text"><strong>Pedidos especiales:</strong> Verde con control — muy rentables si se cobran con adelanto y se producen bajo pedido.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:18px 20px;margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:900;color:var(--pl);margin-bottom:6px;">Frase recordatorio</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;font-style:italic;">"No todo lo que huele a pan recién horneado deja ganancia. Navi necesita revisar precios antes de contratar más aletas."</div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Navi confirma que no puede contratar todavía sin revisar precios, margen, volumen de ventas y carga real de trabajo.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con los números más claros, el siguiente paso es saber qué permisos, obligaciones y riesgos necesita revisar.</span></div><button class="nl-btn" onclick="show('n4',null)">Ir al Nivel 4 →</button></div>
+    </div>
+
+<!-- N4 -->
+    <div class="panel" id="panel-n4">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="marty.png" alt="marty" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 4 · Con Marty</div>
+          <h2>"Mejor confirmar que suponer."</h2>
+          <p>Este nivel no sustituye a una contadora, abogada o institución. Su función es mostrar qué debe revisar Navi Café de Ruta para operar con más seguridad, especialmente antes de contratar.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span><span class="badge red">⚠ Permisos de cocina pendientes</span></div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">🔴 Revisar primero</div><span class="badge red">Prioridad alta</span></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">Registro financiero interno</div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar ventas diarias por categoría: café, repostería, combo y pedido especial<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Costear cada receta: ingredientes, costo por porción y margen real<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Registrar merma de repostería y compras a proveedores<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Medir horas trabajadas por Navi y pareja para saber el costo real del negocio<span class="ctag urgent">Urgente</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Permisos de cocina · Muy alta prioridad</div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Confirmar que cocina y repostería están incluidas en la actividad autorizada de la patente<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb urgent">!</div><div class="check-text">Revisar condiciones del horno: ventilación, gas, electricidad o seguridad<span class="ctag urgent">Urgente</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Verificar si corresponde revisión de Bomberos, INS u otra entidad según equipo<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Confirmar vigencia de: patente municipal, permiso sanitario Ministerio Salud y carnet de manipulación<span class="ctag soon">Pronto</span></div></div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Hacienda</div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Confirmar actividad económica correcta para cafetería y repostería<span class="ctag soon">Pronto</span></div></div>
+          <div class="check-row"><div class="cb soon">!</div><div class="check-text">Revisar facturación electrónica, IVA aplicable y deducibilidad de compras<span class="ctag soon">Pronto</span></div></div>
+        </div>
+
+        <div class="card">
+          <div class="ch"><div class="ch-title">🟡 Antes de contratar · Muy alta prioridad</div><span class="badge amber">No hacer sin esto</span></div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>La contratación debe ser resultado del orden financiero, no del cansancio.</strong></div></div>
+          <div style="margin-top:12px;">
+            <div class="check-row"><div class="cb soon">!</div><div class="check-text">Consultar con contador/a qué implica contratar 1 persona: CCSS, cargas sociales y riesgos del trabajo<span class="ctag soon">Antes de decidir</span></div></div>
+            <div class="check-row"><div class="cb soon">!</div><div class="check-text">Calcular cuánto debe vender la cafetería para pagar planilla sin presionar la caja<span class="ctag soon">Antes de decidir</span></div></div>
+            <div class="check-row"><div class="cb soon">!</div><div class="check-text">Diferencia entre ayuda ocasional y contratación formal — revisar opciones legales<span class="ctag soon">Antes de decidir</span></div></div>
+            <div class="check-row"><div class="cb later">—</div><div class="check-text">Probar apoyo parcial por horas si es viable legalmente, antes de planilla fija<span class="ctag later">Explorar</span></div></div>
+          </div>
+
+          <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin:12px 0 8px;">Por etapas de crecimiento</div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:6px;line-height:1.5;"><strong>Etapa 1 — Operación actual:</strong> mantener permisos vigentes, registrar ventas y costos, revisar recetas y actualizar precios.</div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:6px;line-height:1.5;"><strong>Etapa 2 — Antes de contratar:</strong> calcular costo real de planilla, CCSS y ventas mínimas necesarias.</div>
+          <div style="background:var(--bg);border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.5;"><strong>Etapa 3 — Mayor producción:</strong> revisar permisos adicionales por hornos, almacenamiento y seguridad del local.</div>
+        </div>
+      </div>
+
+      <div class="ordy-note" style="margin-top:16px;"><strong>Nota importante:</strong> Este nivel orienta qué revisar, pero no sustituye asesoría de contador/a o abogado/a. Consultá con un profesional antes de tomar decisiones legales o tributarias.</div>
+
+      <div class="logro" style="margin-top:16px;"><strong>🎉 Logro desbloqueado</strong><span>Navi ya sabe que antes de contratar debe revisar permisos de cocina, costos reales, planilla, CCSS y precios actualizados.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las bases más claras, el siguiente paso es ordenar cómo comunicar precios, tiempos y condiciones.</span></div><button class="nl-btn" onclick="show('n5',null)">Ir al Nivel 5 →</button></div>
+    </div>
+
+<!-- N5 -->
+    <div class="panel" id="panel-n5">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="cabu.png" alt="cabu" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 5 · Con Cabu</div>
+          <h2>"Ahora sí, veamos cómo relacionarnos con los clientes."</h2>
+          <p>Revisamos cómo Navi Café de Ruta habla con sus clientes: menú, precios, pedidos, devoluciones y mensajes listos para no improvisar cada conversación.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">Políticas activas</div><span class="badge green">Definidas</span></div>
+          <div class="row-item"><div class="ri-icon p">📋</div><div><div class="ri-label">Disponibilidad</div><div class="ri-text">Productos sujetos a disponibilidad diaria. La repostería varía según producción del día.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">💳</div><div><div class="ri-label">Reservas</div><div class="ri-text">No se reservan productos sin pago previo. Sin pago, sin apartado.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🎂</div><div><div class="ri-label">Pedidos especiales</div><div class="ri-text">50% de adelanto obligatorio. Cambios solo antes de iniciar preparación.</div></div></div>
+          <div class="row-item"><div class="ri-icon a">🕐</div><div><div class="ri-label">WhatsApp</div><div class="ri-text">Pedidos en horarios definidos únicamente. Fuera de horario se responde al abrir.</div></div></div>
+          <div class="row-item"><div class="ri-icon g">🥐</div><div><div class="ri-label">Combos</div><div class="ri-text">Combo Corriente Suave a ₡4.200 — siempre la primera recomendación.</div></div></div>
+          <div class="row-item"><div class="ri-icon p">🔄</div><div><div class="ri-label">Devoluciones</div><div class="ri-text">No se aceptan por cambio de gusto. Sí aplica si hubo error en el pedido.</div></div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">Objeción principal detectada</div><span class="badge red">⚠ Preparate</span></div>
+          <div style="background:var(--rp);border:1px solid var(--r);border-radius:12px;padding:16px;margin-bottom:12px;">
+            <div style="font-size:13px;font-weight:800;color:var(--r);margin-bottom:6px;">💬 "¿Por qué subieron los precios si antes costaba menos?"</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.6;">Los costos de materia prima, empaques y operación cambiaron. Ajustar precios permite mantener la calidad y sostener la cocina. El mensaje completo está en la biblioteca abajo.</div>
+          </div>
+          <div class="alert-row info"><div class="ar-dot info"></div><div class="ar-text">Responder con honestidad y un toque cercano — el humor de Navi es parte del diferenciador.</div></div>
+          <div class="alert-row low" style="margin-top:8px;"><div class="ar-dot low"></div><div class="ar-text">Ordy generó <strong>12 mensajes listos para copiar</strong> para los escenarios más comunes de Navi Café.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:0;">
+        <div class="ch">
+          <div>
+            <div class="ch-title">Biblioteca de respuestas · Lista para usar</div>
+            <div style="font-size:12px;color:var(--muted);margin-top:2px;">12 mensajes generados para Navi Café de Ruta</div>
+          </div>
+          <span class="badge green">✓ Lista</span>
+        </div>
+        <div class="alert-row info" style="margin-bottom:16px;">
+          <div class="ar-dot info"></div>
+          <div class="ar-text">Con base en tus respuestas, Ordy preparó una biblioteca inicial de mensajes para que no tengás que improvisar cada conversación. Pensados para vender con claridad, explicar condiciones y poner límites sin perder el tono cercano.</div>
+        </div>
+        <style>
+          .msg-card{border:1px solid var(--border);border-radius:12px;margin-bottom:8px;overflow:hidden;}
+          .msg-card:last-child{margin-bottom:0;}
+          .msg-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;cursor:pointer;background:var(--bg);gap:12px;}
+          .msg-header:hover{background:#ebebf8;}
+          .msg-left{display:flex;align-items:center;gap:12px;flex:1;min-width:0;}
+          .msg-icon{font-size:20px;flex-shrink:0;}
+          .msg-name{font-size:13px;font-weight:800;color:var(--text);}
+          .msg-context{font-size:11px;color:var(--muted);margin-top:1px;line-height:1.4;}
+          .msg-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+          .copy-btn{background:var(--pp);color:var(--p);border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:all 0.15s;white-space:nowrap;}
+          .copy-btn:hover{background:var(--p);color:#fff;}
+          .copy-btn.copied{background:var(--gp);color:var(--g);}
+          .chevron{font-size:18px;color:var(--muted);font-weight:700;transition:transform 0.2s;display:inline-block;}
+          .chevron.open{transform:rotate(90deg);}
+          .msg-body{padding:0 16px 16px;background:#fff;}
+          .msg-text{font-family:'Nunito',sans-serif;font-size:13px;color:var(--text);line-height:1.7;white-space:pre-wrap;background:var(--bg);border-radius:10px;padding:14px;margin-top:12px;border:1px solid var(--border);}
+          .msg-nota{background:var(--ap);border-left:3px solid var(--a);border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:var(--text);line-height:1.5;margin-top:10px;}
+        </style>
+        <div id="msg-list-navi">
+          
+<div class="msg-card" id="card-menu">
+  <div class="msg-header" onclick="toggleMsg('menu')">
+    <div class="msg-left">
+      <span class="msg-icon">☕</span>
+      <div>
+        <div class="msg-name">Consulta por menú</div>
+        <div class="msg-context">Cuando alguien pregunta qué hay disponible hoy.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'menu')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-menu">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-menu" style="display:none;">
+    <pre class="msg-text" id="text-menu">¡Holaaa! Claro, te compartimos el menú disponible hoy. La repostería cambia según producción del día, porque aquí nada flota congelado por semanas.\n\n☕ Café pequeño — ₡1.600\n☕ Café especial / frío — ₡2.300\n🥐 Combo Corriente Suave (café + postre del día) — ₡4.200\n🍰 Repostería individual — ₡1.800 a ₡2.500\n\n¿Te quedás o es para llevar?</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-llevar">
+  <div class="msg-header" onclick="toggleMsg('llevar')">
+    <div class="msg-left">
+      <span class="msg-icon">📦</span>
+      <div>
+        <div class="msg-name">Pedido para llevar</div>
+        <div class="msg-context">Cuando alguien quiere ordenar pero no puede quedarse.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'llevar')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-llevar">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-llevar" style="display:none;">
+    <pre class="msg-text" id="text-llevar">Con gusto. Indicame qué querés, a qué hora pasás y el método de pago. Te lo dejamos listo para que sigás tu ruta sin pelearte con la corriente.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-agotado">
+  <div class="msg-header" onclick="toggleMsg('agotado')">
+    <div class="msg-left">
+      <span class="msg-icon">🚫</span>
+      <div>
+        <div class="msg-name">Producto agotado</div>
+        <div class="msg-context">Cuando lo que piden ya no hay.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'agotado')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-agotado">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-agotado" style="display:none;">
+    <pre class="msg-text" id="text-agotado">Ese producto ya se nos agotó hoy. Tenemos estas opciones disponibles:\n\n[indicar alternativas disponibles]\n\nSi querés, mañana te lo podemos apartar con pago previo.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Reemplazar [indicar alternativas] con lo que sí hay en ese momento.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-especial">
+  <div class="msg-header" onclick="toggleMsg('especial')">
+    <div class="msg-left">
+      <span class="msg-icon">🎂</span>
+      <div>
+        <div class="msg-name">Pedido especial</div>
+        <div class="msg-context">Cuando piden algo personalizado o en mayor cantidad.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'especial')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-especial">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-especial" style="display:none;">
+    <pre class="msg-text" id="text-especial">Sí podemos prepararlo. Para pedidos especiales trabajamos con 50% de adelanto y el resto contra entrega. Así aseguramos ingredientes, tiempo y espacio en la cocina.\n\nContame qué necesitás, para cuándo y la cantidad, y te cotizamos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No arrancar producción sin el adelanto. Sin pago, sin reserva.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-precio">
+  <div class="msg-header" onclick="toggleMsg('precio')">
+    <div class="msg-left">
+      <span class="msg-icon">💰</span>
+      <div>
+        <div class="msg-name">Consulta por precio</div>
+        <div class="msg-context">Cuando preguntan por qué cuestan lo que cuestan.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'precio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-precio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-precio" style="display:none;">
+    <pre class="msg-text" id="text-precio">Nuestros precios contemplan ingredientes de calidad, preparación artesanal, empaques, permisos de operación y el trabajo de mantener una cafetería pequeña funcionando bien.\n\nSi buscás la mejor opción, el Combo Corriente Suave a ₡4.200 incluye café + postre del día y es lo más completo que tenemos.</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-objecion_precio">
+  <div class="msg-header" onclick="toggleMsg('objecion_precio')">
+    <div class="msg-left">
+      <span class="msg-icon">🤔</span>
+      <div>
+        <div class="msg-name">Objeción: precios subieron</div>
+        <div class="msg-context">Cuando dicen que antes era más barato.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'objecion_precio')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-objecion_precio">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-objecion_precio" style="display:none;">
+    <pre class="msg-text" id="text-objecion_precio">Seguimos cuidando el mismo sabor y cariño de siempre, pero los costos de materia prima, empaques y operación han cambiado. Ajustar precios nos permite mantener la calidad, sostener la cocina y seguir atendiendo sin que Navi termine batiendo café con una aleta y calculadora con la otra.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No bajar el precio. Explicar el valor con honestidad y algo de humor cercano.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-horarios_wa">
+  <div class="msg-header" onclick="toggleMsg('horarios_wa')">
+    <div class="msg-left">
+      <span class="msg-icon">🕐</span>
+      <div>
+        <div class="msg-name">Horarios de WhatsApp</div>
+        <div class="msg-context">Cuando alguien escribe fuera del horario de pedidos.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'horarios_wa')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-horarios_wa">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-horarios_wa" style="display:none;">
+    <pre class="msg-text" id="text-horarios_wa">Recibimos pedidos por WhatsApp de [horario]. Si escribís fuera de ese horario, te contestamos en cuanto abramos.\n\nTambién podés pasar directamente al local y te atendemos al momento.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Completar [horario] con los horarios reales definidos.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-disponibilidad">
+  <div class="msg-header" onclick="toggleMsg('disponibilidad')">
+    <div class="msg-left">
+      <span class="msg-icon">📋</span>
+      <div>
+        <div class="msg-name">Disponibilidad del día</div>
+        <div class="msg-context">Cuando preguntan si hay algo específico antes de ir.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'disponibilidad')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-disponibilidad">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-disponibilidad" style="display:none;">
+    <pre class="msg-text" id="text-disponibilidad">La repostería depende de la producción del día, así que puede variar. Lo más seguro es escribirnos en la mañana para confirmarte qué hay disponible o pasarte al local.\n\n¿Hay algo específico que buscás?</pre>
+    
+  </div>
+</div>
+
+<div class="msg-card" id="card-reserva">
+  <div class="msg-header" onclick="toggleMsg('reserva')">
+    <div class="msg-left">
+      <span class="msg-icon">📅</span>
+      <div>
+        <div class="msg-name">Reservar producto</div>
+        <div class="msg-context">Cuando quieren que les guarden algo.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'reserva')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-reserva">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-reserva" style="display:none;">
+    <pre class="msg-text" id="text-reserva">Podemos apartarlo con pago previo. Sin pago confirmado no podemos garantizar disponibilidad, porque los productos son limitados por día.\n\nCuando confirmés el pago, lo apartamos con tu nombre.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> No reservar sin pago. La política protege la operación.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-combo">
+  <div class="msg-header" onclick="toggleMsg('combo')">
+    <div class="msg-left">
+      <span class="msg-icon">🥐</span>
+      <div>
+        <div class="msg-name">Recomendar el combo</div>
+        <div class="msg-context">Cuando alguien no sabe qué pedir.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'combo')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-combo">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-combo" style="display:none;">
+    <pre class="msg-text" id="text-combo">Te recomendamos el Combo Corriente Suave: café + postre del día por ₡4.200. Es la opción más completa y siempre sale fresco.\n\n¿Lo querés para consumir aquí o para llevar?</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Siempre ofrecer el combo como primera opción — es el producto con mejor margen.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-grupos">
+  <div class="msg-header" onclick="toggleMsg('grupos')">
+    <div class="msg-left">
+      <span class="msg-icon">👥</span>
+      <div>
+        <div class="msg-name">Pedido para grupo</div>
+        <div class="msg-context">Cuando llega un grupo o preguntan si pueden hacer pedidos grandes.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'grupos')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-grupos">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-grupos" style="display:none;">
+    <pre class="msg-text" id="text-grupos">¡Claro! Para grupos o pedidos grandes te recomendamos avisarnos con anticipación para asegurarnos de tener suficiente producción y atenderte bien.\n\nContame cuántas personas son, qué necesitarían y para cuándo, y te coordinamos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Pedidos grandes siempre con anticipación y adelanto.</div>
+  </div>
+</div>
+
+<div class="msg-card" id="card-devoluciones">
+  <div class="msg-header" onclick="toggleMsg('devoluciones')">
+    <div class="msg-left">
+      <span class="msg-icon">🔄</span>
+      <div>
+        <div class="msg-name">Devoluciones</div>
+        <div class="msg-context">Cuando alguien quiere devolver porque no le gustó.</div>
+      </div>
+    </div>
+    <div class="msg-actions">
+      <button class="copy-btn" onclick="copyMsg(event, 'devoluciones')" title="Copiar mensaje">📋 Copiar</button>
+      <span class="chevron" id="chev-devoluciones">›</span>
+    </div>
+  </div>
+  <div class="msg-body" id="body-devoluciones" style="display:none;">
+    <pre class="msg-text" id="text-devoluciones">Los productos de cafetería y repostería artesanal no tienen devolución por cambio de gusto una vez entregados, ya que se preparan al momento o por encargo.\n\nSi hubo algún problema con la calidad o el pedido llegó diferente a lo acordado, con gusto lo revisamos.</pre>
+    <div class="msg-nota"><strong>💡 Nota:</strong> Distinguir entre cambio de gusto (no aplica) y error en el pedido (sí aplica).</div>
+  </div>
+</div>
+
+        </div>
+        <script>
+          var msgTextsNavi = {
+  'menu': `¡Holaaa! Claro, te compartimos el menú disponible hoy. La repostería cambia según producción del día, porque aquí nada flota congelado por semanas.\n\n☕ Café pequeño — ₡1.600\n☕ Café especial / frío — ₡2.300\n🥐 Combo Corriente Suave (café + postre del día) — ₡4.200\n🍰 Repostería individual — ₡1.800 a ₡2.500\n\n¿Te quedás o es para llevar?`,
+  'llevar': `Con gusto. Indicame qué querés, a qué hora pasás y el método de pago. Te lo dejamos listo para que sigás tu ruta sin pelearte con la corriente.`,
+  'agotado': `Ese producto ya se nos agotó hoy. Tenemos estas opciones disponibles:\n\n[indicar alternativas disponibles]\n\nSi querés, mañana te lo podemos apartar con pago previo.`,
+  'especial': `Sí podemos prepararlo. Para pedidos especiales trabajamos con 50% de adelanto y el resto contra entrega. Así aseguramos ingredientes, tiempo y espacio en la cocina.\n\nContame qué necesitás, para cuándo y la cantidad, y te cotizamos.`,
+  'precio': `Nuestros precios contemplan ingredientes de calidad, preparación artesanal, empaques, permisos de operación y el trabajo de mantener una cafetería pequeña funcionando bien.\n\nSi buscás la mejor opción, el Combo Corriente Suave a ₡4.200 incluye café + postre del día y es lo más completo que tenemos.`,
+  'objecion_precio': `Seguimos cuidando el mismo sabor y cariño de siempre, pero los costos de materia prima, empaques y operación han cambiado. Ajustar precios nos permite mantener la calidad, sostener la cocina y seguir atendiendo sin que Navi termine batiendo café con una aleta y calculadora con la otra.`,
+  'horarios_wa': `Recibimos pedidos por WhatsApp de [horario]. Si escribís fuera de ese horario, te contestamos en cuanto abramos.\n\nTambién podés pasar directamente al local y te atendemos al momento.`,
+  'disponibilidad': `La repostería depende de la producción del día, así que puede variar. Lo más seguro es escribirnos en la mañana para confirmarte qué hay disponible o pasarte al local.\n\n¿Hay algo específico que buscás?`,
+  'reserva': `Podemos apartarlo con pago previo. Sin pago confirmado no podemos garantizar disponibilidad, porque los productos son limitados por día.\n\nCuando confirmés el pago, lo apartamos con tu nombre.`,
+  'combo': `Te recomendamos el Combo Corriente Suave: café + postre del día por ₡4.200. Es la opción más completa y siempre sale fresco.\n\n¿Lo querés para consumir aquí o para llevar?`,
+  'grupos': `¡Claro! Para grupos o pedidos grandes te recomendamos avisarnos con anticipación para asegurarnos de tener suficiente producción y atenderte bien.\n\nContame cuántas personas son, qué necesitarían y para cuándo, y te coordinamos.`,
+  'devoluciones': `Los productos de cafetería y repostería artesanal no tienen devolución por cambio de gusto una vez entregados, ya que se preparan al momento o por encargo.\n\nSi hubo algún problema con la calidad o el pedido llegó diferente a lo acordado, con gusto lo revisamos.`,
+};
+          function toggleMsg(id) {
+            var body = document.getElementById('body-' + id);
+            var chev = document.getElementById('chev-' + id);
+            if (!body) return;
+            if (body.style.display === 'none') {
+              body.style.display = 'block'; chev.classList.add('open');
+            } else {
+              body.style.display = 'none'; chev.classList.remove('open');
+            }
+          }
+          function copyMsg(event, id) {
+            event.stopPropagation();
+            var text = msgTextsNavi[id];
+            navigator.clipboard.writeText(text).then(function() {
+              var btn = event.target;
+              var original = btn.textContent;
+              btn.textContent = '✓ Copiado'; btn.classList.add('copied');
+              setTimeout(function() { btn.textContent = original; btn.classList.remove('copied'); }, 2000);
+            });
+          }
+        </script>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Navi ya tiene respuestas claras para vender, explicar precios y proteger su operación sin perder el tono cercano que hace especial al café.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con las comunicaciones ordenadas, el siguiente paso es decidir qué herramientas usar y en qué orden invertir.</span></div><button class="nl-btn" onclick="show('n6',null)">Ir al Nivel 6 →</button></div>
+    </div>
+
+<!-- N6 -->
+    <div class="panel" id="panel-n6">
+      <div class="mascot-hero">
+        <div class="mh-mascot"><img src="pepe.png" alt="pepe" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow">Nivel 6 · Con Pepe</div>
+          <h2>"No necesitás más herramientas. Necesitás datos para tomar mejores decisiones."</h2>
+          <p>Analizamos qué ya tiene Navi Café, qué conviene implementar pronto y qué puede esperar para no invertir antes de tener los números claros.</p>
+          <div class="mh-badges"><span class="badge green">✓ Completado</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Herramientas actuales · Ya las tenés</div><span class="badge green">Usar mejor</span></div>
+        <div class="tools-grid">
+          <div class="tool-card"><div class="tool-emoji">📸</div><div class="tool-name">Instagram</div><div class="tool-st">Vitrina y ventas orgánicas</div></div>
+          <div class="tool-card"><div class="tool-emoji">💬</div><div class="tool-name">WhatsApp</div><div class="tool-st">Pedidos y atención</div></div>
+          <div class="tool-card"><div class="tool-emoji">📱</div><div class="tool-name">SINPE Móvil</div><div class="tool-st">Cobros rápidos</div></div>
+          <div class="tool-card"><div class="tool-emoji">💳</div><div class="tool-name">Datáfono</div><div class="tool-st">Cobros con tarjeta</div></div>
+          <div class="tool-card"><div class="tool-emoji">🗺️</div><div class="tool-name">Google Maps</div><div class="tool-st">Ubicación y reseñas</div></div>
+          <div class="tool-card"><div class="tool-emoji">🎨</div><div class="tool-name">Canva</div><div class="tool-st">Menú y contenido</div></div>
+          <div class="tool-card"><div class="tool-emoji">📋</div><div class="tool-name">Registro básico</div><div class="tool-st">Ventas actuales</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Implementar pronto</div><span class="badge amber">Prioritario</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Para qué</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Costos</td><td data-label="Herramienta" style="padding:8px 10px;">Tabla por receta</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Saber cuánto cuesta cada café, postre y combo</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Ventas</td><td data-label="Herramienta" style="padding:8px 10px;">Google Sheets diario</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Medir ventas por categoría: café, repostería, combo y pedido especial</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Inventario</td><td data-label="Herramienta" style="padding:8px 10px;">Control de insumos</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Evitar compras de emergencia y desperdicio</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Permisos</td><td data-label="Herramienta" style="padding:8px 10px;">Carpeta física / digital</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Guardar patente, salud, manipulación y fechas de vencimiento</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Clientes</td><td data-label="Herramienta" style="padding:8px 10px;">WhatsApp Business</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Respuestas rápidas, horarios de pedidos y catálogo del día</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">Precios</td><td data-label="Herramienta" style="padding:8px 10px;">Revisión trimestral</td><td data-label="Para qué" style="padding:8px 10px;color:var(--muted);">Ajustar antes de que los costos se coman el margen</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Dejar para después</div><span class="badge purple">No gastar todavía</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Área</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Herramienta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Por qué espera</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Contratar 2 personas</td><td data-label="Herramienta" style="padding:8px 10px;">Planilla fija</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Primero subir ventas y revisar costos laborales reales</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Delivery externo</td><td data-label="Herramienta" style="padding:8px 10px;">Apps de entrega</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Puede reducir margen significativamente en etapa inicial</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Segundo local</td><td data-label="Herramienta" style="padding:8px 10px;">Expansión física</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Antes hay que ordenar cocina, permisos y números del local actual</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Área" style="padding:8px 10px;font-weight:700;">Mayor producción</td><td data-label="Herramienta" style="padding:8px 10px;">Volumen grande</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">Puede exigir más permisos, equipo y control de merma</td></tr>
+              <tr><td data-label="Área" style="padding:8px 10px;font-weight:700;">App de pedidos</td><td data-label="Herramienta" style="padding:8px 10px;">Plataforma propia</td><td data-label="Por qué" style="padding:8px 10px;color:var(--muted);">WhatsApp es suficiente mientras no haya volumen que lo justifique</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Orden de inversiones</div><span class="badge purple">Ejecutar así</span></div>
+        <div class="action-item"><div class="a-num red">1</div><div class="a-text">Tabla de costos por receta</div></div>
+        <div class="action-item"><div class="a-num red">2</div><div class="a-text">Revisión y actualización de precios</div></div>
+        <div class="action-item"><div class="a-num red">3</div><div class="a-text">Carpeta de permisos y vencimientos</div></div>
+        <div class="action-item"><div class="a-num">4</div><div class="a-text">Control diario de ventas por categoría</div></div>
+        <div class="action-item"><div class="a-num">5</div><div class="a-text">Menú de combos rentables bien comunicado</div></div>
+        <div class="action-item"><div class="a-num">6</div><div class="a-text">Pauta local pequeña en Instagram o Google</div></div>
+        <div class="action-item"><div class="a-num">7</div><div class="a-text">Asesoría contable sobre el costo real de contratar</div></div>
+        <div class="action-item"><div class="a-num">8</div><div class="a-text">Contratación parcial por horas si los números lo permiten</div></div>
+      </div>
+
+      <div class="logro"><strong>🎉 Logro desbloqueado</strong><span>Navi sabe qué implementar primero para crecer sin contratar antes de tiempo ni poner en riesgo la cocina del arrecife.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Siguiente nivel sugerido</strong><span>Con toda la información acumulada, Glau detecta dónde se escapan los recursos más importantes.</span></div><button class="nl-btn" onclick="show('n7',null)">Ir al Nivel 7 →</button></div>
+    </div>
+
+<!-- N7 -->
+    <div class="panel" id="panel-n7">
+      <div class="mascot-hero" style="background:var(--dark);border-color:var(--dark);">
+        <div class="mh-mascot dark-bg"><img src="glau.png" alt="glau" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 16px rgba(78,75,247,0.18));"/></div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 7 · Con Glau · Exclusivo Pro</div>
+          <h2 style="color:#fff;">"Vamos a detectar fugas."</h2>
+          <p style="color:rgba(255,255,255,0.55);">Navi tiene una cafetería con encanto, producto real y clientes diversos, pero el negocio está nadando con demasiada carga en las aletas de sus dueños. La prioridad no es contratar de inmediato.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(249,70,70,0.2);color:#ff8a8a;">PRO Activo</span></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Lectura general</div><span class="badge red">Diagnóstico Ordy</span></div>
+        <div style="font-size:14px;color:var(--text);line-height:1.7;margin-bottom:16px;">La prioridad es revisar precios, permisos de cocina, costos por receta y ventas necesarias para pagar apoyo sin hundir el arrecife. Contratar por cansancio puede salir más caro que seguir con las aletas propias un poco más.</div>
+        <div class="g3" style="margin-bottom:0;">
+          <div style="background:var(--pp);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">☕</div><div style="font-size:13px;font-weight:800;color:var(--p);">Cafés</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Volumen constante</div></div>
+          <div style="background:var(--gp);border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(26,158,110,0.2);"><div style="font-size:20px;margin-bottom:6px;">🥐</div><div style="font-size:13px;font-weight:800;color:var(--g);">Combos</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Mejor margen y ticket</div></div>
+          <div style="background:var(--cream);border-radius:12px;padding:14px;text-align:center;"><div style="font-size:20px;margin-bottom:6px;">🍰</div><div style="font-size:13px;font-weight:800;color:#b06040;">Repostería / Especiales</div><div style="font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4;">Diferenciador y valor alto</div></div>
+        </div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Resumen del radar</div><span class="badge red">5 fugas analizadas</span></div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;border-collapse:collapse;font-size:12px;">
+            <thead><tr style="background:var(--bg);">
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Fuga</th>
+              <th style="padding:8px 10px;text-align:center;font-weight:800;color:var(--muted);">Alerta</th>
+              <th style="padding:8px 10px;text-align:left;font-weight:800;color:var(--muted);">Qué significa</th>
+            </tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">💸 Precios sin actualizar</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Los costos pudieron subir y el margen puede estar bajando sin que Navi lo sepa</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">👥 Dependencia de Navi y pareja</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">El negocio funciona, pero no les libera tiempo ni energía</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">📋 Permisos de cocina no claros</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Deben confirmar requisitos por horno/equipo para evitar riesgos de cierre</td></tr>
+              <tr style="border-bottom:1px solid var(--border);"><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🍳 Control por receta incompleto</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--ap);color:var(--a);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Media-alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">No saben con exactitud qué producto deja más ganancia</td></tr>
+              <tr><td data-label="Fuga" style="padding:8px 10px;font-weight:800;">🙋 Contratación anticipada</td><td data-label="Alerta" style="padding:8px 10px;text-align:center;"><span style="background:var(--rp);color:var(--r);font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;">Alta</span></td><td data-label="Significado" style="padding:8px 10px;color:var(--muted);">Contratar ahora puede presionar demasiado la caja y empeorar la situación</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="ch"><div class="ch-title">💸 Precios sin actualizar</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Navi no ha modificado precios desde que abrió. Si los insumos subieron, el margen se está escapando como burbuja rota.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> costear recetas, revisar precios y subir primero combos o productos de mayor demanda.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">📋 Permisos de cocina no claros</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Tienen permisos principales, pero el miedo al cierre (como vieron en otra panadería) no se resuelve adivinando: se resuelve confirmando.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> revisar patente, permiso sanitario, condiciones del horno, Bomberos/INS si aplica y vigencias.</div></div>
+        </div>
+      </div>
+
+      <div class="g2" style="margin-top:16px;">
+        <div class="card">
+          <div class="ch"><div class="ch-title">👥 Dependencia de Navi y pareja</div><span class="badge red">Alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Ellos sostienen operación, cocina, atención y administración. El negocio tiene movimiento, pero todavía no compra libertad.</div>
+          <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> documentar procesos, medir horas reales y contratar solo cuando exista flujo suficiente demostrado.</div></div>
+        </div>
+        <div class="card">
+          <div class="ch"><div class="ch-title">🍳 Control por receta incompleto</div><span class="badge amber">Media-alta</span></div>
+          <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Sin costo por receta, la cafetería puede vender mucho y ganar poco. Cada café, postre y combo tiene un costo diferente que afecta decisiones.</div>
+          <div class="alert-row med"><div class="ar-dot med"></div><div class="ar-text"><strong>Corrección:</strong> crear ficha por producto con ingredientes, costo, precio y margen — empezando por los más vendidos.</div></div>
+        </div>
+      </div>
+
+      <div class="card mb" style="margin-top:16px;">
+        <div class="ch"><div class="ch-title">🙋 Contratación anticipada</div><span class="badge red">Alta</span></div>
+        <div style="font-size:13px;color:var(--text);line-height:1.6;margin-bottom:10px;">Quieren contratar 2 personas, pero actualmente el flujo no lo sostiene. La contratación debe ser resultado del orden financiero, no del cansancio.</div>
+        <div class="alert-row high"><div class="ar-dot high"></div><div class="ar-text"><strong>Corrección:</strong> calcular el costo real de planilla con CCSS y probar primero apoyo parcial por horas si es viable legalmente.</div></div>
+      </div>
+
+      <div style="background:var(--dark);border-radius:14px;padding:20px;margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Fuga principal detectada</div>
+        <div style="font-size:14px;color:#fff;line-height:1.7;margin-bottom:14px;"><strong style="color:var(--pl);">Precios sin actualizar + falta de costo por receta.</strong> Navi puede tener el local lleno y seguir sin saber si cada venda gana o pierde. Sin esos datos, cualquier decisión — contratar, invertir, subir precios — es un salto a ciegas en el arrecife.</div>
+        <div style="font-size:12px;font-weight:800;color:var(--pl);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">Mayor oportunidad detectada</div>
+        <div style="font-size:14px;color:rgba(255,255,255,0.7);line-height:1.7;">Crear <strong style="color:#fff;">combos rentables y actualizar precios sin perder la esencia cercana</strong>. El Combo Corriente Suave ya existe — lo que falta es comunicarlo mejor y asegurarse de que el precio contempla todos los costos reales.</div>
+      </div>
+
+      <div class="card mb">
+        <div class="ch"><div class="ch-title">Decisiones estratégicas recomendadas</div><span class="badge purple">Próxima etapa</span></div>
+        <div class="g2" style="margin-bottom:0;">
+          <div>
+            <div class="action-item"><div class="a-num red">1</div><div class="a-text">Costear las 4 bebidas y cada postre principal</div></div>
+            <div class="action-item"><div class="a-num red">2</div><div class="a-text">Actualizar precios por etapas — empezar por combos</div></div>
+            <div class="action-item"><div class="a-num red">3</div><div class="a-text">Revisar permisos de cocina, horno y operación</div></div>
+            <div class="action-item"><div class="a-num">4</div><div class="a-text">Consultar costo real de contratar 1 persona (no 2)</div></div>
+          </div>
+          <div>
+            <div class="action-item"><div class="a-num">5</div><div class="a-text">Medir ventas diarias por categoría durante 30 días</div></div>
+            <div class="action-item"><div class="a-num">6</div><div class="a-text">Documentar procesos básicos para que alguien pueda apoyar</div></div>
+            <div class="action-item"><div class="a-num">7</div><div class="a-text">Priorizar combos con buen margen en el menú visible</div></div>
+            <div class="action-item"><div class="a-num">8</div><div class="a-text">Probar apoyo parcial por horas antes de planilla fija</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="logro"><strong>🎯 Valor desbloqueado</strong><span>Navi puede dejar de operar por intuición y empezar a tomar decisiones con mapa: precios, permisos, costos y contratación dejan de ser monstruos marinos sueltos.</span></div>
+      <div class="next-level"><div class="nl-text"><strong>Revisión mensual</strong><span>El siguiente paso es revisar precios, permisos, costos por receta y ventas necesarias para contratar.</span></div><button class="nl-btn" onclick="show('n8',null)">Ver Nivel 8 →</button></div>
+    </div>
+
+<!-- N8 -->
+    <div class="panel" id="panel-n8">
+      <div class="mascot-hero" style="background:linear-gradient(135deg,#1a1a2e,#2d2d4e);border-color:#2d2d4e;">
+        <div class="mh-mascot" style="font-size:64px;">🔒</div>
+        <div class="mh-text">
+          <div class="eyebrow" style="color:var(--pl);">Nivel 8 · Próximamente</div>
+          <h2 style="color:#fff;">Comunidad Ordy</h2>
+          <p style="color:rgba(255,255,255,0.5);">Cuando más negocios usan la plataforma, más claro se vuelve qué herramientas, recursos y mejoras hacen falta.</p>
+          <div class="mh-badges"><span class="badge" style="background:rgba(187,187,252,0.15);color:var(--pl);">Próximamente</span></div>
+        </div>
+      </div>
+      <div class="locked-panel">
+        <div class="lock-icon">🌊</div>
+        <div class="lock-title">Este nivel se desbloquea con la comunidad</div>
+        <div class="lock-text">El Nivel 8 es el espacio donde los negocios que ya ordenaron su base se juntan para aprender, compartir y votar por las próximas herramientas de Ordy.<br><br>Ingresá a nuestro grupo de networking en WhatsApp y ayudanos a entender qué otras herramientas podríamos integrar.</div>
+        <button class="lock-btn" onclick="window.open('https://chat.whatsapp.com/FiiqKunmfSDJeRsq2TFU5y?s=cl&p=i&ilr=2&amv=0','_blank')">Unirme al grupo de WhatsApp →</button>
+      </div>
+    </div>
+
+    <!-- PLAN 30 -->
+  <div class="footer" style="margin-top:0;">
+    <div class="footer-logo">
+      <div class="footer-logo-av"><img src="ordy.png" alt="ordy" style="width:30px;height:30px;object-fit:contain;filter:drop-shadow(0 1px 4px rgba(0,0,0,0.25));"/></div>
+      <div><strong>Navi Café</strong><span>Un sistema de orden para tu negocio</span></div>
+    </div>
+    <div class="footer-info">Dashboard Pro · Ordy · Junio 2025 · ordy.cr</div>
+  </div>
+</main>
+
+<script>
+function show(id, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('on'));
+  document.getElementById('panel-' + id).classList.add('on');
+  if (btn) btn.classList.add('on');
+  var titles = {
+    bienvenida:['Inicio · Ordy','Ordy · Sistema de orden'],
+    overview:['Vista General','Ordy · Sistema de orden Pro'],
+    n1:['Nivel 1 · Entendé tu negocio','Con Lumi · Navi Café de Ruta'],
+    n2:['Nivel 2 · Orden operativo','Con Carey · Navi Café de Ruta'],
+    n3:['Nivel 3 · Plata sin autoengaño','Con Regi · Navi Café de Ruta'],
+    n4:['Nivel 4 · Formalización','Con Marty · Navi Café de Ruta'],
+    n5:['Nivel 5 · Clientes y políticas','Con Cabu · Navi Café de Ruta'],
+    n6:['Nivel 6 · Crecimiento ordenado','Con Pepe · Navi Café de Ruta'],
+    n7:['Nivel 7 · Radar de fugas','Con Glau · PRO · Navi Café de Ruta'],
+    n8:['Nivel 8 · Comunidad','Próximamente · Ordy']
+  };
+  if (titles[id]) {
+    document.getElementById('page-title').textContent = titles[id][0];
+    document.getElementById('page-sub').textContent = titles[id][1];
+  }
+}
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

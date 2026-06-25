@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/dashboards/navi", "destination": "/dashboard-navi.html" },
+    { "source": "/dashboards/regi", "destination": "/dashboard-regi.html" },
+    { "source": "/dashboards/cabu", "destination": "/dashboard-cabu.html" }
+  ]
+}
