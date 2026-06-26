@@ -261,8 +261,11 @@
       z-index: 5;
       border-radius: 24px;
       box-shadow: 0 24px 64px rgba(0,0,0,0.42), 0 0 0 3px rgba(187,187,252,0.5);
+      /* sin overflow:hidden aquí — se hereda del padre .collage-card */
     }
     .collage-card--ordy:hover { transform: translate(-50%, -52%) scale(1.03); }
+    /* La foto de Ordy usa aspect-ratio como las demás, sin height fijo */
+    .collage-card--ordy .mcard__photo { aspect-ratio: 4/3; height: auto; }
 
     /* Tarjeta arriba-izquierda */
     .collage-card--tl {
@@ -1016,24 +1019,23 @@
           <div class="mcard">
             <div class="mcard__tab">Conocé la historia detrás de Ordy</div>
             <img class="mcard__photo" src="foto-ordy.png" alt="Manatí antillano"
-                 style="height:160px;"
-                 onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2e6ea8)';this.style.height='160px';this.removeAttribute('onerror')" />
+                 onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2e6ea8)';this.removeAttribute('onerror')" />
             <div class="mcard__wave">
               <svg viewBox="0 0 200 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M0,12 C40,22 80,4 120,12 C160,20 185,6 200,12 L200,22 L0,22 Z" fill="#EEEEFF"/>
               </svg>
             </div>
-            <div class="mcard__body" style="flex-direction:row; align-items:flex-start; gap:10px;">
-              <div class="char-featured__info">
+            <div class="mcard__body" style="flex-direction:row; align-items:center; gap:8px; padding:10px 12px 8px;">
+              <div style="flex:1; display:flex; flex-direction:column; gap:3px; min-width:0;">
                 <span class="mcard__badge">Ordy</span>
-                <span class="mcard__name" style="font-size:22px;">Manatí Antillano</span>
-                <span class="char-featured__species" style="font-size:10px; margin:0;">Trichechus manatus</span>
-                <span class="mcard__status" style="margin-top:4px;">🔴 En peligro de extinción</span>
+                <span class="mcard__name" style="font-size:15px; line-height:1.1;">Manatí Antillano</span>
+                <span style="font-size:8px; color:#5A5888; font-style:italic; font-weight:600;">Trichechus manatus</span>
+                <span class="mcard__status" style="margin-top:2px; font-size:8px; padding:2px 8px;">🔴 En peligro de extinción</span>
               </div>
               <img src="https://www.ordenyplan.com/char-ordy.png" alt="Ordy personaje"
-                   style="width:78px;height:78px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(78,75,247,.2))" />
+                   style="width:58px; height:58px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 3px 8px rgba(78,75,247,.2));" />
             </div>
-            <div class="mcard__footer">📍 <span>Hábitat:</span> Costas y ríos de Costa Rica</div>
+            <div class="mcard__footer">📍 <span style="color:#4E4BF7;">Hábitat:</span> Costas y ríos de Costa Rica</div>
           </div>
         </div>
 
