@@ -377,9 +377,18 @@
     .faro-stat-label { font-size: .875rem; color: rgba(255,255,255,.65); margin-top: .4rem; line-height: 1.55; }
     .faro-chips { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
     .faro-chip { font-size: .75rem; font-weight: 600; padding: .28rem .8rem; border-radius: 100px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.18); }
+    /* Card imagen en el Faro */
+    .faro-card-img {
+      width: 100%; max-width: 360px; display: block; margin: 0 auto;
+      filter: drop-shadow(0 24px 48px rgba(0,0,0,.5));
+      transform: rotate(2deg);
+      transition: transform .3s;
+    }
+    .faro-card-img:hover { transform: rotate(0deg) scale(1.02); }
     @media(max-width:960px) {
       .hr-top { flex-direction: column; }
       .faro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .faro-card-img { max-width: 280px; }
     }
     @media(max-width:640px) {
       .home-recursos { padding: 4rem 1.25rem; }
@@ -769,35 +778,19 @@
 </section>
 
 <!-- FARO / IMPACTO -->
-<!-- Para activar la foto de océano: subí "ocean-bg.jpg" y agregá la clase "faro-has-img" al section -->
+<!-- Para activar foto de océano: subí "ocean-bg.jpg" y agregá clase "faro-has-img" al section -->
 <section class="faro" id="faro">
   <div class="faro-overlay"></div>
   <div class="faro-inner">
     <div class="faro-left">
       <span class="faro-eyebrow">🌊 El Faro de Ordy</span>
       <h2>Ordenar también puede ser una forma de cuidar</h2>
-      <p>Ordy nació con el océano en el corazón. Nuestro universo está inspirado en especies marinas —muchas de ellas vulnerables o en peligro— y parte de nuestra visión es crecer con propósito.</p>
-      <p>Como compromiso, destinaremos el <strong style="color:white;">5% de las ganancias netas</strong> a proyectos relacionados con conservación marina, especies y cuidado del entorno.</p>
+      <p>Ordy nació con el océano en el corazón. Nuestro universo está inspirado en especies marinas, muchas de ellas vulnerables o en peligro de extinción y parte de nuestra visión es crecer con propósito.</p>
       <p class="faro-frase">"Crecemos con claridad, pero también con conciencia."</p>
-      <a href="impacto.html" class="btn-faro">Conocer el impacto →</a>
+      <a href="impacto.html" class="btn-faro">Descubrí la historia detrás de nuestros personajes →</a>
     </div>
     <div class="faro-right">
-      <div class="faro-stat">
-        <div class="faro-stat-num"><em>5%</em></div>
-        <p class="faro-stat-label">de las ganancias netas destinadas a conservación marina y cuidado del entorno</p>
-      </div>
-      <div class="faro-stat">
-        <div class="faro-stat-num" style="font-size:1.3rem;">Inspirados en el océano</div>
-        <p class="faro-stat-label">Cada personaje de Ordy representa una especie marina real, muchas de ellas vulnerables.</p>
-        <div class="faro-chips">
-          <span class="faro-chip">🐬 Lumi</span>
-          <span class="faro-chip">🐢 Carey</span>
-          <span class="faro-chip">🦈 Marty</span>
-          <span class="faro-chip">🐟 Regi</span>
-          <span class="faro-chip">🦑 Pepe</span>
-          <span class="faro-chip">🐉 Glau</span>
-        </div>
-      </div>
+      <img src="stock-ordy.png" alt="Ordy — Manatí Antillano, especie en peligro de extinción" class="faro-card-img">
     </div>
   </div>
 </section>
