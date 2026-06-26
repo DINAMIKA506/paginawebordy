@@ -373,6 +373,10 @@
       border-radius: 999px;
       padding: 3px 8px;
       margin-top: 2px;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .mcard__status--green {
@@ -574,6 +578,10 @@
       color: #fff;
       align-self: flex-start;
       margin-top: 2px;
+      white-space: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .char-featured__status-badge--red    { background: var(--brand-red); }
     .char-featured__status-badge--salmon { background: var(--brand-salmon); }
@@ -788,6 +796,10 @@
       color: #fff;
       align-self: flex-start;
       margin: 2px 0 4px;
+      white-space: nowrap;        /* ← nunca rompe en dos líneas */
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .ucard__status--red    { background: var(--brand-red); }
     .ucard__status--salmon { background: var(--brand-salmon); }

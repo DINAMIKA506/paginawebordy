@@ -1,0 +1,285 @@
+<!--
+  ╔══════════════════════════════════════════════════════════╗
+  ║  SNIPPET: Collage de tarjetas para el hero del landing   ║
+  ║  Pegá el bloque <style> dentro del <style> existente     ║
+  ║  Pegá el bloque HTML donde estaba la imagen anterior     ║
+  ║  Subí las imágenes: foto-ordy.png, foto-marty.png,       ║
+  ║                      foto-carey.png, foto-cabu.png,       ║
+  ║                      foto-navi.png (mismas del impacto)   ║
+  ╚══════════════════════════════════════════════════════════╝
+-->
+
+
+<!-- ══ 1. CSS — pegá dentro del <style> existente ══════════ -->
+<style>
+/* ── Hero Collage (tarjetas flotantes) ───────────────────── */
+.hero__collage {
+  position: relative;
+  width: 380px;
+  height: 560px;
+  flex-shrink: 0;
+}
+
+.collage-card {
+  position: absolute;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.32);
+  background: #fff;
+  transform-origin: center center;
+  transition: transform 0.22s cubic-bezier(.4,0,.2,1),
+              box-shadow 0.22s cubic-bezier(.4,0,.2,1);
+}
+.collage-card:hover { box-shadow: 0 28px 72px rgba(0,0,0,0.42); }
+
+/* Posiciones y rotaciones */
+.collage-card--ordy {
+  width: 210px;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.40),
+              0 0 0 3px rgba(187,187,252,0.45);
+}
+.collage-card--ordy:hover { transform: translate(-50%, -52%) scale(1.03); }
+
+.collage-card--tl {
+  width: 148px; left: 0; top: 32px;
+  transform: rotate(-8deg); z-index: 3;
+}
+.collage-card--tl:hover { transform: rotate(-5deg) scale(1.05); }
+
+.collage-card--tr {
+  width: 148px; right: 0; top: 16px;
+  transform: rotate(7deg); z-index: 3;
+}
+.collage-card--tr:hover { transform: rotate(4deg) scale(1.05); }
+
+.collage-card--bl {
+  width: 140px; left: 4px; bottom: 32px;
+  transform: rotate(6deg); z-index: 3;
+}
+.collage-card--bl:hover { transform: rotate(3deg) scale(1.05); }
+
+.collage-card--br {
+  width: 140px; right: 4px; bottom: 20px;
+  transform: rotate(-7deg); z-index: 3;
+}
+.collage-card--br:hover { transform: rotate(-4deg) scale(1.05); }
+
+/* ── Anatomía interna de mini-tarjeta ──────────────────── */
+.mcard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fff;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.mcard__tab {
+  background: #fff;
+  text-align: center;
+  padding: 8px 12px 0;
+  font-size: 10px;
+  font-weight: 700;
+  color: #1A1857;
+  flex-shrink: 0;
+}
+
+.mcard__photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+
+.mcard__wave {
+  display: block;
+  width: 100%;
+  margin-top: -2px;
+  flex-shrink: 0;
+  line-height: 0;
+  background: white;
+}
+.mcard__wave svg { width: 100%; display: block; }
+
+.mcard__body {
+  background: #EEEEFF;
+  padding: 10px 10px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mcard__badge {
+  background: #4E4BF7;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 3px 10px;
+  align-self: flex-start;
+}
+
+.mcard__name {
+  font-size: 13px;
+  font-weight: 900;
+  color: #1A1857;
+  line-height: 1.15;
+}
+
+.mcard__species-small {
+  font-size: 9px;
+  color: #5A5888;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.mcard__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-radius: 999px;
+  padding: 3px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #fff;
+  margin-top: 2px;
+  align-self: flex-start;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mcard__status--red    { background: #F94646; }
+.mcard__status--salmon { background: #FF8D8D; }
+
+.mcard__footer-small {
+  background: #F4F4FF;
+  border-top: 1px solid rgba(78,75,247,0.1);
+  padding: 5px 10px;
+  font-size: 9px;
+  color: #5A5888;
+  font-weight: 600;
+}
+.mcard__footer-small span { color: #4E4BF7; }
+
+/* Responsive: ocultar collage en mobile, centrar en tablet */
+@media (max-width: 900px) {
+  .hero__collage { width: 320px; height: 460px; margin: 0 auto; }
+}
+@media (max-width: 600px) {
+  .hero__collage { display: none; } /* opcional: ocultarlo en mobile muy pequeño */
+}
+</style>
+
+
+<!-- ══ 2. HTML — reemplazá la imagen del hero por esto ═════ -->
+<!--
+  Buscá en tu index.html la imagen del hero (algo como <img src="hero-ordy.png">
+  o el div que contiene esa imagen) y reemplazalo por el bloque de abajo.
+  Si tu hero ya usa grid de dos columnas, pegá solo el div.hero__collage
+  en la columna derecha.
+-->
+
+<div class="hero__collage" aria-hidden="true">
+
+  <!-- Arriba izquierda: Marty -->
+  <div class="collage-card collage-card--tl">
+    <div class="mcard">
+      <img class="mcard__photo" src="foto-marty.png" alt="Tiburón martillo" />
+      <div class="mcard__wave">
+        <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+        </svg>
+      </div>
+      <div class="mcard__body">
+        <span class="mcard__badge">Marty</span>
+        <span class="mcard__name">Tiburón martillo</span>
+        <span class="mcard__status mcard__status--red">🔴 En peligro de extinción</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arriba derecha: Carey -->
+  <div class="collage-card collage-card--tr">
+    <div class="mcard">
+      <img class="mcard__photo" src="foto-carey.png" alt="Tortuga carey" />
+      <div class="mcard__wave">
+        <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+        </svg>
+      </div>
+      <div class="mcard__body">
+        <span class="mcard__badge">Carey</span>
+        <span class="mcard__name">Tortuga carey</span>
+        <span class="mcard__status mcard__status--red">🔴 En peligro</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Centro: Ordy (grande) -->
+  <div class="collage-card collage-card--ordy">
+    <div class="mcard">
+      <div class="mcard__tab">Conocé la historia detrás de Ordy</div>
+      <img class="mcard__photo" src="foto-ordy.png" alt="Manatí antillano" style="aspect-ratio:4/3;" />
+      <div class="mcard__wave">
+        <svg viewBox="0 0 200 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,12 C40,22 80,4 120,12 C160,20 185,6 200,12 L200,22 L0,22 Z" fill="#EEEEFF"/>
+        </svg>
+      </div>
+      <div class="mcard__body" style="flex-direction:row; align-items:flex-start; gap:10px;">
+        <div style="flex:1; display:flex; flex-direction:column; gap:4px;">
+          <span class="mcard__badge">Ordy</span>
+          <span class="mcard__name" style="font-size:18px;">Manatí Antillano</span>
+          <span class="mcard__species-small">Trichechus manatus</span>
+          <span class="mcard__status mcard__status--red">🔴 En peligro de extinción</span>
+        </div>
+        <img src="char-ordy.png" alt="Ordy personaje"
+             style="width:72px;height:72px;object-fit:contain;flex-shrink:0;
+                    filter:drop-shadow(0 4px 10px rgba(78,75,247,.2))" />
+      </div>
+      <div class="mcard__footer-small">📍 <span>Hábitat:</span> Costas y ríos de Costa Rica</div>
+    </div>
+  </div>
+
+  <!-- Abajo izquierda: Cabu -->
+  <div class="collage-card collage-card--bl">
+    <div class="mcard">
+      <img class="mcard__photo" src="foto-cabu.png" alt="Caballito de mar" />
+      <div class="mcard__wave">
+        <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+        </svg>
+      </div>
+      <div class="mcard__body">
+        <span class="mcard__badge">Cabu</span>
+        <span class="mcard__name">Caballito de mar</span>
+        <span class="mcard__status mcard__status--salmon">🌿 Aliado del manglar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abajo derecha: Navi -->
+  <div class="collage-card collage-card--br">
+    <div class="mcard">
+      <img class="mcard__photo" src="foto-navi.png" alt="Raya águila" />
+      <div class="mcard__wave">
+        <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+        </svg>
+      </div>
+      <div class="mcard__body">
+        <span class="mcard__badge">Navi</span>
+        <span class="mcard__name">Raya águila</span>
+        <span class="mcard__status mcard__status--salmon">🌊 Habitante clave</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /hero__collage -->
