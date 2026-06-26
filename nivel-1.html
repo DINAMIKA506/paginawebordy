@@ -46,14 +46,20 @@
     <div class="section-header"><h2>🛒 Qué vendés</h2></div>
 
     <div class="question">
-      <label>¿Cuál es tu producto o servicio principal? <span class="req">*</span></label>
-      <input type="text" name="producto_principal" placeholder="Ej: Consultoría de marketing digital" required data-fs-field>
-      <span data-fs-error="producto_principal"></span>
+      <label>¿Qué vendés actualmente? <span class="req">*</span></label>
+      <textarea name="productos_actuales" placeholder="Listá tus productos o servicios, uno por línea:&#10;- Ej: Sesiones de coaching individual&#10;- Ej: Talleres grupales&#10;- Ej: Cursos online" required data-fs-field></textarea>
+      <p class="hint">Uno por línea está perfecto.</p>
+      <span data-fs-error="productos_actuales"></span>
     </div>
 
     <div class="question">
-      <label>¿Qué otros productos o servicios ofrecés?</label>
-      <textarea name="otros_productos" placeholder="Listá lo que ofrecés además del principal..."></textarea>
+      <label>¿Qué servicio te buscan más?</label>
+      <textarea name="servicio_mas_buscado" placeholder="¿Qué es lo que más te piden o lo que más vendés?"></textarea>
+    </div>
+
+    <div class="question">
+      <label>¿Qué servicio disfrutás más hacer?</label>
+      <textarea name="servicio_mas_disfruta" placeholder="¿Hay algo que hagas con más energía o que te llene más?"></textarea>
     </div>
 
     <div class="question">
@@ -110,6 +116,11 @@
     <div class="question">
       <label>¿Qué frase NO querés que la gente piense de tu negocio?</label>
       <input type="text" name="frase_no_quiero" placeholder="Ej: Que es caro, que es para todos, que es amateur...">
+    </div>
+
+    <div class="question">
+      <label>¿Cómo te gustaría que evolucionara este negocio en los próximos años?</label>
+      <textarea name="evolucion_negocio" placeholder="¿Qué te imaginás? ¿Más grande, más enfocado, con equipo, diferente...?"></textarea>
     </div>
 
     <hr class="form-divider">
