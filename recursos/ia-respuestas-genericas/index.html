@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cómo usar IA para tu negocio sin recibir respuestas genéricas | Ordy</title>
+  <meta name="description" content="Aprendé a darle mejor contexto a la IA para obtener respuestas más útiles, personalizadas y accionables para tu negocio.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.ordenyplan.com/recursos/ia-respuestas-genericas/">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#4E4BF7">
+  <meta property="og:title" content="Cómo usar IA para tu negocio sin recibir respuestas genéricas | Ordy">
+  <meta property="og:description" content="Aprendé a darle mejor contexto a la IA para obtener respuestas más útiles, personalizadas y accionables para tu negocio.">
+  <meta property="og:image" content="https://www.ordenyplan.com/blog-ia-contexto.png">
+  <meta property="og:url" content="https://www.ordenyplan.com/recursos/ia-respuestas-genericas/">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cómo usar IA para tu negocio sin recibir respuestas genéricas | Ordy">
+  <meta name="twitter:description" content="Aprendé a darle mejor contexto a la IA para obtener respuestas más útiles, personalizadas y accionables para tu negocio.">
+  <meta name="twitter:image" content="https://www.ordenyplan.com/blog-ia-contexto.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+  .section-tag.tag-ia { background: var(--tag-bg-tag-ia); color: var(--tag-color-tag-ia); }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --ordy: #4E4BF7; --ordy-dark: #3230c4; --coral: #F94646; --coral-light: #FF8D8D; --lila: #BBBBFC; --lila-bg: #EEEEFF; --text: #1A1A2E; --muted: #6B7280; --white: #ffffff; --border: #E5E7EB; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { height: 34px; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: .9rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color .15s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ordy); font-weight: 700; }
+    .nav-cta { background: var(--ordy); color: #fff; padding: .6rem 1.4rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background .15s; }
+    .nav-cta:hover { background: var(--ordy-dark); }
+    .art-hero { background: var(--lila-bg); padding: 4rem 2.5rem; }
+    .art-hero-inner { max-width: 800px; margin: 0 auto; }
+    .section-tag { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .3rem .85rem; border-radius: 100px; width: fit-content; margin-bottom: 1.25rem; }
+    .art-hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 900; line-height: 1.2; margin-bottom: 1rem; }
+    .art-meta { font-size: .875rem; color: var(--muted); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .art-resume { font-size: 1.1rem; color: var(--muted); line-height: 1.75; max-width: 640px; }
+    .art-cover { margin-top: 2.5rem; border-radius: 16px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+    .art-cover img { width: 100%; display: block; aspect-ratio: 16/6; object-fit: cover; }
+    .art-body { padding: 4rem 2.5rem 2rem; }
+    .art-body-inner { max-width: 720px; margin: 0 auto; }
+    .art-body h2 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; margin: 2.5rem 0 .75rem; color: var(--text); }
+    .art-body p { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; }
+    .art-body ul, .art-body ol { padding-left: 1.5rem; margin-bottom: 1.25rem; }
+    .art-body li { font-size: 1rem; color: var(--muted); line-height: 1.75; margin-bottom: .4rem; }
+    .art-body strong { color: var(--text); font-weight: 700; }
+    .idea-box { background: var(--lila-bg); border-left: 4px solid var(--ordy); border-radius: 0 12px 12px 0; padding: 1.25rem 1.5rem; margin: 2rem 0; }
+    .idea-label { font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); margin-bottom: .5rem; display: block; }
+    .idea-box p { font-size: .95rem; color: var(--text); margin: 0; line-height: 1.7; }
+    .cta-inline { background: linear-gradient(135deg, #4E4BF7 0%, #6563ff 100%); border-radius: 20px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
+    .cta-inline h3 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; color: white; margin-bottom: .75rem; }
+    .cta-inline p { color: rgba(255,255,255,.8); font-size: .95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .btn-white { display: inline-block; background: white; color: var(--ordy); padding: .85rem 2rem; border-radius: 100px; font-weight: 700; font-size: .95rem; text-decoration: none; transition: transform .15s; }
+    .btn-white:hover { transform: translateY(-2px); }
+    .related { background: white; padding: 4rem 2.5rem; border-top: 1.5px solid var(--border); }
+    .related-inner { max-width: 900px; margin: 0 auto; }
+    .related h2 { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; margin-bottom: 1.75rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+    .related-card { background: var(--lila-bg); border-radius: 14px; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: .6rem; transition: transform .2s; border: 1.5px solid transparent; }
+    .related-card:hover { transform: translateY(-3px); border-color: var(--lila); }
+    .related-cat { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ordy); }
+    .related-title { font-size: .9rem; font-weight: 700; color: var(--text); line-height: 1.35; }
+    .related-link { font-size: .8rem; color: var(--ordy); font-weight: 600; }
+    footer { background: white; border-top: 1.5px solid var(--border); padding: 2.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
+    .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: var(--ordy); }
+    .footer-note { max-width: 1200px; margin: 1.5rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); text-align: center; }
+    @media(max-width:640px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .related-grid { grid-template-columns: 1fr; } .art-hero, .art-body, .related { padding-left: 1.25rem; padding-right: 1.25rem; } }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="/"><img src="../../ordy-logo.png" alt="Ordy" class="nav-logo"></a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#funciona">Cómo funciona</a></li>
+    <li><a href="../../index.html#dashboards">Dashboards</a></li>
+    <li><a href="../../index.html#precios">Precios</a></li>
+    <li><a href="../../index.html#faq">FAQ</a></li>
+    <li><a href="../../recursos.html" class="active">Recursos</a></li>
+    <li><a href="../../impacto.html">Impacto</a></li>
+  </ul>
+  <a href="../../beta.html" class="nav-cta">Empezar gratis</a>
+</nav>
+<div class="art-hero">
+  <div class="art-hero-inner">
+    <span class="section-tag tag-ia">🤖 IA y contexto</span>
+    <h1>Cómo usar IA para tu negocio sin recibir respuestas genéricas</h1>
+    <div class="art-meta">
+      <span>⏱ 6 min de lectura</span><span>·</span><span>Ordy · Recursos</span>
+    </div>
+    <p class="art-resume">La IA puede ayudarte mucho más cuando entiende tu negocio. El secreto no está solo en la herramienta, sino en el contexto que le das.</p>
+    <div class="art-cover">
+      <img src="../../blog-ia-contexto.png" alt="Cómo usar IA para tu negocio sin recibir respuestas genéricas">
+    </div>
+  </div>
+</div>
+<div class="art-body">
+  <div class="art-body-inner">
+    <h2>"Usá IA para tu negocio" suena fácil, hasta que aparece la hoja en blanco</h2>
+    <p>Hay un consejo que se repite mucho: <strong>usá IA para ordenar tu negocio, crear contenido, responder clientes, analizar costos.</strong> Y suena genial hasta que abrís ChatGPT o Claude y te quedás mirando el cursor.</p>
+    <p>¿Qué le preguntás? ¿Por dónde empezás? ¿Cómo le explicás algo que vos apenas tenés claro?</p>
+    <p>El problema no es la herramienta. El problema es que la IA necesita contexto para poder ayudarte bien. Y si no tenés ese contexto listo, vas a recibir respuestas genéricas que no te sirven.</p>
+
+    <h2>Por qué la IA responde genérico</h2>
+    <p>La inteligencia artificial está entrenada en millones de textos. Eso la hace muy buena para responder preguntas generales. Pero tu negocio no es general: tiene su propia historia, su propio cliente, sus propios problemas.</p>
+    <p>Cuando le preguntás algo sin contexto, como "¿cómo puedo mejorar mis ventas?", la IA responde para cualquier negocio imaginable. Y eso resulta en listas que no te dicen nada nuevo.</p>
+    <p>La diferencia está en <strong>cuánto contexto le das</strong> antes de hacer la pregunta.</p>
+
+    <h2>Qué información necesita saber de tu negocio</h2>
+    <p>Antes de pedirle algo a la IA, conviene tener claro al menos esto:</p>
+    <ul>
+      <li>Qué vendés y a quién</li>
+      <li>Cuánto cobrás y cómo funciona tu proceso de venta</li>
+      <li>Quién es tu cliente típico y qué problema tiene</li>
+      <li>Cuáles son tus principales canales de comunicación</li>
+      <li>Qué querés lograr con esa conversación específica</li>
+    </ul>
+    <p>No tenés que escribir un ensayo. Pero sí necesitás poder resumirlo en un párrafo claro.</p>
+
+    <h2>Ejemplos: prompt sin contexto vs con contexto</h2>
+    <p><strong>Sin contexto:</strong> "¿Cómo puedo conseguir más clientes?"</p>
+    <p><strong>Con contexto:</strong> "Tengo una cafetería pequeña en un barrio residencial. Mis clientes principales son personas que trabajan cerca y compran café para llevar. Quiero atraer más clientes en las horas de la tarde. ¿Qué acciones concretas podría probar esta semana?"</p>
+    <p>La segunda pregunta recibe una respuesta completamente diferente, más específica, más útil, más accionable.</p>
+
+    <h2>Cómo usar Ordy como base de contexto</h2>
+    <p>Una de las cosas que Ordy hace es ayudarte a construir exactamente ese contexto. Cuando respondés las preguntas del proceso, estás organizando la información que cualquier herramienta de IA necesita para ayudarte bien.</p>
+    <p>Al final de cada nivel, Ordy incluye un prompt resumen que podés copiar y pegar directamente en ChatGPT o Claude. Así no empezás desde cero cada vez: empezás desde lo que ya construiste.</p>
+
+    <div class="idea-box">
+      <span class="idea-label">💡 Idea Ordy</span>
+      <p>Antes de pedirle algo a una herramienta, necesitás entender qué estás tratando de ordenar. La IA no reemplaza tu criterio — lo potencia cuando tiene buena información.</p>
+    </div>
+
+    <h2>La IA no reemplaza tu criterio; lo potencia cuando tiene buena información</h2>
+    <p>No necesitás ser experta en prompts ni en tecnología para usar la IA bien en tu negocio. Solo necesitás entender tu propio negocio lo suficiente como para explicárselo.</p>
+    <p>Y eso, curiosamente, es lo mismo que necesitás para tomar mejores decisiones en general.</p>
+    <div class="cta-inline">
+      <h3>¿Querés ordenar esto con una guía más clara?</h3>
+      <p>Ordy te ayuda a sacar la información de tu negocio de la cabeza y convertirla en un dashboard claro para tomar mejores decisiones.</p>
+      <a href="../../beta.html" class="btn-white">Quiero uno de los 5 cupos beta →</a>
+    </div>
+  </div>
+</div>
+<section class="related">
+  <div class="related-inner">
+    <h2>Más guías para seguir ordenando</h2>
+    <div class="related-grid">
+      <a href="../ordenar-negocio/" class="related-card">
+        <span class="related-cat">Organización</span>
+        <p class="related-title">Cómo ordenar tu negocio cuando no sabés por dónde empezar</p>
+        <span class="related-link">Leer guía →</span>
+      </a>
+      <a href="../preparar-negocio-notion/" class="related-card">
+        <span class="related-cat">Herramientas</span>
+        <p class="related-title">Cómo preparar tu negocio antes de usar Notion</p>
+        <span class="related-link">Leer guía →</span>
+      </a>
+      <a href="../fugas-tiempo-dinero-energia/" class="related-card">
+        <span class="related-cat">Eficiencia</span>
+        <p class="related-title">Cómo detectar fugas de tiempo, dinero y energía</p>
+        <span class="related-link">Leer guía →</span>
+      </a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <img src="../../ordy-logo.png" alt="Ordy" class="nav-logo">
+    <ul class="footer-links">
+      <li><a href="../../index.html#funciona">Cómo funciona</a></li>
+      <li><a href="../../index.html#dashboards">Dashboards</a></li>
+      <li><a href="../../index.html#precios">Precios</a></li>
+      <li><a href="../../index.html#faq">FAQ</a></li>
+      <li><a href="../../recursos.html">Recursos</a></li>
+      <li><a href="../../impacto.html">Impacto</a></li>
+    </ul>
+  </div>
+  <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
+</footer>
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
