@@ -1,189 +1,1366 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>El Faro de Ordy | Impacto y conservación marina</title>
-  <meta name="description" content="Conocé la visión de impacto de Ordy y su compromiso de destinar parte de sus ganancias netas a iniciativas de conservación marina.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://www.ordenyplan.com/impacto.html">
-  <link rel="icon" type="image/png" href="/favicon.png">
-  <link rel="manifest" href="/manifest.json">
-  <meta name="theme-color" content="#4E4BF7">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Faro de Ordy | Historias de especies marinas e impacto</title>
+  <meta name="description" content="Conocé las especies marinas que inspiran a los personajes de Ordy y la importancia de proteger sus hábitats." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#4E4BF7" />
+  <link rel="canonical" href="https://www.ordenyplan.com/impacto.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="El Faro de Ordy | Historias detrás de los personajes" />
+  <meta property="og:description" content="Cada personaje de Ordy está inspirado en una especie marina real. Conocé su historia, su rol en el ecosistema y por qué importa proteger su mundo." />
+  <meta property="og:image" content="https://www.ordenyplan.com/impacto-ordy.png" />
+  <meta property="og:url" content="https://www.ordenyplan.com/impacto.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_CR" />
+  <meta property="og:site_name" content="Ordy" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="El Faro de Ordy | Historias detrás de los personajes" />
+  <meta name="twitter:description" content="Cada personaje de Ordy está inspirado en una especie marina real." />
+  <meta name="twitter:image" content="https://www.ordenyplan.com/impacto-ordy.png" />
+
   <style>
+    /* ── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --ordy: #4E4BF7;
-      --ordy-dark: #3230c4;
-      --coral: #F94646;
-      --lila: #BBBBFC;
-      --lila-bg: #EEEEFF;
-      --text: #1A1A2E;
-      --muted: #6B7280;
-      --white: #ffffff;
-      --border: #E5E7EB;
+      --brand-indigo:  #4E4BF7;
+      --brand-red:     #F94646;
+      --brand-salmon:  #FF8D8D;
+      --brand-lilac:   #BBBBFC;
+      --brand-lilac2:  #DDDCFF;
+      --brand-navy:    #1A1857;
+      --brand-navy2:   #2C2A7A;
+      --bg-soft:       #F4F5FF;
+      --bg-card:       #FFFFFF;
+      --text-main:     #1A1857;
+      --text-muted:    #5A5888;
+      --text-light:    #8D8BBE;
+      --radius-card:   20px;
+      --radius-pill:   999px;
+      --shadow-soft:   0 4px 20px rgba(78,75,247,0.10);
+      --shadow-card:   0 8px 32px rgba(78,75,247,0.13);
+      --transition:    0.22s cubic-bezier(.4,0,.2,1);
     }
+
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); -webkit-font-smoothing: antialiased; }
 
-    /* NAV */
-    nav {
-      background: rgba(255,255,255,0.96); backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 2.5rem; height: 68px;
-      display: flex; align-items: center; justify-content: space-between;
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg-soft);
+      color: var(--text-main);
+      line-height: 1.65;
+      font-size: 16px;
     }
-    .nav-logo { height: 34px; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-size: .9rem; color: var(--muted); text-decoration: none; font-weight: 500; transition: color .15s; }
-    .nav-links a:hover { color: var(--ordy); }
-    .nav-cta { background: var(--ordy); color: #fff; padding: .6rem 1.4rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: background .15s; }
-    .nav-cta:hover { background: var(--ordy-dark); }
 
-    /* HERO */
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Navbar ───────────────────────────────────────────── */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(78,75,247,0.09);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 66px;
+    }
+
+    .navbar__logo img { height: 32px; width: auto; }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .navbar__links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      transition: color var(--transition), background var(--transition);
+    }
+
+    .navbar__links a:hover { color: var(--brand-indigo); background: var(--brand-lilac2); }
+
+    .navbar__links a.active {
+      color: var(--brand-indigo);
+      background: var(--brand-lilac2);
+      font-weight: 700;
+    }
+
+    .navbar__cta {
+      background: var(--brand-indigo);
+      color: #fff !important;
+      border-radius: var(--radius-pill);
+      padding: 9px 20px !important;
+      font-weight: 700 !important;
+      white-space: nowrap;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .navbar__cta:hover { background: var(--brand-navy2) !important; transform: translateY(-1px); }
+
+    /* ── Hero ─────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #EEEEFF 0%, #f0fff8 60%, #e8f8ff 100%);
-      padding: 5rem 2.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+      padding: 72px 5vw 80px;
+      background: linear-gradient(145deg, #0E0C3A 0%, #1A1857 35%, #2C2A7A 65%, #4E4BF7 100%);
+    }
+
+    /* Bubbles */
+    .hero__bubbles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(187,187,252,0.10);
+      animation: floatUp linear infinite;
+    }
+    .bubble:nth-child(1)  { width:70px;  height:70px;  left:5%;  bottom:-60px; animation-duration:12s; }
+    .bubble:nth-child(2)  { width:36px;  height:36px;  left:18%; bottom:-40px; animation-duration:9s;  animation-delay:2.5s; }
+    .bubble:nth-child(3)  { width:110px; height:110px; left:38%; bottom:-90px; animation-duration:15s; animation-delay:1s; }
+    .bubble:nth-child(4)  { width:50px;  height:50px;  left:62%; bottom:-50px; animation-duration:10s; animation-delay:4s; }
+    .bubble:nth-child(5)  { width:80px;  height:80px;  left:78%; bottom:-70px; animation-duration:13s; animation-delay:3s; }
+    .bubble:nth-child(6)  { width:28px;  height:28px;  left:91%; bottom:-30px; animation-duration:8s;  animation-delay:6s; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(1);   opacity:.6; }
+      50%  { opacity:.3; }
+      100% { transform: translateY(-115vh) scale(1.08); opacity:0; }
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 56px;
+      align-items: center;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brand-lilac);
+      margin-bottom: 18px;
+    }
+    .hero__eyebrow span { font-size: 16px; }
+
+    .hero__title {
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 18px;
+      letter-spacing: -.025em;
+    }
+    .hero__title em {
+      font-style: normal;
+      color: var(--brand-lilac);
+    }
+
+    .hero__subtitle {
+      font-size: 1.06rem;
+      color: rgba(255,255,255,0.80);
+      margin-bottom: 14px;
+      max-width: 490px;
+      line-height: 1.6;
+    }
+
+    .hero__text {
+      font-size: .93rem;
+      color: rgba(255,255,255,0.58);
+      max-width: 470px;
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+
+    .hero__actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: #fff;
+      color: var(--brand-indigo);
+      font-weight: 700;
+      font-size: .93rem;
+      padding: 13px 26px;
+      border-radius: var(--radius-pill);
+      transition: background var(--transition), transform var(--transition);
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--brand-lilac2); transform: translateY(-2px); }
+
+    .btn-secondary {
+      border: 2px solid rgba(255,255,255,0.32);
+      color: rgba(255,255,255,0.88);
+      font-weight: 600;
+      font-size: .93rem;
+      padding: 11px 24px;
+      border-radius: var(--radius-pill);
+      transition: border-color var(--transition), background var(--transition), transform var(--transition);
+      display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,.65); background: rgba(255,255,255,.07); transform: translateY(-2px); }
+
+    /* ── Collage de tarjetas en el hero ───────────────────── */
+    .hero__collage {
+      position: relative;
+      width: 380px;
+      height: 580px;
+      flex-shrink: 0;
+    }
+
+    /* Tarjeta central grande (Ordy) */
+    .collage-card {
+      position: absolute;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      background: #fff;
+      transform-origin: center center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .collage-card:hover { box-shadow: 0 28px 72px rgba(0,0,0,0.45); }
+
+    /* Ordy — centro, más grande */
+    .collage-card--ordy {
+      width: 210px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      border-radius: 24px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.42), 0 0 0 3px rgba(187,187,252,0.5);
+    }
+    .collage-card--ordy:hover { transform: translate(-50%, -52%) scale(1.03); }
+
+    /* Tarjeta arriba-izquierda */
+    .collage-card--tl {
+      width: 148px;
+      left: 0;
+      top: 32px;
+      transform: rotate(-8deg);
+      z-index: 3;
+    }
+    .collage-card--tl:hover { transform: rotate(-5deg) scale(1.05); }
+
+    /* Tarjeta arriba-derecha */
+    .collage-card--tr {
+      width: 148px;
+      right: 0;
+      top: 16px;
+      transform: rotate(7deg);
+      z-index: 3;
+    }
+    .collage-card--tr:hover { transform: rotate(4deg) scale(1.05); }
+
+    /* Tarjeta abajo-izquierda */
+    .collage-card--bl {
+      width: 140px;
+      left: 4px;
+      bottom: 32px;
+      transform: rotate(6deg);
+      z-index: 3;
+    }
+    .collage-card--bl:hover { transform: rotate(3deg) scale(1.05); }
+
+    /* Tarjeta abajo-derecha */
+    .collage-card--br {
+      width: 140px;
+      right: 4px;
+      bottom: 20px;
+      transform: rotate(-7deg);
+      z-index: 3;
+    }
+    .collage-card--br:hover { transform: rotate(-4deg) scale(1.05); }
+
+    /* ── Anatomía interna de cada tarjeta (mini) ──────────── */
+    .mcard {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      background: #fff;
+      border-radius: inherit;
+      overflow: hidden;
+    }
+
+    /* Foto superior */
+    .mcard__photo {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Zona inferior lila */
+    .mcard__body {
+      background: #EEEDff;
+      padding: 10px 10px 8px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+      position: relative;
+    }
+
+    /* Wave SVG divisor entre foto y body */
+    .mcard__wave {
+      display: block;
+      width: 100%;
+      margin-top: -2px;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+    .mcard__wave svg { width: 100%; height: auto; display: block; }
+
+    .mcard__badge {
+      background: var(--brand-indigo);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 3px 10px;
+      margin-bottom: 2px;
+    }
+
+    .mcard__name {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--brand-navy);
+      line-height: 1.15;
+    }
+
+    .mcard__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--brand-red);
+      color: #fff;
+      font-size: 9px;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 3px 8px;
+      margin-top: 2px;
+    }
+
+    .mcard__status--green {
+      background: #FF8D8D;
+    }
+
+    /* ── Tarjeta grande de Ordy (hero central) ────────────── */
+    /* usa la misma anatomía pero más grande */
+    .collage-card--ordy .mcard__photo { aspect-ratio: 3/2.2; }
+    .collage-card--ordy .mcard__body  { padding: 14px 14px 10px; gap: 6px; }
+    .collage-card--ordy .mcard__badge { font-size: 11px; padding: 4px 12px; }
+    .collage-card--ordy .mcard__name  { font-size: 18px; }
+    .collage-card--ordy .mcard__species { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .collage-card--ordy .mcard__status { font-size: 10px; padding: 4px 10px; }
+
+    /* Tab superior tipo "Conocé la historia detrás de Ordy" */
+    .collage-card--ordy .mcard__tab {
+      background: #fff;
+      border-radius: 14px 14px 0 0;
+      text-align: center;
+      padding: 8px 12px 0;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--brand-navy);
+      border-bottom: none;
+      margin: 0;
+      flex-shrink: 0;
+    }
+
+    /* Footer hábitat */
+    .mcard__footer {
+      border-top: 1px solid rgba(78,75,247,0.1);
+      padding: 6px 14px;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      background: #F8F8FF;
+    }
+    .mcard__footer span { color: var(--brand-indigo); }
+
+    /* ── Introduction ─────────────────────────────────────── */
+    .intro {
+      padding: 80px 5vw;
+      max-width: 780px;
+      margin: 0 auto;
       text-align: center;
     }
-    .section-tag { display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: white; border: 1px solid var(--lila); padding: .3rem .8rem; border-radius: 100px; margin-bottom: 1.25rem; }
-    .hero-mascot { width: 140px; margin: 0 auto 2rem; display: block; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    .float { animation: float 4s ease-in-out infinite; }
-    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--text); margin-bottom: 1rem; }
-    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto; line-height: 1.75; }
 
-    /* CONTENT */
-    .content { max-width: 780px; margin: 0 auto; padding: 4rem 2.5rem; }
-    .content p { font-size: 1.05rem; color: var(--muted); line-height: 1.85; margin-bottom: 1.5rem; }
-    .content strong { color: var(--text); font-weight: 700; }
-
-    /* STAT CARD */
-    .stat-card {
-      background: var(--lila-bg);
-      border-radius: 20px;
-      padding: 2rem 2.5rem;
-      margin: 2.5rem 0;
-      display: flex; align-items: center; gap: 2rem;
-      border: 1px solid var(--lila);
-    }
-    .stat-number { font-family: 'Fraunces', serif; font-size: 4rem; font-weight: 900; color: var(--ordy); line-height: 1; flex-shrink: 0; }
-    .stat-text { font-size: 1rem; color: var(--text); line-height: 1.6; }
-    .stat-text strong { color: var(--ordy); }
-
-    /* PILLARS */
-    .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin: 2.5rem 0; }
-    .pillar { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
-    .pillar-icon { font-size: 1.75rem; margin-bottom: .75rem; }
-    .pillar h3 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 800; margin-bottom: .4rem; }
-    .pillar p { font-size: .875rem; color: var(--muted); line-height: 1.6; }
-
-    /* NOTE */
-    .note {
-      background: white; border: 1px solid var(--border);
-      border-left: 4px solid var(--lila);
-      border-radius: 12px; padding: 1.25rem 1.5rem;
-      font-size: .875rem; color: var(--muted); line-height: 1.7;
-      margin-top: 2rem;
+    .section-eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--brand-indigo);
+      background: var(--brand-lilac2);
+      padding: 5px 16px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 20px;
     }
 
-    /* CTA */
-    .cta-wrap { text-align: center; padding: 1rem 2.5rem 5rem; }
-    .btn-primary { display: inline-block; background: var(--ordy); color: #fff; padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, background .15s; }
-    .btn-primary:hover { background: var(--ordy-dark); transform: translateY(-2px); }
+    .intro__title {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
 
-    /* FOOTER */
-    footer { background: white; border-top: 1px solid var(--border); padding: 2.5rem; }
-    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; }
-    footer img.footer-logo { height: 30px; }
-    .footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
-    .footer-links a { font-size: .875rem; color: var(--muted); text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: var(--ordy); }
-    .footer-note { max-width: 1200px; margin: 1.5rem auto 0; padding-top: 1.25rem; border-top: 1px solid var(--border); font-size: .75rem; color: var(--muted); text-align: center; }
+    .intro__text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 14px;
+    }
 
-    @media(max-width:640px) { nav { padding: 0 1.25rem; } .nav-links { display: none; } .stat-card { flex-direction: column; text-align: center; } }
+    /* ── Characters Section ───────────────────────────────── */
+    .characters {
+      padding: 16px 5vw 80px;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .characters__header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .characters__title {
+      font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .characters__subtitle {
+      font-size: .98rem;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── Featured Character (diseño tarjeta real) ─────────── */
+    .char-featured {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+
+    /* Tarjeta visual izquierda — fiel al diseño de las tarjetas */
+    .char-featured__card {
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(78,75,247,0.22), 0 0 0 2px rgba(187,187,252,0.4);
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Tab superior */
+    .char-featured__tab {
+      background: #fff;
+      text-align: center;
+      padding: 10px 16px 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--brand-navy);
+      border-radius: 26px 26px 0 0;
+      flex-shrink: 0;
+    }
+
+    /* Foto real de la especie */
+    .char-featured__photo {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Ola separadora */
+    .char-featured__wave {
+      display: block;
+      width: 100%;
+      margin-top: -2px;
+      flex-shrink: 0;
+      line-height: 0;
+      background: transparent;
+    }
+    .char-featured__wave svg { width: 100%; display: block; }
+
+    /* Zona inferior lila */
+    .char-featured__bottom {
+      background: #EEEEFF;
+      padding: 16px 18px 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex: 1;
+    }
+
+    .char-featured__info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .char-featured__char-name-badge {
+      background: var(--brand-indigo);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 4px 12px;
+      display: inline-block;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+
+    .char-featured__char-species {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--brand-navy);
+      line-height: 1.15;
+    }
+
+    .char-featured__status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #fff;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+    .char-featured__status-badge--red    { background: var(--brand-red); }
+    .char-featured__status-badge--salmon { background: var(--brand-salmon); }
+
+    /* Ilustración del personaje (derecha dentro del body) */
+    .char-featured__illus {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      flex-shrink: 0;
+      filter: drop-shadow(0 4px 8px rgba(78,75,247,0.15));
+    }
+
+    /* Footer hábitat */
+    .char-featured__habitat {
+      background: #F4F4FF;
+      border-top: 1px solid rgba(78,75,247,0.1);
+      padding: 8px 18px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .char-featured__habitat span { color: var(--brand-indigo); }
+
+    /* Contenido de texto derecha */
+    .char-featured__content {
+      padding: 4px 0 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .char-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--brand-indigo);
+      background: var(--brand-lilac2);
+      border-radius: var(--radius-pill);
+      padding: 4px 14px;
+      margin-bottom: 14px;
+      align-self: flex-start;
+    }
+
+    .char-featured__name {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--text-main);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .char-featured__species {
+      font-size: .9rem;
+      color: var(--brand-indigo);
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .char-fields {
+      display: grid;
+      gap: 14px;
+    }
+
+    .char-field {
+      border-left: 3px solid var(--brand-lilac);
+      padding-left: 14px;
+    }
+
+    .char-field__label {
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 2px;
+    }
+
+    .char-field__value {
+      font-size: .92rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Coming soon grid */
+    .upcoming-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .upcoming-card {
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .upcoming-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 48px rgba(78,75,247,0.18);
+    }
+
+    /* ── ucard: diseño fiel a las tarjetas reales ─────── */
+    .ucard {
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .ucard__photo-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .ucard__photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .upcoming-card:hover .ucard__photo { transform: scale(1.04); }
+
+    .ucard__overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(26, 24, 87, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(1.5px);
+    }
+
+    .upcoming-badge {
+      background: rgba(255,255,255,0.22);
+      border: 2px solid rgba(255,255,255,0.55);
+      border-radius: var(--radius-pill);
+      padding: 6px 18px;
+      font-size: .75rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .ucard__wave {
+      display: block;
+      width: 100%;
+      margin-top: -2px;
+      flex-shrink: 0;
+      line-height: 0;
+      background: white;
+    }
+    .ucard__wave svg { width: 100%; display: block; }
+
+    .ucard__body {
+      background: #EEEEFF;
+      padding: 14px 16px 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ucard__badge {
+      background: var(--brand-indigo);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 4px 12px;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+
+    .ucard__species {
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--brand-navy);
+      line-height: 1.2;
+    }
+
+    .ucard__role {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .ucard__status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      align-self: flex-start;
+      margin: 2px 0 4px;
+    }
+    .ucard__status--red    { background: var(--brand-red); }
+    .ucard__status--salmon { background: var(--brand-salmon); }
+
+    .ucard__idea {
+      font-size: .84rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-top: 2px;
+    }
+
+    /* ── Divider ──────────────────────────────────────────── */
+    .section-divider {
+      border: none;
+      border-top: 1.5px solid var(--brand-lilac2);
+      margin: 0 5vw 64px;
+    }
+
+    /* ── Closing ──────────────────────────────────────────── */
+    .closing {
+      padding: 72px 5vw 96px;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .closing__wave {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .closing__title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .closing__text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid var(--brand-indigo);
+      color: var(--brand-indigo);
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 12px 28px;
+      border-radius: var(--radius-pill);
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+    .btn-outline:hover { background: var(--brand-indigo); color: #fff; transform: translateY(-2px); }
+
+    /* ── Footer ───────────────────────────────────────────── */
+    .footer {
+      background: #fff;
+      border-top: 1px solid var(--brand-lilac2);
+      padding: 32px 5vw;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer__logo img { height: 28px; width: auto; }
+
+    .footer__links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .footer__links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      transition: color var(--transition);
+    }
+    .footer__links a:hover { color: var(--brand-indigo); }
+
+    .footer__legal {
+      font-size: 12px;
+      color: var(--text-light);
+      text-align: right;
+    }
+
+    /* ── Responsive ───────────────────────────────────────── */
+    @media (max-width: 1000px) {
+      .hero__inner { grid-template-columns: 1fr; }
+      .hero__collage {
+        width: 340px;
+        height: 440px;
+        margin: 0 auto;
+      }
+      .char-featured { grid-template-columns: 1fr; }
+      .char-featured__card { max-width: 320px; margin: 0 auto; }
+      .navbar__links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 52px 5vw 56px; }
+      .hero__title { font-size: 1.85rem; }
+      .hero__collage { width: 290px; height: 380px; }
+      .collage-card--tl, .collage-card--bl { left: -8px; }
+      .collage-card--tr, .collage-card--br { right: -8px; }
+      .upcoming-grid { grid-template-columns: 1fr; }
+      .footer { flex-direction: column; align-items: flex-start; }
+      .footer__legal { text-align: left; }
+      .char-featured { gap: 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bubble { animation: none; }
+      * { transition: none !important; }
+    }
   </style>
 </head>
+
 <body>
 
-<nav>
-  <img src="ordy-logo.png" alt="Ordy" class="nav-logo">
-  <ul class="nav-links">
-    <li><a href="index.html#funciona">Cómo funciona</a></li>
-    <li><a href="index.html#dashboards">Dashboards</a></li>
-    <li><a href="index.html#precios">Precios</a></li>
-    <li><a href="index.html#faq">FAQ</a></li>
-    <li><a href="recursos.html">Recursos</a></li>
-    <li><a href="impacto.html" style="color:var(--ordy); font-weight:700;">Impacto</a></li>
-  </ul>
-  <a href="index.html#precios" class="nav-cta">Empezar gratis</a>
-</nav>
-
-<section class="hero">
-  <div class="section-tag">🌊 Impacto ambiental</div>
-  <img src="char-ordy.png" alt="Ordy el manatí" class="hero-mascot float">
-  <h1>El Faro de Ordy</h1>
-  <p>Ordenar un negocio también puede ayudar a cuidar el mundo que habitamos.</p>
-</section>
-
-<div class="content">
-
-  <p>Ordy nació con una conexión especial con el océano. Nuestro CEO simbólico es un <strong>manatí antillano</strong>, una especie en peligro que nos recuerda que crecer también implica cuidar.</p>
-
-  <p>Como parte de nuestra visión, destinaremos el <strong>5% de las ganancias netas de Ordy</strong> a iniciativas relacionadas con conservación marina, especies y proyectos de impacto ambiental.</p>
-
-  <div class="stat-card">
-    <div class="stat-number">5%</div>
-    <div class="stat-text">De las ganancias netas de Ordy irán a <strong>conservación marina y proyectos de impacto ambiental</strong>. Porque crecer bien también implica cuidar lo que nos rodea.</div>
-  </div>
-
-  <p>Este espacio reunirá, con transparencia, los avances, aportes e historias de impacto que vayamos construyendo conforme Ordy crezca.</p>
-
-  <div class="pillars">
-    <div class="pillar">
-      <div class="pillar-icon">🐠</div>
-      <h3>Conservación marina</h3>
-      <p>Apoyo a iniciativas que protegen ecosistemas marinos, fauna y biodiversidad oceánica.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">🌱</div>
-      <h3>Impacto ambiental</h3>
-      <p>Proyectos de sostenibilidad y reducción de huella ambiental vinculados al mundo del emprendimiento.</p>
-    </div>
-    <div class="pillar">
-      <div class="pillar-icon">📊</div>
-      <h3>Transparencia</h3>
-      <p>Reportes periódicos de aportes, alianzas y resultados, publicados aquí conforme el proyecto crezca.</p>
-    </div>
-  </div>
-
-  <div class="note">
-    <strong>Nota:</strong> Ordy está en etapa beta. Los reportes de impacto se publicarán conforme el proyecto empiece a generar ganancias netas destinadas a esta iniciativa.
-  </div>
-
-</div>
-
-<div class="cta-wrap">
-  <a href="index.html" class="btn-primary">← Volver al inicio</a>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <img src="ordy-logo.png" alt="Ordy" class="footer-logo">
-    <ul class="footer-links">
-      <li><a href="index.html#funciona">Cómo funciona</a></li>
-      <li><a href="index.html#dashboards">Dashboards</a></li>
-      <li><a href="index.html#precios">Precios</a></li>
-      <li><a href="index.html#faq">FAQ</a></li>
-      <li><a href="recursos.html">Recursos</a></li>
-      <li><a href="impacto.html">Impacto</a></li>
+  <!-- ── NAVBAR ──────────────────────────────────────────── -->
+  <nav class="navbar" aria-label="Navegación principal">
+    <a href="https://www.ordenyplan.com/index.html" class="navbar__logo">
+      <img src="https://www.ordenyplan.com/ordy-logo.png" alt="Ordy" />
+    </a>
+    <ul class="navbar__links">
+      <li><a href="https://www.ordenyplan.com/index.html#funciona">Cómo funciona</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#dashboards">Dashboards</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#precios">Precios</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#faq">FAQ</a></li>
+      <li><a href="https://www.ordenyplan.com/recursos.html">Recursos</a></li>
+      <li><a href="https://www.ordenyplan.com/impacto.html" class="active" aria-current="page">Impacto</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#precios" class="navbar__cta">Empezar gratis</a></li>
     </ul>
-  </div>
-  <p class="footer-note">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
-</footer>
+  </nav>
 
-<script defer src="/_vercel/insights/script.js"></script>
-<script defer src="/_vercel/speed-insights/script.js"></script>
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <section class="hero" aria-label="Presentación de la sección de impacto">
+    <div class="hero__bubbles" aria-hidden="true">
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+      <div class="bubble"></div>
+    </div>
+
+    <div class="hero__inner">
+      <!-- Left: text -->
+      <div>
+        <div class="hero__eyebrow"><span>🌊</span> El Faro de Ordy</div>
+        <h1 class="hero__title">Las historias<br/><em>detrás de Ordy</em></h1>
+        <p class="hero__subtitle">
+          Cada personaje de Ordy está inspirado en una especie marina. Algunas son vulnerables, otras están amenazadas y todas cumplen un papel importante en el equilibrio del océano.
+        </p>
+        <p class="hero__text">
+          El mundo de Ordy no nació solo por estética. Nació del deseo de crear una marca que ordene negocios con claridad, pero que también nos recuerde que crecer puede ir de la mano con la conciencia ambiental.
+        </p>
+        <div class="hero__actions">
+          <a href="#personajes" class="btn-primary">Conocer personajes</a>
+          <a href="https://www.ordenyplan.com/index.html" class="btn-secondary">Volver al inicio</a>
+        </div>
+      </div>
+
+      <!-- Right: collage de tarjetas -->
+      <div class="hero__collage" aria-hidden="true">
+
+        <!-- Arriba izquierda: Marty -->
+        <div class="collage-card collage-card--tl">
+          <div class="mcard">
+            <img class="mcard__photo" src="foto-marty.png" alt="Tiburón martillo"
+                 onerror="this.style.background='linear-gradient(135deg,#1c3a6e,#2d6abf)';this.style.height='80px';this.removeAttribute('onerror')" />
+            <div class="mcard__wave">
+              <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,10 C40,18 80,2 120,10 C160,18 180,6 200,10 L200,0 L0,0 Z" fill="#dee" opacity="0"/>
+                <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+              </svg>
+            </div>
+            <div class="mcard__body">
+              <span class="mcard__badge">Marty</span>
+              <span class="mcard__name">Tiburón martillo</span>
+              <span class="mcard__status">⚠️ En peligro de extinción</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Arriba derecha: Carey -->
+        <div class="collage-card collage-card--tr">
+          <div class="mcard">
+            <img class="mcard__photo" src="foto-carey.png" alt="Tortuga carey"
+                 onerror="this.style.background='linear-gradient(135deg,#1a3a2a,#2e7a4e)';this.style.height='80px';this.removeAttribute('onerror')" />
+            <div class="mcard__wave">
+              <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+              </svg>
+            </div>
+            <div class="mcard__body">
+              <span class="mcard__badge">Carey</span>
+              <span class="mcard__name">Tortuga carey</span>
+              <span class="mcard__status">⚠️ En peligro</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Centro: Ordy (grande) -->
+        <div class="collage-card collage-card--ordy">
+          <div class="mcard">
+            <div class="mcard__tab">Conocé la historia detrás de Ordy</div>
+            <img class="mcard__photo" src="foto-ordy.png" alt="Manatí antillano"
+                 style="height:160px;"
+                 onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2e6ea8)';this.style.height='160px';this.removeAttribute('onerror')" />
+            <div class="mcard__wave">
+              <svg viewBox="0 0 200 22" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,12 C40,22 80,4 120,12 C160,20 185,6 200,12 L200,22 L0,22 Z" fill="#EEEEFF"/>
+              </svg>
+            </div>
+            <div class="mcard__body" style="flex-direction:row; align-items:flex-start; gap:10px;">
+              <div class="char-featured__info">
+                <span class="mcard__badge">Ordy</span>
+                <span class="mcard__name" style="font-size:22px;">Manatí Antillano</span>
+                <span class="char-featured__species" style="font-size:10px; margin:0;">Trichechus manatus</span>
+                <span class="mcard__status" style="margin-top:4px;">🔴 En peligro de extinción</span>
+              </div>
+              <img src="https://www.ordenyplan.com/char-ordy.png" alt="Ordy personaje"
+                   style="width:78px;height:78px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 4px 10px rgba(78,75,247,.2))" />
+            </div>
+            <div class="mcard__footer">📍 <span>Hábitat:</span> Costas y ríos de Costa Rica</div>
+          </div>
+        </div>
+
+        <!-- Abajo izquierda: Cabu -->
+        <div class="collage-card collage-card--bl">
+          <div class="mcard">
+            <img class="mcard__photo" src="foto-cabu.png" alt="Caballito de mar"
+                 onerror="this.style.background='linear-gradient(135deg,#2a1a4a,#7b4cf6)';this.style.height='80px';this.removeAttribute('onerror')" />
+            <div class="mcard__wave">
+              <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+              </svg>
+            </div>
+            <div class="mcard__body">
+              <span class="mcard__badge">Cabu</span>
+              <span class="mcard__name">Caballito de mar</span>
+              <span class="mcard__status mcard__status--green">🌿 Aliado del manglar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Abajo derecha: Navi -->
+        <div class="collage-card collage-card--br">
+          <div class="mcard">
+            <img class="mcard__photo" src="foto-navi.png" alt="Raya águila"
+                 onerror="this.style.background='linear-gradient(135deg,#1a2a4a,#3a6ea8)';this.style.height='80px';this.removeAttribute('onerror')" />
+            <div class="mcard__wave">
+              <svg viewBox="0 0 200 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,10 C50,0 100,18 150,8 C175,3 190,12 200,10 L200,18 L0,18 Z" fill="#EEEEFF"/>
+              </svg>
+            </div>
+            <div class="mcard__body">
+              <span class="mcard__badge">Navi</span>
+              <span class="mcard__name">Raya águila</span>
+              <span class="mcard__status mcard__status--green">🌊 Habitante clave</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /hero__collage -->
+    </div>
+    <!-- /hero__inner -->
+  </section>
+
+  <!-- ── INTRO ──────────────────────────────────────────── -->
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="section-eyebrow">🐠 El universo marino</div>
+    <h2 class="intro__title" id="intro-title">Un universo inspirado en especies reales</h2>
+    <p class="intro__text">
+      En Ordy usamos personajes para hacer que ordenar un negocio se sienta más cercano, claro y amable. Pero detrás de cada personaje también hay una especie real, con una historia, un hábitat y una función importante dentro del ecosistema.
+    </p>
+    <p class="intro__text">
+      No buscamos dar una clase científica complicada. Queremos abrir una pequeña puerta: que cada persona que conozca a Ordy también conozca un poquito más del océano que lo inspiró.
+    </p>
+  </section>
+
+  <hr class="section-divider" />
+
+  <!-- ── CHARACTERS ─────────────────────────────────────── -->
+  <section class="characters" id="personajes" aria-labelledby="char-title">
+
+    <div class="characters__header">
+      <div class="section-eyebrow">🌿 Cada personaje, una historia</div>
+      <h2 class="characters__title" id="char-title">Nuestros personajes</h2>
+      <p class="characters__subtitle">Conocé la especie detrás de cada nombre y su rol en el ecosistema marino.</p>
+    </div>
+
+    <!-- ── ORDY (Featured) ──────────────────────────────── -->
+    <article class="char-featured" aria-label="Personaje: Ordy el manatí">
+
+      <!-- Tarjeta visual izquierda -->
+      <div class="char-featured__card">
+        <div class="char-featured__tab">Conocé la historia detrás de Ordy</div>
+
+        <img class="char-featured__photo"
+             src="foto-ordy.png"
+             alt="Manatí antillano en su hábitat natural"
+             onerror="this.style.background='linear-gradient(135deg,#1a3a5c,#2e6ea8)';this.style.height='220px';this.removeAttribute('onerror')" />
+
+        <!-- Ola separadora -->
+        <div class="char-featured__wave">
+          <svg viewBox="0 0 400 28" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,14 C60,28 120,0 200,14 C280,28 340,4 400,14 L400,0 L0,0 Z" fill="white" opacity="0.01"/>
+            <path d="M0,14 C80,4 160,26 240,14 C310,4 360,20 400,14 L400,28 L0,28 Z" fill="#EEEEFF"/>
+          </svg>
+        </div>
+
+        <div class="char-featured__bottom">
+          <div class="char-featured__info">
+            <span class="char-featured__char-name-badge">Ordy</span>
+            <span class="char-featured__char-species">Manatí Antillano</span>
+            <em style="font-style:normal;font-size:11px;color:var(--text-light);font-weight:600;">Trichechus manatus</em>
+            <span class="char-featured__status-badge char-featured__status-badge--red">🔴 Especie en peligro de extinción</span>
+          </div>
+          <img class="char-featured__illus"
+               src="https://www.ordenyplan.com/char-ordy.png"
+               alt="Ordy, el personaje" />
+        </div>
+
+        <div class="char-featured__habitat">
+          📍 <span>Hábitat:</span>&nbsp;Costas y ríos del Caribe de Costa Rica
+        </div>
+      </div>
+
+      <!-- Texto derecha -->
+      <div class="char-featured__content">
+        <div class="char-tag">🐋 CEO y guía principal</div>
+        <h3 class="char-featured__name">Ordy</h3>
+        <div class="char-featured__species">Manatí antillano · <em>Trichechus manatus</em></div>
+
+        <div class="char-fields">
+          <div class="char-field">
+            <div class="char-field__label">Personalidad</div>
+            <div class="char-field__value">Calmado, observador y paciente. Ordy no corre: acompaña. Su papel es ayudar a ver el negocio con más tranquilidad, sin presión y sin ruido.</div>
+          </div>
+          <div class="char-field">
+            <div class="char-field__label">En Costa Rica</div>
+            <div class="char-field__value">El manatí antillano habita principalmente en canales, lagunas, desembocaduras y costas del Caribe costarricense. Es una especie en peligro de extinción en el país.</div>
+          </div>
+          <div class="char-field">
+            <div class="char-field__label">Rol en el ecosistema</div>
+            <div class="char-field__value">Es como un jardinero silencioso del agua: al alimentarse de plantas acuáticas ayuda a mantener el equilibrio de ríos, lagunas y zonas costeras.</div>
+          </div>
+          <div class="char-field">
+            <div class="char-field__label">Por qué importa proteger su mundo</div>
+            <div class="char-field__value">Porque proteger al manatí también significa proteger los humedales, canales, pastos marinos y ecosistemas donde viven muchas otras especies. Su conservación nos recuerda que la calma también sostiene vida.</div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ── UPCOMING CHARACTERS ─────────────────────────── -->
+    <div class="upcoming-grid">
+
+      <!-- NAVI -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Navi">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-navi.png" alt="Raya águila de puntos blancos" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Navi</span>
+            <span class="ucard__species">Raya águila de puntos blancos</span>
+            <span class="ucard__role">Guía de ruta y exploración inicial</span>
+            <span class="ucard__status ucard__status--salmon">🌊 Habitante clave del ecosistema marino</span>
+            <p class="ucard__idea">Navi representa dirección, movimiento y claridad para empezar. Así como la raya se mueve con elegancia, Navi ayuda a encontrar una ruta sin forzar el proceso.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CAREY -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Carey">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-carey.png" alt="Tortuga carey" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Carey</span>
+            <span class="ucard__species">Tortuga carey</span>
+            <span class="ucard__role">Asesora de orden operativo</span>
+            <span class="ucard__status ucard__status--red">🔴 Especie en peligro de extinción</span>
+            <p class="ucard__idea">Carey representa estructura, protección y avance constante. Su relación con los arrecifes conecta con sostener sistemas sanos y funcionales.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- REGI -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Regi">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-regi.png" alt="Pez sierra" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Regi</span>
+            <span class="ucard__species">Pez sierra</span>
+            <span class="ucard__role">Asesora financiera</span>
+            <span class="ucard__status ucard__status--red">🔴 Especie en peligro de extinción</span>
+            <p class="ucard__idea">Regi representa precisión, análisis y decisiones con filo. Ayuda a cortar el ruido de los números para entender qué sostiene realmente al negocio.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- MARTY -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Marty">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-marty.png" alt="Tiburón martillo" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Marty</span>
+            <span class="ucard__species">Tiburón martillo</span>
+            <span class="ucard__role">Asesor de formalización y advertencias</span>
+            <span class="ucard__status ucard__status--red">🔴 Especie en peligro de extinción</span>
+            <p class="ucard__idea">Marty representa visión amplia, alerta y protección. Ayuda a mirar riesgos y responsabilidades antes de avanzar sin mapa.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- CABU -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Cabu">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-cabu.png" alt="Caballito de mar del Pacífico" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Cabu</span>
+            <span class="ucard__species">Caballito de mar del Pacífico</span>
+            <span class="ucard__role">Asesor de clientes y políticas</span>
+            <span class="ucard__status ucard__status--salmon">🌿 Aliado de manglares y pastos marinos</span>
+            <p class="ucard__idea">Cabu representa atención, cuidado y detalle. Acompaña la forma en que el negocio se comunica y sostiene relaciones con sus clientes.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- PEPI -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Pepi">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-pepi.png" alt="Pepino de mar" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Pepi</span>
+            <span class="ucard__species">Pepino de mar</span>
+            <span class="ucard__role">Asesor de crecimiento ordenado</span>
+            <span class="ucard__status ucard__status--salmon">🌊 Reciclador natural del océano</span>
+            <p class="ucard__idea">Pepi representa limpieza y equilibrio. Ayuda a distinguir qué herramientas o mejoras realmente suman y cuáles pueden esperar.</p>
+          </div>
+        </div>
+      </article>
+
+      <!-- AZUL -->
+      <article class="upcoming-card" aria-label="Personaje próximo: Azul">
+        <div class="ucard">
+          <div class="ucard__photo-wrap">
+            <img class="ucard__photo" src="foto-azul.png" alt="Dragón azul" />
+            <div class="ucard__overlay">
+              <span class="upcoming-badge">Próximamente</span>
+            </div>
+          </div>
+          <div class="ucard__wave">
+            <svg viewBox="0 0 300 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0,12 C75,2 150,20 225,10 C270,4 290,16 300,12 L300,20 L0,20 Z" fill="#EEEEFF"/>
+            </svg>
+          </div>
+          <div class="ucard__body">
+            <span class="ucard__badge">Azul</span>
+            <span class="ucard__species">Dragón azul</span>
+            <span class="ucard__role">Radar de fugas</span>
+            <span class="ucard__status ucard__status--salmon">✨ Ejemplo increíble de adaptación marina</span>
+            <p class="ucard__idea">Azul representa alerta y señales pequeñas que revelan problemas grandes. Detecta fugas de tiempo, dinero, energía y claridad.</p>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <!-- /upcoming-grid -->
+
+  </section>
+
+  <!-- ── CLOSING ─────────────────────────────────────────── -->
+  <section class="closing" aria-labelledby="closing-title">
+    <div class="closing__wave" aria-hidden="true">🌊</div>
+    <h2 class="closing__title" id="closing-title">Ordenar también puede ser<br/>una forma de mirar mejor</h2>
+    <p class="closing__text">
+      Ordy nació para ayudar a ordenar negocios, pero también para construir una marca con memoria, propósito y respeto por el mundo que la inspira.
+    </p>
+    <p class="closing__text">
+      Cada personaje nos recuerda que incluso los sistemas más pequeños forman parte de algo más grande.
+    </p>
+    <a href="https://www.ordenyplan.com/index.html" class="btn-outline">← Volver al inicio</a>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer class="footer" aria-label="Pie de página">
+    <div class="footer__logo">
+      <a href="https://www.ordenyplan.com/index.html">
+        <img src="https://www.ordenyplan.com/ordy-logo.png" alt="Ordy" />
+      </a>
+    </div>
+    <ul class="footer__links">
+      <li><a href="https://www.ordenyplan.com/index.html#funciona">Cómo funciona</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#dashboards">Dashboards</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#precios">Precios</a></li>
+      <li><a href="https://www.ordenyplan.com/index.html#faq">FAQ</a></li>
+      <li><a href="https://www.ordenyplan.com/recursos.html">Recursos</a></li>
+      <li><a href="https://www.ordenyplan.com/impacto.html">Impacto</a></li>
+    </ul>
+    <p class="footer__legal">Ordy no sustituye asesoría legal, contable, tributaria o financiera profesional.</p>
+  </footer>
+
 </body>
 </html>
