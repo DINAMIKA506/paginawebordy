@@ -43,23 +43,40 @@
       <span data-fs-error="descripcion_whatsapp"></span>
     </div>
 
+    <div class="question">
+      <label>¿Por qué decidiste empezar este negocio?</label>
+      <textarea name="por_que_empezaste" placeholder="¿Qué te llevó a arrancar? ¿Una necesidad, una pasión, una oportunidad...?"></textarea>
+    </div>
+
     <div class="section-header"><h2>🛒 Qué vendés</h2></div>
 
     <div class="question">
       <label>¿Qué vendés actualmente? <span class="req">*</span></label>
-      <textarea name="productos_actuales" placeholder="Listá tus productos o servicios, uno por línea:&#10;- Ej: Sesiones de coaching individual&#10;- Ej: Talleres grupales&#10;- Ej: Cursos online" required data-fs-field></textarea>
-      <p class="hint">Uno por línea está perfecto.</p>
+      <p class="hint">Seleccioná todo lo que aplique.</p>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Productos físicos"><span>📦 Productos físicos</span></label>
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Productos digitales"><span>💻 Productos digitales</span></label>
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Servicios"><span>🛠 Servicios</span></label>
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Experiencias"><span>🎯 Experiencias</span></label>
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Suscripciones"><span>🔄 Suscripciones</span></label>
+        <label class="option-item"><input type="checkbox" name="tipo_venta" value="Otro"><span>✳️ Otro</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <label>Contanos brevemente cuáles son. <span class="req">*</span></label>
+      <textarea name="productos_actuales" placeholder="Listá lo que ofrecés, uno por línea..." required data-fs-field></textarea>
       <span data-fs-error="productos_actuales"></span>
     </div>
 
     <div class="question">
-      <label>¿Qué servicio te buscan más?</label>
-      <textarea name="servicio_mas_buscado" placeholder="¿Qué es lo que más te piden o lo que más vendés?"></textarea>
+      <label>¿Qué es lo que más te compran hoy?</label>
+      <textarea name="mas_comprado" placeholder="¿Qué es lo que más te piden o lo que más vendés?"></textarea>
     </div>
 
     <div class="question">
-      <label>¿Qué servicio disfrutás más hacer?</label>
-      <textarea name="servicio_mas_disfruta" placeholder="¿Hay algo que hagas con más energía o que te llene más?"></textarea>
+      <label>¿Qué es lo que más disfrutás vender o hacer?</label>
+      <textarea name="mas_disfruta" placeholder="¿Hay algo que hagas con más energía o que te llene más?"></textarea>
     </div>
 
     <div class="question">
@@ -104,8 +121,8 @@
     </div>
 
     <div class="question">
-      <label>¿Qué parte de tu negocio te cuesta explicar?</label>
-      <textarea name="cuesta_explicar" placeholder="Eso que cuando alguien pregunta, no sabés muy bien cómo responder..."></textarea>
+      <label>Cuando alguien entra por primera vez a tu negocio, ¿qué suele costarle entender?</label>
+      <textarea name="cuesta_explicar" placeholder="¿Qué pregunta hacen seguido que te cuesta responder? ¿Qué genera confusión?"></textarea>
     </div>
 
     <div class="question">
@@ -119,8 +136,20 @@
     </div>
 
     <div class="question">
-      <label>¿Cómo te gustaría que evolucionara este negocio en los próximos años?</label>
-      <textarea name="evolucion_negocio" placeholder="¿Qué te imaginás? ¿Más grande, más enfocado, con equipo, diferente...?"></textarea>
+      <label>¿Cómo te gustaría que evolucionara este negocio?</label>
+      <p class="hint">Seleccioná todas las que te gustaría lograr.</p>
+      <div class="options">
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Tener un equipo"><span>👥 Tener un equipo</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Abrir un local"><span>🏪 Abrir un local</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Vender más por internet"><span>🌐 Vender más por internet</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Automatizar procesos"><span>🤖 Automatizar procesos</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Trabajar menos horas"><span>⏱ Trabajar menos horas</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Tener ingresos más estables"><span>💰 Tener ingresos más estables</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Crear nuevos productos o servicios"><span>💡 Crear nuevos productos o servicios</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Abrir otra sucursal"><span>🗺 Abrir otra sucursal</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Contratar personal"><span>🤝 Contratar personal</span></label>
+        <label class="option-item"><input type="checkbox" name="evolucion_negocio" value="Otro"><span>✳️ Otro</span></label>
+      </div>
     </div>
 
     <hr class="form-divider">
