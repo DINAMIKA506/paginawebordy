@@ -7,6 +7,35 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="ordy-forms.css">
+  <style>
+    .form-notice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #fffbeb;
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 0 auto 24px;
+      max-width: 720px;
+      font-size: 0.92rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+    .form-notice-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .form-notice strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #92400e;
+    }
+    .form-notice p {
+      margin: 6px 0 0;
+    }
+  </style>
 </head>
 <body>
 <nav>
@@ -23,6 +52,15 @@
   <h1><em>Formalización</em></h1>
   <p>No es un examen legal. Solo queremos saber qué tenés revisado y qué conviene ordenar. Recomendamos validar con contador/a o abogado/a.</p>
 </section>
+<div class="form-notice">
+  <span class="form-notice-icon">📋</span>
+  <div>
+    <strong>Este nivel es mucho más corto.</strong>
+    Vamos a revisar algunos aspectos legales y administrativos de tu negocio.
+    <p>No necesitás conocer todos los requisitos ni tener todo resuelto. El objetivo es identificar qué ya está listo, qué podría requerir atención y qué temas conviene revisar más adelante junto a un profesional cuando corresponda.</p>
+    <p>⏱️ Tiempo estimado: 3 minutos.</p>
+  </div>
+</div>
 <div class="form-body">
   <div class="form-success">
     <img src="ordy_celebrando.png" alt="Ordy celebrando">
