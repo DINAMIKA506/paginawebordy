@@ -7,6 +7,35 @@
   <link rel="icon" type="image/png" href="/favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="ordy-forms.css">
+  <style>
+    .form-notice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: #fffbeb;
+      border: 1px solid #f59e0b;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 0 auto 24px;
+      max-width: 720px;
+      font-size: 0.92rem;
+      color: #78350f;
+      line-height: 1.5;
+    }
+    .form-notice-icon {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .form-notice strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #92400e;
+    }
+    .form-notice p {
+      margin: 6px 0 0;
+    }
+  </style>
 </head>
 <body>
 <nav>
@@ -23,6 +52,14 @@
   <h1>Plata sin <em>autoengaño</em></h1>
   <p>Vamos a ver los números reales: costos, ingresos, márgenes y qué tiene sentido en tu negocio.</p>
 </section>
+<div class="form-notice">
+  <span class="form-notice-icon">⏱️</span>
+  <div>
+    <strong>Este nivel puede tomarte entre 15 y 20 minutos.</strong>
+    Queremos que aproveches este espacio para pensar con calma sobre las finanzas de tu negocio. No necesitás tener todas las respuestas perfectas; si hay algún dato que todavía no medís o no conocés, podés indicarlo sin problema.
+    <p><strong>Importante:</strong> Como Ordy todavía se encuentra en fase beta, el formulario no guarda automáticamente tu progreso. Si vas a escribir respuestas muy largas, te recomendamos redactarlas primero en un documento aparte para evitar perder información en caso de un problema de conexión.</p>
+  </div>
+</div>
 <div class="form-body">
   <div class="form-success">
     <img src="ordy_celebrando.png" alt="Ordy celebrando">
@@ -60,6 +97,7 @@
     <div class="question">
       <label>¿Cuánto vendés en un mes promedio? <span class="req">*</span></label>
       <input type="text" name="ventas_mes_promedio" placeholder="Ej: ₡400.000 / $800" required data-fs-field>
+      <p class="hint">Si todavía no llevás un registro de ventas, podés escribir "No tengo registro" o indicar un aproximado. No buscamos exactitud perfecta, sino entender la realidad actual de tu negocio.</p>
       <span data-fs-error="ventas_mes_promedio"></span>
     </div>
 
@@ -82,13 +120,20 @@
     </div>
 
     <div class="question">
-      <label>¿Cuál producto o servicio deja más ganancia?</label>
+      <label>¿Cuál producto o servicio creés que deja más ganancia?</label>
       <input type="text" name="mayor_ganancia" placeholder="El que más margen te deja...">
+      <p class="hint">Si todavía no lo sabés, escribí "No sé". Ordy utilizará el resto de la información para ayudarte a identificar oportunidades.</p>
     </div>
 
     <div class="question">
-      <label>¿Cuál consume más tiempo o energía?</label>
+      <label>¿Cuál producto o servicio requiere más esfuerzo?</label>
       <input type="text" name="mayor_esfuerzo" placeholder="El que más te desgasta o demanda...">
+    </div>
+
+    <div class="question">
+      <label>¿Hay algún producto o servicio que sintás que hacés más por compromiso que porque realmente sea rentable?</label>
+      <textarea name="por_compromiso" placeholder="Puede ser algo que te consume mucho tiempo, que aceptás por costumbre o porque sentís que 'deberías ofrecerlo'. Si no aplica, podés escribir 'Ninguno'."></textarea>
+      <p class="hint">Puede ser un producto o servicio que te consume mucho tiempo, que aceptás por costumbre o porque sentís que "deberías ofrecerlo". Si no aplica, podés escribir "Ninguno".</p>
     </div>
 
     <div class="section-header"><h2>🔄 Tu relación con la plata</h2></div>
