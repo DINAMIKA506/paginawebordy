@@ -4,5 +4,6 @@
     { "source": "/dashboards/regi", "destination": "/dashboard-regi.html" },
     { "source": "/dashboards/cabu", "destination": "/dashboard-cabu.html" },
     { "source": "/dashboard/soy-majo", "destination": "https://soy-majo.vercel.app" }
+    { "source": "/dashboard/gastroredcr", "destination": "https://gastroredcr.vercel.app" }
   ]
 }
