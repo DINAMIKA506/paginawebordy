@@ -3,7 +3,7 @@
     { "source": "/dashboards/navi", "destination": "/dashboard-navi.html" },
     { "source": "/dashboards/regi", "destination": "/dashboard-regi.html" },
     { "source": "/dashboards/cabu", "destination": "/dashboard-cabu.html" },
-    { "source": "/dashboard/soy-majo", "destination": "https://soy-majo.vercel.app" }
-  { "source": "/dashboard/gastroredcr", "destination": "https://gastro-red1-0.vercel.app" }
+    { "source": "/dashboard/soy-majo", "destination": "https://soy-majo.vercel.app" },
+    { "source": "/dashboard/gastroredcr", "destination": "https://gastro-red1-0.vercel.app" }
   ]
 }
