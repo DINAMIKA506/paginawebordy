@@ -377,72 +377,18 @@
     .faro-stat-label { font-size: .875rem; color: rgba(255,255,255,.65); margin-top: .4rem; line-height: 1.55; }
     .faro-chips { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: .75rem; }
     .faro-chip { font-size: .75rem; font-weight: 600; padding: .28rem .8rem; border-radius: 100px; background: rgba(255,255,255,.1); color: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.18); }
-    /* ── Collage de tarjetas en el Faro ─────────────────── */
-    .faro-collage {
-      position: relative;
-      width: 360px;
-      height: 500px;
-      flex-shrink: 0;
-      margin: 0 auto;
+    /* Card imagen en el Faro */
+    .faro-card-img {
+      width: 100%; max-width: 360px; display: block; margin: 0 auto;
+      filter: drop-shadow(0 24px 48px rgba(0,0,0,.5));
+      transform: rotate(2deg);
+      transition: transform .3s;
     }
-    .fc { /* faro-card */
-      position: absolute;
-      border-radius: 20px;
-      overflow: hidden;
-      background: #fff;
-      box-shadow: 0 20px 56px rgba(0,0,0,0.38);
-      transition: transform .22s ease, box-shadow .22s ease;
-    }
-    .fc:hover { box-shadow: 0 28px 72px rgba(0,0,0,0.50); }
-    .fc--ordy {
-      width: 196px; left: 50%; top: 50%;
-      transform: translate(-50%,-50%);
-      z-index: 5;
-      box-shadow: 0 24px 64px rgba(0,0,0,.44), 0 0 0 3px rgba(187,187,252,.5);
-    }
-    .fc--ordy:hover { transform: translate(-50%,-52%) scale(1.03); }
-    .fc--tl { width: 138px; left:0; top:24px; transform:rotate(-8deg); z-index:3; }
-    .fc--tl:hover { transform: rotate(-5deg) scale(1.05); }
-    .fc--tr { width: 138px; right:0; top:12px; transform:rotate(7deg); z-index:3; }
-    .fc--tr:hover { transform: rotate(4deg) scale(1.05); }
-    .fc--bl { width: 130px; left:2px; bottom:24px; transform:rotate(6deg); z-index:3; }
-    .fc--bl:hover { transform: rotate(3deg) scale(1.05); }
-    .fc--br { width: 130px; right:2px; bottom:16px; transform:rotate(-7deg); z-index:3; }
-    .fc--br:hover { transform: rotate(-4deg) scale(1.05); }
-
-    /* Internos de cada mini-card */
-    .fc__mcard { display:flex; flex-direction:column; width:100%; border-radius:inherit; overflow:hidden; background:#fff; }
-    .fc__tab { background:#fff; text-align:center; padding:7px 10px 0; font-size:9px; font-weight:700; color:#1A1857; flex-shrink:0; font-family:'Inter',sans-serif; }
-    .fc__photo { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; flex-shrink:0; }
-    .fc__wave { display:block; width:100%; margin-top:-2px; flex-shrink:0; line-height:0; background:white; }
-    .fc__wave svg { width:100%; display:block; }
-    .fc__body { background:#EEEEFF; padding:9px 10px 8px; flex:1; display:flex; flex-direction:column; gap:3px; }
-    .fc__body--row { flex-direction:row; align-items:flex-start; gap:8px; }
-    .fc__info { flex:1; display:flex; flex-direction:column; gap:3px; }
-    .fc__badge { background:#4E4BF7; color:#fff; font-size:9px; font-weight:800; border-radius:999px; padding:2px 9px; align-self:flex-start; font-family:'Inter',sans-serif; }
-    .fc__name { font-size:12px; font-weight:900; color:#1A1857; line-height:1.15; font-family:'Inter',sans-serif; }
-    .fc__name--lg { font-size:16px; }
-    .fc__sci { font-size:8px; color:#5A5888; font-style:italic; font-weight:600; font-family:'Inter',sans-serif; }
-    .fc__status { display:inline-flex; align-items:center; gap:3px; border-radius:999px; padding:2px 7px; font-size:8px; font-weight:700; color:#fff; align-self:flex-start; margin-top:1px; white-space:nowrap; font-family:'Inter',sans-serif; }
-    .fc__status--red    { background:#F94646; }
-    .fc__status--salmon { background:#FF8D8D; }
-    .fc__illus { width:60px; height:60px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 3px 8px rgba(78,75,247,.18)); }
-    .fc__footer { background:#F4F4FF; border-top:1px solid rgba(78,75,247,.1); padding:5px 10px; font-size:8px; color:#5A5888; font-weight:600; font-family:'Inter',sans-serif; }
-    .fc__footer span { color:#4E4BF7; }
-
+    .faro-card-img:hover { transform: rotate(0deg) scale(1.02); }
     @media(max-width:960px) {
       .hr-top { flex-direction: column; }
       .faro-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-      .faro-collage { width: 300px; height: 400px; }
-      .fc--ordy { width: 168px; }
-      .fc--tl, .fc--tr { width: 118px; }
-      .fc--bl, .fc--br { width: 110px; }
-    }
-    @media(max-width:640px) {
-      .faro-collage { width: 260px; height: 340px; }
-      .fc--ordy { width: 148px; }
-      .fc--tl, .fc--tr { width: 104px; }
-      .fc--bl, .fc--br { width: 96px; }
+      .faro-card-img { max-width: 280px; }
     }
     @media(max-width:640px) {
       .home-recursos { padding: 4rem 1.25rem; }
@@ -594,7 +540,7 @@
         <p class="tagline">Una cafetería marina para quienes necesitan una pausa entre una idea y la siguiente.</p>
         <p>Navi tenía el café funcionando, pero cada decisión dependía de recordar algo de memoria. Sin sistema, todo vivía en su cabeza.</p>
         <div class="tags"><span class="tag ordy">Negocio físico</span><span class="tag ordy">Inventario</span><span class="tag ordy">Procesos</span></div>
-        <a href="#" class="card-btn ordy">Explorar dashboard</a>
+        <a href="dashboard-navi.html" class="card-btn ordy">Explorar dashboard</a>
       </div>
     </div>
     <div class="card">
@@ -604,7 +550,7 @@
         <p class="tagline">Velas aromáticas para quienes sobreviven reuniones y merecen un poco de paz.</p>
         <p>Regi descubrió algo incómodo: vender más no siempre significaba ganar más. Los costos no cuadraban.</p>
         <div class="tags"><span class="tag coral">Productos físicos</span><span class="tag coral">Rentabilidad</span><span class="tag coral">Márgenes</span></div>
-        <a href="#" class="card-btn coral">Explorar dashboard</a>
+        <a href="dashboard-regi.html" class="card-btn coral">Explorar dashboard</a>
       </div>
     </div>
     <div class="card">
@@ -614,7 +560,7 @@
         <p class="tagline">Porque después de siglos acumulando tesoros, algunos dragones solo quieren propósito.</p>
         <p>Cabu tenía experiencia y clientes, pero cada uno era atendido diferente. No había proceso. Todo vivía en su memoria.</p>
         <div class="tags"><span class="tag lila">Servicios</span><span class="tag lila">Atención</span><span class="tag lila">Organización</span></div>
-        <a href="#" class="card-btn lila">Explorar dashboard</a>
+        <a href="dashboard-cabu.html" class="card-btn lila">Explorar dashboard</a>
       </div>
     </div>
   </div>
@@ -844,80 +790,7 @@
       <a href="impacto.html" class="btn-faro">Descubrí la historia detrás de nuestros personajes →</a>
     </div>
     <div class="faro-right">
-      <div class="faro-collage" aria-hidden="true">
-
-        <!-- Arriba izquierda: Marty -->
-        <div class="fc fc--tl">
-          <div class="fc__mcard">
-            <img class="fc__photo" src="foto-marty.png" alt="Tiburón martillo" />
-            <div class="fc__wave"><svg viewBox="0 0 200 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,9 C50,0 100,16 150,7 C175,2 190,11 200,9 L200,16 L0,16 Z" fill="#EEEEFF"/></svg></div>
-            <div class="fc__body">
-              <span class="fc__badge">Marty</span>
-              <span class="fc__name">Tiburón martillo</span>
-              <span class="fc__status fc__status--red">🔴 En peligro de extinción</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Arriba derecha: Carey -->
-        <div class="fc fc--tr">
-          <div class="fc__mcard">
-            <img class="fc__photo" src="foto-carey.png" alt="Tortuga carey" />
-            <div class="fc__wave"><svg viewBox="0 0 200 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,9 C50,0 100,16 150,7 C175,2 190,11 200,9 L200,16 L0,16 Z" fill="#EEEEFF"/></svg></div>
-            <div class="fc__body">
-              <span class="fc__badge">Carey</span>
-              <span class="fc__name">Tortuga carey</span>
-              <span class="fc__status fc__status--red">🔴 En peligro</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Centro: Ordy -->
-        <div class="fc fc--ordy">
-          <div class="fc__mcard">
-            <div class="fc__tab">Conocé la historia detrás de Ordy</div>
-            <img class="fc__photo" src="foto-ordy.png" alt="Manatí antillano" style="aspect-ratio:4/3;" />
-            <div class="fc__wave"><svg viewBox="0 0 200 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,11 C40,20 80,3 120,11 C160,19 185,5 200,11 L200,20 L0,20 Z" fill="#EEEEFF"/></svg></div>
-            <div class="fc__body fc__body--row">
-              <div class="fc__info">
-                <span class="fc__badge">Ordy</span>
-                <span class="fc__name fc__name--lg">Manatí Antillano</span>
-                <span class="fc__sci">Trichechus manatus</span>
-                <span class="fc__status fc__status--red">🔴 En peligro de extinción</span>
-              </div>
-              <img src="char-ordy.png" alt="Ordy personaje" class="fc__illus" />
-            </div>
-            <div class="fc__footer">📍 <span>Hábitat:</span> Costas y ríos de Costa Rica</div>
-          </div>
-        </div>
-
-        <!-- Abajo izquierda: Cabu -->
-        <div class="fc fc--bl">
-          <div class="fc__mcard">
-            <img class="fc__photo" src="foto-cabu.png" alt="Caballito de mar" />
-            <div class="fc__wave"><svg viewBox="0 0 200 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,9 C50,0 100,16 150,7 C175,2 190,11 200,9 L200,16 L0,16 Z" fill="#EEEEFF"/></svg></div>
-            <div class="fc__body">
-              <span class="fc__badge">Cabu</span>
-              <span class="fc__name">Caballito de mar</span>
-              <span class="fc__status fc__status--salmon">🌿 Aliado del manglar</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Abajo derecha: Navi -->
-        <div class="fc fc--br">
-          <div class="fc__mcard">
-            <img class="fc__photo" src="foto-navi.png" alt="Raya águila" />
-            <div class="fc__wave"><svg viewBox="0 0 200 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><path d="M0,9 C50,0 100,16 150,7 C175,2 190,11 200,9 L200,16 L0,16 Z" fill="#EEEEFF"/></svg></div>
-            <div class="fc__body">
-              <span class="fc__badge">Navi</span>
-              <span class="fc__name">Raya águila</span>
-              <span class="fc__status fc__status--salmon">🌊 Habitante clave</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <img src="stock-ordy.png" alt="Ordy — Manatí Antillano, especie en peligro de extinción" class="faro-card-img">
     </div>
   </div>
 </section>
