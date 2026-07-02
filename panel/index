@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de Acompañamiento · Ordy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --morado:#4E4BF7; --coral:#F94646; --lila:#BBBBFC;
+  --lila-suave:#EFEFFF; --fondo:#F6F6FF; --tinta:#23214A;
+  --gris:#6B6A8A; --blanco:#FFFFFF; --verde:#1FA97C; --ambar:#E8930C;
+  --radio:16px; --sombra:0 4px 18px rgba(78,75,247,.10);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Inter',sans-serif; background:var(--fondo); color:var(--tinta); min-height:100vh;}
+h1,h2,h3{font-family:'Fraunces',serif;}
+button{font-family:'Inter',sans-serif; cursor:pointer;}
+
+/* ── Portón de acceso ── */
+#gate{position:fixed; inset:0; background:var(--morado); z-index:100; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px; padding:24px; text-align:center;}
+#gate img{height:52px; background:var(--blanco); padding:12px 22px; border-radius:14px;}
+#gate h1{color:var(--blanco); font-size:1.5rem;}
+#gate p{color:var(--lila); font-size:.95rem;}
+#gate input{padding:13px 16px; border-radius:12px; border:none; font-size:1rem; width:min(300px,80vw); text-align:center;}
+#gate button{background:var(--coral); color:var(--blanco); border:none; padding:13px 34px; border-radius:12px; font-weight:700; font-size:1rem;}
+#gate .error{color:#FFD9D9; font-size:.9rem; min-height:1.2em;}
+
+/* ── Encabezado ── */
+header{background:var(--morado); color:var(--blanco); padding:22px 20px 0;}
+.head-inner{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;}
+.head-inner img{height:42px; background:var(--blanco); padding:8px 14px; border-radius:12px;}
+.head-inner h1{font-size:1.35rem; flex:1; min-width:200px;}
+.head-btns{display:flex; gap:8px; flex-wrap:wrap;}
+.head-btns button{background:rgba(255,255,255,.14); color:var(--blanco); border:1px solid rgba(255,255,255,.35); padding:9px 14px; border-radius:10px; font-weight:600; font-size:.85rem;}
+.head-btns button.primario{background:var(--coral); border-color:var(--coral);}
+.ola{display:block; width:100%; margin-top:18px;}
+.tabs{max-width:1100px; margin:0 auto; display:flex; gap:6px; padding-top:14px;}
+.tabs button{background:transparent; border:none; color:var(--lila); font-weight:700; font-size:.95rem; padding:10px 16px; border-radius:12px 12px 0 0;}
+.tabs button.activo{background:var(--fondo); color:var(--morado);}
+
+main{max-width:1100px; margin:0 auto; padding:22px 20px 80px;}
+
+/* ── Resumen ── */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:22px;}
+.stat{background:var(--blanco); border-radius:var(--radio); padding:16px 18px; box-shadow:var(--sombra);}
+.stat b{font-size:1.6rem; font-family:'Fraunces',serif; color:var(--morado); display:block;}
+.stat span{font-size:.82rem; color:var(--gris); font-weight:600;}
+.stat.alerta b{color:var(--coral);}
+
+/* ── Tarjetas de cliente ── */
+.card{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); margin-bottom:14px; overflow:hidden; border-left:6px solid var(--lila);}
+.card.tiene-accion{border-left-color:var(--coral);}
+.card.en-espera{border-left-color:var(--lila);}
+.card-head{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; padding:16px 18px; cursor:pointer;}
+.card-head .nombre{flex:1; min-width:180px;}
+.card-head .nombre b{font-size:1.05rem; font-family:'Fraunces',serif;}
+.card-head .nombre span{display:block; font-size:.82rem; color:var(--gris);}
+.chip{font-size:.75rem; font-weight:700; padding:5px 11px; border-radius:99px; white-space:nowrap;}
+.chip.nivel{background:var(--lila-suave); color:var(--morado);}
+.chip.accion{background:#FFE9E9; color:var(--coral);}
+.chip.espera{background:#EDEDF5; color:var(--gris);}
+.chip.ok{background:#E2F6EE; color:var(--verde);}
+.chip.aviso{background:#FFF3DF; color:var(--ambar);}
+.card-body{display:none; border-top:1px solid #ECECF8; padding:18px;}
+.card.abierta .card-body{display:block;}
+
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin-bottom:14px;}
+.campo label{display:block; font-size:.75rem; font-weight:700; color:var(--gris); margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em;}
+.campo input, .campo select, .campo textarea{width:100%; padding:10px 12px; border:1.5px solid #DEDEF2; border-radius:10px; font-size:.92rem; font-family:'Inter',sans-serif; background:var(--blanco); color:var(--tinta);}
+.campo textarea{min-height:74px; resize:vertical;}
+.campo input:focus, .campo select:focus, .campo textarea:focus{outline:2px solid var(--morado); border-color:var(--morado);}
+
+.bloque{background:var(--fondo); border-radius:12px; padding:16px; margin-top:14px;}
+.bloque h3{font-size:1rem; color:var(--morado); margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.aviso-caja{background:#FFF3DF; border-left:4px solid var(--ambar); border-radius:10px; padding:12px 14px; font-size:.9rem; margin-top:12px; font-weight:600;}
+.aviso-caja.roja{background:#FFE9E9; border-left-color:var(--coral); color:var(--coral);}
+.msg-out{background:var(--blanco); border:1.5px solid #DEDEF2; border-radius:10px; padding:12px 14px; font-size:.9rem; white-space:pre-wrap; max-height:260px; overflow:auto; line-height:1.55;}
+.botonera{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.btn{border:none; border-radius:10px; padding:10px 16px; font-weight:700; font-size:.87rem; display:inline-flex; align-items:center; gap:6px;}
+.btn.morado{background:var(--morado); color:var(--blanco);}
+.btn.coral{background:var(--coral); color:var(--blanco);}
+.btn.verde{background:var(--verde); color:var(--blanco);}
+.btn.linea{background:var(--blanco); color:var(--morado); border:1.5px solid var(--morado);}
+.btn.gris{background:#EDEDF5; color:var(--gris);}
+.btn:disabled{opacity:.45; cursor:not-allowed;}
+
+.preview-mail{border:1.5px solid #DEDEF2; border-radius:12px; overflow:auto; max-height:520px; background:#F3F2FF; margin-top:10px;}
+.coleccion-mini{font-size:.85rem; background:var(--blanco); border:1.5px dashed var(--lila); border-radius:10px; padding:10px 12px; margin-top:10px; line-height:1.7;}
+
+/* ── Registro ── */
+table{width:100%; border-collapse:collapse; background:var(--blanco); border-radius:var(--radio); overflow:hidden; box-shadow:var(--sombra); font-size:.86rem;}
+th{background:var(--morado); color:var(--blanco); text-align:left; padding:11px 12px; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;}
+td{padding:10px 12px; border-top:1px solid #ECECF8;}
+tr:hover td{background:var(--lila-suave);}
+
+/* ── Modales ── */
+.modal-fondo{position:fixed; inset:0; background:rgba(35,33,74,.55); z-index:60; display:none; align-items:flex-start; justify-content:center; padding:30px 16px; overflow:auto;}
+.modal-fondo.visible{display:flex;}
+.modal{background:var(--blanco); border-radius:var(--radio); max-width:640px; width:100%; padding:24px; box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.modal h2{color:var(--morado); font-size:1.25rem; margin-bottom:16px;}
+.vacio{text-align:center; padding:50px 20px; color:var(--gris);}
+.vacio .emoji{font-size:2.6rem; display:block; margin-bottom:10px;}
+.toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--tinta); color:var(--blanco); padding:12px 22px; border-radius:99px; font-weight:600; font-size:.9rem; z-index:90; opacity:0; transition:opacity .25s; pointer-events:none;}
+.toast.visible{opacity:1;}
+.nota-pie{font-size:.78rem; color:var(--gris); margin-top:8px;}
+@media(max-width:640px){ .card-head{padding:14px;} .card-body{padding:14px;} }
+</style>
+</head>
+<body>
+
+<!-- Portón de acceso -->
+<div id="gate">
+  <img src="https://www.ordenyplan.com/img/insignias/ordy-logo.png" alt="Ordy">
+  <h1>Panel de Acompañamiento</h1>
+  <p>Espacio interno del equipo Ordy 🌊</p>
+  <input type="password" id="gate-pass" placeholder="Contraseña" onkeydown="if(event.key==='Enter')entrar()">
+  <div class="error" id="gate-error"></div>
+  <button onclick="entrar()">Entrar</button>
+</div>
+
+<header>
+  <div class="head-inner">
+    <img src="https://www.ordenyplan.com/img/insignias/ordy-logo.png" alt="Ordy">
+    <h1>Panel de Acompañamiento</h1>
+    <div class="head-btns">
+      <button class="primario" onclick="abrirNuevoCliente()">+ Nueva empresa</button>
+      <button onclick="descargarRespaldo()">⬇ Respaldo</button>
+      <button onclick="document.getElementById('cargar-json').click()">⬆ Cargar</button>
+      <button onclick="abrirConfig()">⚙ Configuración</button>
+      <input type="file" id="cargar-json" accept=".json" style="display:none" onchange="cargarRespaldo(this)">
+    </div>
+  </div>
+  <div class="tabs">
+    <button id="tab-clientes" class="activo" onclick="mostrarTab('clientes')">Empresas</button>
+    <button id="tab-registro" onclick="mostrarTab('registro')">Registro de envíos</button>
+  </div>
+</header>
+
+<main>
+  <section id="vista-clientes">
+    <div class="stats" id="stats"></div>
+    <div id="lista-clientes"></div>
+  </section>
+
+  <section id="vista-registro" style="display:none">
+    <div id="tabla-registro"></div>
+  </section>
+</main>
+
+<!-- Modal configuración -->
+<div class="modal-fondo" id="modal-config">
+  <div class="modal">
+    <h2>⚙ Configuración general</h2>
+    <div class="grid2">
+      <div class="campo"><label>WhatsApp de Ordy (para "Activar Radar")</label><input id="cfg-wa" placeholder="50688887777"></div>
+      <div class="campo"><label>Link de la comunidad</label><input id="cfg-comunidad" placeholder="https://..."></div>
+    </div>
+    <p class="nota-pie">Los links de los niveles 1–6 y las insignias ya están integrados en el panel.</p>
+    <div class="botonera">
+      <button class="btn morado" onclick="guardarConfig()">Guardar</button>
+      <button class="btn gris" onclick="cerrarModal('modal-config')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════ DATOS FIJOS DE ORDY ═══════════ */
+const IMG_BASE = 'https://www.ordenyplan.com/img/insignias/';
+const NIVELES = {
+  1:{nombre:'Entender mi negocio', personaje:'Lumi', emoji:'🐬', insignia:'Bases claras de mi negocio', link:'https://www.ordenyplan.com/nivel-1.html', img:IMG_BASE+'nivel-1.png'},
+  2:{nombre:'Orden mínimo operativo', personaje:'Carey', emoji:'🐢', insignia:'Operación ordenada', link:'https://www.ordenyplan.com/nivel-2.html', img:IMG_BASE+'nivel-2.png'},
+  3:{nombre:'Plata sin autoengaño', personaje:'Regi', emoji:'🐟', insignia:'Plata con más claridad', link:'https://www.ordenyplan.com/nivel-3.html', img:IMG_BASE+'nivel-3.png'},
+  4:{nombre:'Formalización', personaje:'Marty', emoji:'🦈', insignia:'Ruta de formalización clara', link:'https://www.ordenyplan.com/nivel-4.html', img:IMG_BASE+'nivel-4.png'},
+  5:{nombre:'Clientes y políticas', personaje:'Cabu', emoji:'🐠', insignia:'Comunicación más clara', link:'https://www.ordenyplan.com/nivel-5.html', img:IMG_BASE+'nivel-5.png'},
+  6:{nombre:'Crecimiento ordenado', personaje:'Pepi', emoji:'🥒', insignia:'Ruta completada', link:'https://www.ordenyplan.com/nivel-6.html', img:IMG_BASE+'nivel-6.png'}
+};
+const ESTADOS = ['Nuevo','Pendiente','Recibido','En revisión','Necesita afinar','Desbloqueado','Pausado','Ruta completada','Radar listo'];
+
+/* ═══════════ PLANTILLAS (correo + WhatsApp) ═══════════
+   Tokens: {NOMBRE} {LINK_NIVEL} {LINK_SIGUIENTE} {INSIGNIA} {MOTOR}
+           {COLECCION} {LINK_RADAR} {LINK_COMUNIDAD} {WHATSAPP_ORDY} {PREGUNTAS} {N} */
+const TPL = {
+
+BIENVENIDA:{
+ asunto:'Bienvenida a Ordy 🌊 Empezamos a ordenar tu negocio',
+ correo:`Hola, {NOMBRE}.
+
+Qué emoción darte la bienvenida a Ordy.
+
+A partir de hoy vamos a empezar a ordenar tu negocio por niveles. La idea no es que tengás todas las respuestas perfectas desde el inicio, sino que podamos tomar lo que ya sabés, lo que ya hacés y lo que ya tenés en la cabeza para convertirlo en claridad.
+
+Tu primer paso es completar el Nivel 1:
+
+Link Nivel 1: {LINK_NIVEL}
+
+En este nivel vamos a entender mejor quién es tu negocio, qué ofrece, a quién ayuda, qué lo hace diferente y qué necesita aclararse para seguir avanzando.
+
+Algunas indicaciones importantes:
+
+• Respondé con la mayor naturalidad posible.
+• No hace falta escribir perfecto.
+• Si algo no lo tenés claro, podés decirlo.
+• Si una respuesta necesita afinarse, Ordy puede hacerte nuevas preguntas antes de avanzar.
+• La meta no es terminar rápido, sino construir una base que realmente sirva.
+
+También queremos preguntarte algo importante:
+
+¿Preferís recibir el seguimiento de tus niveles por correo, por WhatsApp o por ambos?
+
+Podés responder este correo con tu preferencia.
+
+Gracias por iniciar este proceso con Ordy.
+
+No empezás desde cero. Empezás desde lo que ya tenés.`,
+ wa:`Hola, {NOMBRE} 🌊
+¡Qué emoción darte la bienvenida a Ordy!
+
+Vamos a empezar a ordenar tu negocio por niveles. No hace falta que tengás todo perfecto; la idea es partir de lo que ya sabés, lo que ya hacés y lo que ya tenés en la cabeza.
+
+Aquí está el link del Nivel 1:
+{LINK_NIVEL}
+
+En este nivel vamos a entender mejor quién es tu negocio, qué ofrece, a quién ayuda y qué necesita más claridad.
+
+También quería preguntarte: ¿preferís recibir el seguimiento por correo, por WhatsApp o por ambos?`},
+
+DESBLOQUEO_1:{
+ asunto:'Desbloqueaste tu Nivel 1: Bases claras de tu negocio 🌊',
+ correo:`Hola, {NOMBRE}.
+
+¡Desbloqueaste tu primera insignia Ordy!
+
+Insignia Nivel 1: {INSIGNIA}
+
+En este nivel empezamos a poner en palabras la base de tu negocio: qué hacés, a quién ayudás, qué ofrecés y qué empieza a necesitar más claridad.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Ahora que ya tenemos una primera lectura del negocio, podemos avanzar al Nivel 2.
+
+En el Nivel 2 vamos a ordenar cómo funciona tu negocio por dentro: líneas de servicio o producto, entregas, cobros, condiciones y procesos básicos.
+
+Link Nivel 2: {LINK_SIGUIENTE}
+
+Este nivel puede requerir un poquito más de pensamiento, porque empieza a sacar información que muchas veces vive solo en la cabeza. Pero justo por eso vale tanto la pena.
+
+Vamos paso a paso.`,
+ wa:`¡Nivel 1 desbloqueado, {NOMBRE}! 🌊✨
+
+Te comparto tu insignia:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Ahora podemos avanzar al Nivel 2, donde vamos a ordenar cómo funciona tu negocio por dentro: servicios/productos, entregas, cobros y condiciones.
+
+Link Nivel 2:
+{LINK_SIGUIENTE}
+
+Vamos paso a paso. Esto ya empezó a tomar forma.`},
+
+DESBLOQUEO_2:{
+ asunto:'Desbloqueaste tu Nivel 2: Orden operativo logrado 🐢',
+ correo:`Hola, {NOMBRE}.
+
+¡Nivel 2 desbloqueado!
+
+Insignia Nivel 2: {INSIGNIA}
+
+En este nivel empezamos a ordenar la parte operativa de tu negocio: líneas, entregas, cobros, condiciones y funcionamiento interno.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Ahora viene uno de los niveles más importantes de Ordy: el Nivel 3.
+
+En el Nivel 3 vamos a revisar precios, costos, tiempo, rentabilidad y sostenibilidad.
+
+Link Nivel 3: {LINK_SIGUIENTE}
+
+Este nivel puede sentirse más fuerte, porque hablar de plata casi siempre incomoda un poco. Pero no venimos a juzgar tus números. Venimos a entenderlos para que podás tomar mejores decisiones.
+
+Plata sin autoengaño, pero con acompañamiento.`,
+ wa:`¡Nivel 2 desbloqueado! 🐢✨
+
+Te comparto tu insignia:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Ahora viene el Nivel 3: Plata sin autoengaño.
+
+Vamos a revisar precios, costos, tiempo y sostenibilidad.
+
+Link Nivel 3:
+{LINK_SIGUIENTE}
+
+Este nivel puede sentirse más fuerte, pero no es para juzgar tus números. Es para entenderlos y tomar mejores decisiones.`},
+
+DESBLOQUEO_3:{
+ asunto:'Desbloqueaste tu Nivel 3: Plata con más claridad 🐟',
+ correo:`Hola, {NOMBRE}.
+
+¡Nivel 3 desbloqueado!
+
+Insignia Nivel 3: {INSIGNIA}
+
+Este nivel es uno de los más valiosos del proceso, porque nos ayuda a mirar el negocio desde su sostenibilidad: precios, costos, tiempo, cobros y rentabilidad.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Si durante este nivel surgieron dudas, ajustes o nuevas preguntas, eso es parte del proceso. En Ordy no avanzamos por avanzar. Avanzamos cuando la información puede sostener el siguiente paso.
+
+Ahora pasamos al Nivel 4.
+
+En este nivel vamos a revisar formalización, riesgos, pendientes y puntos de cuidado.
+
+Link Nivel 4: {LINK_SIGUIENTE}
+
+Después del Nivel 3, este nivel suele sentirse como un respiro. Vamos a verlo como una hoja de ruta, no como una lista de errores.`,
+ wa:`¡Nivel 3 desbloqueado! 🐟✨
+
+Te comparto tu insignia:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Este nivel es de los más importantes porque nos ayuda a ver si el negocio se está sosteniendo de forma sana.
+
+Ahora pasamos al Nivel 4: formalización y puntos de cuidado.
+
+Link Nivel 4:
+{LINK_SIGUIENTE}
+
+Después del Nivel 3, este suele sentirse como un respiro.`},
+
+DESBLOQUEO_4:{
+ asunto:'Desbloqueaste tu Nivel 4: Ruta de formalización clara 🦈',
+ correo:`Hola, {NOMBRE}.
+
+¡Nivel 4 desbloqueado!
+
+Insignia Nivel 4: {INSIGNIA}
+
+En este nivel revisamos qué partes del negocio ya están más encaminadas, cuáles están en proceso y cuáles conviene atender más adelante para operar con más tranquilidad.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Ahora avanzamos al Nivel 5.
+
+Este nivel se enfoca en clientes, preguntas frecuentes, objeciones, políticas y respuestas listas para usar.
+
+Link Nivel 5: {LINK_SIGUIENTE}
+
+Este suele sentirse más ligero, porque parte de conversaciones que probablemente ya tenés todos los días. La diferencia es que ahora vamos a convertirlas en una base clara para comunicar mejor.`,
+ wa:`¡Nivel 4 desbloqueado! 🦈✨
+
+Te comparto tu insignia:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Ahora vamos al Nivel 5: clientes, respuestas y políticas.
+
+Link Nivel 5:
+{LINK_SIGUIENTE}
+
+Este nivel suele sentirse más ligero porque parte de conversaciones que ya tenés con clientes. La idea es ordenarlas para que no tengás que improvisar todo.`},
+
+DESBLOQUEO_5:{
+ asunto:'Desbloqueaste tu Nivel 5: Comunicación más clara 🐠',
+ correo:`Hola, {NOMBRE}.
+
+¡Nivel 5 desbloqueado!
+
+Insignia Nivel 5: {INSIGNIA}
+
+En este nivel ordenamos preguntas frecuentes, objeciones, políticas, condiciones y mensajes clave para que tu comunicación con clientes sea más clara y consistente.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Ahora vamos al Nivel 6.
+
+Este nivel mira hacia adelante: herramientas, crecimiento, inversiones, procesos y qué conviene implementar primero.
+
+Link Nivel 6: {LINK_SIGUIENTE}
+
+La idea no es llenarte de más cosas por hacer. Es ayudarte a ver qué tiene sentido ahora, qué puede esperar y qué podría ayudarte a crecer con más orden.`,
+ wa:`¡Nivel 5 desbloqueado! 🐠✨
+
+Te comparto tu insignia:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Ahora pasamos al Nivel 6, donde vamos a ver crecimiento, herramientas, inversiones y próximos pasos.
+
+Link Nivel 6:
+{LINK_SIGUIENTE}
+
+Ya casi terminamos esta ruta. Este nivel ayuda a mirar hacia adelante con más orden.`},
+
+DESBLOQUEO_6:{
+ asunto:'Terminaste tu ruta Ordy 🌊 ¿Activamos el Radar?',
+ correo:`Hola, {NOMBRE}.
+
+¡Lo lograste!
+
+Completaste los niveles principales de Ordy.
+
+Insignia Nivel 6: {INSIGNIA}
+
+Durante este proceso no solo respondiste preguntas. Documentaste partes importantes de tu negocio: oferta, operación, números, formalización, comunicación y visión de crecimiento.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Ahora Ordy ya tiene suficiente contexto para hacer algo más profundo:
+
+activar el Radar de Fugas.
+
+El Radar revisa todo lo que construiste en los niveles anteriores para detectar posibles fugas de tiempo, dinero, clientes, energía, operación, claridad o rentabilidad.
+
+La idea no es hacer otro cuestionario largo.
+
+La idea es que Ordy pueda decirte:
+
+"Ahora ya te conozco. Esto es lo que estoy viendo."
+
+Si querés activar tu Radar, podés responder este correo o escribirnos por WhatsApp.
+
+Activar Radar: {WHATSAPP_ORDY}`,
+ wa:`¡Lo lograste, {NOMBRE}! 🌊✨
+
+Completaste los niveles principales de Ordy.
+
+Te comparto tu insignia del Nivel 6:
+{INSIGNIA}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Ahora Ordy ya tiene suficiente contexto para activar el Radar de Fugas.
+
+El Radar no es otro cuestionario largo. Es una lectura más profunda de todo lo que ya construiste para detectar fugas de tiempo, dinero, clientes, energía, operación o claridad.
+
+Si querés activarlo, me podés responder por acá y te paso la información.`},
+
+RECORDATORIO_1:{
+ asunto:'Tu Nivel 1 te está esperando 🌊',
+ correo:`Hola, {NOMBRE}.
+
+Solo paso por acá para recordarte que tenés pendiente completar el Nivel 1 de Ordy.
+
+Link Nivel 1: {LINK_NIVEL}
+
+Este nivel es el punto de partida: nos ayuda a entender quién es tu negocio, qué ofrece, a quién ayuda y qué necesita más claridad.
+
+No hace falta que las respuestas queden perfectas.
+
+No empezás desde cero. Empezás desde lo que ya tenés.`,
+ wa:`Hola, {NOMBRE} 🌊
+Solo paso a recordarte que tenés pendiente el Nivel 1 de Ordy.
+
+Link Nivel 1:
+{LINK_NIVEL}
+
+Es el punto de partida: entender quién es tu negocio, qué ofrece y a quién ayuda.
+
+No tiene que quedar perfecto. Empezamos desde lo que ya tenés.`},
+
+RECORDATORIO_2:{
+ asunto:'Tu Nivel 2 sigue esperando por vos 🐢',
+ correo:`Hola, {NOMBRE}.
+
+Solo paso por acá para recordarte que tenés pendiente completar el Nivel 2 de Ordy.
+
+Link Nivel 2: {LINK_NIVEL}
+
+Este nivel ayuda a ordenar cómo funciona tu negocio por dentro: qué ofrecés, cómo lo entregás, cómo cobrás y qué condiciones necesitás dejar más claras.
+
+Sabemos que este nivel puede dar un poquito de pereza porque obliga a pensar en procesos, pero también suele ser uno de los que más claridad deja.
+
+No tenés que hacerlo perfecto.
+
+Solo necesitamos empezar a sacar de tu cabeza lo que tu negocio ya sabe hacer.
+
+Cuando lo completés, Ordy podrá devolverte una lectura más ordenada de tu operación.`,
+ wa:`Hola, {NOMBRE} 🌊
+Solo paso a recordarte que tenés pendiente el Nivel 2 de Ordy.
+
+Link Nivel 2:
+{LINK_NIVEL}
+
+Este nivel puede dar un poquito de pereza porque pone a pensar en procesos, pero justo por eso deja tanta claridad.
+
+No tiene que quedar perfecto. Solo necesitamos empezar a sacar de tu cabeza cómo funciona tu negocio.`},
+
+RECORDATORIO_3:{
+ asunto:'Tu Nivel 3 es importante para seguir con claridad 🐟',
+ correo:`Hola, {NOMBRE}.
+
+Te recordamos que tenés pendiente completar el Nivel 3 de Ordy.
+
+Link Nivel 3: {LINK_NIVEL}
+
+Este nivel revisa una parte clave del negocio: precios, costos, tiempo, margen y sostenibilidad.
+
+Sabemos que puede sentirse pesado, sobre todo si todavía no llevás registros o si no tenés todos los números claros. Eso también es información.
+
+Si no sabés una respuesta, no pasa nada. Escribí lo que tengás, aunque sea aproximado. Ordy puede ayudarte a detectar qué falta y qué se necesita aclarar antes de seguir.
+
+Este nivel no existe para hacerte sentir mal con tus números.
+
+Existe para que tu negocio deje de depender solo de intuición.`,
+ wa:`Hola, {NOMBRE} 🌊
+Te recuerdo que tenés pendiente el Nivel 3.
+
+Link Nivel 3:
+{LINK_NIVEL}
+
+Este nivel revisa precios, costos, tiempo y rentabilidad. Si no tenés todo claro, no pasa nada. Eso también es información para Ordy.
+
+Respondé con lo que tengás. Si hace falta, luego afinamos con nuevas preguntas antes de avanzar.`},
+
+RECORDATORIO_4:{
+ asunto:'Tu Nivel 4 te ayuda a ver qué necesita protección 🦈',
+ correo:`Hola, {NOMBRE}.
+
+Solo paso a recordarte que tenés pendiente el Nivel 4 de Ordy.
+
+Link Nivel 4: {LINK_NIVEL}
+
+Este nivel revisa temas de formalización, facturación, permisos, condiciones, riesgos y próximos pasos importantes.
+
+No sustituye asesoría legal, contable o tributaria, pero sí te ayuda a entender qué puntos deberías tener en el radar.
+
+La idea no es asustarte.
+
+La idea es darte una hoja de ruta para que el negocio se sienta más protegido.`,
+ wa:`Hola, {NOMBRE} 🌊
+Solo paso a recordarte que tenés pendiente el Nivel 4.
+
+Link Nivel 4:
+{LINK_NIVEL}
+
+Este nivel no es para asustarte con trámites. Es para ayudarte a ver qué está resuelto, qué está en proceso y qué conviene tener en el radar.`},
+
+RECORDATORIO_5:{
+ asunto:'Tu Nivel 5 puede ahorrarte muchas respuestas repetidas 🐠',
+ correo:`Hola, {NOMBRE}.
+
+Te recordamos que tenés pendiente completar el Nivel 5 de Ordy.
+
+Link Nivel 5: {LINK_NIVEL}
+
+Este nivel ayuda a ordenar cómo hablás con tus clientes: preguntas frecuentes, objeciones, condiciones, políticas, seguimiento y mensajes importantes.
+
+Muchas veces no nos damos cuenta de cuánto tiempo perdemos respondiendo lo mismo desde cero.
+
+Este nivel convierte esa experiencia en respuestas más claras, consistentes y fáciles de reutilizar.
+
+No se trata de sonar como robot.
+
+Se trata de dejar de improvisar todo.`,
+ wa:`Hola, {NOMBRE} 🌊
+Te recuerdo que tenés pendiente el Nivel 5.
+
+Link Nivel 5:
+{LINK_NIVEL}
+
+Este nivel puede ayudarte muchísimo a ahorrar tiempo respondiendo preguntas repetidas, explicando condiciones y dando seguimiento con más claridad.
+
+No se trata de sonar como robot. Se trata de comunicar mejor.`},
+
+RECORDATORIO_6:{
+ asunto:'Te falta el último nivel de esta ruta 🌊',
+ correo:`Hola, {NOMBRE}.
+
+Estás muy cerca de terminar esta ruta de Ordy.
+
+Solo te falta completar el Nivel 6.
+
+Link Nivel 6: {LINK_NIVEL}
+
+Este nivel revisa herramientas, crecimiento, inversiones, automatización y próximos pasos.
+
+Después de todo lo que ya ordenaste, este cierre ayuda a mirar el futuro con más claridad.
+
+No se trata de hacer más.
+
+Se trata de entender qué va primero.
+
+Cuando terminés este nivel, Ordy podrá darte una lectura más completa de todo el recorrido.`,
+ wa:`Hola, {NOMBRE} 🌊
+Estás muy cerca de terminar esta ruta de Ordy.
+
+Te falta completar el Nivel 6:
+{LINK_NIVEL}
+
+Este nivel ayuda a ver qué herramientas, procesos o inversiones tienen sentido ahora y cuáles pueden esperar.
+
+No se trata de hacer más. Se trata de entender qué va primero.`},
+
+AFINAR:{
+ asunto:'Afinemos tu Nivel {N} antes de avanzar 🌊',
+ correo:`Hola, {NOMBRE}.
+
+¡Gracias por completar tu Nivel {N}!
+
+Ya revisamos tus respuestas y hay una base valiosa. Antes de desbloquear el siguiente nivel, nos gustaría afinar algunos puntos para que esa base quede firme:
+
+{PREGUNTAS}
+
+Podés responder este mismo correo con calma. No hay respuestas incorrectas; lo que buscamos es claridad.
+
+En Ordy no avanzamos por avanzar. Avanzamos cuando la información ya puede sostener el siguiente nivel.`,
+ wa:`Hola, {NOMBRE} 🌊
+¡Gracias por completar tu Nivel {N}!
+
+Ya revisamos tus respuestas y hay una base valiosa. Antes de desbloquear el siguiente nivel, me gustaría afinar algunos puntos:
+
+{PREGUNTAS}
+
+Me podés responder por acá con calma. No hay respuestas incorrectas; lo que buscamos es claridad.
+
+En Ordy no avanzamos por avanzar. Avanzamos cuando la información ya puede sostener el siguiente paso.`},
+
+RADAR:{
+ asunto:'Tu Radar Ordy está listo 🌊',
+ correo:`Hola, {NOMBRE}.
+
+Tu Radar Ordy ya está listo.
+
+Link Radar: {LINK_RADAR}
+
+Este Radar reúne lo aprendido durante tu recorrido y señala fugas, patrones, oportunidades y decisiones importantes para tu negocio.
+
+Mensaje del Motor de Interpretación:
+
+{MOTOR}
+
+Te recomendamos leerlo con calma y volver a él cuando necesités tomar decisiones importantes.
+
+También queremos invitarte a formar parte de la comunidad Ordy.
+
+La comunidad será un espacio para seguir aprendiendo, compartir avances, recibir recursos y navegar este proceso con otras personas que también están ordenando sus negocios.
+
+Invitación a comunidad: {LINK_COMUNIDAD}
+
+Gracias por confiar en Ordy para mirar tu negocio con más claridad.
+
+No terminaste un formulario.
+
+Construiste una base.`,
+ wa:`Hola, {NOMBRE} 🌊
+Tu Radar Ordy ya está listo.
+
+Link Radar:
+{LINK_RADAR}
+
+Mensaje del Motor de Interpretación:
+{MOTOR}
+
+Te recomiendo leerlo con calma y volver a él cuando necesités tomar decisiones importantes.
+
+También te dejo la invitación a la comunidad Ordy:
+{LINK_COMUNIDAD}
+
+Gracias por confiar en Ordy para mirar tu negocio con más claridad.
+
+No terminaste un formulario. Construiste una base.`}
+};
+</script>
+
+
+<script>
+/* ═══════════ ESTADO DE LA APP ═══════════ */
+const PASS = 'faro2026';
+let clientes = JSON.parse(localStorage.getItem('ordy-clientes') || '[]');
+let registro = JSON.parse(localStorage.getItem('ordy-registro') || '[]');
+let config   = JSON.parse(localStorage.getItem('ordy-config')   || '{"wa":"","comunidad":""}');
+
+function guardar(){
+  localStorage.setItem('ordy-clientes', JSON.stringify(clientes));
+  localStorage.setItem('ordy-registro', JSON.stringify(registro));
+  localStorage.setItem('ordy-config', JSON.stringify(config));
+}
+function hoy(){ return new Date().toISOString().slice(0,10); }
+function diasDesde(fecha){
+  if(!fecha) return 999;
+  return Math.floor((new Date(hoy()) - new Date(fecha)) / 86400000);
+}
+function esc(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('visible');
+  setTimeout(()=>t.classList.remove('visible'), 2200);
+}
+
+/* ═══════════ PORTÓN ═══════════ */
+if(sessionStorage.getItem('ordy-gate') === 'ok') document.getElementById('gate').style.display = 'none';
+function entrar(){
+  if(document.getElementById('gate-pass').value === PASS){
+    sessionStorage.setItem('ordy-gate','ok');
+    document.getElementById('gate').style.display = 'none';
+  } else {
+    document.getElementById('gate-error').textContent = 'Contraseña incorrecta. Intentá de nuevo 🌊';
+  }
+}
+
+/* ═══════════ MOTOR DE DECISIÓN (la lógica del Cerebro) ═══════════ */
+function analizar(c){
+  const dias = diasDesde(c.ultimoContacto);
+  const n = parseInt(c.nivel) || 1;
+
+  // Alerta de protección
+  let alerta = '';
+  if(c.activo !== 'Sí') alerta = 'Cliente inactivo';
+  else if(n <= 3 && c.estado === 'Recibido' && c.claridad !== 'Sí') alerta = '🚫 No desbloquear: falta claridad mínima';
+  else if(c.estado === 'Necesita afinar') alerta = '⚠️ Enviar preguntas antes de avanzar';
+  else if(c.estado === 'Pendiente' && dias >= 5) alerta = '⏰ Recordatorio pendiente hace ' + dias + ' días';
+
+  // Acción sugerida + plantilla
+  let accion = '', tpl = null;
+  if(c.activo !== 'Sí'){ accion = 'Cliente inactivo'; }
+  else if(c.estado === 'Nuevo'){ accion = 'Enviar bienvenida'; tpl = 'BIENVENIDA'; }
+  else if(c.estado === 'Necesita afinar'){ accion = 'Enviar mensaje de afinación'; tpl = 'AFINAR'; }
+  else if(c.estado === 'Desbloqueado'){ accion = n < 6 ? 'Enviar insignia + siguiente nivel' : 'Enviar insignia final + invitar al Radar'; tpl = 'DESBLOQUEO_' + Math.min(n,6); }
+  else if(c.estado === 'Pendiente'){ 
+    if(dias >= 3){ accion = 'Enviar recordatorio'; tpl = 'RECORDATORIO_' + Math.min(Math.max(n,1),6); }
+    else accion = 'Esperar (' + (3 - dias) + ' días para recordatorio)';
+  }
+  else if(c.estado === 'Radar listo'){ accion = 'Enviar Radar + comunidad'; tpl = 'RADAR'; }
+  else if(c.estado === 'Recibido'){ accion = 'En revisión del Motor'; }
+  else if(c.estado === 'En revisión'){ accion = 'Revisando — no enviar nada todavía'; }
+  else if(c.estado === 'Pausado'){ accion = 'En pausa — no enviar'; }
+  else if(c.estado === 'Ruta completada'){ accion = 'Preparar el Radar de Fugas'; }
+  else accion = 'Revisar manualmente';
+
+  // Bloqueo de seguridad: si la alerta dice no desbloquear, no ofrecer plantilla de desbloqueo
+  if(alerta.startsWith('🚫') && tpl && tpl.startsWith('DESBLOQUEO')) tpl = null;
+
+  return { accion, tpl, alerta, dias };
+}
+
+/* ═══════════ COLECCIÓN DE INSIGNIAS ═══════════ */
+function coleccionTexto(c){
+  const u = parseInt(c.ultimoDesbloqueado) || 0;
+  const partes = [];
+  for(let i=1; i<=6; i++){
+    const nv = NIVELES[i];
+    partes.push(nv.emoji + ' N' + i + ' ' + nv.personaje + ' ' + (u >= i ? '✅' : '🔒'));
+  }
+  partes.push('🐉 Radar Azul ' + (c.estado === 'Radar listo' || c.radarEnviado ? '✅' : '🔒'));
+  return partes.join(' | ');
+}
+function coleccionHTML(c){
+  const u = parseInt(c.ultimoDesbloqueado) || 0;
+  let celdas = '';
+  for(let i=1; i<=6; i++){
+    const on = u >= i;
+    celdas += '<td align="center" style="padding:4px;">' +
+      '<img src="' + NIVELES[i].img + '" width="58" alt="Nivel ' + i + '" style="display:block;border-radius:8px;' + (on ? '' : 'opacity:0.22;') + '">' +
+      '<span style="font-size:11px;color:' + (on ? '#4E4BF7' : '#B4B3CE') + ';font-family:Arial,sans-serif;font-weight:bold;">' + (on ? '✅' : '🔒') + '</span></td>';
+  }
+  const radarOn = c.estado === 'Radar listo' || c.radarEnviado;
+  celdas += '<td align="center" style="padding:4px;"><div style="font-size:34px;line-height:58px;' + (radarOn ? '' : 'opacity:0.25;') + '">🐉</div>' +
+    '<span style="font-size:11px;color:' + (radarOn ? '#4E4BF7' : '#B4B3CE') + ';font-family:Arial,sans-serif;font-weight:bold;">' + (radarOn ? '✅' : '🔒') + '</span></td>';
+  return '<table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>' + celdas + '</tr></table>';
+}
+
+/* ═══════════ SUSTITUCIÓN DE VARIABLES ═══════════ */
+function sustituir(texto, c, modo){
+  const n = parseInt(c.nivel) || 1;
+  const nv = NIVELES[Math.min(Math.max(n,1),6)];
+  const sig = NIVELES[n+1];
+  const insigniaTxt = 'Insignia "' + nv.insignia + '" ' + nv.emoji;
+  return texto
+    .replaceAll('{NOMBRE}', c.nombre || '')
+    .replaceAll('{EMPRESA}', c.empresa || '')
+    .replaceAll('{N}', n)
+    .replaceAll('{LINK_NIVEL}', nv.link)
+    .replaceAll('{LINK_SIGUIENTE}', sig ? sig.link : '')
+    .replaceAll('{INSIGNIA}', modo === 'html' ? '' : insigniaTxt)
+    .replaceAll('{MOTOR}', c.motor || '[Pendiente: mensaje del Motor]')
+    .replaceAll('{PREGUNTAS}', c.preguntas || '[Pendiente: preguntas de afinación]')
+    .replaceAll('{LINK_RADAR}', c.linkRadar || '[Pendiente: link del Radar]')
+    .replaceAll('{LINK_COMUNIDAD}', config.comunidad || '[Pendiente: configurar link de comunidad]')
+    .replaceAll('{WHATSAPP_ORDY}', config.wa ? 'https://wa.me/' + config.wa : '[Pendiente: configurar WhatsApp de Ordy]');
+}
+
+function mensajeWA(c, tplKey){
+  let texto = sustituir(TPL[tplKey].wa, c, 'texto');
+  if(tplKey.startsWith('DESBLOQUEO') || tplKey === 'RADAR'){
+    texto += '\n\nTu colección Ordy hasta ahora:\n' + coleccionTexto(c);
+  }
+  return texto;
+}
+
+/* ═══════════ CORREO BONITO (HTML) ═══════════ */
+function correoHTML(c, tplKey){
+  const n = parseInt(c.nivel) || 1;
+  const nv = NIVELES[Math.min(Math.max(n,1),6)];
+  const esDesbloqueo = tplKey.startsWith('DESBLOQUEO');
+  const esRadar = tplKey === 'RADAR';
+  const asunto = sustituir(TPL[tplKey].asunto, c, 'texto');
+
+  // Cuerpo: cada párrafo del texto se convierte en <p>; el bloque {MOTOR} se resalta
+  const crudo = TPL[tplKey].correo;
+  let parrafos = '';
+  crudo.split('\n\n').forEach(p => {
+    const pSust = sustituir(p, c, 'html').trim();
+    if(!pSust) return;
+    if(p.includes('{MOTOR}') && (c.motor || '').trim()){
+      parrafos += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#EFEFFF;border-left:4px solid #4E4BF7;border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.6;color:#3A3870;font-style:italic;">' + esc(sustituir('{MOTOR}', c, 'texto')).replace(/\n/g,'<br>') + '</td></tr></table><div style="height:16px;"></div>';
+    } else if(p.includes('{PREGUNTAS}')){
+      parrafos += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#FFF6F6;border-left:4px solid #F94646;border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.7;color:#5A2020;">' + esc(sustituir('{PREGUNTAS}', c, 'texto')).replace(/\n/g,'<br>') + '</td></tr></table><div style="height:16px;"></div>';
+    } else if(p.trim().startsWith('Insignia')){
+      // La insignia se muestra como imagen, no como texto
+    } else if(p.includes('Mensaje del Motor')){
+      parrafos += '<p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#4E4BF7;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">Mensaje del Motor de Interpretación</p>';
+    } else {
+      const linea = esc(pSust).replace(/\n/g,'<br>');
+      parrafos += '<p style="margin:0 0 16px;font-size:15px;line-height:1.65;color:#3A3870;">' + linea + '</p>';
+    }
+  });
+
+  // Botón principal
+  let botonUrl = '', botonTxt = '';
+  if(tplKey === 'BIENVENIDA' || tplKey.startsWith('RECORDATORIO')){ botonUrl = nv.link; botonTxt = 'Completar mi Nivel ' + n + ' →'; }
+  else if(esDesbloqueo && n < 6 && NIVELES[n+1]){ botonUrl = NIVELES[n+1].link; botonTxt = 'Ir a mi Nivel ' + (n+1) + ' →'; }
+  else if(tplKey === 'DESBLOQUEO_6' && config.wa){ botonUrl = 'https://wa.me/' + config.wa; botonTxt = 'Quiero activar mi Radar 🐉'; }
+  else if(esRadar && c.linkRadar){ botonUrl = c.linkRadar; botonTxt = 'Ver mi Radar Ordy →'; }
+  const boton = botonUrl ? '<table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background:#F94646;border-radius:12px;"><a href="' + botonUrl + '" style="display:inline-block;padding:14px 34px;color:#FFFFFF;font-weight:bold;font-size:15px;text-decoration:none;font-family:Arial,sans-serif;">' + botonTxt + '</a></td></tr></table>' : '';
+
+  // Insignia grande (solo en desbloqueos)
+  const insigniaImg = esDesbloqueo ? '<img src="' + nv.img + '" width="190" alt="Insignia Nivel ' + n + ': ' + esc(nv.insignia) + '" style="display:block;margin:0 auto 6px;"><p style="text-align:center;margin:0 0 20px;font-size:14px;font-weight:bold;color:#4E4BF7;font-family:Arial,sans-serif;">Insignia desbloqueada: ' + esc(nv.insignia) + ' ' + nv.emoji + '</p>' : '';
+
+  const coleccion = (esDesbloqueo || esRadar) ? '<div style="height:10px;"></div><p style="text-align:center;margin:0 0 10px;font-size:13px;font-weight:bold;color:#4E4BF7;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">Mi colección Ordy</p>' + coleccionHTML(c) + '<div style="height:6px;"></div>' : '';
+
+  return {
+    asunto,
+    html:
+'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3F2FF;padding:26px 12px;"><tr><td align="center">' +
+'<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border-radius:18px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;">' +
+'<tr><td style="background:#4E4BF7;padding:22px;text-align:center;"><img src="' + IMG_BASE + 'ordy-logo.png" width="150" alt="Ordy · orden y plan" style="background:#FFFFFF;border-radius:12px;padding:10px 18px;"></td></tr>' +
+'<tr><td style="padding:30px 34px 10px;">' +
+'<h1 style="margin:0 0 20px;font-size:23px;line-height:1.3;color:#23214A;font-family:Georgia,\'Times New Roman\',serif;text-align:center;">' + esc(asunto) + '</h1>' +
+insigniaImg + parrafos + boton + coleccion +
+'</td></tr>' +
+'<tr><td style="background:#EFEFFF;padding:18px;text-align:center;font-size:12px;color:#6B6A8A;">Ordy · orden y plan 🌊 · <a href="https://www.ordenyplan.com" style="color:#4E4BF7;text-decoration:none;font-weight:bold;">ordenyplan.com</a><br>Crecemos con propósito, un nivel a la vez.</td></tr>' +
+'</table></td></tr></table>'
+  };
+}
+</script>
+
+
+<script>
+/* ═══════════ INTERFAZ ═══════════ */
+let abiertaId = null;
+
+function mostrarTab(t){
+  document.getElementById('vista-clientes').style.display = t === 'clientes' ? '' : 'none';
+  document.getElementById('vista-registro').style.display = t === 'registro' ? '' : 'none';
+  document.getElementById('tab-clientes').classList.toggle('activo', t === 'clientes');
+  document.getElementById('tab-registro').classList.toggle('activo', t === 'registro');
+  if(t === 'registro') pintarRegistro();
+}
+
+function pintarStats(){
+  const activos = clientes.filter(c => c.activo === 'Sí');
+  const conAccion = activos.filter(c => analizar(c).tpl);
+  const conAlerta = activos.filter(c => analizar(c).alerta && c.activo === 'Sí');
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + activos.length + '</b><span>Empresas activas</span></div>' +
+    '<div class="stat"><b>' + conAccion.length + '</b><span>Mensajes por enviar</span></div>' +
+    '<div class="stat alerta"><b>' + conAlerta.length + '</b><span>Alertas del Cerebro</span></div>' +
+    '<div class="stat"><b>' + registro.length + '</b><span>Envíos registrados</span></div>';
+}
+
+function pintarClientes(){
+  pintarStats();
+  const cont = document.getElementById('lista-clientes');
+  if(clientes.length === 0){
+    cont.innerHTML = '<div class="vacio"><span class="emoji">🐬</span>Todavía no hay empresas en el panel.<br>Agregá la primera con el botón <b>+ Nueva empresa</b>.</div>';
+    return;
+  }
+  // Orden: primero las que tienen acción pendiente
+  const orden = [...clientes].sort((a,b) => (analizar(b).tpl ? 1 : 0) - (analizar(a).tpl ? 1 : 0));
+  cont.innerHTML = orden.map(c => {
+    const an = analizar(c);
+    const n = parseInt(c.nivel) || 1;
+    const nv = NIVELES[Math.min(Math.max(n,1),6)];
+    const chipAccion = an.tpl
+      ? '<span class="chip accion">📣 ' + esc(an.accion) + '</span>'
+      : '<span class="chip espera">' + esc(an.accion) + '</span>';
+    const chipAlerta = an.alerta ? '<span class="chip aviso">' + esc(an.alerta.split(':')[0]) + '</span>' : '';
+    return '<div class="card ' + (an.tpl ? 'tiene-accion' : 'en-espera') + (abiertaId === c.id ? ' abierta' : '') + '" id="card-' + c.id + '">' +
+      '<div class="card-head" onclick="alternar(\'' + c.id + '\')">' +
+        '<div class="nombre"><b>' + esc(c.empresa) + '</b><span>' + esc(c.nombre) + ' · ' + esc(c.canal || 'Canal sin definir') + '</span></div>' +
+        '<span class="chip nivel">' + nv.emoji + ' Nivel ' + n + ' · ' + esc(c.estado) + '</span>' +
+        chipAlerta + chipAccion +
+      '</div>' +
+      '<div class="card-body">' + (abiertaId === c.id ? cuerpoCliente(c, an) : '') + '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function alternar(id){
+  abiertaId = abiertaId === id ? null : id;
+  pintarClientes();
+  if(abiertaId){
+    const el = document.getElementById('card-' + id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+function cuerpoCliente(c, an){
+  let h = '<div class="grid2">' +
+    campo(c,'empresa','Empresa','text') +
+    campo(c,'nombre','Nombre de contacto','text') +
+    campo(c,'whatsapp','WhatsApp','text') +
+    campo(c,'correo','Correo','text') +
+    select(c,'canal','Canal preferido',['WhatsApp','Correo','Ambos']) +
+    select(c,'activo','Activo',['Sí','No']) +
+    select(c,'nivel','Nivel en proceso',[1,2,3,4,5,6]) +
+    select(c,'estado','Estado del nivel',ESTADOS) +
+    select(c,'ultimoDesbloqueado','Último nivel desbloqueado',[0,1,2,3,4,5,6]) +
+    select(c,'claridad','¿Claridad mínima? (N1–N3)',['Sí','No']) +
+    campo(c,'ultimoContacto','Último contacto','date') +
+    campo(c,'linkDashboard','Link del dashboard','text') +
+  '</div>' +
+  '<div class="grid2">' +
+    area(c,'motor','Mensaje del Motor de Interpretación') +
+    area(c,'preguntas','Preguntas de afinación') +
+  '</div>' +
+  '<div class="grid2">' +
+    campo(c,'linkRadar','Link del Radar (cuando exista)','text') +
+    area(c,'notas','Notas internas') +
+  '</div>';
+
+  if(an.alerta) h += '<div class="aviso-caja' + (an.alerta.startsWith('🚫') ? ' roja' : '') + '">' + esc(an.alerta) + '</div>';
+
+  h += '<div class="coleccion-mini"><b style="color:var(--morado)">Colección Ordy:</b><br>' + esc(coleccionTexto(c)) + '</div>';
+
+  if(an.tpl){
+    const wa = mensajeWA(c, an.tpl);
+    const mail = correoHTML(c, an.tpl);
+    h += '<div class="bloque"><h3>📱 WhatsApp listo para enviar</h3>' +
+      '<div class="msg-out">' + esc(wa) + '</div>' +
+      '<div class="botonera">' +
+        '<button class="btn verde" onclick="enviarWA(\'' + c.id + '\')" ' + (c.whatsapp ? '' : 'disabled') + '>Abrir WhatsApp</button>' +
+        '<button class="btn linea" onclick="copiarWA(\'' + c.id + '\')">Copiar texto</button>' +
+      '</div>' + (c.whatsapp ? '' : '<p class="nota-pie">Agregá el número de WhatsApp para activar el botón.</p>') +
+    '</div>';
+
+    h += '<div class="bloque"><h3>💌 Correo bonito</h3>' +
+      '<p style="font-size:.85rem;color:var(--gris)"><b>Asunto:</b> ' + esc(mail.asunto) + '</p>' +
+      '<div class="preview-mail">' + mail.html + '</div>' +
+      '<div class="botonera">' +
+        '<button class="btn morado" onclick="copiarCorreoHTML(\'' + c.id + '\')">Copiar correo con formato</button>' +
+        '<button class="btn linea" onclick="copiarAsunto(\'' + c.id + '\')">Copiar asunto</button>' +
+        '<button class="btn linea" onclick="abrirMailto(\'' + c.id + '\')" ' + (c.correo ? '' : 'disabled') + '>Correo rápido (texto)</button>' +
+      '</div>' +
+      '<p class="nota-pie">Flujo: abrí Gmail → mensaje nuevo → pegá el asunto → pegá el cuerpo con Ctrl+V (o Cmd+V) → revisá → enviar.</p>' +
+    '</div>';
+
+    h += '<div class="botonera" style="margin-top:14px">' +
+      '<button class="btn coral" onclick="marcarEnviado(\'' + c.id + '\')">✓ Marcar como enviado</button>';
+    if(c.estado === 'Desbloqueado' && parseInt(c.nivel) < 6){
+      h += '<button class="btn morado" onclick="avanzarNivel(\'' + c.id + '\')">↗ Avanzar al Nivel ' + (parseInt(c.nivel)+1) + '</button>';
+    }
+    h += '</div>';
+  } else {
+    h += '<div class="bloque"><h3>🌊 Sin mensaje pendiente</h3><p style="font-size:.9rem;color:var(--gris)">' + esc(an.accion) + '. Cuando cambiés el estado, el panel armará el mensaje que toca.</p></div>';
+  }
+
+  h += '<div class="botonera" style="margin-top:14px"><button class="btn gris" onclick="eliminarCliente(\'' + c.id + '\')">🗑 Eliminar empresa</button></div>';
+  return h;
+}
+
+function campo(c, k, label, tipo){
+  return '<div class="campo"><label>' + label + '</label><input type="' + tipo + '" value="' + esc(c[k] || '') + '" onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)"></div>';
+}
+function area(c, k, label){
+  return '<div class="campo"><label>' + label + '</label><textarea onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' + esc(c[k] || '') + '</textarea></div>';
+}
+function select(c, k, label, ops){
+  return '<div class="campo"><label>' + label + '</label><select onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' +
+    ops.map(o => '<option value="' + o + '"' + (String(c[k]) === String(o) ? ' selected' : '') + '>' + o + '</option>').join('') +
+  '</select></div>';
+}
+
+function editar(id, k, v){
+  const c = clientes.find(x => x.id === id);
+  if(!c) return;
+  c[k] = v;
+  // Ayudita: al marcar Desbloqueado, actualizar el último nivel desbloqueado automáticamente
+  if(k === 'estado' && v === 'Desbloqueado'){
+    c.ultimoDesbloqueado = Math.max(parseInt(c.ultimoDesbloqueado)||0, parseInt(c.nivel)||1);
+  }
+  if(k === 'estado' && v === 'Radar listo'){ c.radarEnviado = false; }
+  guardar(); pintarClientes();
+}
+
+function abrirNuevoCliente(){
+  const c = { id:'c' + Date.now(), empresa:'Nueva empresa', nombre:'', whatsapp:'', correo:'',
+    canal:'Ambos', activo:'Sí', nivel:1, estado:'Nuevo', ultimoDesbloqueado:0, claridad:'No',
+    ultimoContacto:'', linkDashboard:'', motor:'', preguntas:'', linkRadar:'', notas:'' };
+  clientes.unshift(c); abiertaId = c.id;
+  guardar(); pintarClientes();
+  document.getElementById('card-' + c.id)?.scrollIntoView({behavior:'smooth'});
+}
+
+function eliminarCliente(id){
+  const c = clientes.find(x => x.id === id);
+  if(!confirm('¿Eliminar a "' + c.empresa + '" del panel? El historial del registro se mantiene.')) return;
+  clientes = clientes.filter(x => x.id !== id);
+  abiertaId = null; guardar(); pintarClientes();
+  toast('Empresa eliminada');
+}
+
+function avanzarNivel(id){
+  const c = clientes.find(x => x.id === id);
+  c.ultimoDesbloqueado = Math.max(parseInt(c.ultimoDesbloqueado)||0, parseInt(c.nivel)||1);
+  c.nivel = Math.min(6, (parseInt(c.nivel)||1) + 1);
+  c.estado = 'Pendiente';
+  c.claridad = 'No';
+  guardar(); pintarClientes();
+  toast('Avanzó al Nivel ' + c.nivel + ' 🌊');
+}
+
+/* ═══════════ ENVÍOS ═══════════ */
+function telCR(t){
+  let d = (t||'').replace(/\D/g,'');
+  if(d && !d.startsWith('506')) d = '506' + d;
+  return d;
+}
+function enviarWA(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  if(!an.tpl) return;
+  window.open('https://wa.me/' + telCR(c.whatsapp) + '?text=' + encodeURIComponent(mensajeWA(c, an.tpl)), '_blank');
+}
+async function copiarWA(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  await navigator.clipboard.writeText(mensajeWA(c, an.tpl));
+  toast('Mensaje de WhatsApp copiado ✅');
+}
+async function copiarAsunto(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  await navigator.clipboard.writeText(correoHTML(c, an.tpl).asunto);
+  toast('Asunto copiado ✅');
+}
+async function copiarCorreoHTML(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  const mail = correoHTML(c, an.tpl);
+  const textoPlano = sustituir(TPL[an.tpl].correo, c, 'texto');
+  try{
+    await navigator.clipboard.write([ new ClipboardItem({
+      'text/html': new Blob([mail.html], {type:'text/html'}),
+      'text/plain': new Blob([textoPlano], {type:'text/plain'})
+    })]);
+    toast('Correo con formato copiado 💌 Pegalo en Gmail');
+  }catch(e){
+    // Respaldo para navegadores viejos
+    const div = document.createElement('div');
+    div.contentEditable = true; div.innerHTML = mail.html;
+    div.style.position = 'fixed'; div.style.left = '-9999px';
+    document.body.appendChild(div);
+    const r = document.createRange(); r.selectNodeContents(div);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+    document.execCommand('copy');
+    div.remove();
+    toast('Correo copiado 💌 Pegalo en Gmail');
+  }
+}
+function abrirMailto(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  const asunto = correoHTML(c, an.tpl).asunto;
+  const cuerpo = sustituir(TPL[an.tpl].correo, c, 'texto');
+  location.href = 'mailto:' + c.correo + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+}
+
+function marcarEnviado(id){
+  const c = clientes.find(x => x.id === id);
+  const an = analizar(c);
+  registro.unshift({ fecha:hoy(), empresa:c.empresa, nivel:c.nivel, estado:c.estado, plantilla:an.tpl || '—', canal:c.canal || '—' });
+  c.ultimoContacto = hoy();
+  if(an.tpl === 'RADAR') c.radarEnviado = true;
+  guardar(); pintarClientes();
+  toast('Registrado ✅ Último contacto: hoy');
+}
+
+/* ═══════════ REGISTRO ═══════════ */
+function pintarRegistro(){
+  const cont = document.getElementById('tabla-registro');
+  if(registro.length === 0){
+    cont.innerHTML = '<div class="vacio"><span class="emoji">📋</span>Todavía no hay envíos registrados.<br>Cada vez que marqués un mensaje como enviado, quedará guardado aquí.</div>';
+    return;
+  }
+  cont.innerHTML = '<table><thead><tr><th>Fecha</th><th>Empresa</th><th>Nivel</th><th>Estado</th><th>Plantilla</th><th>Canal</th></tr></thead><tbody>' +
+    registro.map(r => '<tr><td>' + r.fecha + '</td><td>' + esc(r.empresa) + '</td><td>N' + r.nivel + '</td><td>' + esc(r.estado) + '</td><td>' + esc(r.plantilla) + '</td><td>' + esc(r.canal) + '</td></tr>').join('') +
+  '</tbody></table>';
+}
+
+/* ═══════════ CONFIGURACIÓN Y RESPALDO ═══════════ */
+function abrirConfig(){
+  document.getElementById('cfg-wa').value = config.wa || '';
+  document.getElementById('cfg-comunidad').value = config.comunidad || '';
+  document.getElementById('modal-config').classList.add('visible');
+}
+function guardarConfig(){
+  config.wa = telCR(document.getElementById('cfg-wa').value);
+  config.comunidad = document.getElementById('cfg-comunidad').value.trim();
+  guardar(); cerrarModal('modal-config'); pintarClientes();
+  toast('Configuración guardada ✅');
+}
+function cerrarModal(id){ document.getElementById(id).classList.remove('visible'); }
+
+function descargarRespaldo(){
+  const datos = { version:1, fecha:hoy(), clientes, registro, config };
+  const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'respaldo-ordy-' + hoy() + '.json';
+  a.click();
+  toast('Respaldo descargado ⬇');
+}
+function cargarRespaldo(input){
+  const file = input.files[0];
+  if(!file) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(!d.clientes) throw new Error();
+      if(!confirm('Esto reemplaza los datos actuales del panel con el respaldo del ' + (d.fecha || '?') + '. ¿Continuar?')) return;
+      clientes = d.clientes; registro = d.registro || []; config = d.config || config;
+      guardar(); pintarClientes(); pintarRegistro();
+      toast('Respaldo cargado ✅');
+    }catch(e){ alert('Ese archivo no parece un respaldo válido de Ordy.'); }
+  };
+  r.readAsText(file);
+  input.value = '';
+}
+
+pintarClientes();
+</script>
+
+</body>
+</html>
