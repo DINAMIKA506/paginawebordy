@@ -135,6 +135,7 @@
 </nav>
 
 <div class="hero">
+  <img src="marty-tool.png" alt="Marty" style="width:130px;height:130px;object-fit:contain;margin-bottom:.75rem;filter:drop-shadow(0 8px 24px rgba(78,75,247,.2));">
   <span class="hero-tag">🦈 Con Marty</span>
   <h1>¿Dónde se va tu <em>tiempo,<br>tu plata y tu energía</em>?</h1>
   <p>6 preguntas para detectar las fugas más grandes de tu negocio. Resultado inmediato, sin registro.</p>
@@ -159,16 +160,17 @@
   <div class="step active" id="step-1">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Radar Exprés</strong>Voy a escanear tu negocio. Contestá lo que más se parezca a tu realidad.</div>
       </div>
       <span class="step-area">⏱ Tiempo</span>
-      <p class="step-q">¿Cuánto de tu tiempo de trabajo sabés exactamente a qué le va?</p>
+      <p class="step-q">¿Sabés en qué se va la mayor parte de tu día de trabajo?</p>
+      <p class="step-hint" style="margin-bottom:1rem;">Por ejemplo: ¿sabés cuánto tiempo le dedicás a atender clientes, a producir, a responder mensajes, a cobrar?</p>
       <div class="opciones">
-        <button class="opcion-btn" onclick="responder(1, 0, this)"><span class="opcion-num">A</span>No tengo idea, hago lo que surge</button>
-        <button class="opcion-btn" onclick="responder(1, 1, this)"><span class="opcion-num">B</span>Tengo una idea general pero nada definido</button>
-        <button class="opcion-btn" onclick="responder(1, 2, this)"><span class="opcion-num">C</span>Sé qué ocupa más tiempo pero no lo mido</button>
-        <button class="opcion-btn" onclick="responder(1, 3, this)"><span class="opcion-num">D</span>Tengo registro claro de cómo uso mi tiempo</button>
+        <button class="opcion-btn" onclick="responder(1, 0, this)"><span class="opcion-num">A</span>No tengo idea, hago lo que surge y el día se va</button>
+        <button class="opcion-btn" onclick="responder(1, 1, this)"><span class="opcion-num">B</span>Me imagino en qué va, pero nunca lo he medido</button>
+        <button class="opcion-btn" onclick="responder(1, 2, this)"><span class="opcion-num">C</span>Sé qué me consume más tiempo, aunque no tengo registro</button>
+        <button class="opcion-btn" onclick="responder(1, 3, this)"><span class="opcion-num">D</span>Tengo claro cómo distribuyo mi tiempo y lo reviso</button>
       </div>
       <button class="btn-next" id="btn-next-1" disabled onclick="goStep(2)">Siguiente →</button>
     </div>
@@ -178,7 +180,7 @@
   <div class="step" id="step-2">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Pregunta 2</strong>Seguimos escaneando.</div>
       </div>
       <span class="step-area">💰 Finanzas</span>
@@ -197,7 +199,7 @@
   <div class="step" id="step-3">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Pregunta 3</strong>Vamos bien. Ahora los clientes.</div>
       </div>
       <span class="step-area">🤝 Clientes</span>
@@ -216,7 +218,7 @@
   <div class="step" id="step-4">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Pregunta 4</strong>Casi a la mitad. Esta es importante.</div>
       </div>
       <span class="step-area">🏷️ Precios</span>
@@ -235,7 +237,7 @@
   <div class="step" id="step-5">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Pregunta 5</strong>Ya casi terminamos.</div>
       </div>
       <span class="step-area">📋 Orden</span>
@@ -254,7 +256,7 @@
   <div class="step" id="step-6">
     <div class="step-card">
       <div class="step-mascot">
-        <img src="marty.png" alt="Marty">
+        <img src="marty-tool.png" alt="Marty">
         <div class="step-mascot-text"><strong>Marty · Última pregunta</strong>Esta es la que más importa.</div>
       </div>
       <span class="step-area">🎯 Claridad</span>
@@ -297,7 +299,7 @@
     </div>
 
     <div class="marty-frase">
-      <img src="marty.png" alt="Marty">
+      <img src="marty-tool.png" alt="Marty">
       <p id="res-marty-frase">"Un negocio con fugas no está roto. Solo necesita saber dónde mirar."</p>
     </div>
 
