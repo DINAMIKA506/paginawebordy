@@ -475,6 +475,48 @@
 </head>
 <body>
 
+<!-- POPUP HERRAMIENTAS GRATIS -->
+<div class="popup-overlay" id="tools-popup" role="dialog" aria-modal="true">
+  <div class="popup-box">
+    <button class="popup-close" onclick="cerrarPopup()" aria-label="Cerrar">✕</button>
+    <div class="popup-mascots">
+      <img src="regi-tool.png" alt="Regi">
+      <img src="cabu-tool.png" alt="Cabu">
+      <img src="marty-tool.png" alt="Marty">
+    </div>
+    <span class="popup-tag">🛠️ Gratis · Sin registro</span>
+    <h3>Probá nuestras<br><em>herramientas gratis</em></h3>
+    <p>Tres herramientas para resolver lo que más duele en tu negocio ahora mismo. Sin correo, sin fricción.</p>
+    <div class="popup-tools">
+      <a href="calculadora.html" class="popup-tool-btn">
+        <span class="popup-tool-icon">🐟</span>
+        <span class="popup-tool-text">
+          <span class="popup-tool-name">Calculadora de Precios</span>
+          <span class="popup-tool-sub">"¿Estoy cobrando bien?" — lo sabés en 60 seg</span>
+        </span>
+        <span style="color:var(--muted);font-size:.8rem;">→</span>
+      </a>
+      <a href="que-respondo.html" class="popup-tool-btn">
+        <span class="popup-tool-icon">🐠</span>
+        <span class="popup-tool-text">
+          <span class="popup-tool-name">¿Qué respondo?</span>
+          <span class="popup-tool-sub">Mensajes listos para situaciones difíciles</span>
+        </span>
+        <span style="color:var(--muted);font-size:.8rem;">→</span>
+      </a>
+      <a href="radar-expres.html" class="popup-tool-btn">
+        <span class="popup-tool-icon">🦈</span>
+        <span class="popup-tool-text">
+          <span class="popup-tool-name">Radar Exprés</span>
+          <span class="popup-tool-sub">Detectá las fugas de tu negocio en 6 preguntas</span>
+        </span>
+        <span style="color:var(--muted);font-size:.8rem;">→</span>
+      </a>
+    </div>
+    <button class="popup-skip" onclick="cerrarPopup()">Prefiero explorar el sitio primero</button>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -493,7 +535,7 @@
 <!-- HERO -->
 <header class="hero">
   <div class="hero-left">
-    <div class="hero-tag"><span></span> Beta abierta · 5 cupos disponibles</div>
+    <div class="hero-tag"><span></span> Beta abierta · 3 cupos disponibles</div>
     <h1>Tu negocio,<br><em>ordenado.</em><br>Tu mente, en paz.</h1>
     <p class="hero-sub">Ordy convierte la información de tu negocio en una ruta clara de orden, decisiones y próximos pasos. Sin hojas en blanco.</p>
     <div class="hero-btns">
