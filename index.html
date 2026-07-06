@@ -397,6 +397,32 @@
       .faro-chips { display: none; }
     }
 
+
+    /* ══ SECCIÓN HERRAMIENTAS GRATIS ══ */
+    .her-gratis { background: var(--lila-bg); padding: 6rem 2.5rem; }
+    .her-gratis-inner { max-width: 1200px; margin: 0 auto; }
+    .her-gratis-header { text-align: center; margin-bottom: 3.5rem; }
+    .her-gratis-header h2 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 900; margin-bottom: .75rem; }
+    .her-gratis-header p { color: var(--muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto; line-height: 1.75; }
+    .her-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .her-card { background: white; border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; transition: transform .2s, box-shadow .2s; }
+    .her-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.08); }
+    .her-mascot { width: 64px; height: 64px; object-fit: contain; }
+    .her-tag { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .22rem .7rem; border-radius: 100px; width: fit-content; }
+    .her-tag-cal { background: #FFF0F0; color: var(--coral); }
+    .her-tag-msg { background: var(--lila-bg); color: var(--ordy); }
+    .her-tag-rad { background: #F0FFF4; color: #16a34a; }
+    .her-card h3 { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 900; color: var(--text); line-height: 1.3; }
+    .her-card p { font-size: .875rem; color: var(--muted); line-height: 1.65; flex: 1; }
+    .her-dolor { font-size: .8rem; color: var(--muted); font-style: italic; border-left: 3px solid var(--border); padding-left: .75rem; }
+    .btn-her { display: block; text-align: center; padding: .8rem; border-radius: 100px; font-size: .9rem; font-weight: 700; text-decoration: none; transition: opacity .15s, transform .15s; margin-top: auto; }
+    .btn-her:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-her-coral { background: var(--coral); color: white; }
+    .btn-her-ordy { background: var(--ordy); color: white; }
+    .btn-her-green { background: #16a34a; color: white; }
+    @media(max-width:960px) { .her-grid { grid-template-columns: 1fr; max-width: 420px; margin: 0 auto; } }
+    @media(max-width:640px) { .her-gratis { padding: 4rem 1.25rem; } }
+
   </style>
 </head>
 <body>
@@ -410,6 +436,7 @@
       <li><a href="#dashboards">Dashboards</a></li>
       <li><a href="#precios">Precios</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#herramientas">Herramientas</a></li>
     </ul>
     <a href="beta.html" class="nav-cta">Empezar gratis</a>
   </div>
@@ -567,6 +594,47 @@
 </section>
 
 <!-- PRECIOS -->
+<!-- HERRAMIENTAS GRATIS -->
+<section class="her-gratis" id="herramientas">
+  <div class="her-gratis-inner">
+    <div class="her-gratis-header">
+      <span class="section-tag">🛠️ Herramientas gratis</span>
+      <h2>Probá Ordy antes de comprometerte</h2>
+      <p>Tres herramientas para empezar a ordenar lo que más pesa ahora mismo. Sin registro, sin correo. Solo entrás y usás.</p>
+    </div>
+    <div class="her-grid">
+
+      <div class="her-card">
+        <img src="regi.png" alt="Regi" class="her-mascot">
+        <span class="her-tag her-tag-cal">💰 Precios</span>
+        <h3>Calculadora de precios con Regi</h3>
+        <p class="her-dolor">"Vendo mucho pero no me queda nada."</p>
+        <p>Calculá cuánto te cuesta realmente lo que vendés e identificá si tu precio actual cubre tus costos — o no. En menos de 60 segundos.</p>
+        <a href="calculadora.html" class="btn-her btn-her-coral">Calcular mi precio →</a>
+      </div>
+
+      <div class="her-card">
+        <img src="cabu.png" alt="Cabu" class="her-mascot">
+        <span class="her-tag her-tag-msg">💬 Clientes</span>
+        <h3>¿Qué respondo? con Cabu</h3>
+        <p class="her-dolor">"Me pidió descuento y no supe qué decir."</p>
+        <p>Elegís la situación y el tono, y Cabu te da el mensaje listo para copiar en WhatsApp. Para descuentos, vistas, urgencias y más.</p>
+        <a href="que-respondo.html" class="btn-her btn-her-ordy">Armar mi mensaje →</a>
+      </div>
+
+      <div class="her-card">
+        <img src="marty.png" alt="Marty" class="her-mascot">
+        <span class="her-tag her-tag-rad">🦈 Diagnóstico</span>
+        <h3>Radar Exprés con Marty</h3>
+        <p class="her-dolor">"Siento que algo no funciona pero no sé qué."</p>
+        <p>6 preguntas para detectar dónde se van tu tiempo, tu plata y tu energía. Resultado inmediato con tu fuga principal y una acción concreta.</p>
+        <a href="radar-expres.html" class="btn-her btn-her-green">Activar mi radar →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <section class="precios" id="precios">
   <div class="precios-header">
     <span class="section-tag">Planes</span>
@@ -578,7 +646,7 @@
       <div class="pchar"><img src="char-ordy.png" alt="Ordy"></div>
       <div class="pname">Diagnóstico Ordy Base</div>
       <div class="pprice">Gratis</div>
-      <div class="pnote">5 cupos beta este mes</div>
+      <div class="pnote">⚡ Quedan 3 espacios este mes</div>
       <div class="pdesc">Para negocios que quieren una primera vista clara sin compromiso.</div>
       <ul class="pfeatures">
         <li>Nivel 1</li>
@@ -586,6 +654,7 @@
         <li>Recomendación de siguiente paso</li>
         <li>Prompt resumen — copialo y pegalo en cualquier IA para que entienda tu negocio al instante</li>
         <li>3 mensajes personalizados</li>
+        <li>1 videollamada incluida</li>
       </ul>
       <a href="beta.html" class="pbtn ordy">Quiero mi cupo gratis</a>
     </div>
@@ -804,6 +873,7 @@
       <li><a href="#dashboards">Dashboards</a></li>
       <li><a href="#precios">Precios</a></li>
       <li><a href="#faq">FAQ</a></li>
+      <li><a href="#herramientas">Herramientas</a></li>
       <li><a href="recursos.html">Recursos</a></li>
       <li><a href="impacto.html">Impacto</a></li>
     </ul>

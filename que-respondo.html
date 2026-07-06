@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Qué respondo? | Ordy</title>
+  <meta name="description" content="Te escribió un cliente y no sabés qué contestar sin sonar mal. Cabu te da el mensaje listo para copiar en WhatsApp.">
+  <link rel="canonical" href="https://www.ordenyplan.com/que-respondo">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="theme-color" content="#4E4BF7">
+  <meta property="og:title" content="¿Qué respondo? | Ordy">
+  <meta property="og:description" content="Mensajes listos para situaciones difíciles con clientes. Sin sonar mal.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ordy: #4E4BF7; --ordy-dark: #3230c4; --coral: #F94646;
+      --lila: #BBBBFC; --lila-bg: #EEEEFF;
+      --text: #1A1A2E; --muted: #6B7280; --white: #fff;
+      --border: #E5E7EB; --bg: #F9FAFB;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+    nav { background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { height: 30px; }
+    .nav-back { font-size: .875rem; color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav-back:hover { color: var(--ordy); }
+
+    .hero { background: linear-gradient(135deg, #EEEEFF 0%, #fff 60%); padding: 3rem 1.5rem 2rem; text-align: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); border: 1px solid var(--lila); padding: .3rem .85rem; border-radius: 100px; margin-bottom: 1rem; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 900; line-height: 1.15; margin-bottom: .75rem; }
+    .hero h1 em { font-style: italic; color: var(--ordy); }
+    .hero p { font-size: 1rem; color: var(--muted); max-width: 460px; margin: 0 auto; line-height: 1.7; }
+
+    .container { max-width: 560px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    .progress-wrap { margin-bottom: 2rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
+    .progress-label { font-size: .8rem; font-weight: 700; color: var(--ordy); }
+    .progress-steps { font-size: .75rem; color: var(--muted); }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--ordy), var(--lila)); border-radius: 100px; transition: width .4s ease; }
+
+    .step { display: none; animation: fadeIn .3s ease; }
+    .step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .step-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem; }
+    .step-mascot { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; }
+    .step-mascot img { width: 48px; height: 48px; object-fit: contain; }
+    .step-mascot-text { font-size: .875rem; color: var(--muted); line-height: 1.5; }
+    .step-mascot-text strong { color: var(--text); display: block; font-size: .8rem; font-weight: 700; margin-bottom: .15rem; }
+    .step-q { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--text); margin-bottom: 1.25rem; line-height: 1.3; }
+
+    /* SITUACIÓN CARDS */
+    .situacion-grid { display: flex; flex-direction: column; gap: .6rem; }
+    .situ-btn { border: 2px solid var(--border); border-radius: 14px; padding: .9rem 1rem; text-align: left; cursor: pointer; background: white; transition: all .15s; font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: .75rem; width: 100%; }
+    .situ-btn:hover { border-color: var(--ordy); background: var(--lila-bg); }
+    .situ-btn.selected { border-color: var(--ordy); background: var(--lila-bg); }
+    .situ-emoji { font-size: 1.4rem; flex-shrink: 0; }
+    .situ-text { font-size: .9rem; font-weight: 600; color: var(--text); }
+
+    /* TIPO/TONO CHIPS */
+    .chips { display: flex; gap: .6rem; flex-wrap: wrap; }
+    .chip { border: 2px solid var(--border); border-radius: 100px; padding: .55rem 1.1rem; cursor: pointer; background: white; transition: all .15s; font-family: 'Inter', sans-serif; font-size: .875rem; font-weight: 600; color: var(--muted); }
+    .chip:hover { border-color: var(--ordy); color: var(--ordy); }
+    .chip.selected { border-color: var(--ordy); background: var(--lila-bg); color: var(--ordy); }
+
+    .btn-next { width: 100%; background: var(--ordy); color: white; border: none; border-radius: 100px; padding: 1rem; font-size: 1rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background .15s, transform .15s; margin-top: 1.5rem; }
+    .btn-next:hover { background: var(--ordy-dark); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* RESULTADO */
+    #resultado { display: none; }
+
+    /* BURBUJA WHATSAPP */
+    .wa-wrap { margin-bottom: 1.5rem; }
+    .wa-label { font-size: .75rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .6rem; display: block; }
+    .wa-bubble-wrap { background: #E5DDD5; border-radius: 14px; padding: 1rem; position: relative; }
+    .wa-bubble { background: #DCF8C6; border-radius: 12px 12px 4px 12px; padding: 1rem 1.25rem; max-width: 90%; margin-left: auto; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+    .wa-bubble p { font-size: .9rem; color: #1a1a1a; line-height: 1.65; white-space: pre-wrap; }
+    .wa-check { font-size: .7rem; color: #4FC3F7; text-align: right; margin-top: .4rem; }
+
+    .cabu-frase { background: var(--lila-bg); border-radius: 14px; padding: 1.25rem; display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1.25rem; }
+    .cabu-frase img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+    .cabu-frase p { font-size: .875rem; color: var(--text); line-height: 1.65; font-style: italic; }
+
+    .resultado-btns { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1.5rem; }
+    .btn-copiar { background: var(--ordy); color: white; border: none; border-radius: 100px; padding: .9rem; font-size: .9rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+    .btn-copiar:hover { background: var(--ordy-dark); }
+    .btn-copiar.copied { background: #16a34a; }
+    .btn-otra { background: white; border: 2px solid var(--border); color: var(--text); border-radius: 100px; padding: .9rem; font-size: .9rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all .15s; }
+    .btn-otra:hover { border-color: var(--ordy); color: var(--ordy); }
+    .btn-recalcular { background: none; border: none; color: var(--muted); font-size: .85rem; font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: underline; text-align: center; display: block; width: 100%; padding: .5rem; margin-top: .25rem; }
+
+    .cta-puente { background: linear-gradient(135deg, var(--ordy) 0%, #6563ff 100%); border-radius: 20px; padding: 2rem; text-align: center; margin-bottom: 1.25rem; }
+    .cta-puente .cta-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .cta-puente h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: white; margin-bottom: .5rem; line-height: 1.3; }
+    .cta-puente p { font-size: .85rem; color: rgba(255,255,255,.8); margin-bottom: 1.25rem; line-height: 1.6; }
+    .btn-cta-white { display: inline-block; background: white; color: var(--ordy); padding: .85rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; transition: transform .15s; }
+    .btn-cta-white:hover { transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html"><img src="ordy-logo.png" alt="Ordy" class="nav-logo"></a>
+  <a href="index.html" class="nav-back">← Volver</a>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">🐠 Con Cabu</span>
+  <h1>¿Qué le <em>respondo</em>?</h1>
+  <p>Te escribió un cliente y no sabés qué contestar sin sonar mal. Cabu te da el mensaje listo para copiar en WhatsApp.</p>
+</div>
+
+<div class="container">
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label" id="progress-label">Paso 1 de 3</span>
+      <span class="progress-steps" id="progress-steps">¿Qué pasó?</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:33%"></div></div>
+  </div>
+
+  <!-- PASO 1: SITUACIÓN -->
+  <div class="step active" id="step-1">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="cabu.png" alt="Cabu">
+        <div class="step-mascot-text"><strong>Cabu · ¿Qué respondo?</strong>Contame qué pasó y te armo el mensaje.</div>
+      </div>
+      <p class="step-q">¿Qué te pasó?</p>
+      <div class="situacion-grid">
+        <button class="situ-btn" onclick="selectSitu('descuento')" id="situ-descuento">
+          <span class="situ-emoji">💸</span><span class="situ-text">Me pidió descuento</span>
+        </button>
+        <button class="situ-btn" onclick="selectSitu('visto')" id="situ-visto">
+          <span class="situ-emoji">👻</span><span class="situ-text">Me dejó en visto después de la cotización</span>
+        </button>
+        <button class="situ-btn" onclick="selectSitu('gratis')" id="situ-gratis">
+          <span class="situ-emoji">🎁</span><span class="situ-text">Me pidió algo gratis / "colaboración"</span>
+        </button>
+        <button class="situ-btn" onclick="selectSitu('caro')" id="situ-caro">
+          <span class="situ-emoji">😤</span><span class="situ-text">Se quejó del precio ("está muy caro")</span>
+        </button>
+        <button class="situ-btn" onclick="selectSitu('urgente')" id="situ-urgente">
+          <span class="situ-emoji">⏰</span><span class="situ-text">Quiere todo para ya</span>
+        </button>
+        <button class="situ-btn" onclick="selectSitu('cambios')" id="situ-cambios">
+          <span class="situ-emoji">🔄</span><span class="situ-text">Quiere cambios infinitos sin pagar más</span>
+        </button>
+      </div>
+      <button class="btn-next" id="btn-next-1" disabled onclick="goStep(2)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO 2: TIPO DE NEGOCIO -->
+  <div class="step" id="step-2">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="cabu.png" alt="Cabu">
+        <div class="step-mascot-text"><strong>Cabu · Paso 2</strong>El mensaje cambia según lo que vendés.</div>
+      </div>
+      <p class="step-q">¿Qué tipo de negocio tenés?</p>
+      <div class="chips">
+        <button class="chip" onclick="selectRubro('servicios')" id="rubro-servicios">Servicios</button>
+        <button class="chip" onclick="selectRubro('producto')" id="rubro-producto">Producto</button>
+        <button class="chip" onclick="selectRubro('comida')" id="rubro-comida">Comida</button>
+        <button class="chip" onclick="selectRubro('digital')" id="rubro-digital">Digital</button>
+      </div>
+      <button class="btn-next" id="btn-next-2" disabled onclick="goStep(3)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO 3: TONO -->
+  <div class="step" id="step-3">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="cabu.png" alt="Cabu">
+        <div class="step-mascot-text"><strong>Cabu · Último paso</strong>¿Cómo querés sonar?</div>
+      </div>
+      <p class="step-q">¿Qué tono preferís?</p>
+      <div class="chips">
+        <button class="chip" onclick="selectTono('amable')" id="tono-amable">😊 Amable pero firme</button>
+        <button class="chip" onclick="selectTono('cordial')" id="tono-cordial">🤝 Súper cordial</button>
+        <button class="chip" onclick="selectTono('directo')" id="tono-directo">⚡ Directo</button>
+      </div>
+      <button class="btn-next" id="btn-next-3" disabled onclick="generar()">Ver mi mensaje →</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+    <div class="wa-wrap">
+      <span class="wa-label">Tu mensaje para WhatsApp</span>
+      <div class="wa-bubble-wrap">
+        <div class="wa-bubble">
+          <p id="mensaje-texto"></p>
+          <div class="wa-check">✓✓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cabu-frase">
+      <img src="cabu.png" alt="Cabu">
+      <p>"Responder bien no es ser tajante. Es tener la respuesta lista antes de que llegue la pregunta."</p>
+    </div>
+
+    <div class="resultado-btns">
+      <button class="btn-copiar" id="btn-copiar" onclick="copiar()">📋 Copiar mensaje</button>
+      <button class="btn-otra" onclick="otraVersion()">🔄 Dame otra versión</button>
+      <button class="btn-recalcular" onclick="recalcular()">← Otra situación</button>
+    </div>
+
+    <div class="cta-puente">
+      <div class="cta-icon">🐠</div>
+      <h3>En el Nivel 5, Cabu te arma TODAS tus respuestas y políticas de una vez.</h3>
+      <p>No solo un mensaje — una biblioteca completa personalizada para tu negocio, con condiciones de cobro, devoluciones, seguimiento y más.</p>
+      <a href="beta.html" class="btn-cta-white">Conocer mi ruta →</a>
+    </div>
+  </div>
+
+</div>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script>
+  var situ = null, rubro = null, tono = null;
+  var paso = 1;
+  var varIdx = 0;
+  var pasoLabels = ['¿Qué pasó?','Tipo de negocio','Tono'];
+
+  function selectSitu(s) {
+    situ = s; varIdx = 0;
+    document.querySelectorAll('.situ-btn').forEach(function(b) { b.classList.remove('selected'); });
+    document.getElementById('situ-' + s).classList.add('selected');
+    document.getElementById('btn-next-1').disabled = false;
+  }
+  function selectRubro(r) {
+    rubro = r;
+    document.querySelectorAll('[id^="rubro-"]').forEach(function(b) { b.classList.remove('selected'); });
+    document.getElementById('rubro-' + r).classList.add('selected');
+    document.getElementById('btn-next-2').disabled = false;
+  }
+  function selectTono(t) {
+    tono = t;
+    document.querySelectorAll('[id^="tono-"]').forEach(function(b) { b.classList.remove('selected'); });
+    document.getElementById('tono-' + t).classList.add('selected');
+    document.getElementById('btn-next-3').disabled = false;
+  }
+
+  function goStep(n) {
+    document.getElementById('step-' + paso).classList.remove('active');
+    paso = n;
+    document.getElementById('step-' + paso).classList.add('active');
+    var pct = (paso / 3) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = 'Paso ' + paso + ' de 3';
+    document.getElementById('progress-steps').textContent = pasoLabels[paso - 1];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* Matriz de mensajes base */
+  var rb = { servicios: 'tu servicio', producto: 'el producto', comida: 'lo que preparamos', digital: 'el acceso' };
+
+  var mensajes = {
+    descuento: {
+      amable: [
+        '¡Hola! Qué bueno que te interesa 🙌 Te cuento: el precio refleja el tiempo y la calidad que le meto a cada proyecto, así que no manejo descuentos. Lo que sí puedo hacer es ajustar el alcance para acercarnos a tu presupuesto. ¿Te parece si lo vemos?',
+        '¡Gracias por escribir! Entiendo que el precio es un tema. Lo que puedo ofrecerte es revisar juntos qué incluye el paquete y ver si hay una versión más ajustada a lo que necesitás. ¿Qué te parece?'
+      ],
+      cordial: [
+        '¡Holaaaa! Gracias por preguntar ✨ Mira, el precio está pensado para que el trabajo salga bien hecho y te deje contento/a. No hago descuentos como tal, pero sí podemos ver qué se ajusta mejor a tu presupuesto si me contás más de lo que buscás.',
+        '¡Qué gusto! Sobre el precio, te cuento que está calculado para incluir todo lo que necesitás. Si el presupuesto es un tema, podemos revisar opciones juntos, ¿cómo te queda esta semana para hablar?'
+      ],
+      directo: [
+        'Hola. No trabajo con descuentos porque el precio cubre todo lo que incluye. Si el presupuesto es diferente, podemos ver qué se ajusta quitando o simplificando algún punto. ¿Qué parte te importa más?',
+        'El precio es fijo. Si querés algo más económico, podemos reducir el alcance. Contame qué es lo más importante para vos y vemos.'
+      ]
+    },
+    visto: {
+      amable: [
+        '¡Hola! Paso a ver si llegaste a revisar la cotización que te mandé. Si hay algo que no quedó claro o querés ajustar algo, con gusto lo conversamos. ¿Cómo te quedó?',
+        'Hola, ¿cómo estás? Quería asegurarme de que la propuesta que te envié llegó bien. Si tenés preguntas o algo no cuadra, estoy acá para resolverlo.'
+      ],
+      cordial: [
+        '¡Hola! 😊 Solo paso a confirmar que recibiste la cotización. Si algo no quedó claro o querés conversar sobre algún detalle, me avisás y con mucho gusto te cuento más.',
+        '¡Buenas! Quería seguir en contacto para ver si tuviste oportunidad de revisar lo que te compartí. ¡Cualquier consulta, acá estoy!'
+      ],
+      directo: [
+        'Hola. ¿Tuviste oportunidad de revisar la cotización? Si tenés dudas o querés avanzar, avisame.',
+        'Paso a hacer seguimiento a la propuesta que te mandé. ¿La revisaste? Si hay algo que ajustar, me decís.'
+      ]
+    },
+    gratis: {
+      amable: [
+        '¡Hola! Gracias por pensar en mí para esto. Te cuento que este tipo de trabajo lo hago a precio regular porque es parte de cómo sostengo el negocio. Si te interesa una versión más acotada a un precio ajustado, con gusto lo vemos. ¿Qué parte es la más importante para vos?',
+        'Hola, gracias por escribir. Entiendo la intención, pero este trabajo tiene un valor que no puedo dejar de lado. Lo que sí puedo hacer es ofrecerte una opción más pequeña a un costo real. ¿Te interesa que lo conversemos?'
+      ],
+      cordial: [
+        '¡Holaaa! Qué lindo que contás conmigo ✨ En este momento no estoy haciendo colaboraciones sin costo, pero si te interesa podemos ver una opción más accesible según lo que necesitás. ¿Me contás un poco más?',
+        '¡Gracias por pensar en mí! Por ahora no hago intercambios sin costo porque necesito mantener el negocio andando. Si hay una opción que se ajuste a tu presupuesto real, con gusto lo revisamos.'
+      ],
+      directo: [
+        'Hola. Este trabajo tiene un costo y no hago colaboraciones sin pago. Si te interesa con presupuesto, avisame y vemos qué se puede hacer.',
+        'No hago trabajos gratis. Si hay presupuesto disponible, me contás y lo revisamos.'
+      ]
+    },
+    caro: {
+      amable: [
+        '¡Hola! Entiendo que el precio puede sentirse alto al principio. Lo que incluye es [nombre del servicio o producto]: tiempo, materiales y calidad. Si querés, te explico con más detalle qué cubre para que puedas evaluarlo mejor.',
+        'Hola, gracias por decirme. El precio refleja todo lo que lleva hacer esto bien. Si querés podemos revisar qué incluye y si hay algo que se pueda ajustar según lo que más necesitás.'
+      ],
+      cordial: [
+        '¡Hola! Gracias por contarme tu duda 😊 Entiendo que el precio parece alto, por eso te cuento qué incluye: [lo que aplique]. Si hay algo que no necesitás, podemos ver una versión más ajustada.',
+        '¡Holaaa! Es válido que lo analicés. El precio está pensado para que el resultado valga lo que pagás. Si querés, te cuento más sobre lo que recibís y así decidís con más información.'
+      ],
+      directo: [
+        'El precio es así porque incluye [lo que aplique]. Si considerás que no lo vale, entiendo. Si querés ver una versión diferente, me contás.',
+        'El costo está justificado por lo que incluye. Si tenés un presupuesto diferente, podemos ver qué opciones hay.'
+      ]
+    },
+    urgente: {
+      amable: [
+        '¡Hola! Entiendo que lo necesitás rápido. Mi tiempo de entrega regular es de [X días]. Si querés acelerarlo, hay un cargo adicional por urgencia. ¿Querés que te diga el monto?',
+        'Hola, gracias por avisarme. Voy a revisar mi agenda para ver si puedo acomodarlo. Si es posible, te confirmo en breve. Si necesitás garantía de entrega rápida, hay un cargo adicional por eso.'
+      ],
+      cordial: [
+        '¡Hola! 😊 Entiendo la urgencia. Voy a revisar si tengo espacio esta semana. Si puedo, te aviso hoy mismo. Y si necesitás compromiso de entrega urgente, tiene un costo adicional que te puedo compartir.',
+        '¡Hola! Qué bien que me avisás. Déjame ver la agenda y te confirmo en el día. Para entregas express trabajo con un cargo adicional, ¿te funciona así?'
+      ],
+      directo: [
+        'Hola. Los tiempos urgentes tienen cargo adicional. Si lo aceptás, reviso disponibilidad y confirmo.',
+        'Entrega urgente tiene costo extra. ¿Te funciona así? Si sí, me decís y veo si tengo espacio.'
+      ]
+    },
+    cambios: {
+      amable: [
+        '¡Hola! Con gusto hago los ajustes. Te recuerdo que el proceso incluía [X rondas de cambios / lo que acordamos]. Los cambios adicionales tienen un costo de [monto]. ¿Querés que procedamos con eso?',
+        'Hola, acá estoy. Revisé lo que me pedís y va más allá de lo que incluía el alcance original. Puedo hacerlo, pero tiene un costo adicional. ¿Te parece que lo conversamos?'
+      ],
+      cordial: [
+        '¡Hola! 😊 Veo lo que me pedís. El proyecto original incluía [X ajustes], y ya los hemos completado. Para seguir con más cambios, hay un costo adicional. ¿Querés que te lo detalle?',
+        '¡Holaaa! Con gusto lo revisamos. Solo te cuento que los cambios adicionales fuera del alcance tienen un valor extra. ¿Seguimos con eso?'
+      ],
+      directo: [
+        'Hola. El alcance acordado ya se completó. Cambios adicionales tienen costo extra. Si querés proceder, me avisás.',
+        'Los cambios que pedís van fuera del acuerdo original. Tiene un costo adicional. ¿Seguimos?'
+      ]
+    }
+  };
+
+  function getMensaje() {
+    var lista = mensajes[situ] && mensajes[situ][tono] ? mensajes[situ][tono] : ['Hola, gracias por escribirme. Con gusto lo revisamos juntos.'];
+    var idx = varIdx % lista.length;
+    return lista[idx];
+  }
+
+  function generar() {
+    var msg = getMensaje();
+    document.getElementById('mensaje-texto').textContent = msg;
+    document.getElementById('step-3').classList.remove('active');
+    document.getElementById('resultado').style.display = 'block';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function otraVersion() {
+    varIdx++;
+    document.getElementById('mensaje-texto').textContent = getMensaje();
+    var btn = document.getElementById('btn-copiar');
+    btn.textContent = '📋 Copiar mensaje';
+    btn.classList.remove('copied');
+  }
+
+  function copiar() {
+    var texto = document.getElementById('mensaje-texto').textContent;
+    navigator.clipboard.writeText(texto).then(function() {
+      var btn = document.getElementById('btn-copiar');
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '📋 Copiar mensaje';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  }
+
+  function recalcular() {
+    situ = null; rubro = null; tono = null; varIdx = 0; paso = 1;
+    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('step-1').classList.add('active');
+    document.querySelectorAll('.situ-btn, .chip').forEach(function(b) { b.classList.remove('selected'); });
+    document.getElementById('btn-next-1').disabled = true;
+    document.getElementById('btn-next-2').disabled = true;
+    document.getElementById('btn-next-3').disabled = true;
+    document.getElementById('resultado').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'block';
+    document.getElementById('progress-fill').style.width = '33%';
+    document.getElementById('progress-label').textContent = 'Paso 1 de 3';
+    document.getElementById('progress-steps').textContent = '¿Qué pasó?';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>

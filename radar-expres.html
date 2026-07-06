@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radar Exprés | Ordy</title>
+  <meta name="description" content="6 preguntas para detectar dónde se van tu tiempo, tu plata y tu energía. Resultado inmediato, sin registro.">
+  <link rel="canonical" href="https://www.ordenyplan.com/radar-expres">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <meta name="theme-color" content="#4E4BF7">
+  <meta property="og:title" content="Radar Exprés | Ordy">
+  <meta property="og:description" content="Detectá las fugas de tu negocio en 6 preguntas.">
+  <meta property="og:image" content="https://www.ordenyplan.com/og-image.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ordy: #4E4BF7; --ordy-dark: #3230c4; --coral: #F94646;
+      --lila: #BBBBFC; --lila-bg: #EEEEFF;
+      --text: #1A1A2E; --muted: #6B7280; --white: #fff;
+      --border: #E5E7EB; --bg: #F9FAFB;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+    nav { background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { height: 30px; }
+    .nav-back { font-size: .875rem; color: var(--muted); text-decoration: none; font-weight: 600; }
+    .nav-back:hover { color: var(--ordy); }
+
+    .hero { background: linear-gradient(135deg, #EEEEFF 0%, #fff 60%); padding: 3rem 1.5rem 2rem; text-align: center; }
+    .hero-tag { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); border: 1px solid var(--lila); padding: .3rem .85rem; border-radius: 100px; margin-bottom: 1rem; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 900; line-height: 1.15; margin-bottom: .75rem; }
+    .hero h1 em { font-style: italic; color: var(--ordy); }
+    .hero p { font-size: 1rem; color: var(--muted); max-width: 460px; margin: 0 auto 1.5rem; line-height: 1.7; }
+    .hero-badges { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
+    .badge { font-size: .72rem; font-weight: 600; padding: .25rem .75rem; border-radius: 100px; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
+
+    .container { max-width: 560px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* PROGRESS */
+    .progress-wrap { margin-bottom: 2rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
+    .progress-label { font-size: .8rem; font-weight: 700; color: var(--ordy); }
+    .progress-steps { font-size: .75rem; color: var(--muted); }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--ordy), var(--lila)); border-radius: 100px; transition: width .4s ease; }
+
+    .step { display: none; animation: fadeIn .3s ease; }
+    .step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* PREGUNTA CARD */
+    .step-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem; }
+    .step-mascot { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; }
+    .step-mascot img { width: 48px; height: 48px; object-fit: contain; }
+    .step-mascot-text { font-size: .875rem; color: var(--muted); line-height: 1.5; }
+    .step-mascot-text strong { color: var(--text); display: block; font-size: .8rem; font-weight: 700; margin-bottom: .15rem; }
+    .step-q { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--text); margin-bottom: .5rem; line-height: 1.3; }
+    .step-area { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); padding: .25rem .7rem; border-radius: 100px; display: inline-block; margin-bottom: 1rem; }
+    .opciones { display: flex; flex-direction: column; gap: .6rem; }
+    .opcion-btn { border: 2px solid var(--border); border-radius: 14px; padding: 1rem 1.25rem; text-align: left; cursor: pointer; background: white; transition: all .15s; font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: .75rem; width: 100%; }
+    .opcion-btn:hover { border-color: var(--ordy); background: var(--lila-bg); }
+    .opcion-btn.selected { border-color: var(--ordy); background: var(--lila-bg); }
+    .opcion-num { width: 28px; height: 28px; background: var(--lila-bg); color: var(--ordy); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .75rem; font-weight: 800; flex-shrink: 0; }
+    .opcion-btn.selected .opcion-num { background: var(--ordy); color: white; }
+
+    .btn-next { width: 100%; background: var(--ordy); color: white; border: none; border-radius: 100px; padding: 1rem; font-size: 1rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background .15s, transform .15s; margin-top: 1.5rem; }
+    .btn-next:hover { background: var(--ordy-dark); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* RESULTADO */
+    #resultado { display: none; }
+
+    /* NIVEL RADAR */
+    .radar-header { text-align: center; padding: 2rem 1.5rem; background: white; border: 1.5px solid var(--border); border-radius: 20px; margin-bottom: 1.25rem; }
+    .radar-nivel-label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; }
+    .radar-nivel-num { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900; line-height: 1; }
+    .radar-nivel-num.alto { color: var(--coral); }
+    .radar-nivel-num.medio { color: #d97706; }
+    .radar-nivel-num.bajo { color: #16a34a; }
+    .radar-nivel-bar-wrap { width: 100%; height: 12px; background: var(--border); border-radius: 100px; overflow: hidden; margin: .75rem 0; }
+    .radar-nivel-bar { height: 100%; border-radius: 100px; transition: width .8s ease; }
+    .radar-nivel-titulo { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; margin-bottom: .4rem; }
+    .radar-nivel-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+    /* FUGA PRINCIPAL */
+    .fuga-card { background: var(--lila-bg); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.25rem; }
+    .fuga-label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); margin-bottom: .6rem; display: block; }
+    .fuga-titulo { font-family: 'Fraunces', serif; font-size: 1.1rem; font-weight: 900; margin-bottom: .5rem; }
+    .fuga-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+    /* HALLAZGOS */
+    .hallazgos { margin-bottom: 1.25rem; display: flex; flex-direction: column; gap: .75rem; }
+    .hallazgo { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 1.1rem 1.25rem; display: flex; gap: .75rem; align-items: flex-start; }
+    .hallazgo-icon { font-size: 1.2rem; flex-shrink: 0; }
+    .hallazgo-text { font-size: .875rem; color: var(--text); line-height: 1.6; }
+    .hallazgo-text strong { font-weight: 700; display: block; margin-bottom: .2rem; }
+
+    /* MICRO ACCIÓN */
+    .micro-accion { background: linear-gradient(135deg, #F9FAFB 0%, var(--lila-bg) 100%); border: 1.5px solid var(--lila); border-radius: 16px; padding: 1.5rem; margin-bottom: 1.25rem; }
+    .micro-label { font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); margin-bottom: .6rem; display: flex; align-items: center; gap: .4rem; }
+    .micro-titulo { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 900; margin-bottom: .4rem; }
+    .micro-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+    /* MARTY FRASE */
+    .marty-frase { background: var(--lila-bg); border-radius: 14px; padding: 1.25rem; display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1.5rem; }
+    .marty-frase img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
+    .marty-frase p { font-size: .875rem; color: var(--text); line-height: 1.65; font-style: italic; }
+
+    /* BOTONES */
+    .resultado-btns { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1.5rem; }
+    .btn-compartir { background: white; border: 2px solid var(--border); color: var(--text); border-radius: 100px; padding: .85rem; font-size: .9rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+    .btn-compartir:hover { border-color: var(--ordy); color: var(--ordy); }
+    .btn-compartir.copied { border-color: #16a34a; color: #16a34a; }
+    .btn-recalcular { background: none; border: none; color: var(--muted); font-size: .85rem; font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: underline; text-align: center; display: block; width: 100%; padding: .5rem; }
+
+    /* CTA */
+    .cta-puente { background: linear-gradient(135deg, var(--ordy) 0%, #6563ff 100%); border-radius: 20px; padding: 2rem; text-align: center; margin-bottom: 1.25rem; }
+    .cta-puente .cta-icon { font-size: 2rem; margin-bottom: .75rem; }
+    .cta-puente h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: white; margin-bottom: .5rem; line-height: 1.3; }
+    .cta-puente p { font-size: .85rem; color: rgba(255,255,255,.8); margin-bottom: 1.25rem; line-height: 1.6; }
+    .cta-btns { display: flex; flex-direction: column; gap: .6rem; }
+    .btn-cta-white { display: inline-block; background: white; color: var(--ordy); padding: .85rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; transition: transform .15s; }
+    .btn-cta-white:hover { transform: translateY(-2px); }
+    .btn-cta-ghost { display: inline-block; border: 2px solid rgba(255,255,255,.5); color: white; padding: .75rem 1.75rem; border-radius: 100px; font-weight: 600; font-size: .875rem; text-decoration: none; transition: all .15s; }
+    .btn-cta-ghost:hover { background: rgba(255,255,255,.1); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html"><img src="ordy-logo.png" alt="Ordy" class="nav-logo"></a>
+  <a href="index.html" class="nav-back">← Volver</a>
+</nav>
+
+<div class="hero">
+  <span class="hero-tag">🦈 Con Marty</span>
+  <h1>¿Dónde se va tu <em>tiempo,<br>tu plata y tu energía</em>?</h1>
+  <p>6 preguntas para detectar las fugas más grandes de tu negocio. Resultado inmediato, sin registro.</p>
+  <div class="hero-badges">
+    <span class="badge">✓ 6 preguntas</span>
+    <span class="badge">✓ 2 minutos</span>
+    <span class="badge">✓ Sin registro</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span class="progress-label" id="progress-label">Pregunta 1 de 6</span>
+      <span class="progress-steps" id="progress-steps">Tiempo</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:16%"></div></div>
+  </div>
+
+  <!-- PREGUNTA 1: TIEMPO -->
+  <div class="step active" id="step-1">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Radar Exprés</strong>Voy a escanear tu negocio. Contestá lo que más se parezca a tu realidad.</div>
+      </div>
+      <span class="step-area">⏱ Tiempo</span>
+      <p class="step-q">¿Cuánto de tu tiempo de trabajo sabés exactamente a qué le va?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(1, 0, this)"><span class="opcion-num">A</span>No tengo idea, hago lo que surge</button>
+        <button class="opcion-btn" onclick="responder(1, 1, this)"><span class="opcion-num">B</span>Tengo una idea general pero nada definido</button>
+        <button class="opcion-btn" onclick="responder(1, 2, this)"><span class="opcion-num">C</span>Sé qué ocupa más tiempo pero no lo mido</button>
+        <button class="opcion-btn" onclick="responder(1, 3, this)"><span class="opcion-num">D</span>Tengo registro claro de cómo uso mi tiempo</button>
+      </div>
+      <button class="btn-next" id="btn-next-1" disabled onclick="goStep(2)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 2: PLATA -->
+  <div class="step" id="step-2">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Pregunta 2</strong>Seguimos escaneando.</div>
+      </div>
+      <span class="step-area">💰 Finanzas</span>
+      <p class="step-q">¿Sabés cuánto te queda de ganancia real al mes, después de todos los gastos?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(2, 0, this)"><span class="opcion-num">A</span>No, mezclo todo y no llevo registro</button>
+        <button class="opcion-btn" onclick="responder(2, 1, this)"><span class="opcion-num">B</span>Más o menos, pero no lo calculo formalmente</button>
+        <button class="opcion-btn" onclick="responder(2, 2, this)"><span class="opcion-num">C</span>Sí, aunque no siempre cuadra con lo que esperaba</button>
+        <button class="opcion-btn" onclick="responder(2, 3, this)"><span class="opcion-num">D</span>Sí, tengo control claro de ingresos y gastos</button>
+      </div>
+      <button class="btn-next" id="btn-next-2" disabled onclick="goStep(3)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 3: CLIENTES -->
+  <div class="step" id="step-3">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Pregunta 3</strong>Vamos bien. Ahora los clientes.</div>
+      </div>
+      <span class="step-area">🤝 Clientes</span>
+      <p class="step-q">¿Sabés qué tipo de clientes te generan más problemas o consumen más energía de la que justifican?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(3, 0, this)"><span class="opcion-num">A</span>No lo he pensado, acepto a todos</button>
+        <button class="opcion-btn" onclick="responder(3, 1, this)"><span class="opcion-num">B</span>Me lo imagino pero nunca lo he analizado</button>
+        <button class="opcion-btn" onclick="responder(3, 2, this)"><span class="opcion-num">C</span>Identifico algunos casos pero no tengo criterios claros</button>
+        <button class="opcion-btn" onclick="responder(3, 3, this)"><span class="opcion-num">D</span>Tengo claro quiénes me convienen y quiénes no</button>
+      </div>
+      <button class="btn-next" id="btn-next-3" disabled onclick="goStep(4)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 4: PRECIOS -->
+  <div class="step" id="step-4">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Pregunta 4</strong>Casi a la mitad. Esta es importante.</div>
+      </div>
+      <span class="step-area">🏷️ Precios</span>
+      <p class="step-q">¿Tus precios actuales incluyen todos tus costos: materiales, tiempo, gastos fijos y algo de ganancia?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(4, 0, this)"><span class="opcion-num">A</span>No sé bien cómo calculé mis precios</button>
+        <button class="opcion-btn" onclick="responder(4, 1, this)"><span class="opcion-num">B</span>Los calculé en algún momento pero no los he revisado</button>
+        <button class="opcion-btn" onclick="responder(4, 2, this)"><span class="opcion-num">C</span>Creo que sí cubren costos, aunque no estoy segura/o</button>
+        <button class="opcion-btn" onclick="responder(4, 3, this)"><span class="opcion-num">D</span>Sí, los reviso y sé que incluyen margen real</button>
+      </div>
+      <button class="btn-next" id="btn-next-4" disabled onclick="goStep(5)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 5: ORDEN -->
+  <div class="step" id="step-5">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Pregunta 5</strong>Ya casi terminamos.</div>
+      </div>
+      <span class="step-area">📋 Orden</span>
+      <p class="step-q">¿Cuántas cosas de tu negocio viven solo en tu cabeza — sin estar escritas en ningún lado?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(5, 0, this)"><span class="opcion-num">A</span>Todo, no tengo nada documentado</button>
+        <button class="opcion-btn" onclick="responder(5, 1, this)"><span class="opcion-num">B</span>La mayoría, tengo algunas notas sueltas</button>
+        <button class="opcion-btn" onclick="responder(5, 2, this)"><span class="opcion-num">C</span>Algunas cosas están escritas, otras no</button>
+        <button class="opcion-btn" onclick="responder(5, 3, this)"><span class="opcion-num">D</span>Tengo la mayoría documentada y accesible</button>
+      </div>
+      <button class="btn-next" id="btn-next-5" disabled onclick="goStep(6)">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PREGUNTA 6: CLARIDAD -->
+  <div class="step" id="step-6">
+    <div class="step-card">
+      <div class="step-mascot">
+        <img src="marty.png" alt="Marty">
+        <div class="step-mascot-text"><strong>Marty · Última pregunta</strong>Esta es la que más importa.</div>
+      </div>
+      <span class="step-area">🎯 Claridad</span>
+      <p class="step-q">Si alguien te preguntara ahora mismo cuál es el mayor problema de tu negocio, ¿qué responderías?</p>
+      <div class="opciones">
+        <button class="opcion-btn" onclick="responder(6, 0, this)"><span class="opcion-num">A</span>No sé, hay muchas cosas que no funcionan bien</button>
+        <button class="opcion-btn" onclick="responder(6, 1, this)"><span class="opcion-num">B</span>Tengo ideas pero no sé por dónde atacar primero</button>
+        <button class="opcion-btn" onclick="responder(6, 2, this)"><span class="opcion-num">C</span>Identifico el problema pero no sé cómo resolverlo</button>
+        <button class="opcion-btn" onclick="responder(6, 3, this)"><span class="opcion-num">D</span>Sé exactamente qué es y ya tengo un plan</button>
+      </div>
+      <button class="btn-next" id="btn-next-6" disabled onclick="calcular()">Ver mi radar →</button>
+    </div>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="resultado">
+
+    <div class="radar-header">
+      <div class="radar-nivel-label">Tu nivel de claridad actual</div>
+      <div class="radar-nivel-num" id="res-num">0</div>
+      <div class="radar-nivel-bar-wrap">
+        <div class="radar-nivel-bar" id="res-bar" style="width:0%"></div>
+      </div>
+      <div class="radar-nivel-titulo" id="res-titulo"></div>
+      <div class="radar-nivel-desc" id="res-desc"></div>
+    </div>
+
+    <div class="fuga-card">
+      <span class="fuga-label">🚨 Tu fuga principal</span>
+      <div class="fuga-titulo" id="res-fuga-titulo"></div>
+      <div class="fuga-desc" id="res-fuga-desc"></div>
+    </div>
+
+    <div class="hallazgos" id="res-hallazgos"></div>
+
+    <div class="micro-accion">
+      <div class="micro-label">⚡ Micro-acción para esta semana</div>
+      <div class="micro-titulo" id="res-micro-titulo"></div>
+      <div class="micro-desc" id="res-micro-desc"></div>
+    </div>
+
+    <div class="marty-frase">
+      <img src="marty.png" alt="Marty">
+      <p id="res-marty-frase">"Un negocio con fugas no está roto. Solo necesita saber dónde mirar."</p>
+    </div>
+
+    <div class="resultado-btns">
+      <button class="btn-compartir" id="btn-compartir" onclick="compartir()">📋 Copiar resultado para compartir</button>
+    </div>
+
+    <div class="cta-puente">
+      <div class="cta-icon">🦈</div>
+      <h3>Marty detectó la punta del iceberg.</h3>
+      <p>El diagnóstico completo incluye 6 áreas revisadas en profundidad, tu puntaje real por categoría y un plan de acción para los próximos 30 días.</p>
+      <div class="cta-btns">
+        <a href="beta.html" class="btn-cta-white">Quiero el diagnóstico completo →</a>
+        <a href="nivel-1.html" class="btn-cta-ghost">Empezar desde el Nivel 1</a>
+      </div>
+    </div>
+
+    <button class="btn-recalcular" onclick="recalcular()">← Hacer el radar de nuevo</button>
+  </div>
+
+</div>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+<script>
+  var paso = 1;
+  var respuestas = {};
+  var pasoLabels = ['Tiempo','Finanzas','Clientes','Precios','Orden','Claridad'];
+
+  function responder(p, val, el) {
+    respuestas[p] = val;
+    var card = el.closest('.step-card');
+    card.querySelectorAll('.opcion-btn').forEach(function(b) { b.classList.remove('selected'); });
+    el.classList.add('selected');
+    document.getElementById('btn-next-' + p).disabled = false;
+  }
+
+  function goStep(n) {
+    document.getElementById('step-' + paso).classList.remove('active');
+    paso = n;
+    document.getElementById('step-' + paso).classList.add('active');
+    var pct = (paso / 6) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = 'Pregunta ' + paso + ' de 6';
+    document.getElementById('progress-steps').textContent = pasoLabels[paso - 1];
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function calcular() {
+    var total = 0;
+    for (var i = 1; i <= 6; i++) { total += (respuestas[i] || 0); }
+    var max = 18;
+    var pct = Math.round((total / max) * 100);
+
+    // Nivel de claridad
+    var nivel, titulo, desc, barColor, fraseMarty;
+    if (pct < 30) {
+      nivel = 'alto';
+      titulo = 'Muchas cosas funcionan de intuición';
+      desc = 'Hay información importante viviendo solo en tu cabeza. Eso no es un defecto — es el punto de partida. La claridad empieza cuando sacás eso de la cabeza y lo ponés en algún lugar visible.';
+      fraseMarty = '"No es que no sabés. Es que nunca tuviste el espacio para ordenarlo. Eso se puede cambiar."';
+      barColor = '#F94646';
+    } else if (pct < 60) {
+      nivel = 'medio';
+      titulo = 'Tenés base, pero hay fugas activas';
+      desc = 'Sabés más de lo que creés, pero hay áreas que están operando de memoria. Cada área sin sistema es una fuga potencial de tiempo, plata o energía.';
+      fraseMarty = '"Ya tenés más claridad que muchos. Lo que sigue es convertir lo que sabés en algo que funcione sin que vos lo cargues."';
+      barColor = '#d97706';
+    } else {
+      nivel = 'bajo';
+      titulo = 'Buen nivel de orden general';
+      desc = 'Tenés una base sólida. El siguiente paso es profundizar en las áreas donde todavía dependés de memoria o intuición, para que el negocio funcione independientemente de vos.';
+      fraseMarty = '"Ya ordenaste mucho. Ahora la pregunta es: ¿puede funcionar bien cuando vos no estás mirando?"';
+      barColor = '#16a34a';
+    }
+
+    // Fuga principal — la pregunta con puntaje más bajo
+    var minVal = 99, minArea = 1;
+    for (var i = 1; i <= 6; i++) {
+      if ((respuestas[i] || 0) < minVal) { minVal = respuestas[i] || 0; minArea = i; }
+    }
+
+    var fugas = {
+      1: { titulo: 'Tiempo sin sistema', desc: 'Estás haciendo lo que surge, no lo que más impacta. Sin registro de cómo usás el tiempo, es difícil saber qué actividades realmente hacen crecer el negocio.' },
+      2: { titulo: 'Finanzas sin claridad', desc: 'Sin saber cuánto te queda realmente, tomás decisiones basadas en lo que hay en la cuenta, no en lo que realmente generó el negocio.' },
+      3: { titulo: 'Clientes sin criterio', desc: 'Atender a todos por igual consume energía que no siempre tiene retorno. Definir qué tipo de cliente te conviene cambia la dinámica de cómo operás.' },
+      4: { titulo: 'Precios sin base real', desc: 'Un precio sin cálculo claro puede estar cubriendo costos o no, y no saberlo es una fuga silenciosa que afecta cada venta.' },
+      5: { titulo: 'Conocimiento atrapado en tu cabeza', desc: 'Si algo solo existe en tu memoria, cada vez que tenés que hacerlo arrancás de cero. Documentar lo que ya sabés multiplica tu capacidad.' },
+      6: { titulo: 'Diagnóstico sin dirección', desc: 'Cuando todo parece un problema, ninguno se resuelve bien. Nombrar y priorizar un foco claro es el primer paso hacia resolver cualquier cosa.' }
+    };
+
+    // Hallazgos (las 2 áreas con puntaje más bajo)
+    var sorted = [1,2,3,4,5,6].sort(function(a,b) { return (respuestas[a]||0) - (respuestas[b]||0); });
+    var halladosIcons = ['⏱','💰','🤝','🏷️','📋','🎯'];
+    var halladosNombres = ['Tiempo','Finanzas','Clientes','Precios','Orden','Claridad'];
+    var halladosDetalle = [
+      'Organizá un día esta semana solo para tareas de impacto alto, sin interrupciones.',
+      'Separá lo que entra del negocio de tus gastos personales, aunque sea en una hoja.',
+      'Nombrá quién es tu cliente ideal y quién no te conviene, aunque sea mentalmente.',
+      'Calculá el costo real de tu producto o servicio más vendido esta semana.',
+      'Escribí el proceso de tu servicio más frecuente, paso a paso, en 10 minutos.',
+      'Elegí el problema más urgente y escribí solo una acción concreta para atacarlo.'
+    ];
+
+    var hallazgosHtml = '';
+    for (var h = 0; h < 2; h++) {
+      var idx = sorted[h] - 1;
+      hallazgosHtml += '<div class="hallazgo">' +
+        '<span class="hallazgo-icon">' + halladosIcons[idx] + '</span>' +
+        '<div class="hallazgo-text"><strong>' + halladosNombres[idx] + ' — área de mayor oportunidad</strong>' + halladosDetalle[idx] + '</div>' +
+        '</div>';
+    }
+
+    // Micro acción
+    var microAcciones = [
+      { titulo: 'Bloqueá 2 horas', desc: 'Esta semana, elegí un día y bloqueá 2 horas para trabajar solo en lo que realmente hace avanzar el negocio. Sin responder mensajes, sin "apagar incendios".' },
+      { titulo: 'Separación básica de finanzas', desc: 'Abrí una hoja o nota y anotá todo lo que entró y salió esta semana del negocio. No tiene que ser perfecto — tiene que existir.' },
+      { titulo: 'Describí tu cliente ideal', desc: 'Escribí en 3 líneas quién es tu mejor cliente: qué necesita, qué valora y por qué volvería. Usá eso como referencia para las próximas decisiones.' },
+      { titulo: 'Calculá un precio', desc: 'Tomá tu producto o servicio más vendido y calculá cuánto te cuesta realmente: materiales + tu tiempo + una parte de los gastos fijos.' },
+      { titulo: 'Documentá un proceso', desc: 'Elegí algo que hacés frecuentemente y escribí los pasos, aunque sea en una lista de notas. Una cosa documentada ya es menos en tu cabeza.' },
+      { titulo: 'Nombrá el problema 1', desc: 'Escribí en una oración cuál es el mayor problema de tu negocio ahora mismo. No para resolverlo hoy, sino para dejar de cargarlo sin dirección.' }
+    ];
+
+    var microIdx = sorted[0] - 1;
+    var micro = microAcciones[microIdx];
+
+    // Mostrar resultado
+    var resNum = document.getElementById('res-num');
+    resNum.textContent = pct + '/100';
+    resNum.className = 'radar-nivel-num ' + nivel;
+    var bar = document.getElementById('res-bar');
+    bar.style.background = barColor;
+    setTimeout(function() { bar.style.width = pct + '%'; }, 100);
+    document.getElementById('res-titulo').textContent = titulo;
+    document.getElementById('res-desc').textContent = desc;
+    document.getElementById('res-fuga-titulo').textContent = fugas[minArea].titulo;
+    document.getElementById('res-fuga-desc').textContent = fugas[minArea].desc;
+    document.getElementById('res-hallazgos').innerHTML = hallazgosHtml;
+    document.getElementById('res-micro-titulo').textContent = micro.titulo;
+    document.getElementById('res-micro-desc').textContent = micro.desc;
+    document.getElementById('res-marty-frase').textContent = fraseMarty;
+
+    // Ocultar pasos, mostrar resultado
+    document.getElementById('step-6').classList.remove('active');
+    document.getElementById('resultado').style.display = 'block';
+    document.querySelector('.progress-wrap').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function compartir() {
+    var num = document.getElementById('res-num').textContent;
+    var titulo = document.getElementById('res-titulo').textContent;
+    var texto = 'Hice el Radar Exprés de Ordy 🦈\n' + num + ' — ' + titulo + '\n→ ordenyplan.com/radar-expres';
+    navigator.clipboard.writeText(texto).then(function() {
+      var btn = document.getElementById('btn-compartir');
+      btn.textContent = '✓ Copiado';
+      btn.classList.add('copied');
+      setTimeout(function() {
+        btn.textContent = '📋 Copiar resultado para compartir';
+        btn.classList.remove('copied');
+      }, 2500);
+    });
+  }
+
+  function recalcular() {
+    paso = 1; respuestas = {};
+    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('step-1').classList.add('active');
+    document.querySelectorAll('.opcion-btn').forEach(function(b) { b.classList.remove('selected'); });
+    for (var i = 1; i <= 6; i++) { document.getElementById('btn-next-' + i).disabled = true; }
+    document.getElementById('resultado').style.display = 'none';
+    document.querySelector('.progress-wrap').style.display = 'block';
+    document.getElementById('progress-fill').style.width = '16%';
+    document.getElementById('progress-label').textContent = 'Pregunta 1 de 6';
+    document.getElementById('progress-steps').textContent = 'Tiempo';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
