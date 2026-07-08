@@ -24,118 +24,169 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; min-height: 100vh; }
 
-    /* NAV */
     nav { background: rgba(255,255,255,0.96); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 1.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .nav-logo { height: 30px; }
     .nav-back { font-size: .875rem; color: var(--muted); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: .4rem; }
     .nav-back:hover { color: var(--ordy); }
 
-    /* HERO */
-    .hero { background: linear-gradient(135deg, #EEEEFF 0%, #fff 60%); padding: 3rem 1.5rem 2rem; text-align: center; }
+    .hero { background: linear-gradient(135deg, #EEEEFF 0%, #fff 60%); padding: 2.5rem 1.5rem 1.5rem; text-align: center; }
     .hero-tag { display: inline-flex; align-items: center; gap: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ordy); background: var(--lila-bg); border: 1px solid var(--lila); padding: .3rem .85rem; border-radius: 100px; margin-bottom: 1rem; }
-    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 900; line-height: 1.15; margin-bottom: .75rem; }
+    .hero h1 { font-family: 'Fraunces', serif; font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 900; line-height: 1.15; margin-bottom: .75rem; }
     .hero h1 em { font-style: italic; color: var(--ordy); }
-    .hero p { font-size: 1rem; color: var(--muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.7; }
-    .hero-badges { display: flex; gap: .6rem; justify-content: center; flex-wrap: wrap; }
-    .badge { font-size: .72rem; font-weight: 600; padding: .25rem .75rem; border-radius: 100px; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
+    .hero p { font-size: .95rem; color: var(--muted); max-width: 480px; margin: 0 auto 1rem; line-height: 1.7; }
+    .hero-badges { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+    .badge { font-size: .7rem; font-weight: 600; padding: .2rem .65rem; border-radius: 100px; background: var(--white); border: 1px solid var(--border); color: var(--muted); }
 
-    /* MAIN CONTAINER */
-    .container { max-width: 560px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .container { max-width: 560px; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
 
     /* PROGRESS */
-    .progress-wrap { margin-bottom: 2rem; }
-    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .6rem; }
-    .progress-label { font-size: .8rem; font-weight: 700; color: var(--ordy); }
-    .progress-steps { font-size: .75rem; color: var(--muted); }
+    .progress-wrap { margin-bottom: 1.75rem; }
+    .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .progress-label { font-size: .78rem; font-weight: 700; color: var(--ordy); }
+    .progress-steps { font-size: .72rem; color: var(--muted); }
     .progress-bar { height: 6px; background: var(--border); border-radius: 100px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, var(--ordy), var(--lila)); border-radius: 100px; transition: width .4s ease; }
 
-    /* STEP CARD */
+    /* STEPS */
     .step { display: none; animation: fadeIn .3s ease; }
     .step.active { display: block; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .step-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 2rem; }
-    .step-mascot { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.5rem; }
-    .step-mascot img { width: 48px; height: 48px; object-fit: contain; }
-    .step-mascot-text { font-size: .875rem; color: var(--muted); line-height: 1.5; }
-    .step-mascot-text strong { color: var(--text); display: block; font-size: .8rem; font-weight: 700; margin-bottom: .15rem; }
-    .step-q { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--text); margin-bottom: .5rem; line-height: 1.3; }
-    .step-hint { font-size: .825rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.55; }
+    .step-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 20px; padding: 1.75rem; }
+    .step-mascot { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; }
+    .step-mascot img { width: 44px; height: 44px; object-fit: contain; }
+    .step-mascot-text { font-size: .825rem; color: var(--muted); line-height: 1.5; }
+    .step-mascot-text strong { color: var(--text); display: block; font-size: .78rem; font-weight: 700; margin-bottom: .1rem; }
+    .step-q { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: var(--text); margin-bottom: .4rem; line-height: 1.3; }
+    .step-hint { font-size: .8rem; color: var(--muted); margin-bottom: 1.1rem; line-height: 1.55; background: var(--bg); border-radius: 10px; padding: .75rem; }
 
-    /* SELECTOR TIPO */
-    .tipo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-    .tipo-btn { border: 2px solid var(--border); border-radius: 14px; padding: 1rem; text-align: center; cursor: pointer; background: white; transition: all .15s; font-family: 'Inter', sans-serif; }
-    .tipo-btn:hover { border-color: var(--ordy); background: var(--lila-bg); }
-    .tipo-btn.selected { border-color: var(--ordy); background: var(--lila-bg); }
-    .tipo-btn .tipo-emoji { font-size: 1.75rem; display: block; margin-bottom: .4rem; }
-    .tipo-btn .tipo-label { font-size: .875rem; font-weight: 700; color: var(--text); display: block; }
-    .tipo-btn .tipo-sub { font-size: .72rem; color: var(--muted); display: block; margin-top: .2rem; }
+    /* TIPO SELECTOR */
+    .tipo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; }
+    .tipo-btn { border: 2px solid var(--border); border-radius: 14px; padding: .85rem; text-align: center; cursor: pointer; background: white; transition: all .15s; font-family: 'Inter', sans-serif; }
+    .tipo-btn:hover, .tipo-btn.selected { border-color: var(--ordy); background: var(--lila-bg); }
+    .tipo-emoji { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+    .tipo-label { font-size: .85rem; font-weight: 700; color: var(--text); display: block; }
+    .tipo-sub { font-size: .68rem; color: var(--muted); display: block; margin-top: .15rem; }
 
     /* INPUTS */
-    .input-group { margin-bottom: 1.25rem; }
-    .input-label { font-size: .8rem; font-weight: 700; color: var(--text); margin-bottom: .4rem; display: block; }
-    .input-sub { font-size: .75rem; color: var(--muted); margin-bottom: .5rem; display: block; line-height: 1.45; }
+    .input-group { margin-bottom: 1rem; }
+    .input-label { font-size: .78rem; font-weight: 700; color: var(--text); margin-bottom: .35rem; display: block; }
+    .input-sub { font-size: .72rem; color: var(--muted); margin-bottom: .4rem; display: block; }
     .input-row { display: flex; align-items: center; border: 1.5px solid var(--border); border-radius: 12px; background: white; overflow: hidden; transition: border-color .15s; }
     .input-row:focus-within { border-color: var(--ordy); }
-    .input-prefix { padding: 0 .75rem; font-size: .875rem; font-weight: 700; color: var(--muted); background: var(--bg); border-right: 1.5px solid var(--border); height: 48px; display: flex; align-items: center; flex-shrink: 0; }
-    .input-row input { flex: 1; border: none; outline: none; padding: 0 1rem; height: 48px; font-size: 1rem; font-family: 'Inter', sans-serif; color: var(--text); background: transparent; }
-    .input-row input::placeholder { color: var(--muted); opacity: .6; }
+    .input-prefix { padding: 0 .65rem; font-size: .825rem; font-weight: 700; color: var(--muted); background: var(--bg); border-right: 1.5px solid var(--border); height: 44px; display: flex; align-items: center; flex-shrink: 0; }
+    .input-row input { flex: 1; border: none; outline: none; padding: 0 .875rem; height: 44px; font-size: .95rem; font-family: 'Inter', sans-serif; color: var(--text); background: transparent; }
+    .input-row input::placeholder { color: var(--muted); opacity: .5; }
+
+    /* TOGGLE SÍ/NO */
+    .toggle-group { display: flex; gap: .6rem; margin-bottom: 1rem; }
+    .toggle-btn { flex: 1; border: 2px solid var(--border); border-radius: 12px; padding: .75rem; text-align: center; cursor: pointer; background: white; font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 700; color: var(--muted); transition: all .15s; }
+    .toggle-btn:hover, .toggle-btn.selected { border-color: var(--ordy); background: var(--lila-bg); color: var(--ordy); }
+
+    /* COLCHON OPCIONES */
+    .colchon-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: .5rem; margin-bottom: 1rem; }
+    .colchon-btn { border: 2px solid var(--border); border-radius: 10px; padding: .65rem .4rem; text-align: center; cursor: pointer; background: white; font-family: 'Inter', sans-serif; font-size: .85rem; font-weight: 700; color: var(--muted); transition: all .15s; }
+    .colchon-btn:hover, .colchon-btn.selected { border-color: var(--ordy); background: var(--lila-bg); color: var(--ordy); }
+
+    /* PAUTA OPCIONES */
+    .pauta-grid { display: flex; flex-direction: column; gap: .5rem; margin-bottom: 1rem; }
+    .pauta-btn { border: 2px solid var(--border); border-radius: 12px; padding: .8rem 1rem; text-align: left; cursor: pointer; background: white; font-family: 'Inter', sans-serif; font-size: .875rem; font-weight: 600; color: var(--text); transition: all .15s; }
+    .pauta-btn:hover, .pauta-btn.selected { border-color: var(--ordy); background: var(--lila-bg); }
+
+    .seccion-title { font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--ordy); margin: 1.25rem 0 .75rem; display: block; }
 
     /* NEXT BTN */
-    .btn-next { width: 100%; background: var(--ordy); color: white; border: none; border-radius: 100px; padding: 1rem; font-size: 1rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background .15s, transform .15s; margin-top: 1.5rem; }
+    .btn-next { width: 100%; background: var(--ordy); color: white; border: none; border-radius: 100px; padding: .95rem; font-size: .95rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: background .15s, transform .15s; margin-top: 1.25rem; }
     .btn-next:hover { background: var(--ordy-dark); transform: translateY(-1px); }
     .btn-next:disabled { opacity: .4; cursor: not-allowed; transform: none; }
 
-    /* RESULTADO */
-    #resultado { display: none; }
-    .resultado-estado { text-align: center; padding: 2rem 1.5rem; border-radius: 20px; margin-bottom: 1.5rem; }
+    /* RESULTADO SIMPLE (flujo normal) */
+    #resultado-simple { display: none; }
+    .resultado-estado { text-align: center; padding: 1.75rem 1.5rem; border-radius: 20px; margin-bottom: 1.25rem; }
     .resultado-estado.perdiendo { background: #FFF0F0; border: 1.5px solid #FFD0D0; }
     .resultado-estado.limite { background: var(--amber-bg); border: 1.5px solid #FDE68A; }
     .resultado-estado.bien { background: var(--green-bg); border: 1.5px solid #BBF7D0; }
-    .resultado-emoji { font-size: 3rem; margin-bottom: .75rem; }
-    .resultado-titulo { font-family: 'Fraunces', serif; font-size: 1.5rem; font-weight: 900; line-height: 1.2; margin-bottom: .5rem; }
+    .resultado-emoji { font-size: 2.5rem; margin-bottom: .6rem; }
+    .resultado-titulo { font-family: 'Fraunces', serif; font-size: 1.35rem; font-weight: 900; line-height: 1.2; margin-bottom: .5rem; }
     .resultado-titulo.perdiendo { color: var(--coral); }
     .resultado-titulo.limite { color: var(--amber); }
     .resultado-titulo.bien { color: var(--green); }
-    .resultado-desc { font-size: .9rem; color: var(--muted); line-height: 1.65; }
+    .resultado-desc { font-size: .875rem; color: var(--muted); line-height: 1.65; }
 
-    /* TARJETAS DE PRECIOS */
-    .precio-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-bottom: 1.5rem; }
-    .precio-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; text-align: center; }
+    .precio-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: .65rem; margin-bottom: 1.25rem; }
+    .precio-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: .9rem; text-align: center; }
     .precio-card.highlight { border-color: var(--ordy); background: var(--lila-bg); }
-    .precio-card-label { font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .4rem; }
+    .precio-card-label { font-size: .62rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
     .precio-card.highlight .precio-card-label { color: var(--ordy); }
-    .precio-card-num { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; color: var(--text); }
+    .precio-card-num { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: var(--text); }
     .precio-card.highlight .precio-card-num { color: var(--ordy); }
-    .precio-card-sub { font-size: .7rem; color: var(--muted); margin-top: .2rem; }
+
+    /* RESULTADO REDES */
+    #resultado-redes { display: none; }
+    .res-header { background: linear-gradient(135deg, var(--lila-bg) 0%, #fff 100%); border: 1.5px solid var(--lila); border-radius: 20px; padding: 1.75rem; margin-bottom: 1.25rem; text-align: center; }
+    .res-estado-tag { display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; padding: .3rem .85rem; border-radius: 100px; margin-bottom: .75rem; }
+    .res-estado-tag.bajo { background: #FFF0F0; color: var(--coral); }
+    .res-estado-tag.medio { background: var(--amber-bg); color: var(--amber); }
+    .res-estado-tag.bien { background: var(--green-bg); color: var(--green); }
+    .res-header h2 { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; line-height: 1.2; margin-bottom: .5rem; }
+    .res-header p { font-size: .875rem; color: var(--muted); line-height: 1.65; }
+
+    .res-cards { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin-bottom: 1.25rem; }
+    .res-card { background: white; border: 1.5px solid var(--border); border-radius: 14px; padding: 1rem; }
+    .res-card.full { grid-column: span 2; }
+    .res-card.highlight { border-color: var(--ordy); background: var(--lila-bg); }
+    .res-card.pauta { border-color: #d97706; background: var(--amber-bg); }
+    .res-card-label { font-size: .62rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; display: block; }
+    .res-card.highlight .res-card-label { color: var(--ordy); }
+    .res-card.pauta .res-card-label { color: var(--amber); }
+    .res-card-num { font-family: 'Fraunces', serif; font-size: 1.3rem; font-weight: 900; color: var(--text); }
+    .res-card.highlight .res-card-num { color: var(--ordy); }
+    .res-card.pauta .res-card-num { color: var(--amber); }
+    .res-card-sub { font-size: .7rem; color: var(--muted); margin-top: .2rem; line-height: 1.4; }
+
+    /* DESGLOSE */
+    .desglose { background: white; border: 1.5px solid var(--border); border-radius: 16px; margin-bottom: 1.25rem; overflow: hidden; }
+    .desglose-header { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .desglose-header span { font-size: .8rem; font-weight: 700; color: var(--text); }
+    .desglose-toggle { font-size: .75rem; color: var(--ordy); font-weight: 600; }
+    .desglose-body { padding: 0 1.25rem; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; }
+    .desglose-body.open { max-height: 500px; padding: 1rem 1.25rem; }
+    .desglose-row { display: flex; justify-content: space-between; align-items: center; padding: .45rem 0; border-bottom: 1px solid var(--border); }
+    .desglose-row:last-child { border-bottom: none; }
+    .desglose-row span { font-size: .825rem; color: var(--muted); }
+    .desglose-row strong { font-size: .825rem; font-weight: 700; color: var(--text); }
 
     /* REGI FRASE */
-    .regi-frase { background: var(--lila-bg); border-radius: 14px; padding: 1.25rem; display: flex; gap: .75rem; align-items: flex-start; margin-bottom: 1.25rem; }
-    .regi-frase img { width: 40px; height: 40px; object-fit: contain; flex-shrink: 0; }
-    .regi-frase p { font-size: .875rem; color: var(--text); line-height: 1.65; font-style: italic; }
+    .regi-frase { background: var(--lila-bg); border-radius: 14px; padding: 1.1rem 1.25rem; display: flex; gap: .65rem; align-items: flex-start; margin-bottom: 1.1rem; }
+    .regi-frase img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+    .regi-frase p { font-size: .825rem; color: var(--text); line-height: 1.65; font-style: italic; }
 
-    /* BOTONES RESULTADO */
-    .resultado-btns { display: flex; flex-direction: column; gap: .75rem; margin-bottom: 1.5rem; }
-    .btn-compartir { background: white; border: 2px solid var(--border); color: var(--text); border-radius: 100px; padding: .85rem; font-size: .9rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: .4rem; }
+    .res-recomendacion { background: var(--bg); border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 1.25rem; }
+    .res-recomendacion p { font-size: .825rem; color: var(--muted); line-height: 1.65; }
+    .res-recomendacion strong { color: var(--text); }
+
+    .frase-memorable { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 800; color: var(--text); line-height: 1.4; text-align: center; padding: 1.25rem; background: var(--lila-bg); border-radius: 14px; margin-bottom: 1.25rem; font-style: italic; }
+
+    /* BOTONES COMPARTIDOS */
+    .btn-compartir { background: white; border: 2px solid var(--border); color: var(--text); border-radius: 100px; padding: .8rem; font-size: .875rem; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all .15s; display: flex; align-items: center; justify-content: center; gap: .4rem; width: 100%; margin-bottom: .65rem; }
     .btn-compartir:hover { border-color: var(--ordy); color: var(--ordy); }
     .btn-compartir.copied { border-color: var(--green); color: var(--green); }
-    .btn-recalcular { background: none; border: none; color: var(--muted); font-size: .85rem; font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: underline; text-align: center; display: block; width: 100%; padding: .5rem; }
+    .btn-recalcular { background: none; border: none; color: var(--muted); font-size: .82rem; font-family: 'Inter', sans-serif; cursor: pointer; text-decoration: underline; text-align: center; display: block; width: 100%; padding: .5rem; margin-bottom: 1.25rem; }
 
-    /* CTA PUENTE */
-    .cta-puente { background: linear-gradient(135deg, var(--ordy) 0%, #6563ff 100%); border-radius: 20px; padding: 2rem; text-align: center; margin-bottom: 1.25rem; }
-    .cta-puente .cta-icon { font-size: 2rem; margin-bottom: .75rem; }
-    .cta-puente h3 { font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900; color: white; margin-bottom: .5rem; line-height: 1.3; }
-    .cta-puente p { font-size: .85rem; color: rgba(255,255,255,.8); margin-bottom: 1.25rem; line-height: 1.6; }
-    .btn-cta-white { display: inline-block; background: white; color: var(--ordy); padding: .85rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; transition: transform .15s; }
+    .cta-puente { background: linear-gradient(135deg, var(--ordy) 0%, #6563ff 100%); border-radius: 20px; padding: 2rem 1.75rem; text-align: center; margin-bottom: 1.1rem; }
+    .cta-puente .cta-icon { font-size: 1.75rem; margin-bottom: .65rem; }
+    .cta-puente h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 900; color: white; margin-bottom: .5rem; line-height: 1.3; }
+    .cta-puente p { font-size: .825rem; color: rgba(255,255,255,.8); margin-bottom: 1.1rem; line-height: 1.6; }
+    .btn-cta-white { display: inline-block; background: white; color: var(--ordy); padding: .8rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .875rem; text-decoration: none; transition: transform .15s; }
     .btn-cta-white:hover { transform: translateY(-2px); }
 
-    /* DISCLAIMER */
-    .disclaimer { font-size: .72rem; color: var(--muted); text-align: center; line-height: 1.6; }
+    .disclaimer { font-size: .68rem; color: var(--muted); text-align: center; line-height: 1.6; }
 
     @media(max-width:400px) {
       .precio-cards { grid-template-columns: 1fr; }
-      .tipo-grid { grid-template-columns: 1fr 1fr; }
+      .res-cards { grid-template-columns: 1fr; }
+      .res-card.full { grid-column: span 1; }
+      .colchon-grid { grid-template-columns: repeat(2,1fr); }
     }
   </style>
 </head>
@@ -147,10 +198,10 @@
 </nav>
 
 <div class="hero">
-  <img src="regi-tool.png" alt="Regi" style="width:120px;height:120px;object-fit:contain;display:block;margin:0 auto .75rem;filter:drop-shadow(0 8px 24px rgba(78,75,247,.2));">
+  <img src="regi-tool.png" alt="Regi" style="width:110px;height:110px;object-fit:contain;display:block;margin:0 auto .75rem;filter:drop-shadow(0 8px 24px rgba(78,75,247,.2));">
   <span class="hero-tag">🐟 Con Regi</span>
   <h1>¿Estás cobrando<br><em>lo que realmente vale</em>?</h1>
-  <p>Calculá tu costo real en menos de 60 segundos. Sin registro, sin correo. Tus números no salen de tu teléfono.</p>
+  <p>Calculá tu costo real. Sin registro, sin correo. Tus números no salen de tu teléfono.</p>
   <div class="hero-badges">
     <span class="badge">✓ Gratis</span>
     <span class="badge">✓ Sin registro</span>
@@ -159,15 +210,18 @@
 </div>
 
 <div class="container">
-
-  <!-- PROGRESO -->
   <div class="progress-wrap">
     <div class="progress-top">
-      <span class="progress-label" id="progress-label">Paso 1 de 5</span>
-      <span class="progress-steps" id="progress-steps">Qué vendés</span>
+      <span class="progress-label" id="progress-label">Paso 1</span>
+      <span class="progress-steps" id="progress-steps">¿Qué vendés?</span>
     </div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:20%"></div></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:10%"></div></div>
   </div>
+
+  <!-- ══════════════════════════════════
+       FLUJO NORMAL (Producto, Comida, Digital)
+       Pasos: 1 → N2 → N3 → N4 → N5 → resultado-simple
+  ══════════════════════════════════ -->
 
   <!-- PASO 1: TIPO -->
   <div class="step active" id="step-1">
@@ -177,305 +231,745 @@
         <div class="step-mascot-text"><strong>Regi · Calculadora de precios</strong>Antes de revisar números, necesito entender qué vendés.</div>
       </div>
       <p class="step-q">¿Qué vendés?</p>
-      <p class="step-hint">Elegí el que más se parezca a tu negocio.</p>
       <div class="tipo-grid">
         <button class="tipo-btn" onclick="selectTipo('producto')" id="tipo-producto">
           <span class="tipo-emoji">📦</span>
           <span class="tipo-label">Producto</span>
-          <span class="tipo-sub">Velas, ropa, comida empacada…</span>
+          <span class="tipo-sub">Velas, ropa, artesanías…</span>
         </button>
-        <button class="tipo-btn" onclick="selectTipo('servicio')" id="tipo-servicio">
-          <span class="tipo-emoji">🛠️</span>
-          <span class="tipo-label">Servicio</span>
-          <span class="tipo-sub">Diseño, coaching, asesoría…</span>
+        <button class="tipo-btn" onclick="selectTipo('redes')" id="tipo-redes">
+          <span class="tipo-emoji">📱</span>
+          <span class="tipo-label">Manejo de redes</span>
+          <span class="tipo-sub">Paquetes de contenido…</span>
         </button>
         <button class="tipo-btn" onclick="selectTipo('comida')" id="tipo-comida">
           <span class="tipo-emoji">🍽️</span>
           <span class="tipo-label">Comida</span>
-          <span class="tipo-sub">Cafetería, repostería, catering…</span>
+          <span class="tipo-sub">Cafetería, repostería…</span>
         </button>
         <button class="tipo-btn" onclick="selectTipo('digital')" id="tipo-digital">
           <span class="tipo-emoji">💻</span>
-          <span class="tipo-label">Digital</span>
-          <span class="tipo-sub">Cursos, templates, contenido…</span>
+          <span class="tipo-label">Digital / Servicio</span>
+          <span class="tipo-sub">Diseño, cursos, asesoría…</span>
         </button>
       </div>
-      <button class="btn-next" id="btn-next-1" disabled onclick="goStep(2)">Siguiente →</button>
+      <button class="btn-next" id="btn-next-1" disabled onclick="goFromTipo()">Siguiente →</button>
     </div>
   </div>
 
-  <!-- PASO 2: COSTOS DIRECTOS -->
-  <div class="step" id="step-2">
+  <!-- PASO N2: COSTOS DIRECTOS (flujo normal) -->
+  <div class="step" id="step-n2">
     <div class="step-card">
-      <div class="step-mascot">
-        <img src="regi-tool.png" alt="Regi">
-        <div class="step-mascot-text"><strong>Regi · Paso 2</strong>Lo que gastás directamente para hacer o entregar lo que vendés.</div>
-      </div>
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Paso 2</strong>Lo que gastás directamente para producir o entregar.</div></div>
       <p class="step-q">¿Cuánto te cuesta producir una unidad o entregar el servicio?</p>
-      <p class="step-hint">Incluí materiales, ingredientes, insumos, empaque. Si no sabés exactamente, ponés tu mejor estimado.</p>
+      <p class="step-hint">Incluí materiales, ingredientes, insumos, empaque. Si no sabés exactamente, poné tu mejor estimado.</p>
       <div class="input-group">
         <label class="input-label">Costo de materiales / insumos por unidad</label>
-        <div class="input-row">
-          <span class="input-prefix">₡</span>
-          <input type="number" id="costo-directo" placeholder="3.500" min="0" oninput="validateStep2()">
-        </div>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="costo-directo" placeholder="3.500" min="0" oninput="validateN(2)"></div>
       </div>
-      <button class="btn-next" id="btn-next-2" disabled onclick="goStep(3)">Siguiente →</button>
+      <button class="btn-next" id="btn-next-n2" disabled onclick="goStep('n3')">Siguiente →</button>
     </div>
   </div>
 
-  <!-- PASO 3: TIEMPO -->
-  <div class="step" id="step-3">
+  <!-- PASO N3: TIEMPO (flujo normal) -->
+  <div class="step" id="step-n3">
     <div class="step-card">
-      <div class="step-mascot">
-        <img src="regi-tool.png" alt="Regi">
-        <div class="step-mascot-text"><strong>Regi · Paso 3</strong>Tu tiempo tiene valor. Muchos negocios lo regalan sin darse cuenta.</div>
-      </div>
-      <p class="step-q">¿Cuántas horas de tu tiempo lleva?</p>
-      <p class="step-hint">Incluí producción, coordinación, atención, entregas.</p>
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Paso 3</strong>Tu tiempo tiene valor. Muchos negocios lo regalan sin darse cuenta.</div></div>
+      <p class="step-q">¿Cuántas horas lleva y cuánto vale tu hora?</p>
+      <p class="step-hint">💡 Si no sabés cuánto vale tu hora, un buen punto de partida es ₡3.000–₡8.000.</p>
       <div class="input-group">
-          <label class="input-label">Horas por unidad</label>
-          <div class="input-row">
-            <input type="number" id="horas" placeholder="2" min="0" step="0.5" oninput="validateStep3()">
-          </div>
-        </div>
-        <div class="input-group">
-          <label class="input-label">¿Cuánto vale tu hora?</label>
-          <div class="input-row">
-            <span class="input-prefix">₡</span>
-            <input type="number" id="valor-hora" placeholder="5.000" min="0" oninput="validateStep3()">
-          </div>
-        </div>
-      <p class="step-hint" style="margin-top:-.5rem;">💡 Si no sabés cuánto vale tu hora, un buen punto de partida es lo que ganarías empleada/o: entre ₡3.000 y ₡8.000 por hora.</p>
-      <button class="btn-next" id="btn-next-3" disabled onclick="goStep(4)">Siguiente →</button>
-    </div>
-  </div>
-
-  <!-- PASO 4: GASTOS FIJOS -->
-  <div class="step" id="step-4">
-    <div class="step-card">
-      <div class="step-mascot">
-        <img src="regi-tool.png" alt="Regi">
-        <div class="step-mascot-text"><strong>Regi · Paso 4</strong>Los gastos fijos también son parte del costo de cada venta.</div>
+        <label class="input-label">Horas por unidad o entrega</label>
+        <div class="input-row"><input type="number" id="horas" placeholder="2" min="0" step="0.5" oninput="validateN(3)"></div>
       </div>
-      <p class="step-q">¿Cuánto gastás fijo al mes para operar tu negocio?</p>
-      <p class="step-hint">Luz, internet, alquiler, apps, plataformas, dominio. Si operás desde casa, ponés solo lo que se usa para el negocio.</p>
       <div class="input-group">
-          <label class="input-label">Gastos fijos mensuales</label>
-          <div class="input-row">
-            <span class="input-prefix">₡</span>
-            <input type="number" id="gastos-fijos" placeholder="80.000" min="0" oninput="validateStep4()">
-          </div>
-        </div>
-        <div class="input-group">
-          <label class="input-label">Ventas al mes</label>
-          <div class="input-row">
-            <input type="number" id="ventas-mes" placeholder="20" min="1" oninput="validateStep4()">
-          </div>
-        </div>
-      <button class="btn-next" id="btn-next-4" disabled onclick="goStep(5)">Siguiente →</button>
+        <label class="input-label">¿Cuánto vale tu hora?</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="valor-hora" placeholder="5.000" min="0" oninput="validateN(3)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-n3" disabled onclick="goStep('n4')">Siguiente →</button>
     </div>
   </div>
 
-  <!-- PASO 5: PRECIO ACTUAL -->
-  <div class="step" id="step-5">
+  <!-- PASO N4: GASTOS FIJOS (flujo normal) -->
+  <div class="step" id="step-n4">
     <div class="step-card">
-      <div class="step-mascot">
-        <img src="regi-tool.png" alt="Regi">
-        <div class="step-mascot-text"><strong>Regi · Último paso</strong>Ya tengo todos los datos. Solo falta el precio que cobrás hoy.</div>
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Paso 4</strong>Los gastos fijos también son parte del costo de cada venta.</div></div>
+      <p class="step-q">¿Cuánto gastás fijo al mes y cuántas ventas hacés?</p>
+      <div class="input-group">
+        <label class="input-label">Gastos fijos mensuales</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="gastos-fijos" placeholder="80.000" min="0" oninput="validateN(4)"></div>
       </div>
+      <div class="input-group">
+        <label class="input-label">Ventas al mes</label>
+        <div class="input-row"><input type="number" id="ventas-mes" placeholder="20" min="1" oninput="validateN(4)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-n4" disabled onclick="goStep('n5')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO N5: PRECIO ACTUAL (flujo normal) -->
+  <div class="step" id="step-n5">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Último paso</strong>Ya tengo todos los datos. Solo falta el precio que cobrás hoy.</div></div>
       <p class="step-q">¿Cuánto cobrás hoy por esto?</p>
-      <p class="step-hint">El precio real que le decís al cliente. Sin descuentos aún.</p>
       <div class="input-group">
-        <div class="input-row">
-          <span class="input-prefix">₡</span>
-          <input type="number" id="precio-actual" placeholder="8.000" min="0" oninput="validateStep5()">
-        </div>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="precio-actual-n" placeholder="8.000" min="0" oninput="validateN(5)"></div>
       </div>
-      <button class="btn-next" id="btn-next-5" disabled onclick="calcular()">Ver mi resultado →</button>
+      <button class="btn-next" id="btn-next-n5" disabled onclick="calcularNormal()">Ver mi resultado →</button>
     </div>
   </div>
 
-  <!-- RESULTADO -->
-  <div id="resultado">
-    <div class="resultado-estado" id="res-estado">
-      <div class="resultado-emoji" id="res-emoji"></div>
-      <div class="resultado-titulo" id="res-titulo"></div>
-      <div class="resultado-desc" id="res-desc"></div>
-    </div>
+  <!-- ══════════════════════════════════
+       FLUJO REDES SOCIALES
+       Pasos: 1 → R2 → R3 → R4 → R5 → R6 → R7 → R8 → resultado-redes
+  ══════════════════════════════════ -->
 
+  <!-- PASO R2: ALCANCE DEL PAQUETE -->
+  <div class="step" id="step-r2">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Paquete de redes</strong>Vamos a calcular todo lo que realmente incluye tu paquete.</div></div>
+      <p class="step-q">¿Qué incluye tu paquete mensual?</p>
+      <p class="step-hint">Pensá en Instagram, Facebook, TikTok, LinkedIn, Google Business u otras. Más plataformas = más adaptación, publicación y revisión.</p>
+      <div class="input-group">
+        <label class="input-label">Posts estáticos al mes</label>
+        <div class="input-row"><input type="number" id="r-posts" placeholder="8" min="0" oninput="validateR(2)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Carruseles al mes</label>
+        <div class="input-row"><input type="number" id="r-carruseles" placeholder="4" min="0" oninput="validateR(2)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Reels / videos al mes</label>
+        <div class="input-row"><input type="number" id="r-reels" placeholder="4" min="0" oninput="validateR(2)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Stories al mes</label>
+        <div class="input-row"><input type="number" id="r-stories" placeholder="12" min="0" oninput="validateR(2)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Copies / textos al mes</label>
+        <div class="input-row"><input type="number" id="r-copies" placeholder="12" min="0" oninput="validateR(2)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Plataformas incluidas</label>
+        <div class="input-row"><input type="number" id="r-plataformas" placeholder="2" min="1" oninput="validateR(2)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-r2" disabled onclick="goStep('r3')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R3: VALOR POR PIEZA -->
+  <div class="step" id="step-r3">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Valor por pieza</strong>No son el precio final — son el valor mínimo interno de cada pieza.</div></div>
+      <p class="step-q">¿Cuánto te cuesta producir cada pieza?</p>
+      <p class="step-hint">Un reel exige más que un post: idea, grabación, edición, subtítulos, música, revisión y exportación. No los trates igual.</p>
+      <div class="input-group">
+        <label class="input-label">Valor base por post estático</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-val-post" placeholder="8.000" min="0" oninput="validateR(3)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Valor base por carrusel</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-val-carrusel" placeholder="12.000" min="0" oninput="validateR(3)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Valor base por reel / video</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-val-reel" placeholder="25.000" min="0" oninput="validateR(3)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Valor base por story</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-val-story" placeholder="3.000" min="0" oninput="validateR(3)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Valor base por copy / texto</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-val-copy" placeholder="4.000" min="0" oninput="validateR(3)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-r3" disabled onclick="goStep('r4')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R4: GESTIÓN INVISIBLE -->
+  <div class="step" id="step-r4">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Lo invisible</strong>Esto es lo que más se regala: pensar, planear, coordinar, publicar.</div></div>
+      <p class="step-q">¿Qué trabajo mensual no se ve en las piezas?</p>
+      <p class="step-hint">Estrategia, calendario, publicación, responder mensajes, métricas, coordinar cambios. Todo eso cuesta y muchas veces no se cobra.</p>
+      <div class="input-group">
+        <label class="input-label">Horas de estrategia / planificación</label>
+        <div class="input-row"><input type="number" id="r-h-estrategia" placeholder="4" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Horas de calendario de contenido</label>
+        <div class="input-row"><input type="number" id="r-h-calendario" placeholder="3" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Horas de publicación / programación</label>
+        <div class="input-row"><input type="number" id="r-h-publicacion" placeholder="2" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Horas de community management</label>
+        <div class="input-row"><input type="number" id="r-h-comunidad" placeholder="4" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Horas de reportes / métricas</label>
+        <div class="input-row"><input type="number" id="r-h-reportes" placeholder="2" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Horas de coordinación con el cliente</label>
+        <div class="input-row"><input type="number" id="r-h-coordinacion" placeholder="3" min="0" step="0.5" oninput="validateR(4)"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">¿Cuánto vale tu hora?</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-hora-gestion" placeholder="5.000" min="0" oninput="validateR(4)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-r4" disabled onclick="goStep('r5')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R5: HERRAMIENTAS -->
+  <div class="step" id="step-r5">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Herramientas</strong>Cada herramienta que pagás es parte del costo real.</div></div>
+      <p class="step-q">¿Qué herramientas pagás para poder trabajar?</p>
+      <p class="step-hint">Si repartís herramientas entre varios clientes, al final te pregunto cuántos. Así calculamos solo la parte que le toca a este paquete.</p>
+      <div class="input-group">
+        <label class="input-label">Canva</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-canva" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">ChatGPT / IA</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-ia" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Adobe / Lightroom / Premiere / Ps</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-adobe" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">CapCut / apps de edición</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-capcut" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Programador de contenido</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-scheduler" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Música / stock / recursos</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-stock" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Otras herramientas</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-t-otras" placeholder="0" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">¿Entre cuántos clientes repartís estas herramientas?</label>
+        <span class="input-sub">Si solo son para este cliente, poné 1.</span>
+        <div class="input-row"><input type="number" id="r-t-clientes" placeholder="1" min="1"></div>
+      </div>
+      <button class="btn-next" onclick="goStep('r6')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R6: PRODUCCIÓN Y TRASLADOS -->
+  <div class="step" id="step-r6">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Producción</strong>Si hay que trasladarse o grabar, eso tiene un costo real.</div></div>
+      <p class="step-q">¿El paquete incluye grabación, visita o producción presencial?</p>
+      <div class="toggle-group">
+        <button class="toggle-btn" id="prod-si" onclick="selectProd(true)">Sí, incluye</button>
+        <button class="toggle-btn" id="prod-no" onclick="selectProd(false)">No incluye</button>
+      </div>
+      <div id="prod-campos" style="display:none;">
+        <div class="input-group"><label class="input-label">Transporte mensual estimado</label><div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-p-transporte" placeholder="0" min="0"></div></div>
+        <div class="input-group"><label class="input-label">Parqueos / peajes</label><div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-p-parqueo" placeholder="0" min="0"></div></div>
+        <div class="input-group"><label class="input-label">Alimentación / viáticos</label><div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-p-alimentacion" placeholder="0" min="0"></div></div>
+        <div class="input-group"><label class="input-label">Alquiler de equipo / insumos</label><div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-p-equipo" placeholder="0" min="0"></div></div>
+        <div class="input-group"><label class="input-label">Horas de grabación presencial</label><div class="input-row"><input type="number" id="r-p-horas" placeholder="0" min="0" step="0.5"></div></div>
+        <div class="input-group"><label class="input-label">Valor por hora de grabación</label><div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-p-hora-val" placeholder="10.000" min="0"></div></div>
+      </div>
+      <button class="btn-next" id="btn-next-r6" disabled onclick="goStep('r7')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R7: REVISIONES Y COLCHÓN -->
+  <div class="step" id="step-r7">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Cambios e imprevistos</strong>El colchón cubre lo que aparece sin avisar.</div></div>
+      <p class="step-q">¿Cuánto espacio dejás para cambios e imprevistos?</p>
+      <p class="step-hint">Cambios rápidos, ajustes de último momento, archivos que hay que volver a mandar, revisiones extra. Todo eso cuesta tiempo.</p>
+      <div class="input-group">
+        <label class="input-label">Horas estimadas de revisiones al mes</label>
+        <div class="input-row"><input type="number" id="r-rev-horas" placeholder="3" min="0" step="0.5"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Valor de tu hora para revisiones</label>
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-rev-hora-val" placeholder="5.000" min="0"></div>
+      </div>
+      <div class="input-group">
+        <label class="input-label">Colchón operativo</label>
+        <div class="colchon-grid">
+          <button class="colchon-btn" onclick="selectColchon(0, this)">0%</button>
+          <button class="colchon-btn" onclick="selectColchon(0.10, this)">10%</button>
+          <button class="colchon-btn selected" onclick="selectColchon(0.15, this)">15%</button>
+          <button class="colchon-btn" onclick="selectColchon(0.20, this)">20%</button>
+        </div>
+      </div>
+      <button class="btn-next" onclick="goStep('r8')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R8: PAUTA -->
+  <div class="step" id="step-r8">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Pauta</strong>La pauta no es ganancia. Es presupuesto para anuncios.</div></div>
+      <p class="step-q">¿El paquete incluye pauta publicitaria?</p>
+      <p class="step-hint" style="background:#FFFBEB; border:1px solid #FDE68A;">⚠️ La pauta no es ganancia. Es dinero destinado a anuncios. Tu servicio y la inversión publicitaria deben verse por separado.</p>
+      <div class="pauta-grid">
+        <button class="pauta-btn" id="pauta-no" onclick="selectPauta('no')">📵 No incluye pauta</button>
+        <button class="pauta-btn" id="pauta-cliente" onclick="selectPauta('cliente')">💳 El cliente paga la pauta directamente</button>
+        <button class="pauta-btn" id="pauta-incluida" onclick="selectPauta('incluida')">📦 Yo cobro la pauta dentro del paquete y la administro</button>
+      </div>
+      <div id="pauta-campos" style="display:none; margin-top:1rem;">
+        <div class="input-group">
+          <label class="input-label">Presupuesto mensual de pauta</label>
+          <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-pauta-monto" placeholder="150.000" min="0"></div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Comisión / fee por administración</label>
+          <div class="colchon-grid">
+            <button class="colchon-btn" onclick="selectComision(0, this)">0%</button>
+            <button class="colchon-btn selected" onclick="selectComision(0.10, this)">10%</button>
+            <button class="colchon-btn" onclick="selectComision(0.15, this)">15%</button>
+            <button class="colchon-btn" onclick="selectComision(0.20, this)">20%</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn-next" id="btn-next-r8" disabled onclick="goStep('r9')">Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- PASO R9: PRECIO ACTUAL REDES -->
+  <div class="step" id="step-r9">
+    <div class="step-card">
+      <div class="step-mascot"><img src="regi-tool.png" alt="Regi"><div class="step-mascot-text"><strong>Regi · Último paso</strong>Ya tengo todo. Solo falta comparar con lo que cobrás hoy.</div></div>
+      <p class="step-q">¿Cuánto cobrás hoy por este paquete?</p>
+      <p class="step-hint">No incluyás la pauta. Escribí solo lo que cobrás por tu trabajo creativo y gestión.</p>
+      <div class="input-group">
+        <div class="input-row"><span class="input-prefix">₡</span><input type="number" id="r-precio-actual" placeholder="200.000" min="0" oninput="validateR(9)"></div>
+      </div>
+      <button class="btn-next" id="btn-next-r9" disabled onclick="calcularRedes()">Ver mi resultado →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ RESULTADOS ══════════════════════════════════ -->
+
+  <!-- RESULTADO FLUJO NORMAL -->
+  <div id="resultado-simple">
+    <div class="resultado-estado" id="res-n-estado">
+      <div class="resultado-emoji" id="res-n-emoji"></div>
+      <div class="resultado-titulo" id="res-n-titulo"></div>
+      <div class="resultado-desc" id="res-n-desc"></div>
+    </div>
     <div class="precio-cards">
-      <div class="precio-card">
-        <div class="precio-card-label">Tu costo real</div>
-        <div class="precio-card-num" id="res-costo-real">₡0</div>
-        <div class="precio-card-sub">por unidad</div>
-      </div>
-      <div class="precio-card">
-        <div class="precio-card-label">Precio mínimo</div>
-        <div class="precio-card-num" id="res-precio-min">₡0</div>
-        <div class="precio-card-sub">para no perder</div>
-      </div>
-      <div class="precio-card highlight">
-        <div class="precio-card-label">Precio sano</div>
-        <div class="precio-card-num" id="res-precio-sano">₡0</div>
-        <div class="precio-card-sub">con margen real</div>
-      </div>
+      <div class="precio-card"><div class="precio-card-label">Tu costo real</div><div class="precio-card-num" id="res-n-costo">₡0</div></div>
+      <div class="precio-card"><div class="precio-card-label">Precio mínimo</div><div class="precio-card-num" id="res-n-min">₡0</div></div>
+      <div class="precio-card highlight"><div class="precio-card-label">Precio sano</div><div class="precio-card-num" id="res-n-sano">₡0</div></div>
     </div>
-
-    <div class="regi-frase">
-      <img src="regi-tool.png" alt="Regi">
-      <p id="res-regi-frase">"No es que cobrés caro. Es que hasta hoy no sabías cuánto te cuesta de verdad."</p>
-    </div>
-
-    <div class="resultado-btns">
-      <button class="btn-compartir" id="btn-compartir" onclick="compartir()">
-        📋 Copiar resultado para compartir
-      </button>
-    </div>
-
+    <div class="regi-frase"><img src="regi-tool.png" alt="Regi"><p id="res-n-frase"></p></div>
+    <button class="btn-compartir" id="btn-comp-n" onclick="compartirNormal()">📋 Copiar resultado para compartir</button>
+    <button class="btn-recalcular" onclick="recalcular()">← Calcular otro producto</button>
     <div class="cta-puente">
       <div class="cta-icon">🐟</div>
       <h3>Regi apenas tocó la superficie.</h3>
-      <p>En el Nivel 3 revisamos toda tu plata sin autoengaño: piso fijo, márgenes por producto, cuántas ventas necesitás y las fugas reales de tu negocio.</p>
+      <p>En el Nivel 3 revisamos toda tu plata sin autoengaño: piso fijo, márgenes, cuántas ventas necesitás y las fugas reales.</p>
       <a href="beta.html" class="btn-cta-white">Conocer mi ruta →</a>
     </div>
-
-    <button class="btn-recalcular" onclick="recalcular()">← Calcular otro producto</button>
-    <p class="disclaimer">Esta es una guía de claridad, no asesoría contable.</p>
+    <p class="disclaimer">Esta calculadora es una guía de claridad. No sustituye asesoría financiera, contable ni tributaria.</p>
   </div>
 
-</div>
+  <!-- RESULTADO REDES -->
+  <div id="resultado-redes">
+    <div class="res-header">
+      <span class="res-estado-tag" id="res-r-tag"></span>
+      <h2 id="res-r-titulo"></h2>
+      <p id="res-r-desc"></p>
+    </div>
+
+    <div class="res-cards">
+      <div class="res-card"><span class="res-card-label">Tu costo real mensual</span><div class="res-card-num" id="res-r-costo">₡0</div><p class="res-card-sub">lo que te cuesta antes de margen</p></div>
+      <div class="res-card"><span class="res-card-label">Precio mínimo</span><div class="res-card-num" id="res-r-min">₡0</div><p class="res-card-sub">para no trabajar al límite</p></div>
+      <div class="res-card highlight full"><span class="res-card-label">Precio ideal recomendado</span><div class="res-card-num" id="res-r-ideal">₡0</div><p class="res-card-sub">un precio más sano para sostener el paquete</p></div>
+      <div class="res-card pauta" id="res-r-pauta-card" style="display:none;"><span class="res-card-label">Pauta (del cliente)</span><div class="res-card-num" id="res-r-pauta">₡0</div><p class="res-card-sub">presupuesto para anuncios — no es tu ganancia</p></div>
+      <div class="res-card" id="res-r-comision-card" style="display:none;"><span class="res-card-label">Comisión por pauta</span><div class="res-card-num" id="res-r-comision">₡0</div><p class="res-card-sub">tu fee de administración</p></div>
+      <div class="res-card full" id="res-r-total-card" style="display:none;"><span class="res-card-label">Inversión total mensual del cliente</span><div class="res-card-num" id="res-r-total">₡0</div><p class="res-card-sub">servicio + pauta + comisión</p></div>
+    </div>
+
+    <!-- DESGLOSE -->
+    <div class="desglose" id="res-desglose">
+      <div class="desglose-header" onclick="toggleDesglose()">
+        <span>📊 Ver desglose completo</span>
+        <span class="desglose-toggle" id="desglose-toggle-txt">Ver →</span>
+      </div>
+      <div class="desglose-body" id="desglose-body">
+        <div class="desglose-row"><span>Piezas creativas</span><strong id="dg-piezas">₡0</strong></div>
+        <div class="desglose-row"><span>Gestión invisible</span><strong id="dg-gestion">₡0</strong></div>
+        <div class="desglose-row"><span>Herramientas asignadas</span><strong id="dg-tools">₡0</strong></div>
+        <div class="desglose-row"><span>Producción / traslados</span><strong id="dg-prod">₡0</strong></div>
+        <div class="desglose-row"><span>Revisiones y cambios</span><strong id="dg-rev">₡0</strong></div>
+        <div class="desglose-row"><span>Colchón operativo</span><strong id="dg-colchon">₡0</strong></div>
+      </div>
+    </div>
+
+    <div class="frase-memorable">"Tu paquete de redes no cuesta solo posts y reels. También cuesta ideas, tiempo, herramientas, revisiones, producción y criterio."</div>
+
+    <div class="regi-frase"><img src="regi-tool.png" alt="Regi"><p id="res-r-frase-regi"></p></div>
+    <div class="res-recomendacion"><p id="res-r-recomendacion"></p></div>
+
+    <button class="btn-compartir" id="btn-comp-r" onclick="compartirRedes()">📋 Copiar resultado para compartir</button>
+    <button class="btn-recalcular" onclick="recalcular()">← Calcular otro paquete</button>
+
+    <div class="cta-puente">
+      <div class="cta-icon">🐟</div>
+      <h3>Esto fue 1 metro de profundidad. Ordy llega a 200. 🌊</h3>
+      <p>En el Nivel 3, Regi revisa toda tu plata sin autoengaño: precios, costos, tiempo, margen y sostenibilidad.</p>
+      <a href="beta.html" class="btn-cta-white">Conocer mi ruta Ordy →</a>
+    </div>
+    <p class="disclaimer">Esta calculadora es una guía de claridad. No sustituye asesoría financiera, contable ni tributaria.</p>
+  </div>
+
+</div><!-- /container -->
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
 <script>
-  var tipo = null;
-  var paso = 1;
-  var pasoLabels = ['Qué vendés','Costos directos','Tu tiempo','Gastos fijos','Precio actual'];
+// ── ESTADO GLOBAL ──────────────────────────────────────────────────────────────
+var tipo = null;
+var rColchon = 0.15;
+var rComision = 0.10;
+var rPautaTipo = null;
+var rProdPresencial = null;
+var totalStepsNormal = 5;
+var totalStepsRedes = 9;
 
-  function selectTipo(t) {
-    tipo = t;
-    document.querySelectorAll('.tipo-btn').forEach(function(b) { b.classList.remove('selected'); });
-    document.getElementById('tipo-' + t).classList.add('selected');
-    document.getElementById('btn-next-1').disabled = false;
+// ── UTILIDADES ─────────────────────────────────────────────────────────────────
+function fmtC(n) {
+  if (!n || isNaN(n)) return '₡0';
+  return '₡' + Math.round(n).toLocaleString('es-CR');
+}
+function getVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+
+// ── NAVEGACIÓN ENTRE PASOS ────────────────────────────────────────────────────
+function goStep(id) {
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step-' + id).classList.add('active');
+  updateProgress(id);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateProgress(id) {
+  var isRedes = tipo === 'redes';
+  var total = isRedes ? 9 : 5;
+  var step = 1;
+  if (id === 'n2') step = 2;
+  else if (id === 'n3') step = 3;
+  else if (id === 'n4') step = 4;
+  else if (id === 'n5') step = 5;
+  else if (id === 'r2') step = 2;
+  else if (id === 'r3') step = 3;
+  else if (id === 'r4') step = 4;
+  else if (id === 'r5') step = 5;
+  else if (id === 'r6') step = 6;
+  else if (id === 'r7') step = 7;
+  else if (id === 'r8') step = 8;
+  else if (id === 'r9') step = 9;
+  var pct = Math.round((step / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = 'Paso ' + step + ' de ' + total;
+  var labels = isRedes
+    ? ['¿Qué vendés?','Alcance','Valor por pieza','Gestión invisible','Herramientas','Producción','Revisiones','Pauta','Precio actual']
+    : ['¿Qué vendés?','Costos directos','Tu tiempo','Gastos fijos','Precio actual'];
+  document.getElementById('progress-steps').textContent = labels[step - 1] || '';
+}
+
+// ── PASO 1: TIPO ──────────────────────────────────────────────────────────────
+function selectTipo(t) {
+  tipo = t;
+  document.querySelectorAll('.tipo-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('tipo-' + t).classList.add('selected');
+  document.getElementById('btn-next-1').disabled = false;
+}
+
+function goFromTipo() {
+  if (tipo === 'redes') goStep('r2');
+  else goStep('n2');
+}
+
+// ── VALIDACIONES FLUJO NORMAL ─────────────────────────────────────────────────
+function validateN(step) {
+  var ok = false;
+  if (step === 2) ok = getVal('costo-directo') >= 0;
+  if (step === 3) ok = getVal('horas') > 0 && getVal('valor-hora') > 0;
+  if (step === 4) ok = getVal('gastos-fijos') >= 0 && getVal('ventas-mes') > 0;
+  if (step === 5) ok = getVal('precio-actual-n') > 0;
+  var btn = document.getElementById('btn-next-n' + step);
+  if (btn) btn.disabled = !ok;
+}
+
+// ── VALIDACIONES FLUJO REDES ──────────────────────────────────────────────────
+function validateR(step) {
+  var ok = false;
+  if (step === 2) ok = (getVal('r-posts') + getVal('r-carruseles') + getVal('r-reels') + getVal('r-stories') + getVal('r-copies')) > 0;
+  if (step === 3) ok = (getVal('r-val-post') + getVal('r-val-reel') + getVal('r-val-carrusel') + getVal('r-val-story') + getVal('r-val-copy')) > 0;
+  if (step === 4) ok = getVal('r-hora-gestion') > 0;
+  if (step === 9) ok = getVal('r-precio-actual') > 0;
+  var btn = document.getElementById('btn-next-r' + step);
+  if (btn) btn.disabled = !ok;
+}
+
+// ── SELECCIONES UI REDES ──────────────────────────────────────────────────────
+function selectColchon(pct, el) {
+  rColchon = pct;
+  el.closest('.colchon-grid').querySelectorAll('.colchon-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function selectComision(pct, el) {
+  rComision = pct;
+  el.closest('.colchon-grid').querySelectorAll('.colchon-btn').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function selectProd(si) {
+  rProdPresencial = si;
+  document.getElementById('prod-si').classList.toggle('selected', si);
+  document.getElementById('prod-no').classList.toggle('selected', !si);
+  document.getElementById('prod-campos').style.display = si ? 'block' : 'none';
+  document.getElementById('btn-next-r6').disabled = false;
+}
+
+function selectPauta(tipo) {
+  rPautaTipo = tipo;
+  document.querySelectorAll('.pauta-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('pauta-' + tipo).classList.add('selected');
+  var mostrar = tipo !== 'no';
+  document.getElementById('pauta-campos').style.display = mostrar ? 'block' : 'none';
+  document.getElementById('btn-next-r8').disabled = false;
+}
+
+function toggleDesglose() {
+  var body = document.getElementById('desglose-body');
+  var txt  = document.getElementById('desglose-toggle-txt');
+  body.classList.toggle('open');
+  txt.textContent = body.classList.contains('open') ? 'Cerrar ↑' : 'Ver →';
+}
+
+// ── CÁLCULO FLUJO NORMAL ──────────────────────────────────────────────────────
+function calcularNormal() {
+  var costoDirecto   = getVal('costo-directo');
+  var horas          = getVal('horas');
+  var valorHora      = getVal('valor-hora');
+  var gastosFijos    = getVal('gastos-fijos');
+  var ventasMes      = getVal('ventas-mes') || 1;
+  var precioActual   = getVal('precio-actual-n');
+
+  var costoReal    = costoDirecto + (horas * valorHora) + (gastosFijos / ventasMes);
+  var precioMin    = costoReal / (1 - 0.20);
+  var precioSano   = costoReal / (1 - 0.35);
+  var fugaPorVenta = precioActual - costoReal;
+  var fugaMensual  = fugaPorVenta * ventasMes;
+
+  var estado, emoji, titulo, desc, frase;
+  if (fugaPorVenta < -100) {
+    estado = 'perdiendo'; emoji = '🚨';
+    titulo = 'Cada venta te cuesta ' + fmtC(Math.abs(fugaPorVenta)) + ' de tu bolsillo.';
+    desc   = 'Este mes eso suma ' + fmtC(Math.abs(fugaMensual)) + ' que estás poniendo vos. No es que el negocio no vende — es que está vendiendo a pérdida.';
+    frase  = '"No es que cobrés caro. Es que hasta hoy no sabías cuánto te cuesta de verdad. Y ahora ya sabés."';
+  } else if (precioActual < precioMin) {
+    estado = 'limite'; emoji = '⚠️';
+    titulo = 'Estás cobrando casi al costo.';
+    desc   = 'Tu trabajo se está pagando solo a medias. Cualquier gasto extra o baja en ventas te deja en rojo. Hay margen para corregir esto.';
+    frase  = '"Trabajar mucho y ganar poco no es humildad. Es falta de información. Ahora la tenés."';
+  } else {
+    estado = 'bien'; emoji = '✅';
+    titulo = 'Tu precio cubre costos y deja margen.';
+    desc   = 'Estás en una buena base. La pregunta ahora es si estás cobrando todo lo que valés.';
+    frase  = '"Saber que tus precios están bien es el primer paso. El siguiente es asegurarte de que se mantengan así conforme crecés."';
   }
 
-  function goStep(n) {
-    document.getElementById('step-' + paso).classList.remove('active');
-    paso = n;
-    document.getElementById('step-' + paso).classList.add('active');
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  var el = document.getElementById('res-n-estado');
+  el.className = 'resultado-estado ' + estado;
+  document.getElementById('res-n-emoji').textContent = emoji;
+  var rt = document.getElementById('res-n-titulo');
+  rt.className = 'resultado-titulo ' + estado;
+  rt.textContent = titulo;
+  document.getElementById('res-n-desc').textContent   = desc;
+  document.getElementById('res-n-costo').textContent  = fmtC(costoReal);
+  document.getElementById('res-n-min').textContent    = fmtC(precioMin);
+  document.getElementById('res-n-sano').textContent   = fmtC(precioSano);
+  document.getElementById('res-n-frase').textContent  = frase;
+
+  document.getElementById('step-n5').classList.remove('active');
+  document.getElementById('resultado-simple').style.display = 'block';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── CÁLCULO FLUJO REDES ───────────────────────────────────────────────────────
+function calcularRedes() {
+  // Piezas
+  var costoPiezas =
+    (getVal('r-posts')     * getVal('r-val-post'))     +
+    (getVal('r-carruseles')* getVal('r-val-carrusel')) +
+    (getVal('r-reels')     * getVal('r-val-reel'))     +
+    (getVal('r-stories')   * getVal('r-val-story'))    +
+    (getVal('r-copies')    * getVal('r-val-copy'));
+
+  // Gestión invisible
+  var totalHoras = getVal('r-h-estrategia') + getVal('r-h-calendario') +
+    getVal('r-h-publicacion') + getVal('r-h-comunidad') +
+    getVal('r-h-reportes') + getVal('r-h-coordinacion');
+  var gestionInvisible = totalHoras * getVal('r-hora-gestion');
+
+  // Herramientas
+  var totalHerr = getVal('r-t-canva') + getVal('r-t-ia') + getVal('r-t-adobe') +
+    getVal('r-t-capcut') + getVal('r-t-scheduler') + getVal('r-t-stock') + getVal('r-t-otras');
+  var nClientes = getVal('r-t-clientes') || 1;
+  var herrAsignadas = totalHerr / nClientes;
+
+  // Producción
+  var produccion = 0;
+  if (rProdPresencial) {
+    produccion = getVal('r-p-transporte') + getVal('r-p-parqueo') +
+      getVal('r-p-alimentacion') + getVal('r-p-equipo') +
+      (getVal('r-p-horas') * getVal('r-p-hora-val'));
   }
 
-  function updateProgress() {
-    var pct = (paso / 5) * 100;
-    document.getElementById('progress-fill').style.width = pct + '%';
-    document.getElementById('progress-label').textContent = 'Paso ' + paso + ' de 5';
-    document.getElementById('progress-steps').textContent = pasoLabels[paso - 1];
+  // Revisiones
+  var costoRevisiones = getVal('r-rev-horas') * getVal('r-rev-hora-val');
+
+  // Subtotal y colchón
+  var subtotal = costoPiezas + gestionInvisible + herrAsignadas + produccion + costoRevisiones;
+  var colchon  = subtotal * rColchon;
+  var costoReal = subtotal + colchon;
+
+  // Precios recomendados
+  var precioMin   = costoReal / (1 - 0.30);
+  var precioIdeal = costoReal / (1 - 0.45);
+
+  // Pauta
+  var pautaMonto   = rPautaTipo !== 'no' ? getVal('r-pauta-monto') : 0;
+  var comisionPauta = pautaMonto * rComision;
+
+  // Precio actual
+  var precioActual = getVal('r-precio-actual');
+
+  // Totales cliente
+  var totalMinCliente   = precioMin   + pautaMonto + comisionPauta;
+  var totalIdealCliente = precioIdeal + pautaMonto + comisionPauta;
+
+  // Estado
+  var estado, tagTxt, titulo, desc, fraseRegi, recomendacion;
+  if (precioActual < precioMin) {
+    estado = 'bajo'; tagTxt = '🚨 Por debajo del mínimo';
+    titulo = 'Probablemente estás regalando parte del trabajo.';
+    desc   = 'Tu precio actual no cubre el costo real de todo lo que incluye el paquete.';
+    fraseRegi = '"No es que el cliente pague poco. Es que tu paquete probablemente incluye más trabajo del que estás cobrando."';
+    recomendacion = 'Antes de vender otro paquete, revisá qué incluye realmente: cantidad de piezas, reuniones, grabaciones, cambios, herramientas, reportes, comunidad y pauta. Puede que el problema no sea solo el precio, sino un alcance demasiado abierto.';
+  } else if (precioActual < precioIdeal) {
+    estado = 'medio'; tagTxt = '⚠️ Entre mínimo e ideal';
+    titulo = 'Tu precio cubre la base, pero todavía puede estar ajustado.';
+    desc   = 'Estás dentro del rango, pero hay poco margen para cambios, imprevistos o crecimiento.';
+    fraseRegi = '"Tu precio respira, pero poquito. Revisá si estás incluyendo cambios, reuniones o producción sin cobrarlos."';
+    recomendacion = 'Tu siguiente paso debería ser definir límites claros: cantidad de cambios, fechas de entrega, canales incluidos, tiempo de respuesta y qué se cobra aparte.';
+  } else {
+    estado = 'bien'; tagTxt = '✅ Zona sana';
+    titulo = 'Tu precio tiene una base más sana.';
+    desc   = 'Cubrís costos y tenés margen real. Ahora conviene que el alcance esté muy bien definido.';
+    fraseRegi = '"Tu precio tiene mejor base. Ahora cuidá que el alcance no se convierta en una lista infinita de favores."';
+    recomendacion = 'Tu siguiente paso es convertir este paquete en una propuesta clara: qué paga el cliente, qué incluye, qué no incluye y qué resultados puede esperar.';
   }
 
-  function getVal(id) { return parseFloat(document.getElementById(id).value) || 0; }
+  // Mostrar resultado
+  var tag = document.getElementById('res-r-tag');
+  tag.className = 'res-estado-tag ' + estado;
+  tag.textContent = tagTxt;
+  document.getElementById('res-r-titulo').textContent = titulo;
+  document.getElementById('res-r-desc').textContent   = desc;
+  document.getElementById('res-r-costo').textContent  = fmtC(costoReal);
+  document.getElementById('res-r-min').textContent    = fmtC(precioMin);
+  document.getElementById('res-r-ideal').textContent  = fmtC(precioIdeal);
+  document.getElementById('res-r-frase-regi').textContent       = fraseRegi;
+  document.getElementById('res-r-recomendacion').textContent    = recomendacion;
 
-  function validateStep2() { document.getElementById('btn-next-2').disabled = getVal('costo-directo') <= 0; }
-  function validateStep3() {
-    var ok = getVal('horas') > 0 && getVal('valor-hora') > 0;
-    document.getElementById('btn-next-3').disabled = !ok;
-  }
-  function validateStep4() {
-    var ok = getVal('gastos-fijos') >= 0 && getVal('ventas-mes') > 0;
-    document.getElementById('btn-next-4').disabled = !ok;
-  }
-  function validateStep5() { document.getElementById('btn-next-5').disabled = getVal('precio-actual') <= 0; }
-
-  function fmtColones(n) {
-    return '₡' + Math.round(n).toLocaleString('es-CR');
-  }
-
-  function calcular() {
-    var costoDirecto = getVal('costo-directo');
-    var horas = getVal('horas');
-    var valorHora = getVal('valor-hora');
-    var gastosFijos = getVal('gastos-fijos');
-    var ventasMes = getVal('ventas-mes') || 1;
-    var precioActual = getVal('precio-actual');
-
-    var costoReal = costoDirecto + (horas * valorHora) + (gastosFijos / ventasMes);
-    var precioMinimo = costoReal / (1 - 0.10);
-    var precioSano = costoReal / (1 - 0.35);
-    var fugaPorVenta = precioActual - costoReal;
-    var fugaMensual = fugaPorVenta * ventasMes;
-
-    // Estado
-    var estado, emoji, titulo, desc, fraseRegi;
-    if (fugaPorVenta < -100) {
-      estado = 'perdiendo';
-      emoji = '🚨';
-      titulo = 'Cada venta te cuesta ' + fmtColones(Math.abs(fugaPorVenta)) + ' de tu bolsillo.';
-      desc = 'Este mes eso suma ' + fmtColones(Math.abs(fugaMensual)) + ' que estás poniendo vos. No es que el negocio no vende — es que está vendiendo a pérdida.';
-      fraseRegi = '"No es que cobrés caro. Es que hasta hoy no sabías cuánto te cuesta de verdad. Y ahora ya sabés."';
-    } else if (fugaPorVenta < costoReal * 0.15) {
-      estado = 'limite';
-      emoji = '⚠️';
-      titulo = 'Estás cobrando casi al costo.';
-      desc = 'Tu trabajo se está pagando solo a medias. Cualquier gasto extra o baja en ventas te deja en rojo. Hay margen para corregir esto gradualmente.';
-      fraseRegi = '"Trabajar mucho y ganar poco no es humildad. Es falta de información. Ahora la tenés."';
-    } else {
-      estado = 'bien';
-      emoji = '✅';
-      titulo = 'Tu precio cubre costos y deja margen.';
-      desc = 'Estás en una buena base. La pregunta ahora es si estás cobrando todo lo que valés — porque hay margen para seguir creciendo.';
-      fraseRegi = '"Saber que tus precios están bien es el primer paso. El siguiente es asegurarte de que se mantengan así conforme crecés."';
-    }
-
-    // Mostrar resultado
-    var resEstado = document.getElementById('res-estado');
-    resEstado.className = 'resultado-estado ' + estado;
-    document.getElementById('res-emoji').textContent = emoji;
-    var resTitulo = document.getElementById('res-titulo');
-    resTitulo.className = 'resultado-titulo ' + estado;
-    resTitulo.textContent = titulo;
-    document.getElementById('res-desc').textContent = desc;
-    document.getElementById('res-costo-real').textContent = fmtColones(costoReal);
-    document.getElementById('res-precio-min').textContent = fmtColones(precioMinimo);
-    document.getElementById('res-precio-sano').textContent = fmtColones(precioSano);
-    document.getElementById('res-regi-frase').textContent = fraseRegi;
-
-    // Ocultar pasos, mostrar resultado
-    document.getElementById('step-5').classList.remove('active');
-    document.getElementById('resultado').style.display = 'block';
-    document.querySelector('.progress-wrap').style.display = 'none';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Pauta
+  if (rPautaTipo !== 'no') {
+    document.getElementById('res-r-pauta-card').style.display    = 'block';
+    document.getElementById('res-r-comision-card').style.display = rComision > 0 ? 'block' : 'none';
+    document.getElementById('res-r-total-card').style.display    = 'block';
+    document.getElementById('res-r-pauta').textContent    = fmtC(pautaMonto);
+    document.getElementById('res-r-comision').textContent = fmtC(comisionPauta);
+    document.getElementById('res-r-total').textContent    = fmtC(totalMinCliente) + ' – ' + fmtC(totalIdealCliente);
   }
 
-  function compartir() {
-    var texto = 'Descubrí mi precio real con Ordy 🐟\n→ ordenyplan.com/calculadora';
-    navigator.clipboard.writeText(texto).then(function() {
-      var btn = document.getElementById('btn-compartir');
-      btn.textContent = '✓ Copiado';
-      btn.classList.add('copied');
-      setTimeout(function() {
-        btn.textContent = '📋 Copiar resultado para compartir';
-        btn.classList.remove('copied');
-      }, 2500);
-    });
-  }
+  // Desglose
+  document.getElementById('dg-piezas').textContent  = fmtC(costoPiezas);
+  document.getElementById('dg-gestion').textContent = fmtC(gestionInvisible);
+  document.getElementById('dg-tools').textContent   = fmtC(herrAsignadas);
+  document.getElementById('dg-prod').textContent    = fmtC(produccion);
+  document.getElementById('dg-rev').textContent     = fmtC(costoRevisiones);
+  document.getElementById('dg-colchon').textContent = fmtC(colchon);
 
-  function recalcular() {
-    tipo = null;
-    paso = 1;
-    document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
-    document.getElementById('step-1').classList.add('active');
-    document.querySelectorAll('.tipo-btn').forEach(function(b) { b.classList.remove('selected'); });
-    document.getElementById('btn-next-1').disabled = true;
-    ['costo-directo','horas','valor-hora','gastos-fijos','ventas-mes','precio-actual'].forEach(function(id) {
-      document.getElementById(id).value = '';
-    });
-    document.getElementById('resultado').style.display = 'none';
-    document.querySelector('.progress-wrap').style.display = 'block';
-    updateProgress();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+  document.getElementById('step-r9').classList.remove('active');
+  document.getElementById('resultado-redes').style.display = 'block';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── COMPARTIR ─────────────────────────────────────────────────────────────────
+function compartirNormal() {
+  var texto = 'Descubrí mi precio real con Ordy 🐟\n→ ordenyplan.com/calculadora';
+  copiarTexto(texto, 'btn-comp-n');
+}
+function compartirRedes() {
+  var texto = 'Calculé mi paquete de redes con Regi de Ordy y descubrí que el precio no solo depende de posts y reels: también cuenta creatividad, herramientas, producción, revisiones, pauta y criterio.\nProbalo gratis en ordenyplan.com/calculadora';
+  copiarTexto(texto, 'btn-comp-r');
+}
+function copiarTexto(texto, btnId) {
+  navigator.clipboard.writeText(texto).then(function() {
+    var btn = document.getElementById(btnId);
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copiado';
+    btn.classList.add('copied');
+    setTimeout(function() { btn.textContent = orig; btn.classList.remove('copied'); }, 2500);
+  });
+}
+
+// ── RECALCULAR ────────────────────────────────────────────────────────────────
+function recalcular() {
+  tipo = null; rColchon = 0.15; rComision = 0.10; rPautaTipo = null; rProdPresencial = null;
+  document.querySelectorAll('.step').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById('step-1').classList.add('active');
+  document.querySelectorAll('.tipo-btn').forEach(function(b) { b.classList.remove('selected'); });
+  document.getElementById('btn-next-1').disabled = true;
+  document.getElementById('resultado-simple').style.display = 'none';
+  document.getElementById('resultado-redes').style.display = 'none';
+  document.getElementById('res-r-pauta-card').style.display = 'none';
+  document.getElementById('res-r-comision-card').style.display = 'none';
+  document.getElementById('res-r-total-card').style.display = 'none';
+  document.getElementById('prod-campos').style.display = 'none';
+  document.getElementById('pauta-campos').style.display = 'none';
+  document.querySelectorAll('input[type="number"]').forEach(function(i) { i.value = ''; });
+  document.querySelectorAll('.toggle-btn, .pauta-btn').forEach(function(b) { b.classList.remove('selected'); });
+  // Restablecer colchón a 15% y comisión a 10%
+  document.querySelectorAll('.colchon-btn').forEach(function(b, idx) {
+    b.classList.toggle('selected', b.textContent === '15%' || b.textContent === '10%');
+  });
+  document.getElementById('btn-next-r6').disabled = true;
+  document.getElementById('btn-next-r8').disabled = true;
+  document.querySelector('.progress-wrap').style.display = 'block';
+  document.getElementById('progress-fill').style.width = '10%';
+  document.getElementById('progress-label').textContent = 'Paso 1';
+  document.getElementById('progress-steps').textContent = '¿Qué vendés?';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 </script>
 </body>
 </html>
