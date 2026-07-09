@@ -100,6 +100,32 @@
     .cta-puente p { font-size: .85rem; color: rgba(255,255,255,.8); margin-bottom: 1.25rem; line-height: 1.6; }
     .btn-cta-white { display: inline-block; background: white; color: var(--ordy); padding: .85rem 1.75rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; transition: transform .15s; }
     .btn-cta-white:hover { transform: translateY(-2px); }
+
+    /* ══ BOTONES DUALES DE AGENDAMIENTO ══ */
+    .cta-btns-stack { display: flex; flex-direction: column; gap: .65rem; margin-top: 1.1rem; }
+    .btn-cta-wa { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: white; color: var(--ordy); padding: .85rem 1.5rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: transform .15s; }
+    .btn-cta-wa:hover { transform: translateY(-2px); }
+    .btn-cta-correo { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: transparent; color: white; padding: .85rem 1.5rem; border-radius: 100px; font-weight: 700; font-size: .9rem; text-decoration: none; border: 2px solid rgba(255,255,255,.6); cursor: pointer; font-family: 'Inter', sans-serif; transition: background .15s; }
+    .btn-cta-correo:hover { background: rgba(255,255,255,.15); }
+
+    /* ══ MODAL AGENDAR POR CORREO ══ */
+    .modal-overlay { position: fixed; inset: 0; z-index: 9999; background: rgba(26,26,46,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 1.25rem; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+    .modal-overlay.visible { opacity: 1; pointer-events: all; }
+    .modal-box { background: white; border-radius: 24px; padding: 2.25rem 1.75rem 1.75rem; max-width: 440px; width: 100%; position: relative; text-align: left; box-shadow: 0 32px 64px rgba(0,0,0,.18); transform: translateY(12px); transition: transform .3s ease; max-height: 90vh; overflow-y: auto; }
+    .modal-overlay.visible .modal-box { transform: translateY(0); }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--lila-bg); border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; font-size: 1.1rem; color: var(--muted); display: flex; align-items: center; justify-content: center; transition: background .15s; }
+    .modal-close:hover { background: var(--border); }
+    .modal-box h3 { font-family: 'Fraunces', serif; font-size: 1.4rem; font-weight: 900; line-height: 1.2; margin-bottom: .5rem; }
+    .modal-box > p { font-size: .875rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+    .modal-form label { display: block; font-size: .82rem; font-weight: 700; color: var(--text); margin-bottom: .35rem; }
+    .modal-form input { width: 100%; padding: .75rem .9rem; border-radius: 12px; border: 1.5px solid var(--border); font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--text); background: #fff; margin-bottom: 1rem; transition: border-color .15s; }
+    .modal-form input:focus { outline: none; border-color: var(--ordy); }
+    .modal-submit { display: block; width: 100%; background: var(--ordy); color: #fff; border: none; cursor: pointer; padding: .9rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: .95rem; transition: background .15s, transform .15s; }
+    .modal-submit:hover { background: var(--ordy-dark); transform: translateY(-1px); }
+    .modal-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+    .modal-msg { display: none; margin-top: 1rem; font-size: .875rem; line-height: 1.6; padding: .8rem 1rem; border-radius: 12px; text-align: center; }
+    .modal-msg.ok { display: block; background: var(--lila-bg); color: var(--ordy); font-weight: 600; }
+    .modal-msg.err { display: block; background: #FFF0F0; color: var(--coral); font-weight: 600; }
   </style>
 </head>
 <body>
@@ -110,7 +136,7 @@
 </nav>
 
 <div class="hero">
-  <img src="cabu-tool.png" alt="Cabu" style="width:120px;height:120px;object-fit:contain;display:block;margin:0 auto .75rem;filter:drop-shadow(0 8px 24px rgba(78,75,247,.2));">
+  <img src="que_respondo.png" alt="¿Qué respondo?" style="width:130px;height:130px;object-fit:contain;display:block;margin:0 auto .75rem;filter:drop-shadow(0 8px 24px rgba(78,75,247,.2));border-radius:20px;">
   <span class="hero-tag">🐠 Con Cabu</span>
   <h1>¿Qué le <em>respondo</em>?</h1>
   <p>Te escribió un cliente y no sabés qué contestar sin sonar mal. Cabu te da el mensaje listo para copiar en WhatsApp.</p>
@@ -218,9 +244,12 @@
 
     <div class="cta-puente">
       <div class="cta-icon">🐠</div>
-      <h3>En el Nivel 5, Cabu te arma TODAS tus respuestas y políticas de una vez.</h3>
-      <p>No solo un mensaje — una biblioteca completa personalizada para tu negocio, con condiciones de cobro, devoluciones, seguimiento y más.</p>
-      <a href="beta.html" class="btn-cta-white">Conocer mi ruta →</a>
+      <h3>Esto fue una primera mirada. Ordy llega mucho más profundo.</h3>
+      <p>Si querés que Ordy entienda tu negocio y te ayude a decidir el siguiente paso, agendá una llamada de claridad.</p>
+      <div class="cta-btns-stack">
+        <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Us%C3%A9%20la%20herramienta%20%C2%BFQu%C3%A9%20respondo%3F%20de%20Ordy%20y%20quiero%20agendar%20una%20llamada%20de%20claridad%20para%20contarles%20sobre%20mi%20negocio." target="_blank" rel="noopener" class="btn-cta-wa">💬 Agendar por WhatsApp</a>
+        <button type="button" class="btn-cta-correo" onclick="abrirModalCorreo()">✉️ Agendar por correo</button>
+      </div>
     </div>
   </div>
 
@@ -405,6 +434,80 @@
     document.getElementById('progress-steps').textContent = '¿Qué pasó?';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  // ── MODAL AGENDAR POR CORREO ──
+  var FORM_ENDPOINT_QUERESPONDO = 'https://formspree.io/f/xojoeadl';
+
+  function abrirModalCorreo() {
+    var modal = document.getElementById('modal-correo');
+    if (!modal) return;
+    var msg = document.getElementById('correo-msg');
+    msg.className = 'modal-msg'; msg.textContent = '';
+    modal.classList.add('visible');
+    setTimeout(function() { document.getElementById('correo-nombre').focus(); }, 250);
+  }
+  function cerrarModalCorreo() {
+    var modal = document.getElementById('modal-correo');
+    if (modal) modal.classList.remove('visible');
+  }
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModalCorreo(); });
+  document.getElementById('modal-correo').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModalCorreo();
+  });
+  document.getElementById('form-correo').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var nombre = document.getElementById('correo-nombre').value.trim();
+    var correo = document.getElementById('correo-email').value.trim();
+    var msg = document.getElementById('correo-msg');
+    var btn = document.getElementById('correo-submit');
+    if (!nombre || !correo || correo.indexOf('@') === -1) {
+      msg.className = 'modal-msg err';
+      msg.textContent = 'Por favor completá tu nombre y un correo válido.';
+      return;
+    }
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    fetch(FORM_ENDPOINT_QUERESPONDO, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nombre: nombre, correo: correo,
+        origen: '¿Qué respondo?',
+        pagina_origen: window.location.href,
+        fecha_envio: new Date().toISOString()
+      })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        msg.className = 'modal-msg ok';
+        msg.textContent = 'Listo 💙 Recibimos tu solicitud. Te escribiremos pronto para coordinar la llamada.';
+        document.getElementById('correo-nombre').value = '';
+        document.getElementById('correo-email').value = '';
+      } else { throw new Error('no ok'); }
+    })
+    .catch(function() {
+      msg.className = 'modal-msg err';
+      msg.textContent = 'Algo no salió bien. Podés intentar de nuevo o escribirnos por WhatsApp.';
+    })
+    .finally(function() { btn.disabled = false; btn.textContent = 'Enviar solicitud'; });
+  });
 </script>
+
+<!-- MODAL AGENDAR POR CORREO -->
+<div class="modal-overlay" id="modal-correo" role="dialog" aria-modal="true" aria-labelledby="modal-correo-titulo">
+  <div class="modal-box">
+    <button class="modal-close" onclick="cerrarModalCorreo()" aria-label="Cerrar modal">✕</button>
+    <h3 id="modal-correo-titulo">Agendar por correo</h3>
+    <p>Dejanos tus datos y te escribimos para coordinar una llamada de claridad.</p>
+    <form class="modal-form" id="form-correo" novalidate>
+      <label for="correo-nombre">Nombre</label>
+      <input type="text" id="correo-nombre" name="nombre" required autocomplete="name" aria-label="Nombre">
+      <label for="correo-email">Correo</label>
+      <input type="email" id="correo-email" name="correo" required autocomplete="email" aria-label="Correo electrónico">
+      <button type="submit" class="modal-submit" id="correo-submit">Enviar solicitud</button>
+      <div class="modal-msg" id="correo-msg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>
