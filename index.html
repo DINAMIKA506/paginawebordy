@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- SEO -->
-  <title>Ordy | Ordená tu negocio con claridad</title>
-  <meta name="description" content="Ordy convierte la información de tu negocio en dashboards claros para ayudarte a tomar mejores decisiones y usar mejor la IA.">
+  <title>Ordy | Dashboard estratégico para ordenar tu negocio</title>
+  <meta name="description" content="Ordy escucha tu negocio, ordena la información que tenés dispersa y la convierte en un dashboard estratégico para tomar mejores decisiones.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://www.ordenyplan.com/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.ordenyplan.com/">
-  <meta property="og:title" content="Ordy | Ordená tu negocio con claridad">
-  <meta property="og:description" content="Convertí la información de tu negocio en dashboards claros para tomar mejores decisiones y usar mejor la IA.">
+  <meta property="og:title" content="Ordy | Dashboard estratégico para ordenar tu negocio">
+  <meta property="og:description" content="Ordy escucha tu negocio, ordena la información que tenés dispersa y la convierte en un dashboard estratégico para tomar mejores decisiones.">
   <meta property="og:image" content="https://www.ordenyplan.com/ordy-social-share.png">
   <meta property="og:image:alt" content="Ordy - Tu negocio, ordenado. Tu mente, en paz.">
   <meta property="og:image:width" content="1200">
@@ -24,8 +24,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Ordy | Ordená tu negocio con claridad">
-  <meta name="twitter:description" content="Convertí la información de tu negocio en dashboards claros para tomar mejores decisiones y usar mejor la IA.">
+  <meta name="twitter:title" content="Ordy | Dashboard estratégico para ordenar tu negocio">
+  <meta name="twitter:description" content="Ordy escucha tu negocio, ordena la información que tenés dispersa y la convierte en un dashboard estratégico para tomar mejores decisiones.">
   <meta name="twitter:image" content="https://www.ordenyplan.com/ordy-social-share.png">
   <meta name="twitter:image:alt" content="Ordy - Tu negocio, ordenado. Tu mente, en paz.">
 
@@ -151,7 +151,7 @@
     .funciona-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; }
     .funciona-header p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
     .funciona-hero-img { width: 100%; max-width: 960px; margin: 0 auto 3rem; display: block; }
-    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 1.25rem; max-width: 1240px; margin: 0 auto; }
     .step { background: var(--lila-bg); border-radius: 20px; padding: 2rem 1.5rem; text-align: left; }
     .step-num { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; color: white; margin-bottom: 1.25rem; }
     .step-num.n1 { background: var(--ordy); }
@@ -196,7 +196,7 @@
     .precios-header { text-align: center; margin-bottom: 4rem; }
     .precios-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: 1rem; }
     .precios-header p { color: var(--muted); font-size: 1.05rem; max-width: 500px; margin: 0 auto; }
-    .pricing { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; align-items: start; }
+    .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1080px; margin: 0 auto; align-items: start; }
     .pcard { background: var(--lila-bg); border-radius: 24px; padding: 2rem 1.5rem; display: flex; flex-direction: column; position: relative; transition: box-shadow .2s; }
     .pcard:hover { box-shadow: 0 12px 40px rgba(0,0,0,.08); }
     .pcard.featured { background: white; border: 2.5px solid var(--ordy); box-shadow: 0 8px 32px rgba(78,75,247,.15); }
@@ -471,6 +471,61 @@
     .popup-skip:hover { color: var(--text); }
     @media(max-width:480px) { .popup-box { padding: 2rem 1.5rem 1.5rem; } }
 
+    /* ══ BOTONES DE AGENDAMIENTO (WhatsApp + correo) ══ */
+    .as-btn { border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+    .btn-wa-main { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; background: var(--ordy); color: #fff; padding: .9rem 2rem; border-radius: 100px; font-weight: 700; font-size: 1rem; text-decoration: none; transition: transform .15s, background .15s; }
+    .btn-wa-main:hover { background: var(--ordy-dark); transform: translateY(-2px); }
+    .hero-link-tools { display: inline-block; margin-top: 1.1rem; font-size: .9rem; font-weight: 600; color: var(--ordy); text-decoration: underline; text-underline-offset: 3px; }
+    .hero-link-tools:hover { color: var(--ordy-dark); }
+
+    /* Botones duales dentro de las tarjetas de precios */
+    .pbtn-stack { display: flex; flex-direction: column; gap: .6rem; }
+    .pbtn-sec { display: block; width: 100%; text-align: center; padding: .75rem; border-radius: 100px; font-size: .875rem; font-weight: 700; text-decoration: none; border: 2px solid var(--ordy); color: var(--ordy); background: transparent; transition: all .15s; }
+    .pbtn-sec:hover { background: var(--ordy); color: #fff; }
+    .pbtn-sec.coral { border-color: var(--coral); color: var(--coral); }
+    .pbtn-sec.coral:hover { background: var(--coral); color: #fff; }
+
+    /* ══ MODAL AGENDAR POR CORREO ══ */
+    .modal-form { text-align: left; }
+    .modal-form label { display: block; font-size: .82rem; font-weight: 700; color: var(--text); margin-bottom: .35rem; }
+    .modal-form input, .modal-form select, .modal-form textarea {
+      width: 100%; padding: .75rem .9rem; border-radius: 12px;
+      border: 1.5px solid var(--border); font-family: 'Inter', sans-serif;
+      font-size: .9rem; color: var(--text); background: #fff;
+      margin-bottom: 1rem; transition: border-color .15s;
+    }
+    .modal-form input:focus, .modal-form select:focus, .modal-form textarea:focus { outline: none; border-color: var(--ordy); }
+    .modal-form textarea { resize: vertical; min-height: 110px; }
+    .modal-submit { display: block; width: 100%; background: var(--ordy); color: #fff; border: none; cursor: pointer; padding: .9rem; border-radius: 100px; font-family: 'Inter', sans-serif; font-weight: 700; font-size: .95rem; transition: background .15s, transform .15s; }
+    .modal-submit:hover { background: var(--ordy-dark); transform: translateY(-1px); }
+    .modal-submit:disabled { opacity: .6; cursor: wait; transform: none; }
+    .modal-msg { display: none; margin-top: 1rem; font-size: .875rem; line-height: 1.6; padding: .8rem 1rem; border-radius: 12px; text-align: center; }
+    .modal-msg.ok { display: block; background: var(--lila-bg); color: var(--ordy); font-weight: 600; }
+    .modal-msg.err { display: block; background: #FFF0F0; color: var(--coral); font-weight: 600; }
+    .modal-agendar-box { text-align: left; max-width: 460px; }
+    .modal-agendar-box h3 { text-align: left; }
+    .modal-agendar-box > p { text-align: left; }
+
+    /* ══ SECCIÓN ACTIVACIONES ORDY ══ */
+    .activaciones { background: var(--lila-bg); padding: 6.5rem 2.5rem; }
+    .activaciones-inner { max-width: 1200px; margin: 0 auto; }
+    .activaciones-header { text-align: center; max-width: 720px; margin: 0 auto 3rem; }
+    .activaciones-header h2 { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 900; margin-bottom: .75rem; }
+    .activaciones-header .act-sub { font-family: 'Fraunces', serif; font-style: italic; color: var(--ordy); font-size: 1.15rem; margin-bottom: 1.25rem; }
+    .activaciones-header p { color: var(--muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1rem; }
+    .act-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem; margin-bottom: 3rem; }
+    .act-card { background: white; border-radius: 18px; padding: 1.75rem 1.4rem; border: 1.5px solid var(--border); transition: transform .2s, box-shadow .2s; }
+    .act-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(78,75,247,.1); border-color: var(--lila); }
+    .act-icon { font-size: 1.6rem; display: block; margin-bottom: .75rem; }
+    .act-card h3 { font-family: 'Fraunces', serif; font-size: 1rem; font-weight: 800; margin-bottom: .5rem; line-height: 1.3; }
+    .act-card p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .act-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    @media(max-width:960px) { .act-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:600px) { .act-grid { grid-template-columns: 1fr; } .activaciones { padding: 4.5rem 1.25rem; } }
+
+    /* Quinto paso en Cómo funciona */
+    .step-num.n5 { background: var(--ordy-dark); }
+
   </style>
 </head>
 <body>
@@ -517,6 +572,31 @@
   </div>
 </div>
 
+<!-- MODAL AGENDAR POR CORREO -->
+<div class="popup-overlay" id="modal-agendar" role="dialog" aria-modal="true" aria-labelledby="modal-agendar-titulo">
+  <div class="popup-box modal-agendar-box">
+    <button class="popup-close" onclick="cerrarModalAgendar()" aria-label="Cerrar modal">✕</button>
+    <h3 id="modal-agendar-titulo">Agendar por correo</h3>
+    <p>Dejanos tus datos y te escribimos para coordinar una llamada de claridad.</p>
+    <form class="modal-form" id="form-agendar" novalidate>
+      <label for="agendar-nombre">Nombre</label>
+      <input type="text" id="agendar-nombre" name="nombre" required autocomplete="name" aria-label="Nombre">
+      <label for="agendar-correo">Correo</label>
+      <input type="email" id="agendar-correo" name="correo" required autocomplete="email" aria-label="Correo electrónico">
+      <label for="agendar-plan">¿Qué plan te interesa?</label>
+      <select id="agendar-plan" name="plan_interes" required aria-label="Plan de interés">
+        <option value="Radar Exprés con Marty GRATIS">Radar Exprés con Marty GRATIS</option>
+        <option value="Ruta Ordy Completa">Ruta Ordy Completa</option>
+        <option value="Combo Beta Ordy">Combo Beta Ordy</option>
+        <option value="Activación Ordy / Reto de 30 días">Activación Ordy / Reto de 30 días</option>
+        <option value="Quiero que Ordy me ayude a elegir" selected>Quiero que Ordy me ayude a elegir</option>
+      </select>
+      <button type="submit" class="modal-submit" id="agendar-submit">Enviar solicitud</button>
+      <div class="modal-msg" id="agendar-msg" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -528,7 +608,7 @@
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#herramientas">Herramientas</a></li>
     </ul>
-    <a href="beta.html" class="nav-cta">Empezar gratis</a>
+    <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Quiero%20agendar%20una%20llamada%20de%20claridad%20con%20Ordy.%20Vi%20la%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20contarles%20sobre%20mi%20negocio%20para%20entender%20cu%C3%A1l%20ruta%20me%20conviene." target="_blank" rel="noopener" class="nav-cta">Agendar llamada</a>
   </div>
 </nav>
 
@@ -536,12 +616,14 @@
 <header class="hero">
   <div class="hero-left">
     <div class="hero-tag"><span></span> Beta abierta · 3 cupos disponibles</div>
-    <h1>Tu negocio,<br><em>ordenado.</em><br>Tu mente, en paz.</h1>
-    <p class="hero-sub">Ordy convierte la información de tu negocio en una ruta clara de orden, decisiones y próximos pasos. Sin hojas en blanco.</p>
+    <h1>Ordená tu negocio con una guía que te escucha, interpreta y <em>te devuelve claridad.</em></h1>
+    <p class="hero-sub">En Ordy conversamos sobre tu negocio, organizamos la información que ya tenés dispersa y la convertimos en un dashboard estratégico para tomar mejores decisiones.</p>
+    <p class="hero-sub" style="margin-top:-1.5rem;font-size:.95rem;"><strong style="color:var(--text);">No tenés que tenerlo todo claro para empezar.</strong> Traé tu negocio como está. Ordy te ayuda a ordenarlo.</p>
     <div class="hero-btns">
-      <a href="beta.html" class="btn-primary">Quiero mi diagnóstico gratis</a>
-      <a href="#funciona" class="btn-ghost">Ver cómo funciona</a>
+      <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Quiero%20agendar%20una%20llamada%20de%20claridad%20con%20Ordy.%20Vi%20la%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20contarles%20sobre%20mi%20negocio%20para%20entender%20cu%C3%A1l%20ruta%20me%20conviene." target="_blank" rel="noopener" class="btn-primary">Agendar por WhatsApp</a>
+      <button type="button" class="btn-ghost as-btn" onclick="abrirModalAgendar()">Agendar por correo</button>
     </div>
+    <a href="#herramientas" class="hero-link-tools">Probar herramientas gratis →</a>
   </div>
   <div class="hero-right">
     <img src="hero-main.png" alt="Emprendedora con Ordy" class="float">
@@ -589,8 +671,8 @@
   <div class="nocero-top">
     <span class="section-tag">El proceso</span>
     <h2>No empezás desde cero.<br>Empezás desde lo que ya tenés.</h2>
-    <p>Los cuestionarios de Ordy no son un examen, son una guía para ayudarte a contar lo que ya sabés de tu negocio: qué vendés, cómo cobrás, qué dudas se repiten, qué procesos existen.</p>
-    <p>A partir de ahí, Ordy organiza lo que tenés, detecta vacíos y convierte esa información en una ruta clara.</p>
+    <p>En Ordy conversamos sobre tu negocio: qué vendés, cómo cobrás, qué dudas se repiten, qué procesos existen. Vos hablás. Ordy interpreta. No tenés que explicarlo perfecto para empezar.</p>
+    <p>A partir de ahí, Ordy organiza lo que ya tenés, detecta vacíos y te devuelve claridad en forma de una ruta concreta.</p>
   </div>
   <div class="quote-img">
     <img src="ordy-quote.png" alt="No te pedimos que tengas todas las respuestas">
@@ -615,8 +697,9 @@
   <div class="her-gratis-inner">
     <div class="her-gratis-header">
       <span class="section-tag">🛠️ Herramientas gratis</span>
-      <h2>Herramientas <em style="font-style:italic;color:var(--ordy);">GRATIS</em> del mundo Ordy</h2>
-      <p>Tres herramientas para empezar a ordenar lo que más pesa ahora mismo. Sin registro, sin correo. Solo entrás y usás.</p>
+      <h2>Probá una pequeña <em style="font-style:italic;color:var(--ordy);">claridad</em> antes de entrar a profundidad</h2>
+      <p>Las herramientas gratuitas de Ordy te permiten explorar una parte del método sin registrarte, sin pagar y sin compromiso. Son una primera mirada para detectar señales, ordenar ideas o hacerte mejores preguntas.</p>
+      <p style="margin-top:.75rem;font-style:italic;color:var(--ordy);font-weight:600;">Esto es 1 metro de profundidad. Ordy llega a 200.</p>
     </div>
     <div class="her-grid">
 
@@ -656,29 +739,34 @@
   <div class="funciona-header">
     <span class="section-tag">El método</span>
     <h2>¿Cómo funciona Ordy?</h2>
-    <p>Con solo 4 pasos, Ordy convierte tus ideas en una ruta clara de negocio.</p>
+    <p>Una experiencia guiada en 5 pasos. Vos hablás. Ordy interpreta.</p>
   </div>
   <img src="estilista.png" alt="Profesional usando Ordy" class="funciona-hero-img">
   <div class="steps">
     <div class="step">
       <div class="step-num n1">1</div>
-      <h3>Contás lo que ya sabés</h3>
-      <p>Cuestionario guiado sobre tu negocio. No es un examen, es sacar lo que está en tu cabeza y ponerlo en orden.</p>
+      <h3>Agendás una llamada</h3>
+      <p>Conversamos sobre tu negocio, tus ideas, tus procesos, tus dudas y lo que querés ordenar.</p>
     </div>
     <div class="step">
       <div class="step-num n2">2</div>
-      <h3>Ordy organiza tus respuestas</h3>
-      <p>Detectamos patrones, vacíos y puntos clave para entender el estado real de tu negocio.</p>
+      <h3>Ordy interpreta tu información</h3>
+      <p>Tomamos lo que contaste y lo organizamos con nuestra metodología por niveles.</p>
     </div>
     <div class="step">
       <div class="step-num n3">3</div>
       <h3>Recibís tu dashboard</h3>
-      <p>Vista clara con resumen, hallazgos, recomendaciones y próximos pasos concretos.</p>
+      <p>Te entregamos una lectura estratégica de tu negocio, con claridad, alertas, prioridades y recomendaciones.</p>
     </div>
     <div class="step">
       <div class="step-num n4">4</div>
-      <h3>Usás esa base para avanzar</h3>
-      <p>Tomá decisiones, mejorá procesos, alimentá IA o construí sistemas más útiles desde una base real.</p>
+      <h3>Lo revisamos juntas/os</h3>
+      <p>Agendamos una segunda reunión para explicarte cómo leerlo, cómo usarlo y qué hallazgos vale la pena atender primero.</p>
+    </div>
+    <div class="step">
+      <div class="step-num n5">5</div>
+      <h3>Podés activar una ruta</h3>
+      <p>Si querés avanzar en una acción concreta, los asesores Ordy pueden prepararte una guía o reto de 30 días basado en tu dashboard.</p>
     </div>
   </div>
 </section>
@@ -686,9 +774,11 @@
 <!-- DASHBOARDS -->
 <section class="dashboards" id="dashboards">
   <div class="dashboards-header">
-    <span class="section-tag">Casos de ejemplo</span>
-    <h2>Mirá cómo se ve Ordy por dentro</h2>
-    <p>Tres negocios ficticios. <em>Los problemas son reales.</em></p>
+    <span class="section-tag">El entregable</span>
+    <h2>Tu dashboard es el brief maestro de tu negocio</h2>
+    <p style="max-width:680px;">Tu dashboard no es solo un resumen. Es la base para entender tu negocio, usar mejor la IA, trabajar con profesionales y decidir por dónde avanzar. En un solo lugar podés ver qué hacés, cómo funciona, qué oportunidades existen, qué señales merecen atención y qué rutas podrían ayudarte a avanzar.</p>
+    <p style="margin-top:1rem;"><em>Ya no tenés que volver a explicar tu negocio desde cero. Ordy ya lo conoce.</em></p>
+    <p style="margin-top:2rem;font-size:.9rem;">Mirá cómo se ve por dentro — tres negocios ficticios, <em>problemas reales:</em></p>
   </div>
   <div class="cards">
     <div class="card">
@@ -729,65 +819,117 @@
   <div class="precios-header">
     <span class="section-tag">Planes</span>
     <h2>Elegí cómo querés empezar</h2>
-    <p>Desde un diagnóstico gratuito hasta la experiencia completa.</p>
+    <p>Gratis explorás. Con Ordy revelás.</p>
   </div>
   <div class="pricing">
+
+    <!-- Plan 1 · Radar Exprés con Marty GRATIS -->
     <div class="pcard">
-      <div class="pchar"><img src="char-ordy.png" alt="Ordy"></div>
-      <div class="pname">Diagnóstico Ordy Base</div>
+      <div class="pchar"><img src="marty-tool.png" alt="Marty"></div>
+      <div class="pname">Radar Exprés con Marty</div>
       <div class="pprice">Gratis</div>
-      <div class="pnote">⚡ Quedan 3 espacios este mes</div>
-      <div class="pdesc">Para negocios que quieren una primera vista clara sin compromiso.</div>
+      <div class="pdesc">Una herramienta rápida para detectar una posible fuga principal en tu negocio: tiempo, dinero, clientes, energía, operación o claridad. Marty te ayuda a hacer una primera lectura de lo que puede estar drenando recursos. Es una mini experiencia Ordy para empezar a ver con más claridad.</div>
       <ul class="pfeatures">
-        <li>Nivel 1</li>
-        <li>Dashboard base</li>
-        <li>Recomendación de siguiente paso</li>
-        <li>Prompt resumen — copialo y pegalo en cualquier IA para que entienda tu negocio al instante</li>
-        <li>3 mensajes personalizados</li>
-        <li>1 videollamada incluida</li>
+        <li>Diagnóstico rápido</li>
+        <li>Resultado inmediato</li>
+        <li>Fuga principal detectada</li>
+        <li>Recomendación inicial</li>
+        <li>Opción de compartir tus resultados con Ordy</li>
       </ul>
-      <a href="beta.html" class="pbtn ordy">Quiero mi cupo gratis</a>
+      <a href="radar-expres.html" class="pbtn ordy">Hacer Radar Exprés gratis</a>
     </div>
+
+    <!-- Plan 2 · Ruta Ordy Completa -->
     <div class="pcard featured">
       <div class="pchar"><img src="char-navi.png" alt="Navi"></div>
       <div class="pname">Ruta Ordy Completa</div>
       <div class="pprice">₡43.000</div>
+      <div class="pnote">Precio beta</div>
       <div class="pstrike">Precio regular: ₡67.000</div>
-      <div class="pdesc">Para negocios que quieren ordenar procesos, números, clientes y próximos pasos.</div>
+      <div class="pdesc">Una experiencia guiada para ordenar tu negocio, interpretar tu información y recibir un dashboard estratégico con claridad, alertas, prioridades y recomendaciones. <strong>Esta ruta incluye el Radar de Fugas.</strong></div>
       <ul class="pfeatures">
-        <li>Niveles 1 al 6</li>
-        <li>Dashboard actualizado por nivel</li>
-        <li>Prompt resumen por nivel para alimentar tus herramientas con IA</li>
-        <li>2 llamadas estratégicas</li>
-        <li>Seguimiento por WhatsApp</li>
-        <li>Recomendaciones accionables</li>
+        <li>Llamada de claridad inicial</li>
+        <li>Interpretación Ordy por niveles</li>
+        <li>Dashboard estratégico personalizado</li>
+        <li>Radar de fugas incluido</li>
+        <li>Reunión de revisión del dashboard</li>
+        <li>Sección “Usar con IA”</li>
+        <li>Recomendaciones de asesores Ordy</li>
       </ul>
-      <a href="https://wa.me/50687037656?text=Quiero%20la%20Ruta%20Ordy%20Completa" target="_blank" class="pbtn ordy">Empezar mi Ruta Ordy</a>
+      <div class="pbtn-stack">
+        <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Me%20interesa%20la%20Ruta%20Ordy%20Completa.%20Vi%20la%20p%C3%A1gina%20web%20y%20quiero%20agendar%20una%20llamada%20para%20contarles%20sobre%20mi%20negocio." target="_blank" rel="noopener" class="pbtn ordy">Agendar por WhatsApp</a>
+        <button type="button" class="pbtn-sec as-btn" onclick="abrirModalAgendar('Ruta Ordy Completa')">Agendar por correo</button>
+      </div>
     </div>
-    <div class="pcard">
-      <div class="pchar"><img src="char-glau.png" alt="Glau"></div>
-      <div class="pname">Radar Ordy</div>
-      <div class="pprice">₡12.000</div>
-      <div class="pnote">🔒 Solo tras completar los niveles</div>
-      <div class="pdesc">Para negocios que sienten que algo se escapa pero no saben dónde.</div>
-      <ul class="pfeatures">
-        <li>Análisis de fugas en tiempo, dinero, energía, clientes, operación y rentabilidad</li>
-      </ul>
-      <a href="https://wa.me/50687037656?text=Quiero%20el%20Radar%20Ordy" target="_blank" class="pbtn rosa">Activar Radar Ordy</a>
-    </div>
+
+    <!-- Plan 3 · Combo Beta Ordy -->
     <div class="pcard featured-coral">
       <div class="pbadge">Mejor valor</div>
       <div class="pchar"><img src="char-carey.png" alt="Carey"></div>
       <div class="pname">Combo Beta Ordy</div>
       <div class="pprice coral">₡50.000</div>
-      <div class="pdesc">Para quienes quieren la experiencia más completa desde el inicio.</div>
+      <div class="pnote">Precio beta</div>
+      <div class="pdesc">La experiencia completa de Ordy para recibir tu dashboard estratégico, detectar fugas y activar una ruta de acción de 30 días según lo que el dashboard revele.</div>
       <ul class="pfeatures">
-        <li>Ruta Ordy Completa</li><li>Radar Ordy incluido</li>
-        <li>Dashboard completo</li>
-        <li>Seguimiento por WhatsApp</li>
-        <li>2 llamadas estratégicas</li>
+        <li>Ruta Ordy Completa</li>
+        <li>Radar de fugas</li>
+        <li>Dashboard estratégico personalizado</li>
+        <li>Reunión de revisión</li>
+        <li>Sección “Usar con IA”</li>
+        <li>Recomendaciones de asesores</li>
+        <li>Acceso a un reto de acción de 30 días</li>
+        <li>Tema del reto elegido después de revisar el dashboard</li>
       </ul>
-      <a href="https://wa.me/50687037656?text=Quiero%20el%20Combo%20Beta%20Ordy" target="_blank" class="pbtn coral">Quiero la experiencia completa</a>
+      <div class="pbtn-stack">
+        <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Me%20interesa%20el%20Combo%20Beta%20Ordy.%20Quiero%20recibir%20el%20dashboard%2C%20el%20Radar%20y%20un%20reto%20de%20acci%C3%B3n%20de%2030%20d%C3%ADas.%20Me%20gustar%C3%ADa%20agendar%20una%20llamada." target="_blank" rel="noopener" class="pbtn coral">Agendar por WhatsApp</a>
+        <button type="button" class="pbtn-sec coral as-btn" onclick="abrirModalAgendar('Combo Beta Ordy')">Agendar por correo</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACTIVACIONES ORDY / RETOS DE 30 DÍAS -->
+<section class="activaciones" id="activaciones">
+  <div class="activaciones-inner">
+    <div class="activaciones-header">
+      <span class="section-tag">Activaciones Ordy</span>
+      <h2>Después del dashboard, podés activar una ruta</h2>
+      <p class="act-sub">Tu dashboard no termina en claridad. También puede convertirse en acción.</p>
+      <p>Después de recibir y revisar tu dashboard, podés solicitar que el equipo Ordy te ayude a transformar tus hallazgos en un plan de acción de 30 días.</p>
+      <p>Según lo que el dashboard revele, podés elegir un tema para trabajar: página web, redes sociales, precios, procesos, clientes, lanzamiento, formalización o crecimiento.</p>
+      <p>La idea no es darte más tareas sueltas. Es ayudarte a avanzar con una ruta clara, enfocada y posible.</p>
+    </div>
+    <div class="act-grid">
+      <div class="act-card">
+        <span class="act-icon">🌐</span>
+        <h3>Página web</h3>
+        <p>Prepará la estructura, mensajes y secciones que tu web necesita según la información de tu dashboard.</p>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">📱</span>
+        <h3>Redes sociales</h3>
+        <p>Convertí tu claridad de negocio en contenido más estratégico, coherente y fácil de sostener.</p>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">💰</span>
+        <h3>Precios y rentabilidad</h3>
+        <p>Revisá costos, márgenes y decisiones de precio para vender con más claridad.</p>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">⚙️</span>
+        <h3>Procesos y operación</h3>
+        <p>Ordená entregas, condiciones, pasos internos y tareas que se repiten.</p>
+      </div>
+      <div class="act-card">
+        <span class="act-icon">💬</span>
+        <h3>Clientes y respuestas</h3>
+        <p>Prepará mensajes, políticas, objeciones y respuestas frecuentes con más seguridad.</p>
+      </div>
+    </div>
+    <div class="act-btns">
+      <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Ya%20vi%20que%20Ordy%20puede%20ayudarme%20despu%C3%A9s%20del%20dashboard%20con%20una%20ruta%20de%2030%20d%C3%ADas.%20Quiero%20saber%20c%C3%B3mo%20funciona%20una%20Activaci%C3%B3n%20Ordy." target="_blank" rel="noopener" class="btn-primary">Agendar por WhatsApp</a>
+      <button type="button" class="btn-ghost as-btn" onclick="abrirModalAgendar('Activación Ordy / Reto de 30 días')">Agendar por correo</button>
     </div>
   </div>
 </section>
@@ -798,9 +940,11 @@
     <img src="ordy-herramientas.png" alt="Ordy y los niveles">
   </div>
   <div class="herramientas-right">
-    <span class="section-tag">Integración</span>
-    <h2>No reemplaza tus herramientas, <span>les da dirección.</span></h2>
-    <p>Después de Ordy, ya no empezás desde una hoja en blanco — empezás con contexto. Solo copiá y pegá tu dashboard o el prompt de la sección que más te interesa en cualquier herramienta de IA, y al instante tendrá todo el contexto de tu negocio para darte respuestas que realmente sirvan.</p>
+    <span class="section-tag">Usar con IA</span>
+    <h2>Tu dashboard también es <span>contexto para la IA.</span></h2>
+    <p>Ordy no compite con ChatGPT, Claude o Gemini. Te ayuda a darles mejor contexto.</p>
+    <p>Dentro del dashboard vas a encontrar bloques preparados para copiar y usar con IA: contexto completo, versión segura sin datos sensibles y prompts para pedir planes, ideas o acciones según tu negocio.</p>
+    <p><em>No se trata de usar más IA. Se trata de usarla mejor.</em></p>
     <div class="tools">
       <span class="tool">🤖 ChatGPT</span>
       <span class="tool">📝 Notion</span>
@@ -821,7 +965,7 @@
     </div>
     <div class="faq-item">
       <button class="faq-toggle" type="button">¿En resumen, qué es Ordy? <span class="faq-icon">+</span></button>
-      <div class="faq-answer"><p>Ordy es una metodología guiada con dashboards personalizados. A través de cuestionarios simples, organiza la información de tu negocio y te entrega un dashboard claro con hallazgos, recomendaciones y un prompt que podés usar para que cualquier IA entienda tu negocio al instante.</p></div>
+      <div class="faq-answer"><p>Ordy es una metodología guiada que escucha tu negocio, ordena la información que tenés dispersa y la convierte en un dashboard estratégico. Conversamos sobre tu negocio, Ordy interpreta y te devuelve claridad: hallazgos, recomendaciones y bloques listos para que cualquier IA entienda tu negocio al instante.</p></div>
     </div>
     <div class="faq-item">
       <button class="faq-toggle" type="button">¿Tengo que tener todo claro para empezar? <span class="faq-icon">+</span></button>
@@ -836,8 +980,8 @@
       <div class="faq-answer"><p>Sí. Tu dashboard se convierte en tu base de conocimiento para pedirle mejores cosas a cualquier herramienta de IA.</p></div>
     </div>
     <div class="faq-item">
-      <button class="faq-toggle" type="button">¿Qué pasa después del diagnóstico gratis? <span class="faq-icon">+</span></button>
-      <div class="faq-answer"><p>Recibís tu dashboard base y una recomendación de siguiente paso. Si querés profundizar, podés avanzar a la Ruta Ordy Completa con acompañamiento personalizado.</p></div>
+      <button class="faq-toggle" type="button">¿Cómo empiezo si todavía no tengo nada claro? <span class="faq-icon">+</span></button>
+      <div class="faq-answer"><p>Podés probar el Radar Exprés con Marty gratis para una primera lectura, o agendar directamente una llamada de claridad. No tenés que explicarlo perfecto para empezar: traé tu negocio como está y Ordy te ayuda a ordenarlo.</p></div>
     </div>
   </div>
 </section>
@@ -860,11 +1004,11 @@
 
 <!-- CTA FINAL -->
 <section class="cta">
-  <h2>Sacá tu negocio<br>de la cabeza.</h2>
-  <p>Convertí tus ideas, procesos y decisiones en una guía clara para avanzar con más paz.</p>
+  <h2>Traé tu negocio como está.<br>Salí con una ruta más clara.</h2>
+  <p>Emprender ya carga suficiente ruido. Ordy te ayuda a escucharlo, ordenarlo y convertirlo en una lectura estratégica para decidir con más claridad.</p>
   <div class="cta-btns">
-    <a href="beta.html" class="btn-white">Quiero mi diagnóstico gratis</a>
-    <a href="https://wa.me/50687037656?text=Quiero%20empezar%20mi%20Ruta%20Ordy" target="_blank" class="btn-white-ghost">Empezar mi Ruta Ordy</a>
+    <a href="https://wa.me/50687037656?text=Hola%20%F0%9F%91%8B%20Quiero%20agendar%20una%20llamada%20de%20claridad%20con%20Ordy.%20Vi%20la%20p%C3%A1gina%20web%20y%20me%20gustar%C3%ADa%20contarles%20sobre%20mi%20negocio%20para%20entender%20cu%C3%A1l%20ruta%20me%20conviene." target="_blank" rel="noopener" class="btn-white">Agendar por WhatsApp</a>
+    <button type="button" class="btn-white-ghost as-btn" onclick="abrirModalAgendar()">Agendar por correo</button>
   </div>
 </section>
 
@@ -1009,6 +1153,93 @@
   /* Cerrar tocando el overlay */
   document.getElementById('tools-popup').addEventListener('click', function(e) {
     if (e.target === this) cerrarPopup();
+  });
+</script>
+<script>
+  /* ══ MODAL AGENDAR POR CORREO ══ */
+  /* Endpoint del formulario (Formspree). Si algún día querés separarlo, cambiá esta URL. */
+  var FORM_ENDPOINT_AGENDAR = 'https://formspree.io/f/xojoeadl';
+
+  function abrirModalAgendar(planPreseleccionado) {
+    var modal = document.getElementById('modal-agendar');
+    if (!modal) return;
+    /* Preseleccionar plan si el botón lo indica */
+    if (planPreseleccionado) {
+      var select = document.getElementById('agendar-plan');
+      for (var i = 0; i < select.options.length; i++) {
+        if (select.options[i].value === planPreseleccionado) { select.selectedIndex = i; break; }
+      }
+    }
+    /* Limpiar mensajes previos */
+    var msg = document.getElementById('agendar-msg');
+    msg.className = 'modal-msg'; msg.textContent = '';
+    modal.classList.add('visible');
+    /* Enfocar el primer campo al abrir */
+    setTimeout(function() { document.getElementById('agendar-nombre').focus(); }, 250);
+  }
+
+  function cerrarModalAgendar() {
+    var modal = document.getElementById('modal-agendar');
+    if (modal) modal.classList.remove('visible');
+  }
+
+  /* Cerrar con Escape */
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') cerrarModalAgendar();
+  });
+
+  /* Cerrar tocando fuera del cuadro */
+  document.getElementById('modal-agendar').addEventListener('click', function(e) {
+    if (e.target === this) cerrarModalAgendar();
+  });
+
+  /* Envío del formulario */
+  document.getElementById('form-agendar').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var nombre = document.getElementById('agendar-nombre').value.trim();
+    var correo = document.getElementById('agendar-correo').value.trim();
+    var plan = document.getElementById('agendar-plan').value;
+    var msg = document.getElementById('agendar-msg');
+    var btn = document.getElementById('agendar-submit');
+
+    if (!nombre || !correo || correo.indexOf('@') === -1) {
+      msg.className = 'modal-msg err';
+      msg.textContent = 'Por favor completá tu nombre y un correo válido.';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    fetch(FORM_ENDPOINT_AGENDAR, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        nombre: nombre,
+        correo: correo,
+        plan_interes: plan,
+        origen: 'Agendar por correo',
+        pagina_origen: window.location.href,
+        fecha_envio: new Date().toISOString()
+      })
+    })
+    .then(function(res) {
+      if (res.ok) {
+        msg.className = 'modal-msg ok';
+        msg.textContent = 'Listo 💙 Recibimos tu solicitud. Te escribiremos pronto para coordinar la llamada.';
+        document.getElementById('form-agendar').reset();
+      } else {
+        throw new Error('Respuesta no OK');
+      }
+    })
+    .catch(function() {
+      msg.className = 'modal-msg err';
+      msg.textContent = 'Algo no salió bien. Podés intentar de nuevo o escribirnos por WhatsApp.';
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud';
+    });
   });
 </script>
 </body>
