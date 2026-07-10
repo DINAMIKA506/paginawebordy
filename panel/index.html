@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Panel de Acompañamiento · Ordy</title>
+<title>Panel Ordy 0.2 · Acompañamiento guiado</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,56 +31,82 @@ button{font-family:'Inter',sans-serif; cursor:pointer;}
 
 /* ── Encabezado ── */
 header{background:var(--morado); color:var(--blanco); padding:22px 20px 0;}
-.head-inner{max-width:1100px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;}
+.head-inner{max-width:1150px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; gap:14px;}
 .head-inner img{height:42px; background:var(--blanco); padding:8px 14px; border-radius:12px;}
-.head-inner h1{font-size:1.35rem; flex:1; min-width:200px;}
+.head-inner h1{font-size:1.3rem; flex:1; min-width:200px;}
+.head-inner h1 small{display:block; font-family:'Inter',sans-serif; font-weight:600; font-size:.72rem; color:var(--lila); letter-spacing:.05em; text-transform:uppercase;}
 .head-btns{display:flex; gap:8px; flex-wrap:wrap;}
 .head-btns button{background:rgba(255,255,255,.14); color:var(--blanco); border:1px solid rgba(255,255,255,.35); padding:9px 14px; border-radius:10px; font-weight:600; font-size:.85rem;}
 .head-btns button.primario{background:var(--coral); border-color:var(--coral);}
-.ola{display:block; width:100%; margin-top:18px;}
-.tabs{max-width:1100px; margin:0 auto; display:flex; gap:6px; padding-top:14px;}
-.tabs button{background:transparent; border:none; color:var(--lila); font-weight:700; font-size:.95rem; padding:10px 16px; border-radius:12px 12px 0 0;}
+.tabs{max-width:1150px; margin:0 auto; display:flex; gap:4px; padding-top:14px; overflow-x:auto;}
+.tabs button{background:transparent; border:none; color:var(--lila); font-weight:700; font-size:.9rem; padding:10px 14px; border-radius:12px 12px 0 0; white-space:nowrap;}
 .tabs button.activo{background:var(--fondo); color:var(--morado);}
 
-main{max-width:1100px; margin:0 auto; padding:22px 20px 80px;}
+main{max-width:1150px; margin:0 auto; padding:22px 20px 90px;}
 
 /* ── Resumen ── */
-.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:22px;}
-.stat{background:var(--blanco); border-radius:var(--radio); padding:16px 18px; box-shadow:var(--sombra);}
-.stat b{font-size:1.6rem; font-family:'Fraunces',serif; color:var(--morado); display:block;}
-.stat span{font-size:.82rem; color:var(--gris); font-weight:600;}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:18px;}
+.stat{background:var(--blanco); border-radius:var(--radio); padding:14px 16px; box-shadow:var(--sombra);}
+.stat b{font-size:1.5rem; font-family:'Fraunces',serif; color:var(--morado); display:block;}
+.stat span{font-size:.78rem; color:var(--gris); font-weight:600;}
 .stat.alerta b{color:var(--coral);}
+
+/* ── Seguimiento por etapa ── */
+.etapas{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;}
+.etapas button{border:1.5px solid #DEDEF2; background:var(--blanco); border-radius:99px; padding:7px 14px; font-weight:600; font-size:.8rem; color:var(--gris);}
+.etapas button.activo{background:var(--morado); border-color:var(--morado); color:var(--blanco);}
+.etapas button b{font-family:'Inter',sans-serif;}
+
+/* ── Filtros ── */
+.filtros{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); padding:14px 16px; margin-bottom:18px;}
+.filtros .fila{display:flex; flex-wrap:wrap; gap:10px; align-items:flex-end;}
+.filtros .campo{flex:1; min-width:160px; margin:0;}
+.chips-filtro{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+.chips-filtro button{border:1.5px solid #DEDEF2; background:var(--fondo); border-radius:99px; padding:6px 12px; font-weight:600; font-size:.78rem; color:var(--gris);}
+.chips-filtro button.activo{background:var(--coral); border-color:var(--coral); color:var(--blanco);}
 
 /* ── Tarjetas de cliente ── */
 .card{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); margin-bottom:14px; overflow:hidden; border-left:6px solid var(--lila);}
-.card.tiene-accion{border-left-color:var(--coral);}
-.card.en-espera{border-left-color:var(--lila);}
-.card-head{display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px; padding:16px 18px; cursor:pointer;}
-.card-head .nombre{flex:1; min-width:180px;}
+.card.con-alerta{border-left-color:var(--coral);}
+.card-head{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; padding:15px 18px; cursor:pointer;}
+.card-head .nombre{flex:1; min-width:170px;}
 .card-head .nombre b{font-size:1.05rem; font-family:'Fraunces',serif;}
-.card-head .nombre span{display:block; font-size:.82rem; color:var(--gris);}
-.chip{font-size:.75rem; font-weight:700; padding:5px 11px; border-radius:99px; white-space:nowrap;}
-.chip.nivel{background:var(--lila-suave); color:var(--morado);}
-.chip.accion{background:#FFE9E9; color:var(--coral);}
-.chip.espera{background:#EDEDF5; color:var(--gris);}
+.card-head .nombre span{display:block; font-size:.8rem; color:var(--gris);}
+.chip{font-size:.73rem; font-weight:700; padding:5px 11px; border-radius:99px; white-space:nowrap;}
+.chip.g0{background:var(--lila-suave); color:var(--morado);}
+.chip.g1{background:#E4F0FF; color:#1D6FD1;}
+.chip.g2{background:#FFF3DF; color:var(--ambar);}
+.chip.g3{background:#E9E7FF; color:var(--morado);}
+.chip.g4{background:#E2F6EE; color:var(--verde);}
+.chip.g5{background:#FFE9F3; color:#D1338A;}
+.chip.g6{background:#EDEDF5; color:var(--gris);}
+.chip.pago{background:#FFE9E9; color:var(--coral);}
 .chip.ok{background:#E2F6EE; color:var(--verde);}
-.chip.aviso{background:#FFF3DF; color:var(--ambar);}
-.card-body{display:none; border-top:1px solid #ECECF8; padding:18px;}
+.chip.proceso{background:#FFF3DF; color:var(--ambar);}
+.chip.aviso{background:#FFE9E9; color:var(--coral);}
+.card-body{display:none; border-top:1px solid #ECECF8; padding:16px 18px 18px;}
 .card.abierta .card-body{display:block;}
+.card-acciones{display:flex; gap:8px; flex-wrap:wrap; width:100%; padding:0 18px 14px;}
 
-.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin-bottom:14px;}
-.campo label{display:block; font-size:.75rem; font-weight:700; color:var(--gris); margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em;}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;}
+.campo label{display:block; font-size:.72rem; font-weight:700; color:var(--gris); margin-bottom:4px; text-transform:uppercase; letter-spacing:.03em;}
 .campo input, .campo select, .campo textarea{width:100%; padding:10px 12px; border:1.5px solid #DEDEF2; border-radius:10px; font-size:.92rem; font-family:'Inter',sans-serif; background:var(--blanco); color:var(--tinta);}
-.campo textarea{min-height:74px; resize:vertical;}
+.campo textarea{min-height:70px; resize:vertical;}
 .campo input:focus, .campo select:focus, .campo textarea:focus{outline:2px solid var(--morado); border-color:var(--morado);}
 
-.bloque{background:var(--fondo); border-radius:12px; padding:16px; margin-top:14px;}
-.bloque h3{font-size:1rem; color:var(--morado); margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
-.aviso-caja{background:#FFF3DF; border-left:4px solid var(--ambar); border-radius:10px; padding:12px 14px; font-size:.9rem; margin-top:12px; font-weight:600;}
+details.dgrupo{background:var(--fondo); border-radius:12px; margin-top:12px; overflow:hidden;}
+details.dgrupo summary{cursor:pointer; padding:13px 16px; font-weight:700; font-family:'Fraunces',serif; color:var(--morado); font-size:.98rem; list-style:none; display:flex; align-items:center; gap:8px;}
+details.dgrupo summary::-webkit-details-marker{display:none;}
+details.dgrupo summary::after{content:'▾'; margin-left:auto; color:var(--gris); transition:transform .2s;}
+details.dgrupo[open] summary::after{transform:rotate(180deg);}
+details.dgrupo .dgrupo-body{padding:0 16px 16px;}
+
+.aviso-caja{background:#FFF3DF; border-left:4px solid var(--ambar); border-radius:10px; padding:11px 14px; font-size:.88rem; margin-top:12px; font-weight:600;}
 .aviso-caja.roja{background:#FFE9E9; border-left-color:var(--coral); color:var(--coral);}
-.msg-out{background:var(--blanco); border:1.5px solid #DEDEF2; border-radius:10px; padding:12px 14px; font-size:.9rem; white-space:pre-wrap; max-height:260px; overflow:auto; line-height:1.55;}
+.msg-out{background:var(--blanco); border:1.5px solid #DEDEF2; border-radius:10px; padding:12px 14px; font-size:.9rem; white-space:pre-wrap; max-height:280px; overflow:auto; line-height:1.55;}
 .botonera{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
-.btn{border:none; border-radius:10px; padding:10px 16px; font-weight:700; font-size:.87rem; display:inline-flex; align-items:center; gap:6px;}
+.btn{border:none; border-radius:10px; padding:10px 16px; font-weight:700; font-size:.85rem; display:inline-flex; align-items:center; gap:6px;}
+.btn.mini{padding:7px 12px; font-size:.78rem;}
 .btn.morado{background:var(--morado); color:var(--blanco);}
 .btn.coral{background:var(--coral); color:var(--blanco);}
 .btn.verde{background:var(--verde); color:var(--blanco);}
@@ -88,26 +114,34 @@ main{max-width:1100px; margin:0 auto; padding:22px 20px 80px;}
 .btn.gris{background:#EDEDF5; color:var(--gris);}
 .btn:disabled{opacity:.45; cursor:not-allowed;}
 
+.bloque{background:var(--fondo); border-radius:12px; padding:16px; margin-top:14px;}
+.bloque h3{font-size:1rem; color:var(--morado); margin-bottom:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
 .preview-mail{border:1.5px solid #DEDEF2; border-radius:12px; overflow:auto; max-height:520px; background:#F3F2FF; margin-top:10px;}
-.coleccion-mini{font-size:.85rem; background:var(--blanco); border:1.5px dashed var(--lila); border-radius:10px; padding:10px 12px; margin-top:10px; line-height:1.7;}
+.token-vacio{background:#FFE9E9; color:var(--coral); border-radius:5px; padding:0 4px; font-weight:700;}
 
-/* ── Registro ── */
-table{width:100%; border-collapse:collapse; background:var(--blanco); border-radius:var(--radio); overflow:hidden; box-shadow:var(--sombra); font-size:.86rem;}
-th{background:var(--morado); color:var(--blanco); text-align:left; padding:11px 12px; font-size:.78rem; text-transform:uppercase; letter-spacing:.04em;}
-td{padding:10px 12px; border-top:1px solid #ECECF8;}
+/* ── Plantillas ── */
+.panel-blanco{background:var(--blanco); border-radius:var(--radio); box-shadow:var(--sombra); padding:18px;}
+.sugerido-pill{display:inline-flex; align-items:center; gap:6px; background:var(--lila-suave); color:var(--morado); border-radius:99px; padding:6px 13px; font-size:.8rem; font-weight:700; margin-top:8px;}
+
+/* ── Tablas ── */
+.tabla-scroll{overflow-x:auto; border-radius:var(--radio); box-shadow:var(--sombra);}
+table{width:100%; border-collapse:collapse; background:var(--blanco); font-size:.85rem; min-width:640px;}
+th{background:var(--morado); color:var(--blanco); text-align:left; padding:11px 12px; font-size:.75rem; text-transform:uppercase; letter-spacing:.04em;}
+td{padding:9px 12px; border-top:1px solid #ECECF8; vertical-align:middle;}
 tr:hover td{background:var(--lila-suave);}
+td input, td select{padding:7px 9px; border:1.5px solid #DEDEF2; border-radius:8px; font-size:.83rem; font-family:'Inter',sans-serif; width:100%; min-width:90px; background:var(--blanco); color:var(--tinta);}
 
 /* ── Modales ── */
 .modal-fondo{position:fixed; inset:0; background:rgba(35,33,74,.55); z-index:60; display:none; align-items:flex-start; justify-content:center; padding:30px 16px; overflow:auto;}
 .modal-fondo.visible{display:flex;}
-.modal{background:var(--blanco); border-radius:var(--radio); max-width:640px; width:100%; padding:24px; box-shadow:0 12px 40px rgba(0,0,0,.25);}
+.modal{background:var(--blanco); border-radius:var(--radio); max-width:680px; width:100%; padding:24px; box-shadow:0 12px 40px rgba(0,0,0,.25);}
 .modal h2{color:var(--morado); font-size:1.25rem; margin-bottom:16px;}
 .vacio{text-align:center; padding:50px 20px; color:var(--gris);}
 .vacio .emoji{font-size:2.6rem; display:block; margin-bottom:10px;}
-.toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--tinta); color:var(--blanco); padding:12px 22px; border-radius:99px; font-weight:600; font-size:.9rem; z-index:90; opacity:0; transition:opacity .25s; pointer-events:none;}
+.toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--tinta); color:var(--blanco); padding:12px 22px; border-radius:99px; font-weight:600; font-size:.9rem; z-index:90; opacity:0; transition:opacity .25s; pointer-events:none; max-width:90vw; text-align:center;}
 .toast.visible{opacity:1;}
 .nota-pie{font-size:.78rem; color:var(--gris); margin-top:8px;}
-@media(max-width:640px){ .card-head{padding:14px;} .card-body{padding:14px;} }
+@media(max-width:640px){ .card-head{padding:13px 14px;} .card-body{padding:14px;} .card-acciones{padding:0 14px 12px;} main{padding:18px 14px 90px;} }
 </style>
 </head>
 <body>
@@ -115,8 +149,8 @@ tr:hover td{background:var(--lila-suave);}
 <!-- Portón de acceso -->
 <div id="gate">
   <img src="https://www.ordenyplan.com/img/insignias/ordy-logo.png" alt="Ordy">
-  <h1>Panel de Acompañamiento</h1>
-  <p>Espacio interno del equipo Ordy 🌊</p>
+  <h1>Panel Ordy 0.2</h1>
+  <p>Acompañamiento guiado · espacio interno del equipo 🌊</p>
   <input type="password" id="gate-pass" placeholder="Contraseña" onkeydown="if(event.key==='Enter')entrar()">
   <div class="error" id="gate-error"></div>
   <button onclick="entrar()">Entrar</button>
@@ -125,7 +159,7 @@ tr:hover td{background:var(--lila-suave);}
 <header>
   <div class="head-inner">
     <img src="https://www.ordenyplan.com/img/insignias/ordy-logo.png" alt="Ordy">
-    <h1>Panel de Acompañamiento</h1>
+    <h1>Panel de Acompañamiento<small>Versión 0.2 · proceso guiado</small></h1>
     <div class="head-btns">
       <button class="primario" onclick="abrirNuevoCliente()">+ Nueva empresa</button>
       <button onclick="descargarRespaldo()">⬇ Respaldo</button>
@@ -136,6 +170,9 @@ tr:hover td{background:var(--lila-suave);}
   </div>
   <div class="tabs">
     <button id="tab-clientes" class="activo" onclick="mostrarTab('clientes')">Empresas</button>
+    <button id="tab-plantillas" onclick="mostrarTab('plantillas')">Plantillas</button>
+    <button id="tab-pagos" onclick="mostrarTab('pagos')">Pagos</button>
+    <button id="tab-activaciones" onclick="mostrarTab('activaciones')">Activaciones</button>
     <button id="tab-registro" onclick="mostrarTab('registro')">Registro de envíos</button>
   </div>
 </header>
@@ -143,7 +180,48 @@ tr:hover td{background:var(--lila-suave);}
 <main>
   <section id="vista-clientes">
     <div class="stats" id="stats"></div>
+    <div class="etapas" id="barra-etapas"></div>
+    <div class="filtros">
+      <div class="fila">
+        <div class="campo"><label>Buscar</label><input id="f-q" placeholder="Empresa o contacto…" oninput="filtros.q=this.value; pintarClientes()"></div>
+        <div class="campo"><label>Estado del proceso</label><select id="f-estado" onchange="filtros.estado=this.value; pintarClientes()"></select></div>
+        <div class="campo"><label>Canal preferido</label><select onchange="filtros.canal=this.value; pintarClientes()"><option value="">Todos</option><option>Correo</option><option>WhatsApp</option><option>Ambos</option></select></div>
+        <div class="campo"><label>Activo</label><select onchange="filtros.activo=this.value; pintarClientes()"><option value="">Todos</option><option>Sí</option><option>No</option></select></div>
+      </div>
+      <div class="chips-filtro">
+        <button id="chip-pago" onclick="alternarFiltro('pagoPend')">💳 Pago pendiente</button>
+        <button id="chip-dash" onclick="alternarFiltro('dashEnt')">📊 Dashboard entregado</button>
+        <button id="chip-act" onclick="alternarFiltro('actProc')">🚀 Activación en proceso</button>
+        <button id="chip-venc" onclick="alternarFiltro('segVencido')">⏰ Seguimiento vencido</button>
+      </div>
+    </div>
     <div id="lista-clientes"></div>
+  </section>
+
+  <section id="vista-plantillas" style="display:none">
+    <div class="panel-blanco">
+      <h2 style="color:var(--morado); margin-bottom:14px;">💌 Plantillas de seguimiento</h2>
+      <div class="grid2">
+        <div class="campo"><label>Empresa</label><select id="tpl-empresa" onchange="pintarPlantilla()"></select></div>
+        <div class="campo"><label>Plantilla</label><select id="tpl-sel" onchange="pintarPlantilla()"></select></div>
+      </div>
+      <div id="tpl-extras" class="grid2" style="margin-top:12px;"></div>
+      <div id="tpl-salida"></div>
+    </div>
+  </section>
+
+  <section id="vista-pagos" style="display:none">
+    <h2 style="color:var(--morado); margin-bottom:12px;">💳 Pagos de dashboards</h2>
+    <div id="tabla-pagos-dash"></div>
+    <h2 style="color:var(--morado); margin:26px 0 12px;">🚀 Pagos de Activaciones</h2>
+    <div id="tabla-pagos-act"></div>
+    <p class="nota-pie">Los cambios se guardan solos. Para enviar recordatorios o confirmaciones, usá la pestaña Plantillas.</p>
+  </section>
+
+  <section id="vista-activaciones" style="display:none">
+    <h2 style="color:var(--morado); margin-bottom:12px;">🚀 Activaciones Ordy</h2>
+    <p class="nota-pie" style="margin:0 0 14px;">El dashboard entrega claridad. La Activación entrega acción. La ejecución es otro servicio.</p>
+    <div id="lista-activaciones"></div>
   </section>
 
   <section id="vista-registro" style="display:none">
@@ -156,10 +234,19 @@ tr:hover td{background:var(--lila-suave);}
   <div class="modal">
     <h2>⚙ Configuración general</h2>
     <div class="grid2">
-      <div class="campo"><label>WhatsApp de Ordy (para "Activar Radar")</label><input id="cfg-wa" placeholder="50688887777"></div>
-      <div class="campo"><label>Link de la comunidad</label><input id="cfg-comunidad" placeholder="https://..."></div>
+      <div class="campo"><label>Nombre comercial</label><input id="cfg-nombreComercial"></div>
+      <div class="campo"><label>Nombre legal para pago</label><input id="cfg-nombreLegal" placeholder="[NOMBRE LEGAL]"></div>
+      <div class="campo"><label>SINPE Móvil</label><input id="cfg-sinpe" placeholder="[NÚMERO SINPE]"></div>
+      <div class="campo"><label>Cuenta IBAN</label><input id="cfg-iban" placeholder="[CUENTA IBAN]"></div>
+      <div class="campo"><label>Banco</label><input id="cfg-banco" placeholder="[BANCO]"></div>
+      <div class="campo"><label>Correo para comprobantes</label><input id="cfg-correoComprobante" placeholder="[CORREO COMPROBANTE]"></div>
+      <div class="campo"><label>WhatsApp de Ordy</label><input id="cfg-waOrdy" placeholder="50688887777"></div>
+      <div class="campo"><label>Link agenda llamada inicial</label><input id="cfg-linkAgendaInicial" placeholder="https://…"></div>
+      <div class="campo"><label>Link agenda revisión</label><input id="cfg-linkAgendaRevision" placeholder="https://…"></div>
+      <div class="campo"><label>Link Soy Majo</label><input id="cfg-linkSoyMajo"></div>
+      <div class="campo"><label>Firma de correo</label><input id="cfg-firma"></div>
     </div>
-    <p class="nota-pie">Los links de los niveles 1–6 y las insignias ya están integrados en el panel.</p>
+    <p class="nota-pie">Estos datos se insertan solos en las plantillas mediante variables como [SINPE] o [LINK_AGENDAR_INICIAL].</p>
     <div class="botonera">
       <button class="btn morado" onclick="guardarConfig()">Guardar</button>
       <button class="btn gris" onclick="cerrarModal('modal-config')">Cancelar</button>
@@ -167,556 +254,1117 @@ tr:hover td{background:var(--lila-suave);}
   </div>
 </div>
 
+<!-- Modal registrar envío manual -->
+<div class="modal-fondo" id="modal-envio">
+  <div class="modal">
+    <h2>✉️ Registrar envío</h2>
+    <p class="nota-pie" style="margin:0 0 14px;">Para <b id="envio-empresa"></b>. Esto guarda el envío en el registro y actualiza el último contacto.</p>
+    <div class="grid2">
+      <div class="campo"><label>Plantilla</label><select id="envio-tpl"></select></div>
+      <div class="campo"><label>Canal</label><select id="envio-canal"><option>Correo</option><option>WhatsApp</option><option>Ambos</option></select></div>
+    </div>
+    <div class="campo" style="margin-top:12px;"><label>Notas (opcional)</label><textarea id="envio-notas"></textarea></div>
+    <div class="campo" style="margin-top:12px;"><label>Después de registrar</label>
+      <select id="envio-aplicar"><option value="si">Cambiar al estado sugerido de la plantilla</option><option value="no">Mantener el estado actual</option></select>
+    </div>
+    <div class="botonera">
+      <button class="btn coral" onclick="confirmarEnvioManual()">✓ Registrar envío</button>
+      <button class="btn gris" onclick="cerrarModal('modal-envio')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══════════ DATOS FIJOS DE ORDY ═══════════ */
-const IMG_BASE = 'https://www.ordenyplan.com/img/insignias/';
-const NIVELES = {
-  1:{nombre:'Entender mi negocio', personaje:'Lumi', emoji:'🐬', insignia:'Bases claras de mi negocio', link:'https://www.ordenyplan.com/nivel-1.html', img:IMG_BASE+'nivel-1.png'},
-  2:{nombre:'Orden mínimo operativo', personaje:'Carey', emoji:'🐢', insignia:'Operación ordenada', link:'https://www.ordenyplan.com/nivel-2.html', img:IMG_BASE+'nivel-2.png'},
-  3:{nombre:'Plata sin autoengaño', personaje:'Regi', emoji:'🐟', insignia:'Plata con más claridad', link:'https://www.ordenyplan.com/nivel-3.html', img:IMG_BASE+'nivel-3.png'},
-  4:{nombre:'Formalización', personaje:'Marty', emoji:'🦈', insignia:'Ruta de formalización clara', link:'https://www.ordenyplan.com/nivel-4.html', img:IMG_BASE+'nivel-4.png'},
-  5:{nombre:'Clientes y políticas', personaje:'Cabu', emoji:'🐠', insignia:'Comunicación más clara', link:'https://www.ordenyplan.com/nivel-5.html', img:IMG_BASE+'nivel-5.png'},
-  6:{nombre:'Crecimiento ordenado', personaje:'Pepi', emoji:'🥒', insignia:'Ruta completada', link:'https://www.ordenyplan.com/nivel-6.html', img:IMG_BASE+'nivel-6.png'}
-};
-const ESTADOS = ['Nuevo','Pendiente','Recibido','En revisión','Necesita afinar','Desbloqueado','Pausado','Ruta completada','Radar listo'];
-
-/* ═══════════ PLANTILLAS (correo + WhatsApp) ═══════════
-   Tokens: {NOMBRE} {LINK_NIVEL} {LINK_SIGUIENTE} {INSIGNIA} {MOTOR}
-           {COLECCION} {LINK_RADAR} {LINK_COMUNIDAD} {WHATSAPP_ORDY} {PREGUNTAS} {N} */
-const TPL = {
-
-BIENVENIDA:{
- asunto:'Bienvenida a Ordy 🌊 Empezamos a ordenar tu negocio',
- correo:`Hola, {NOMBRE}.
-
-Qué emoción darte la bienvenida a Ordy.
-
-A partir de hoy vamos a empezar a ordenar tu negocio por niveles. La idea no es que tengás todas las respuestas perfectas desde el inicio, sino que podamos tomar lo que ya sabés, lo que ya hacés y lo que ya tenés en la cabeza para convertirlo en claridad.
-
-Tu primer paso es completar el Nivel 1:
-
-Link Nivel 1: {LINK_NIVEL}
-
-En este nivel vamos a entender mejor quién es tu negocio, qué ofrece, a quién ayuda, qué lo hace diferente y qué necesita aclararse para seguir avanzando.
-
-Algunas indicaciones importantes:
-
-• Respondé con la mayor naturalidad posible.
-• No hace falta escribir perfecto.
-• Si algo no lo tenés claro, podés decirlo.
-• Si una respuesta necesita afinarse, Ordy puede hacerte nuevas preguntas antes de avanzar.
-• La meta no es terminar rápido, sino construir una base que realmente sirva.
-
-También queremos preguntarte algo importante:
-
-¿Preferís recibir el seguimiento de tus niveles por correo, por WhatsApp o por ambos?
-
-Podés responder este correo con tu preferencia.
-
-Gracias por iniciar este proceso con Ordy.
-
-No empezás desde cero. Empezás desde lo que ya tenés.`,
- wa:`Hola, {NOMBRE} 🌊
-¡Qué emoción darte la bienvenida a Ordy!
-
-Vamos a empezar a ordenar tu negocio por niveles. No hace falta que tengás todo perfecto; la idea es partir de lo que ya sabés, lo que ya hacés y lo que ya tenés en la cabeza.
-
-Aquí está el link del Nivel 1:
-{LINK_NIVEL}
-
-En este nivel vamos a entender mejor quién es tu negocio, qué ofrece, a quién ayuda y qué necesita más claridad.
-
-También quería preguntarte: ¿preferís recibir el seguimiento por correo, por WhatsApp o por ambos?`},
-
-DESBLOQUEO_1:{
- asunto:'Desbloqueaste tu Nivel 1: Bases claras de tu negocio 🌊',
- correo:`Hola, {NOMBRE}.
-
-¡Desbloqueaste tu primera insignia Ordy!
-
-Insignia Nivel 1: {INSIGNIA}
-
-En este nivel empezamos a poner en palabras la base de tu negocio: qué hacés, a quién ayudás, qué ofrecés y qué empieza a necesitar más claridad.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Ahora que ya tenemos una primera lectura del negocio, podemos avanzar al Nivel 2.
-
-En el Nivel 2 vamos a ordenar cómo funciona tu negocio por dentro: líneas de servicio o producto, entregas, cobros, condiciones y procesos básicos.
-
-Link Nivel 2: {LINK_SIGUIENTE}
-
-Este nivel puede requerir un poquito más de pensamiento, porque empieza a sacar información que muchas veces vive solo en la cabeza. Pero justo por eso vale tanto la pena.
-
-Vamos paso a paso.`,
- wa:`¡Nivel 1 desbloqueado, {NOMBRE}! 🌊✨
-
-Te comparto tu insignia:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Ahora podemos avanzar al Nivel 2, donde vamos a ordenar cómo funciona tu negocio por dentro: servicios/productos, entregas, cobros y condiciones.
-
-Link Nivel 2:
-{LINK_SIGUIENTE}
-
-Vamos paso a paso. Esto ya empezó a tomar forma.`},
-
-DESBLOQUEO_2:{
- asunto:'Desbloqueaste tu Nivel 2: Orden operativo logrado 🐢',
- correo:`Hola, {NOMBRE}.
-
-¡Nivel 2 desbloqueado!
-
-Insignia Nivel 2: {INSIGNIA}
-
-En este nivel empezamos a ordenar la parte operativa de tu negocio: líneas, entregas, cobros, condiciones y funcionamiento interno.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Ahora viene uno de los niveles más importantes de Ordy: el Nivel 3.
-
-En el Nivel 3 vamos a revisar precios, costos, tiempo, rentabilidad y sostenibilidad.
-
-Link Nivel 3: {LINK_SIGUIENTE}
-
-Este nivel puede sentirse más fuerte, porque hablar de plata casi siempre incomoda un poco. Pero no venimos a juzgar tus números. Venimos a entenderlos para que podás tomar mejores decisiones.
-
-Plata sin autoengaño, pero con acompañamiento.`,
- wa:`¡Nivel 2 desbloqueado! 🐢✨
-
-Te comparto tu insignia:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Ahora viene el Nivel 3: Plata sin autoengaño.
-
-Vamos a revisar precios, costos, tiempo y sostenibilidad.
-
-Link Nivel 3:
-{LINK_SIGUIENTE}
-
-Este nivel puede sentirse más fuerte, pero no es para juzgar tus números. Es para entenderlos y tomar mejores decisiones.`},
-
-DESBLOQUEO_3:{
- asunto:'Desbloqueaste tu Nivel 3: Plata con más claridad 🐟',
- correo:`Hola, {NOMBRE}.
-
-¡Nivel 3 desbloqueado!
-
-Insignia Nivel 3: {INSIGNIA}
-
-Este nivel es uno de los más valiosos del proceso, porque nos ayuda a mirar el negocio desde su sostenibilidad: precios, costos, tiempo, cobros y rentabilidad.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Si durante este nivel surgieron dudas, ajustes o nuevas preguntas, eso es parte del proceso. En Ordy no avanzamos por avanzar. Avanzamos cuando la información puede sostener el siguiente paso.
-
-Ahora pasamos al Nivel 4.
-
-En este nivel vamos a revisar formalización, riesgos, pendientes y puntos de cuidado.
-
-Link Nivel 4: {LINK_SIGUIENTE}
-
-Después del Nivel 3, este nivel suele sentirse como un respiro. Vamos a verlo como una hoja de ruta, no como una lista de errores.`,
- wa:`¡Nivel 3 desbloqueado! 🐟✨
-
-Te comparto tu insignia:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Este nivel es de los más importantes porque nos ayuda a ver si el negocio se está sosteniendo de forma sana.
-
-Ahora pasamos al Nivel 4: formalización y puntos de cuidado.
-
-Link Nivel 4:
-{LINK_SIGUIENTE}
-
-Después del Nivel 3, este suele sentirse como un respiro.`},
-
-DESBLOQUEO_4:{
- asunto:'Desbloqueaste tu Nivel 4: Ruta de formalización clara 🦈',
- correo:`Hola, {NOMBRE}.
-
-¡Nivel 4 desbloqueado!
-
-Insignia Nivel 4: {INSIGNIA}
-
-En este nivel revisamos qué partes del negocio ya están más encaminadas, cuáles están en proceso y cuáles conviene atender más adelante para operar con más tranquilidad.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Ahora avanzamos al Nivel 5.
-
-Este nivel se enfoca en clientes, preguntas frecuentes, objeciones, políticas y respuestas listas para usar.
-
-Link Nivel 5: {LINK_SIGUIENTE}
-
-Este suele sentirse más ligero, porque parte de conversaciones que probablemente ya tenés todos los días. La diferencia es que ahora vamos a convertirlas en una base clara para comunicar mejor.`,
- wa:`¡Nivel 4 desbloqueado! 🦈✨
-
-Te comparto tu insignia:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Ahora vamos al Nivel 5: clientes, respuestas y políticas.
-
-Link Nivel 5:
-{LINK_SIGUIENTE}
-
-Este nivel suele sentirse más ligero porque parte de conversaciones que ya tenés con clientes. La idea es ordenarlas para que no tengás que improvisar todo.`},
-
-DESBLOQUEO_5:{
- asunto:'Desbloqueaste tu Nivel 5: Comunicación más clara 🐠',
- correo:`Hola, {NOMBRE}.
-
-¡Nivel 5 desbloqueado!
-
-Insignia Nivel 5: {INSIGNIA}
-
-En este nivel ordenamos preguntas frecuentes, objeciones, políticas, condiciones y mensajes clave para que tu comunicación con clientes sea más clara y consistente.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Ahora vamos al Nivel 6.
-
-Este nivel mira hacia adelante: herramientas, crecimiento, inversiones, procesos y qué conviene implementar primero.
-
-Link Nivel 6: {LINK_SIGUIENTE}
-
-La idea no es llenarte de más cosas por hacer. Es ayudarte a ver qué tiene sentido ahora, qué puede esperar y qué podría ayudarte a crecer con más orden.`,
- wa:`¡Nivel 5 desbloqueado! 🐠✨
-
-Te comparto tu insignia:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Ahora pasamos al Nivel 6, donde vamos a ver crecimiento, herramientas, inversiones y próximos pasos.
-
-Link Nivel 6:
-{LINK_SIGUIENTE}
-
-Ya casi terminamos esta ruta. Este nivel ayuda a mirar hacia adelante con más orden.`},
-
-DESBLOQUEO_6:{
- asunto:'Terminaste tu ruta Ordy 🌊 ¿Activamos el Radar?',
- correo:`Hola, {NOMBRE}.
-
-¡Lo lograste!
-
-Completaste los niveles principales de Ordy.
-
-Insignia Nivel 6: {INSIGNIA}
-
-Durante este proceso no solo respondiste preguntas. Documentaste partes importantes de tu negocio: oferta, operación, números, formalización, comunicación y visión de crecimiento.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Ahora Ordy ya tiene suficiente contexto para hacer algo más profundo:
-
-activar el Radar de Fugas.
-
-El Radar revisa todo lo que construiste en los niveles anteriores para detectar posibles fugas de tiempo, dinero, clientes, energía, operación, claridad o rentabilidad.
-
-La idea no es hacer otro cuestionario largo.
-
-La idea es que Ordy pueda decirte:
-
-"Ahora ya te conozco. Esto es lo que estoy viendo."
-
-Si querés activar tu Radar, podés responder este correo o escribirnos por WhatsApp.
-
-Activar Radar: {WHATSAPP_ORDY}`,
- wa:`¡Lo lograste, {NOMBRE}! 🌊✨
-
-Completaste los niveles principales de Ordy.
-
-Te comparto tu insignia del Nivel 6:
-{INSIGNIA}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Ahora Ordy ya tiene suficiente contexto para activar el Radar de Fugas.
-
-El Radar no es otro cuestionario largo. Es una lectura más profunda de todo lo que ya construiste para detectar fugas de tiempo, dinero, clientes, energía, operación o claridad.
-
-Si querés activarlo, me podés responder por acá y te paso la información.`},
-
-RECORDATORIO_1:{
- asunto:'Tu Nivel 1 te está esperando 🌊',
- correo:`Hola, {NOMBRE}.
-
-Solo paso por acá para recordarte que tenés pendiente completar el Nivel 1 de Ordy.
-
-Link Nivel 1: {LINK_NIVEL}
-
-Este nivel es el punto de partida: nos ayuda a entender quién es tu negocio, qué ofrece, a quién ayuda y qué necesita más claridad.
-
-No hace falta que las respuestas queden perfectas.
-
-No empezás desde cero. Empezás desde lo que ya tenés.`,
- wa:`Hola, {NOMBRE} 🌊
-Solo paso a recordarte que tenés pendiente el Nivel 1 de Ordy.
-
-Link Nivel 1:
-{LINK_NIVEL}
-
-Es el punto de partida: entender quién es tu negocio, qué ofrece y a quién ayuda.
-
-No tiene que quedar perfecto. Empezamos desde lo que ya tenés.`},
-
-RECORDATORIO_2:{
- asunto:'Tu Nivel 2 sigue esperando por vos 🐢',
- correo:`Hola, {NOMBRE}.
-
-Solo paso por acá para recordarte que tenés pendiente completar el Nivel 2 de Ordy.
-
-Link Nivel 2: {LINK_NIVEL}
-
-Este nivel ayuda a ordenar cómo funciona tu negocio por dentro: qué ofrecés, cómo lo entregás, cómo cobrás y qué condiciones necesitás dejar más claras.
-
-Sabemos que este nivel puede dar un poquito de pereza porque obliga a pensar en procesos, pero también suele ser uno de los que más claridad deja.
-
-No tenés que hacerlo perfecto.
-
-Solo necesitamos empezar a sacar de tu cabeza lo que tu negocio ya sabe hacer.
-
-Cuando lo completés, Ordy podrá devolverte una lectura más ordenada de tu operación.`,
- wa:`Hola, {NOMBRE} 🌊
-Solo paso a recordarte que tenés pendiente el Nivel 2 de Ordy.
-
-Link Nivel 2:
-{LINK_NIVEL}
-
-Este nivel puede dar un poquito de pereza porque pone a pensar en procesos, pero justo por eso deja tanta claridad.
-
-No tiene que quedar perfecto. Solo necesitamos empezar a sacar de tu cabeza cómo funciona tu negocio.`},
-
-RECORDATORIO_3:{
- asunto:'Tu Nivel 3 es importante para seguir con claridad 🐟',
- correo:`Hola, {NOMBRE}.
-
-Te recordamos que tenés pendiente completar el Nivel 3 de Ordy.
-
-Link Nivel 3: {LINK_NIVEL}
-
-Este nivel revisa una parte clave del negocio: precios, costos, tiempo, margen y sostenibilidad.
-
-Sabemos que puede sentirse pesado, sobre todo si todavía no llevás registros o si no tenés todos los números claros. Eso también es información.
-
-Si no sabés una respuesta, no pasa nada. Escribí lo que tengás, aunque sea aproximado. Ordy puede ayudarte a detectar qué falta y qué se necesita aclarar antes de seguir.
-
-Este nivel no existe para hacerte sentir mal con tus números.
-
-Existe para que tu negocio deje de depender solo de intuición.`,
- wa:`Hola, {NOMBRE} 🌊
-Te recuerdo que tenés pendiente el Nivel 3.
-
-Link Nivel 3:
-{LINK_NIVEL}
-
-Este nivel revisa precios, costos, tiempo y rentabilidad. Si no tenés todo claro, no pasa nada. Eso también es información para Ordy.
-
-Respondé con lo que tengás. Si hace falta, luego afinamos con nuevas preguntas antes de avanzar.`},
-
-RECORDATORIO_4:{
- asunto:'Tu Nivel 4 te ayuda a ver qué necesita protección 🦈',
- correo:`Hola, {NOMBRE}.
-
-Solo paso a recordarte que tenés pendiente el Nivel 4 de Ordy.
-
-Link Nivel 4: {LINK_NIVEL}
-
-Este nivel revisa temas de formalización, facturación, permisos, condiciones, riesgos y próximos pasos importantes.
-
-No sustituye asesoría legal, contable o tributaria, pero sí te ayuda a entender qué puntos deberías tener en el radar.
-
-La idea no es asustarte.
-
-La idea es darte una hoja de ruta para que el negocio se sienta más protegido.`,
- wa:`Hola, {NOMBRE} 🌊
-Solo paso a recordarte que tenés pendiente el Nivel 4.
-
-Link Nivel 4:
-{LINK_NIVEL}
-
-Este nivel no es para asustarte con trámites. Es para ayudarte a ver qué está resuelto, qué está en proceso y qué conviene tener en el radar.`},
-
-RECORDATORIO_5:{
- asunto:'Tu Nivel 5 puede ahorrarte muchas respuestas repetidas 🐠',
- correo:`Hola, {NOMBRE}.
-
-Te recordamos que tenés pendiente completar el Nivel 5 de Ordy.
-
-Link Nivel 5: {LINK_NIVEL}
-
-Este nivel ayuda a ordenar cómo hablás con tus clientes: preguntas frecuentes, objeciones, condiciones, políticas, seguimiento y mensajes importantes.
-
-Muchas veces no nos damos cuenta de cuánto tiempo perdemos respondiendo lo mismo desde cero.
-
-Este nivel convierte esa experiencia en respuestas más claras, consistentes y fáciles de reutilizar.
-
-No se trata de sonar como robot.
-
-Se trata de dejar de improvisar todo.`,
- wa:`Hola, {NOMBRE} 🌊
-Te recuerdo que tenés pendiente el Nivel 5.
-
-Link Nivel 5:
-{LINK_NIVEL}
-
-Este nivel puede ayudarte muchísimo a ahorrar tiempo respondiendo preguntas repetidas, explicando condiciones y dando seguimiento con más claridad.
-
-No se trata de sonar como robot. Se trata de comunicar mejor.`},
-
-RECORDATORIO_6:{
- asunto:'Te falta el último nivel de esta ruta 🌊',
- correo:`Hola, {NOMBRE}.
-
-Estás muy cerca de terminar esta ruta de Ordy.
-
-Solo te falta completar el Nivel 6.
-
-Link Nivel 6: {LINK_NIVEL}
-
-Este nivel revisa herramientas, crecimiento, inversiones, automatización y próximos pasos.
-
-Después de todo lo que ya ordenaste, este cierre ayuda a mirar el futuro con más claridad.
-
-No se trata de hacer más.
-
-Se trata de entender qué va primero.
-
-Cuando terminés este nivel, Ordy podrá darte una lectura más completa de todo el recorrido.`,
- wa:`Hola, {NOMBRE} 🌊
-Estás muy cerca de terminar esta ruta de Ordy.
-
-Te falta completar el Nivel 6:
-{LINK_NIVEL}
-
-Este nivel ayuda a ver qué herramientas, procesos o inversiones tienen sentido ahora y cuáles pueden esperar.
-
-No se trata de hacer más. Se trata de entender qué va primero.`},
-
-AFINAR:{
- asunto:'Afinemos tu Nivel {N} antes de avanzar 🌊',
- correo:`Hola, {NOMBRE}.
-
-¡Gracias por completar tu Nivel {N}!
-
-Ya revisamos tus respuestas y hay una base valiosa. Antes de desbloquear el siguiente nivel, nos gustaría afinar algunos puntos para que esa base quede firme:
-
-{PREGUNTAS}
-
-Podés responder este mismo correo con calma. No hay respuestas incorrectas; lo que buscamos es claridad.
-
-En Ordy no avanzamos por avanzar. Avanzamos cuando la información ya puede sostener el siguiente nivel.`,
- wa:`Hola, {NOMBRE} 🌊
-¡Gracias por completar tu Nivel {N}!
-
-Ya revisamos tus respuestas y hay una base valiosa. Antes de desbloquear el siguiente nivel, me gustaría afinar algunos puntos:
-
-{PREGUNTAS}
-
-Me podés responder por acá con calma. No hay respuestas incorrectas; lo que buscamos es claridad.
-
-En Ordy no avanzamos por avanzar. Avanzamos cuando la información ya puede sostener el siguiente paso.`},
-
-RADAR:{
- asunto:'Tu Radar Ordy está listo 🌊',
- correo:`Hola, {NOMBRE}.
-
-Tu Radar Ordy ya está listo.
-
-Link Radar: {LINK_RADAR}
-
-Este Radar reúne lo aprendido durante tu recorrido y señala fugas, patrones, oportunidades y decisiones importantes para tu negocio.
-
-Mensaje del Motor de Interpretación:
-
-{MOTOR}
-
-Te recomendamos leerlo con calma y volver a él cuando necesités tomar decisiones importantes.
-
-También queremos invitarte a formar parte de la comunidad Ordy.
-
-La comunidad será un espacio para seguir aprendiendo, compartir avances, recibir recursos y navegar este proceso con otras personas que también están ordenando sus negocios.
-
-Invitación a comunidad: {LINK_COMUNIDAD}
-
-Gracias por confiar en Ordy para mirar tu negocio con más claridad.
-
-No terminaste un formulario.
-
-Construiste una base.`,
- wa:`Hola, {NOMBRE} 🌊
-Tu Radar Ordy ya está listo.
-
-Link Radar:
-{LINK_RADAR}
-
-Mensaje del Motor de Interpretación:
-{MOTOR}
-
-Te recomiendo leerlo con calma y volver a él cuando necesités tomar decisiones importantes.
-
-También te dejo la invitación a la comunidad Ordy:
-{LINK_COMUNIDAD}
-
-Gracias por confiar en Ordy para mirar tu negocio con más claridad.
-
-No terminaste un formulario. Construiste una base.`}
+/* ═══════════ ESTADOS DEL PROCESO GUIADO ═══════════ */
+const GRUPOS = [
+  {nombre:'Contacto', emoji:'🌊'},
+  {nombre:'Llamada inicial', emoji:'📞'},
+  {nombre:'Pago dashboard', emoji:'💳'},
+  {nombre:'Dashboard', emoji:'📊'},
+  {nombre:'Revisión', emoji:'🔍'},
+  {nombre:'Activación', emoji:'🚀'},
+  {nombre:'Cierre', emoji:'🏁'}
+];
+
+const ESTADOS = [
+  ['Nuevo contacto',0],
+  ['Bienvenida enviada',0],
+  ['Pendiente agendar llamada inicial',0],
+  ['Recordatorio de agenda enviado',0],
+  ['Consultado si desea iniciar',0],
+  ['En pausa por falta de respuesta',0],
+  ['Llamada inicial agendada',1],
+  ['Recordatorio llamada inicial enviado',1],
+  ['Llamada inicial realizada',1],
+  ['No asistió a llamada inicial',1],
+  ['Pendiente pago dashboard',2],
+  ['Pago dashboard recordado',2],
+  ['Pago dashboard confirmado',2],
+  ['Dashboard en construcción',3],
+  ['Información pendiente',3],
+  ['Dashboard entregado',3],
+  ['Pendiente agendar revisión',4],
+  ['Recordatorio revisión enviado',4],
+  ['Revisión agendada',4],
+  ['Revisión realizada',4],
+  ['No asistió a revisión',4],
+  ['Recomendaciones de asesores enviadas',5],
+  ['Activación ofrecida',5],
+  ['Pendiente pago activación',5],
+  ['Pago activación recordado',5],
+  ['Pago activación confirmado',5],
+  ['Activación en proceso',5],
+  ['Información pendiente para activación',5],
+  ['Activación entregada',5],
+  ['Derivado a Soy Majo / aliado',6],
+  ['Cerrado',6],
+  ['Reactivar más adelante',6]
+];
+function grupoDe(estado){
+  const e = ESTADOS.find(x => x[0] === estado);
+  return e ? e[1] : 0;
+}
+
+/* Plantilla sugerida según el estado actual */
+const ESTADO_TPL = {
+  'Nuevo contacto':'T01',
+  'Bienvenida enviada':'T02',
+  'Pendiente agendar llamada inicial':'T02',
+  'Recordatorio de agenda enviado':'T03',
+  'Consultado si desea iniciar':'T04',
+  'En pausa por falta de respuesta':'T28',
+  'Llamada inicial agendada':'T06',
+  'Recordatorio llamada inicial enviado':'T06',
+  'Llamada inicial realizada':'T08',
+  'No asistió a llamada inicial':'T07',
+  'Pendiente pago dashboard':'T09',
+  'Pago dashboard recordado':'T09',
+  'Pago dashboard confirmado':'T10',
+  'Dashboard en construcción':'T12',
+  'Información pendiente':'T11',
+  'Dashboard entregado':'T14',
+  'Pendiente agendar revisión':'T14',
+  'Recordatorio revisión enviado':'T15',
+  'Revisión agendada':'T17',
+  'Revisión realizada':'T19',
+  'No asistió a revisión':'T18',
+  'Recomendaciones de asesores enviadas':'T26',
+  'Activación ofrecida':'T20',
+  'Pendiente pago activación':'T21',
+  'Pago activación recordado':'T21',
+  'Pago activación confirmado':'T22',
+  'Activación en proceso':'T24',
+  'Información pendiente para activación':'T23',
+  'Activación entregada':'T25',
+  'Derivado a Soy Majo / aliado':'T32',
+  'Cerrado':'T32',
+  'Reactivar más adelante':'T28'
 };
 </script>
 
+<script>
+/* ═══════════ PLANTILLAS DE SEGUIMIENTO ═══════════
+   Variables: [NOMBRE] [EMPRESA] [WHATSAPP] [CORREO] [CANAL_PREFERIDO] [ESTADO_PROCESO]
+   [LINK_AGENDAR_INICIAL] [LINK_AGENDAR_REVISION] [FECHA_REUNION] [HORA_REUNION]
+   [LINK_DASHBOARD] [CONTRASEÑA_DASHBOARD] [MONTO_DASHBOARD] [MONTO_ACTIVACION]
+   [SINPE] [CUENTA_IBAN] [BANCO] [CORREO_COMPROBANTE] [RUTA_RECOMENDADA] [RUTAS_SUGERIDAS]
+   [LINK_DOCUMENTO_ACTIVACION] [LINK_SOYMAJO] [NOTAS_PERSONALIZADAS]
+   [CONCEPTO_DE_PAGO] [MONTO_PENDIENTE] [MONTO_PAGADO] [SIGUIENTE_PASO]
+   reunion: 'inicial' o 'revision' → de dónde salen [FECHA_REUNION]/[HORA_REUNION]  */
+const TPL = {
+
+T01:{nombre:'1 · Bienvenida + agendar llamada inicial', etapa:0, sugerido:'Pendiente agendar llamada inicial',
+asunto:'Bienvenida a Ordy 🌊 Agendemos tu llamada de claridad',
+correo:`Hola, [NOMBRE].
+
+Qué emoción darte la bienvenida a Ordy.
+
+El primer paso será agendar una llamada de claridad para conversar sobre [EMPRESA] y entender mejor qué querés ordenar, mejorar o lanzar.
+
+En esta etapa no necesitás tenerlo todo perfecto ni explicarlo como presentación formal. La idea es que podás contarme cómo funciona tu negocio, qué tenés en mente, qué te está costando y qué te gustaría aclarar.
+
+Después de esa llamada, Ordy toma la información, la organiza internamente con su metodología y construye tu dashboard.
+
+Podés agendar aquí:
+
+[LINK_AGENDAR_INICIAL]
+
+En la llamada vamos a revisar temas como:
+
+* qué hace tu negocio;
+* qué ofrecés;
+* cómo vendés;
+* cómo cobrás;
+* qué procesos tenés;
+* qué te gustaría ordenar;
+* qué decisiones necesitás tomar.
+
+No empezás desde cero. Empezás desde lo que ya tenés.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+¡Qué emoción darte la bienvenida a Ordy!
+
+El primer paso es agendar una llamada de claridad para conversar sobre [EMPRESA] y empezar a ordenar la información.
+
+Podés agendar aquí:
+[LINK_AGENDAR_INICIAL]`},
+
+T02:{nombre:'2 · Recordatorio para agendar llamada inicial', etapa:0, sugerido:'Recordatorio de agenda enviado',
+asunto:'Tu llamada de claridad sigue disponible 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que todavía podés agendar tu llamada de claridad con Ordy.
+
+Esta llamada es el primer paso para entender [EMPRESA] y ordenar la información que hoy puede estar repartida entre ideas, notas, mensajes, procesos o decisiones pendientes.
+
+Podés elegir el espacio que mejor te funcione aquí:
+
+[LINK_AGENDAR_INICIAL]
+
+La idea es simple:
+
+Vos hablás de tu negocio.
+Ordy se encarga de ayudarte a ordenarlo.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Paso a recordarte que todavía podés agendar tu llamada de claridad con Ordy.
+
+Link:
+[LINK_AGENDAR_INICIAL]
+
+Vos hablás de tu negocio. Ordy te ayuda a ordenarlo.`},
+
+T03:{nombre:'3 · Consulta si quiere iniciar el proceso', etapa:0, sugerido:'Consultado si desea iniciar',
+asunto:'¿Querés iniciar tu proceso con Ordy?',
+correo:`Hola, [NOMBRE].
+
+Quería consultarte si todavía te interesa iniciar el proceso de claridad para [EMPRESA].
+
+Ordy funciona mejor cuando podemos conversar primero, entender el contexto y luego construir un dashboard que realmente tenga sentido para tu negocio.
+
+Si este sigue siendo buen momento, podés agendar aquí:
+
+[LINK_AGENDAR_INICIAL]
+
+Si preferís dejarlo para más adelante, también está bien. Podemos retomar cuando sintás que tu negocio necesita volver a ordenarse.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Quería consultarte si todavía te interesa iniciar el proceso de claridad para [EMPRESA].
+
+Si este sigue siendo buen momento, podés agendar aquí:
+[LINK_AGENDAR_INICIAL]
+
+Y si preferís retomarlo después, también podemos dejarlo en pausa.`},
+
+T04:{nombre:'4 · Ordy triste (sin respuesta al inicio)', etapa:0, sugerido:'En pausa por falta de respuesta',
+asunto:'Ordy quedó flotando por aquí 🌊',
+correo:`Hola, [NOMBRE].
+
+Ordy pasó a saludarte otra vez.
+
+Nos quedamos con la idea de ayudarte a ordenar [EMPRESA], pero parece que este momento puede estar un poquito lleno.
+
+Y eso también está bien.
+
+A veces ordenar el negocio empieza justo por reconocer cuándo no hay espacio mental para hacerlo.
+
+Si querés retomar, podés agendar aquí:
+
+[LINK_AGENDAR_INICIAL]
+
+Y si ahora no es el momento, te dejamos esta ruta guardadita para cuando querás volver.
+
+Con cariño,
+Ordy, desde la orillita 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Ordy quedó flotando por aquí esperando tu respuesta.
+
+Si querés retomar, seguimos desde donde quedamos.
+Y si ahora no es el momento, dejamos tu ruta guardadita para más adelante.`},
+
+T05:{nombre:'5 · Confirmación de llamada inicial agendada', etapa:1, sugerido:'Llamada inicial agendada', reunion:'inicial',
+asunto:'Tu llamada de claridad con Ordy quedó agendada 🌊',
+correo:`Hola, [NOMBRE].
+
+Tu llamada de claridad para [EMPRESA] quedó agendada:
+
+Fecha: [FECHA_REUNION]
+Hora: [HORA_REUNION]
+
+En esta llamada vamos a conversar sobre tu negocio, lo que querés ordenar y las decisiones que necesitás ver con más claridad.
+
+No necesitás preparar una presentación formal.
+
+Si querés, podés tener cerca:
+
+* lista de servicios o productos;
+* precios aproximados;
+* dudas principales;
+* ideas que querés ordenar;
+* procesos que sentís desordenados.
+
+Pero si no lo tenés listo, no pasa nada. La llamada es justamente para empezar a ordenar.
+
+Nos vemos pronto,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu llamada de claridad para [EMPRESA] quedó agendada:
+
+[FECHA_REUNION] a las [HORA_REUNION]
+
+No necesitás preparar una presentación formal. La idea es conversar y empezar a ordenar.`},
+
+T06:{nombre:'6 · Recordatorio de llamada inicial', etapa:1, sugerido:'Recordatorio llamada inicial enviado', reunion:'inicial',
+asunto:'Recordatorio: hoy tenemos tu llamada de claridad 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que hoy tenemos tu llamada de claridad para [EMPRESA].
+
+Fecha: [FECHA_REUNION]
+Hora: [HORA_REUNION]
+
+La idea es conversar con calma sobre tu negocio para poder construir una lectura clara y útil.
+
+Nos vemos pronto,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Paso a recordarte que hoy tenemos tu llamada de claridad para [EMPRESA]:
+
+[FECHA_REUNION] a las [HORA_REUNION]
+
+Nos vemos pronto.`},
+
+T07:{nombre:'7 · No asistió a llamada inicial', etapa:1, sugerido:'No asistió a llamada inicial',
+asunto:'Reagendemos tu llamada de claridad 🌊',
+correo:`Hola, [NOMBRE].
+
+Hoy teníamos agendada tu llamada de claridad para [EMPRESA], pero parece que se cruzó algo en el camino.
+
+Podés reagendar aquí:
+
+[LINK_AGENDAR_INICIAL]
+
+Para cuidar la agenda y el proceso, te recomiendo elegir un espacio en el que podás conversar con calma sobre tu negocio.
+
+Ordy puede esperar un poquito. La claridad funciona mejor cuando llegamos con espacio para pensar.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Hoy teníamos tu llamada de claridad para [EMPRESA], pero parece que se cruzó algo.
+
+Podés reagendar aquí:
+[LINK_AGENDAR_INICIAL]`},
+
+T08:{nombre:'8 · Pago para iniciar dashboard', etapa:2, sugerido:'Pendiente pago dashboard',
+asunto:'Siguiente paso: iniciar tu dashboard Ordy 🌊',
+correo:`Hola, [NOMBRE].
+
+Gracias por la llamada de claridad.
+
+Ya tenemos una primera base para empezar a ordenar [EMPRESA] y construir tu dashboard Ordy.
+
+Para iniciar la construcción del dashboard, el siguiente paso es confirmar el pago correspondiente:
+
+Monto: [MONTO_DASHBOARD]
+
+Podés realizar el pago por:
+
+SINPE Móvil: [SINPE]
+Transferencia: [CUENTA_IBAN]
+Banco: [BANCO]
+
+Por favor enviá el comprobante a:
+
+[CORREO_COMPROBANTE]
+
+Una vez confirmado el pago, iniciamos la construcción del dashboard y te avisamos cuando esté listo para revisión.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Ya podemos iniciar la construcción del dashboard de [EMPRESA].
+
+Monto: [MONTO_DASHBOARD]
+
+SINPE: [SINPE]
+IBAN: [CUENTA_IBAN]
+
+Podés enviarme el comprobante por acá o al correo [CORREO_COMPROBANTE].`},
+
+T09:{nombre:'9 · Recordatorio de pago dashboard', etapa:2, sugerido:'Pago dashboard recordado',
+asunto:'Tu dashboard está listo para iniciar cuando confirmemos el pago 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que el proceso de construcción del dashboard de [EMPRESA] queda listo para iniciar una vez confirmado el pago.
+
+Monto pendiente: [MONTO_DASHBOARD]
+
+Datos de pago:
+
+SINPE Móvil: [SINPE]
+Transferencia: [CUENTA_IBAN]
+Banco: [BANCO]
+
+Podés enviar el comprobante a:
+
+[CORREO_COMPROBANTE]
+
+Apenas esté confirmado, empezamos a construir la lectura estratégica de tu negocio.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Paso a recordarte el pago pendiente para iniciar el dashboard de [EMPRESA].
+
+Monto: [MONTO_DASHBOARD]
+SINPE: [SINPE]
+IBAN: [CUENTA_IBAN]`},
+
+T10:{nombre:'10 · Pago dashboard confirmado', etapa:2, sugerido:'Dashboard en construcción',
+asunto:'Pago confirmado. Iniciamos tu dashboard Ordy 🌊',
+correo:`Hola, [NOMBRE].
+
+Confirmamos el pago para iniciar el dashboard de [EMPRESA].
+
+A partir de ahora, Ordy empieza a organizar la información de tu negocio con la metodología interna.
+
+Vamos a trabajar sobre:
+
+* entendimiento del negocio;
+* operación;
+* precios y sostenibilidad;
+* formalización y puntos de cuidado;
+* clientes y comunicación;
+* crecimiento;
+* fugas o prioridades principales.
+
+Si durante la construcción surge alguna pregunta importante, te escribiremos para afinar la información antes de cerrar el dashboard.
+
+La meta no es correr.
+
+La meta es que la lectura tenga sentido para tu negocio.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Confirmamos el pago para iniciar el dashboard de [EMPRESA].
+
+Ahora Ordy empieza a organizar la información. Si necesitamos afinar algo, te escribimos antes de cerrar el dashboard.`},
+
+T11:{nombre:'11 · Información pendiente para dashboard', etapa:3, sugerido:'Información pendiente',
+asunto:'Necesitamos afinar un dato para tu dashboard 🌊',
+correo:`Hola, [NOMBRE].
+
+Mientras construimos el dashboard de [EMPRESA], encontramos algunos puntos que conviene afinar para que la lectura sea más clara.
+
+Preguntas o información pendiente:
+
+[NOTAS_PERSONALIZADAS]
+
+Podés responder directamente a este correo con lo que tengás.
+
+No hace falta que la respuesta sea perfecta. Si algo no está definido todavía, también podés decirlo. Eso también es información útil para Ordy.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Mientras construimos el dashboard de [EMPRESA], necesitamos afinar esto:
+
+[NOTAS_PERSONALIZADAS]
+
+Podés responderme por acá con lo que tengás.`},
+
+T12:{nombre:'12 · Dashboard en construcción', etapa:3, sugerido:'Dashboard en construcción',
+asunto:'Tu dashboard Ordy está tomando forma 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a contarte que el dashboard de [EMPRESA] ya está en construcción.
+
+Estamos organizando la información para que puedas ver tu negocio con más claridad: qué está funcionando, qué necesita orden, qué fugas aparecen y por dónde conviene empezar.
+
+Te avisaremos apenas esté listo para entrega y revisión.
+
+Gracias por la paciencia.
+La claridad se está armando con calma y criterio.
+
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu dashboard de [EMPRESA] ya está en construcción.
+
+Estamos organizando la información y te avisamos apenas esté listo para entrega y revisión.`},
+
+T13:{nombre:'13 · Entrega dashboard + agendar revisión', etapa:3, sugerido:'Pendiente agendar revisión',
+asunto:'Tu dashboard Ordy está listo 🌊',
+correo:`Hola, [NOMBRE].
+
+Tu dashboard de [EMPRESA] ya está listo.
+
+Podés verlo aquí:
+
+[LINK_DASHBOARD]
+
+Contraseña:
+
+[CONTRASEÑA_DASHBOARD]
+
+Este dashboard reúne la lectura estratégica de tu negocio y funciona como:
+
+* resumen claro;
+* mapa de prioridades;
+* brief maestro;
+* base para decisiones;
+* contexto para usar con IA;
+* punto de partida para rutas de acción.
+
+El siguiente paso es agendar una reunión de revisión para leerlo juntas/os, aclarar dudas y mostrarte cómo aprovecharlo.
+
+Podés agendar aquí:
+
+[LINK_AGENDAR_REVISION]
+
+Te recomiendo no verlo como una tarea más, sino como una herramienta para entender mejor lo que ya venías construyendo.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu dashboard de [EMPRESA] ya está listo.
+
+Link: [LINK_DASHBOARD]
+Contraseña: [CONTRASEÑA_DASHBOARD]
+
+Ahora falta agendar la reunión de revisión:
+[LINK_AGENDAR_REVISION]`},
+
+T14:{nombre:'14 · Recordatorio para agendar revisión', etapa:4, sugerido:'Recordatorio revisión enviado',
+asunto:'Revisemos tu dashboard juntas/os 🌊',
+correo:`Hola, [NOMBRE].
+
+Tu dashboard de [EMPRESA] ya está listo, y el siguiente paso es agendar la reunión de revisión.
+
+En esta reunión vamos a:
+
+* revisar los hallazgos principales;
+* aclarar dudas;
+* ver cómo usar el dashboard;
+* explicar la sección “Usar con IA”;
+* identificar por dónde conviene empezar.
+
+Podés agendar aquí:
+
+[LINK_AGENDAR_REVISION]
+
+El dashboard tiene más valor cuando lo leemos con intención.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu dashboard ya está listo y falta agendar la reunión de revisión.
+
+Podés agendar aquí:
+[LINK_AGENDAR_REVISION]
+
+Así lo revisamos con calma y vemos cómo usarlo.`},
+
+T15:{nombre:'15 · Ordy triste (revisión no agendada)', etapa:4, sugerido:'En pausa por falta de respuesta',
+asunto:'Tu dashboard quedó esperando lectura 🌊',
+correo:`Hola, [NOMBRE].
+
+Ordy pasó a tocar la ventanita otra vez.
+
+Tu dashboard de [EMPRESA] ya está listo, pero todavía no hemos agendado la reunión para revisarlo.
+
+Y de verdad vale la pena leerlo con calma, porque ahí está organizada información importante de tu negocio.
+
+Podés agendar la revisión aquí:
+
+[LINK_AGENDAR_REVISION]
+
+Si ahora no tenés espacio para revisarlo, no pasa nada. Solo te recomiendo no dejarlo muy lejos, para que la claridad que construimos no se quede guardada sin usarse.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Ordy pasó a tocar la ventanita otra vez.
+
+Tu dashboard ya está listo, pero falta agendar la revisión:
+[LINK_AGENDAR_REVISION]
+
+Vale la pena leerlo con calma para que la claridad no se quede guardada.`},
+
+T16:{nombre:'16 · Confirmación revisión agendada', etapa:4, sugerido:'Revisión agendada', reunion:'revision',
+asunto:'Revisión de dashboard agendada 🌊',
+correo:`Hola, [NOMBRE].
+
+Tu reunión de revisión del dashboard de [EMPRESA] quedó agendada:
+
+Fecha: [FECHA_REUNION]
+Hora: [HORA_REUNION]
+
+En esta reunión vamos a revisar el dashboard, resolver dudas y conversar sobre posibles rutas de acción.
+
+Te recomiendo tener abierto el dashboard durante la llamada:
+
+[LINK_DASHBOARD]
+
+Nos vemos pronto,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu revisión del dashboard de [EMPRESA] quedó agendada:
+
+[FECHA_REUNION] a las [HORA_REUNION]
+
+Te recomiendo tener abierto el dashboard:
+[LINK_DASHBOARD]`},
+
+T17:{nombre:'17 · Recordatorio de revisión', etapa:4, sugerido:'Recordatorio revisión enviado', reunion:'revision',
+asunto:'Recordatorio: hoy revisamos tu dashboard Ordy 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que hoy tenemos la reunión de revisión del dashboard de [EMPRESA].
+
+Fecha: [FECHA_REUNION]
+Hora: [HORA_REUNION]
+
+Link del dashboard:
+
+[LINK_DASHBOARD]
+
+Contraseña:
+
+[CONTRASEÑA_DASHBOARD]
+
+Vamos a revisar qué encontró Ordy y cómo podés usar esa claridad para tomar mejores decisiones.
+
+Nos vemos pronto,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Hoy revisamos tu dashboard de [EMPRESA]:
+
+[FECHA_REUNION] a las [HORA_REUNION]
+
+Dashboard: [LINK_DASHBOARD]
+Contraseña: [CONTRASEÑA_DASHBOARD]`},
+
+T18:{nombre:'18 · No asistió a revisión', etapa:4, sugerido:'No asistió a revisión',
+asunto:'Reagendemos la revisión de tu dashboard 🌊',
+correo:`Hola, [NOMBRE].
+
+Hoy teníamos agendada la revisión del dashboard de [EMPRESA], pero parece que algo se cruzó en el camino.
+
+Podés reagendar aquí:
+
+[LINK_AGENDAR_REVISION]
+
+Esta reunión ayuda a que el dashboard no se quede solo como un documento, sino que se convierta en una herramienta real para tomar decisiones.
+
+Cuando tengás un espacio, lo retomamos.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Hoy teníamos la revisión del dashboard de [EMPRESA], pero parece que algo se cruzó.
+
+Podés reagendar aquí:
+[LINK_AGENDAR_REVISION]`},
+
+T19:{nombre:'19 · Recomendaciones de asesores + elegir ruta', etapa:5, sugerido:'Recomendaciones de asesores enviadas',
+asunto:'Tus asesores Ordy tienen recomendaciones para [EMPRESA] 🌊',
+correo:`Hola, [NOMBRE].
+
+Después de revisar tu dashboard, los asesores Ordy identificaron algunas rutas de acción que podrían ayudarte a avanzar con más claridad.
+
+Según lo que conocemos de [EMPRESA], estas son las rutas sugeridas:
+
+[RUTAS_SUGERIDAS]
+
+La idea es que elijás una ruta para empezar.
+
+Una ruta puede ser, por ejemplo:
+
+* preparar tu página web;
+* ordenar tus redes sociales;
+* revisar precios;
+* crear un plan de lanzamiento;
+* mejorar respuestas a clientes;
+* ordenar procesos;
+* preparar un plan de 30 días;
+* revisar una fuga específica.
+
+Si querés avanzar, podés activar una Activación Ordy.
+
+Una Activación Ordy incluye:
+
+* lectura del dashboard;
+* análisis de los asesores correspondientes;
+* recomendaciones priorizadas;
+* documento con paso a paso;
+* acciones iniciales;
+* recursos o enlaces útiles.
+
+Importante:
+
+La Activación Ordy es una guía estratégica para avanzar.
+No incluye ejecución del servicio, diseño, desarrollo, implementación ni acompañamiento ilimitado.
+
+Podés responder este correo con la ruta que querés activar.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Los asesores Ordy ya tienen recomendaciones para [EMPRESA].
+
+Podés elegir una ruta para activar:
+
+[RUTAS_SUGERIDAS]
+
+Si querés avanzar con una, te paso el costo y el siguiente paso.`},
+
+T20:{nombre:'20 · Costo Activación Ordy', etapa:5, sugerido:'Pendiente pago activación',
+asunto:'Activemos tu ruta Ordy: [RUTA_RECOMENDADA] 🌊',
+correo:`Hola, [NOMBRE].
+
+Perfecto. Podemos activar la ruta:
+
+[RUTA_RECOMENDADA]
+
+Esta Activación Ordy tomará como base tu dashboard y te entregará una guía concreta para avanzar en este tema.
+
+Incluye:
+
+* análisis del dashboard según la ruta elegida;
+* recomendaciones de asesores Ordy;
+* paso a paso sugerido;
+* prioridades;
+* puntos de cuidado;
+* acciones iniciales;
+* recursos o enlaces útiles.
+
+Monto de la Activación:
+
+[MONTO_ACTIVACION]
+
+Datos de pago:
+
+SINPE Móvil: [SINPE]
+Transferencia: [CUENTA_IBAN]
+Banco: [BANCO]
+
+Podés enviar el comprobante a:
+
+[CORREO_COMPROBANTE]
+
+Una vez confirmado el pago, iniciamos la preparación de tu guía de acción.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Para activar la ruta [RUTA_RECOMENDADA], el monto es: [MONTO_ACTIVACION]
+
+SINPE: [SINPE]
+IBAN: [CUENTA_IBAN]
+
+Apenas confirmemos el pago, preparamos tu guía de acción.`},
+
+T21:{nombre:'21 · Recordatorio pago activación', etapa:5, sugerido:'Pago activación recordado',
+asunto:'Tu Activación Ordy está lista para iniciar 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que la Activación Ordy para [RUTA_RECOMENDADA] queda lista para iniciar una vez confirmado el pago.
+
+Monto pendiente:
+
+[MONTO_ACTIVACION]
+
+Datos de pago:
+
+SINPE Móvil: [SINPE]
+Transferencia: [CUENTA_IBAN]
+Banco: [BANCO]
+
+Podés enviar el comprobante a:
+
+[CORREO_COMPROBANTE]
+
+Cuando esté confirmado, los asesores Ordy preparan tu guía de acción con base en tu dashboard.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Paso a recordarte el pago para activar la ruta [RUTA_RECOMENDADA].
+
+Monto: [MONTO_ACTIVACION]
+SINPE: [SINPE]
+IBAN: [CUENTA_IBAN]`},
+
+T22:{nombre:'22 · Pago activación confirmado', etapa:5, sugerido:'Activación en proceso',
+asunto:'Activación Ordy confirmada 🌊',
+correo:`Hola, [NOMBRE].
+
+Confirmamos el pago de tu Activación Ordy:
+
+Ruta elegida:
+
+[RUTA_RECOMENDADA]
+
+A partir de ahora, los asesores Ordy revisarán tu dashboard y prepararán una guía accionable para ayudarte a avanzar en este tema.
+
+Si necesitamos afinar algún punto antes de cerrar la guía, te escribiremos por este medio.
+
+Gracias por confiar en Ordy para pasar de claridad a acción.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Confirmamos el pago de tu Activación Ordy para:
+
+[RUTA_RECOMENDADA]
+
+Ahora los asesores preparan tu guía accionable con base en tu dashboard.`},
+
+T23:{nombre:'23 · Información pendiente para activación', etapa:5, sugerido:'Información pendiente para activación',
+asunto:'Afinemos un detalle para tu Activación Ordy 🌊',
+correo:`Hola, [NOMBRE].
+
+Estamos preparando tu Activación Ordy para:
+
+[RUTA_RECOMENDADA]
+
+Antes de cerrar la guía, necesitamos afinar algunos puntos:
+
+[NOTAS_PERSONALIZADAS]
+
+Podés responder directamente a este correo.
+
+Esto nos ayuda a que la guía no sea genérica, sino alineada con lo que [EMPRESA] realmente necesita.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Estamos preparando tu Activación Ordy para [RUTA_RECOMENDADA].
+
+Necesitamos afinar esto:
+
+[NOTAS_PERSONALIZADAS]`},
+
+T24:{nombre:'24 · Entrega Activación Ordy', etapa:5, sugerido:'Activación entregada',
+asunto:'Tu Activación Ordy está lista 🌊',
+correo:`Hola, [NOMBRE].
+
+Tu Activación Ordy para [RUTA_RECOMENDADA] ya está lista.
+
+Podés revisarla aquí:
+
+[LINK_DOCUMENTO_ACTIVACION]
+
+Esta guía fue construida tomando como base tu dashboard y la información que ya conocemos de [EMPRESA].
+
+Incluye:
+
+* recomendación principal;
+* orden sugerido de acción;
+* pasos iniciales;
+* puntos de cuidado;
+* recursos o enlaces útiles;
+* qué conviene hacer primero;
+* qué conviene evitar por ahora.
+
+Recordá:
+
+El dashboard te dio claridad.
+Esta Activación te ayuda a convertir esa claridad en acción.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tu Activación Ordy para [RUTA_RECOMENDADA] ya está lista:
+
+[LINK_DOCUMENTO_ACTIVACION]
+
+El dashboard te dio claridad. Esta guía te ayuda a convertirla en acción.`},
+
+T25:{nombre:'25 · Derivación a Soy Majo', etapa:5, sugerido:'Derivado a Soy Majo / aliado',
+asunto:'Si querés apoyo para ejecutar tu página web 🌊',
+correo:`Hola, [NOMBRE].
+
+Según la ruta que activamos, una de las acciones recomendadas para [EMPRESA] es trabajar en la página web.
+
+La guía de Ordy te muestra qué debería llevar, qué ordenar primero y qué cuidar antes de construirla.
+
+Si querés hacerla por tu cuenta, podés usar esa guía como mapa.
+
+Si preferís que alguien te acompañe en la ejecución, podés hablar con nuestra creadora, Majo, desde Soy Majo.
+
+Aquí podés ver sus servicios:
+
+[LINK_SOYMAJO]
+
+Esta recomendación es opcional. La idea es que tengás claridad tanto si decidís hacerlo por tu cuenta como si preferís apoyo externo.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Si querés ejecutar la página web con apoyo, podés hablar con nuestra creadora, Majo, desde Soy Majo:
+
+[LINK_SOYMAJO]
+
+La guía de Ordy te sirve igual si decidís hacerla por tu cuenta.`},
+
+T26:{nombre:'26 · Cliente sin ruta elegida (recordatorio)', etapa:5, sugerido:'En pausa por falta de respuesta',
+asunto:'Tus rutas Ordy siguen disponibles 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que después de revisar el dashboard de [EMPRESA], te enviamos algunas rutas de acción recomendadas por los asesores Ordy.
+
+No hace falta avanzar con todas.
+
+La idea es elegir una sola ruta para empezar con más claridad.
+
+Podés responder este correo con el tema que querés activar primero:
+
+[RUTAS_SUGERIDAS]
+
+Si ahora no es el momento, también podemos dejarlo en pausa y retomarlo cuando sintás que [EMPRESA] necesita volver a ordenarse.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Tus rutas Ordy siguen disponibles.
+
+Podés elegir una sola para empezar:
+
+[RUTAS_SUGERIDAS]
+
+Si ahora no es el momento, dejamos el proceso en pausa y retomamos después.`},
+
+T27:{nombre:'27 · Cierre temporal por inactividad', etapa:6, sugerido:'En pausa por falta de respuesta',
+asunto:'Dejamos tu proceso Ordy en pausa 🌊',
+correo:`Hola, [NOMBRE].
+
+Como no hemos tenido respuesta en los últimos días, vamos a dejar el proceso de [EMPRESA] en pausa por ahora.
+
+Esto no significa que se pierde lo trabajado.
+
+Tu información y tu ruta quedan registradas para que podás retomarlas más adelante.
+
+Cuando querás continuar, podés responder este correo y vemos el siguiente paso.
+
+A veces avanzar también significa pausar con conciencia.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Como no hemos tenido respuesta, vamos a dejar el proceso de [EMPRESA] en pausa por ahora.
+
+Lo trabajado queda guardado y podemos retomarlo más adelante.`},
+
+T28:{nombre:'28 · Reactivación después de pausa', etapa:6, sugerido:'Reactivar más adelante',
+asunto:'¿Retomamos tu ruta Ordy? 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a saludarte y a consultar si te gustaría retomar el proceso de [EMPRESA] con Ordy.
+
+Podemos continuar desde donde lo dejamos, revisar qué cambió y definir el siguiente paso con calma.
+
+Si querés retomar, respondé este correo y coordinamos.
+
+Ordy guarda tu ruta para cuando estés lista/o para volver a mirar tu negocio con claridad.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+¿Te gustaría retomar el proceso de [EMPRESA] con Ordy?
+
+Podemos seguir desde donde lo dejamos y revisar el siguiente paso con calma.`},
+
+T29:{nombre:'29 · Recordatorio general de pago', etapa:6, sugerido:null,
+asunto:'Recordatorio de pago pendiente 🌊',
+correo:`Hola, [NOMBRE].
+
+Paso a recordarte que tenemos pendiente la confirmación del pago correspondiente a:
+
+[CONCEPTO_DE_PAGO]
+
+Monto:
+
+[MONTO_PENDIENTE]
+
+Datos de pago:
+
+SINPE Móvil: [SINPE]
+Transferencia: [CUENTA_IBAN]
+Banco: [BANCO]
+
+Podés enviar el comprobante a:
+
+[CORREO_COMPROBANTE]
+
+Apenas confirmemos el pago, continuamos con el siguiente paso del proceso.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Paso a recordarte el pago pendiente de:
+
+[CONCEPTO_DE_PAGO]
+
+Monto: [MONTO_PENDIENTE]
+SINPE: [SINPE]
+IBAN: [CUENTA_IBAN]`},
+
+T30:{nombre:'30 · Confirmación general de pago', etapa:6, sugerido:null,
+asunto:'Pago recibido 🌊',
+correo:`Hola, [NOMBRE].
+
+Confirmamos la recepción del pago correspondiente a:
+
+[CONCEPTO_DE_PAGO]
+
+Monto:
+
+[MONTO_PAGADO]
+
+Gracias por enviarnos el comprobante.
+
+A partir de ahora continuamos con el siguiente paso:
+
+[SIGUIENTE_PASO]
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Confirmamos el pago de:
+
+[CONCEPTO_DE_PAGO]
+
+Monto: [MONTO_PAGADO]
+
+Siguiente paso: [SIGUIENTE_PASO]`},
+
+T31:{nombre:'31 · Solicitud fuera de alcance', etapa:5, sugerido:'Activación ofrecida',
+asunto:'Revisemos el alcance de esta solicitud 🌊',
+correo:`Hola, [NOMBRE].
+
+Gracias por compartir esta solicitud adicional sobre [EMPRESA].
+
+Para cuidar el orden del proceso, esta solicitud parece salir del alcance incluido actualmente.
+
+Podemos manejarla de dos formas:
+
+1. Guardarla como recomendación para una etapa futura.
+2. Convertirla en una Activación Ordy específica con costo adicional.
+
+La idea no es limitarte, sino asegurarnos de que cada tema reciba el tiempo y la claridad que necesita.
+
+Si querés, podemos valorar esta solicitud como una nueva ruta de acción.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Esta solicitud parece salir del alcance incluido actualmente.
+
+Podemos guardarla para después o convertirla en una Activación Ordy específica con costo adicional.`},
+
+T32:{nombre:'32 · Cierre final después de Activación', etapa:6, sugerido:'Cerrado',
+asunto:'Gracias por navegar esta ruta con Ordy 🌊',
+correo:`Hola, [NOMBRE].
+
+Gracias por completar esta etapa con Ordy.
+
+Durante este proceso, [EMPRESA] pasó de tener información dispersa a contar con una lectura más clara, un dashboard y una ruta de acción concreta.
+
+Te recomendamos volver al dashboard cada vez que necesités tomar decisiones, preparar contenido, conversar con proveedores, usar IA o revisar prioridades.
+
+Si más adelante querés activar otra ruta, podés responder este correo y lo vemos.
+
+No terminaste un formulario.
+Construiste una base.
+
+Con cariño,
+Ordy 🌊`,
+wa:`Hola, [NOMBRE] 🌊
+Gracias por completar esta etapa con Ordy.
+
+Recordá que podés volver a tu dashboard cuando necesités tomar decisiones, usar IA o revisar prioridades.
+
+No terminaste un formulario. Construiste una base.`}
+};
+
+/* Variables extra que se escriben a mano antes de copiar */
+const VARS_EXTRA = ['NOTAS_PERSONALIZADAS','CONCEPTO_DE_PAGO','MONTO_PENDIENTE','MONTO_PAGADO','SIGUIENTE_PASO'];
+</script>
 
 <script>
 /* ═══════════ ESTADO DE LA APP ═══════════ */
 const PASS = 'faro2026';
-let clientes = JSON.parse(localStorage.getItem('ordy-clientes') || '[]');
-let registro = JSON.parse(localStorage.getItem('ordy-registro') || '[]');
-let config   = JSON.parse(localStorage.getItem('ordy-config')   || '{"wa":"","comunidad":""}');
+const IMG_BASE = 'https://www.ordenyplan.com/img/insignias/';
+
+let clientes = JSON.parse(localStorage.getItem('ordy02-clientes') || '[]');
+let registro = JSON.parse(localStorage.getItem('ordy02-registro') || '[]');
+let config   = JSON.parse(localStorage.getItem('ordy02-config')   || 'null') || {
+  nombreComercial:'Ordy', nombreLegal:'', sinpe:'', iban:'', banco:'',
+  correoComprobante:'', waOrdy:'', linkAgendaInicial:'', linkAgendaRevision:'',
+  linkSoyMajo:'https://soymajo.vercel.app/', firma:'Ordy 🌊'
+};
+
+/* Migración suave desde el Panel 0.1 (si existiera en este navegador) */
+(function migrar(){
+  if(clientes.length > 0) return;
+  const viejos = JSON.parse(localStorage.getItem('ordy-clientes') || '[]');
+  if(viejos.length === 0) return;
+  clientes = viejos.map(v => Object.assign(nuevaEmpresaBase(), {
+    id:'c' + Math.random().toString(36).slice(2) + Date.now(),
+    empresa:v.empresa || 'Empresa migrada', nombre:v.nombre || '', whatsapp:v.whatsapp || '',
+    correo:v.correo || '', canal:v.canal || 'Ambos', activo:v.activo || 'Sí',
+    ultimoContacto:v.ultimoContacto || '', linkDashboard:v.linkDashboard || '',
+    notas:((v.notas || '') + '\n[Migrado del panel 0.1 · nivel ' + (v.nivel || '?') + ' · estado ' + (v.estado || '?') + ']').trim()
+  }));
+  guardar();
+})();
+
+function nuevaEmpresaBase(){
+  return {
+    id:'', empresa:'', nombre:'', whatsapp:'', correo:'', canal:'Ambos', activo:'Sí',
+    estadoProceso:'Nuevo contacto', ultimoContacto:'', proximoSeguimiento:'', notas:'',
+    linkAgendaInicial:'', fechaLlamada:'', horaLlamada:'', estadoLlamada:'pendiente', notasLlamada:'',
+    planElegido:'', montoDashboard:'', estadoPagoDash:'pendiente', fechaPagoDash:'', comprobanteDash:'no', medioPagoDash:'', notasPagoDash:'',
+    linkDashboard:'', passDashboard:'', fechaEntregaDash:'', estadoDashboard:'no iniciado', notasDashboard:'',
+    linkAgendaRevision:'', fechaRevision:'', horaRevision:'', estadoRevision:'pendiente', notasRevision:'',
+    rutaPrincipal:'', rutasSugeridas:'', fechaRecomendaciones:'', notasRecomendaciones:'',
+    rutaElegida:'', montoActivacion:'', estadoPagoAct:'pendiente', fechaPagoAct:'', estadoActivacion:'ofrecida',
+    linkActivacion:'', fechaEntregaAct:'', derivacion:'', notasActivacion:''
+  };
+}
 
 function guardar(){
-  localStorage.setItem('ordy-clientes', JSON.stringify(clientes));
-  localStorage.setItem('ordy-registro', JSON.stringify(registro));
-  localStorage.setItem('ordy-config', JSON.stringify(config));
+  localStorage.setItem('ordy02-clientes', JSON.stringify(clientes));
+  localStorage.setItem('ordy02-registro', JSON.stringify(registro));
+  localStorage.setItem('ordy02-config', JSON.stringify(config));
 }
 function hoy(){ return new Date().toISOString().slice(0,10); }
+function ahora(){ return new Date().toTimeString().slice(0,5); }
 function diasDesde(fecha){
   if(!fecha) return 999;
   return Math.floor((new Date(hoy()) - new Date(fecha)) / 86400000);
 }
-function esc(t){ return (t||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function esc(t){ return String(t == null ? '' : t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function toast(msg){
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('visible');
-  setTimeout(()=>t.classList.remove('visible'), 2200);
+  setTimeout(()=>t.classList.remove('visible'), 2400);
+}
+function telCR(t){
+  let d = (t||'').replace(/\D/g,'');
+  if(d && !d.startsWith('506')) d = '506' + d;
+  return d;
 }
 
 /* ═══════════ PORTÓN ═══════════ */
@@ -730,365 +1378,130 @@ function entrar(){
   }
 }
 
-/* ═══════════ MOTOR DE DECISIÓN (la lógica del Cerebro) ═══════════ */
-function analizar(c){
-  const dias = diasDesde(c.ultimoContacto);
-  const n = parseInt(c.nivel) || 1;
-
-  // Alerta de protección
-  let alerta = '';
-  if(c.activo !== 'Sí') alerta = 'Cliente inactivo';
-  else if(n <= 3 && c.estado === 'Recibido' && c.claridad !== 'Sí') alerta = '🚫 No desbloquear: falta claridad mínima';
-  else if(c.estado === 'Necesita afinar') alerta = '⚠️ Enviar preguntas antes de avanzar';
-  else if(c.estado === 'Pendiente' && dias >= 5) alerta = '⏰ Recordatorio pendiente hace ' + dias + ' días';
-
-  // Acción sugerida + plantilla
-  let accion = '', tpl = null;
-  if(c.activo !== 'Sí'){ accion = 'Cliente inactivo'; }
-  else if(c.estado === 'Nuevo'){ accion = 'Enviar bienvenida'; tpl = 'BIENVENIDA'; }
-  else if(c.estado === 'Necesita afinar'){ accion = 'Enviar mensaje de afinación'; tpl = 'AFINAR'; }
-  else if(c.estado === 'Desbloqueado'){ accion = n < 6 ? 'Enviar insignia + siguiente nivel' : 'Enviar insignia final + invitar al Radar'; tpl = 'DESBLOQUEO_' + Math.min(n,6); }
-  else if(c.estado === 'Pendiente'){ 
-    if(dias >= 3){ accion = 'Enviar recordatorio'; tpl = 'RECORDATORIO_' + Math.min(Math.max(n,1),6); }
-    else accion = 'Esperar (' + (3 - dias) + ' días para recordatorio)';
-  }
-  else if(c.estado === 'Radar listo'){ accion = 'Enviar Radar + comunidad'; tpl = 'RADAR'; }
-  else if(c.estado === 'Recibido'){ accion = 'En revisión del Motor'; }
-  else if(c.estado === 'En revisión'){ accion = 'Revisando — no enviar nada todavía'; }
-  else if(c.estado === 'Pausado'){ accion = 'En pausa — no enviar'; }
-  else if(c.estado === 'Ruta completada'){ accion = 'Preparar el Radar de Fugas'; }
-  else accion = 'Revisar manualmente';
-
-  // Bloqueo de seguridad: si la alerta dice no desbloquear, no ofrecer plantilla de desbloqueo
-  if(alerta.startsWith('🚫') && tpl && tpl.startsWith('DESBLOQUEO')) tpl = null;
-
-  return { accion, tpl, alerta, dias };
+/* ═══════════ ALERTAS Y ETIQUETAS ═══════════ */
+function pagoPendiente(c){
+  const g = grupoDe(c.estadoProceso);
+  const dashPend = (c.estadoPagoDash === 'pendiente' || c.estadoPagoDash === 'recordado') && g >= 2 && g <= 3 && c.estadoProceso !== 'Pago dashboard confirmado';
+  const actPend = (c.estadoPagoAct === 'pendiente' || c.estadoPagoAct === 'recordado') && (c.estadoProceso === 'Pendiente pago activación' || c.estadoProceso === 'Pago activación recordado');
+  return dashPend || actPend;
 }
-
-/* ═══════════ COLECCIÓN DE INSIGNIAS ═══════════ */
-function coleccionTexto(c){
-  const u = parseInt(c.ultimoDesbloqueado) || 0;
-  const partes = [];
-  for(let i=1; i<=6; i++){
-    const nv = NIVELES[i];
-    partes.push(nv.emoji + ' N' + i + ' ' + nv.personaje + ' ' + (u >= i ? '✅' : '🔒'));
-  }
-  partes.push('🐉 Radar Azul ' + (c.estado === 'Radar listo' || c.radarEnviado ? '✅' : '🔒'));
-  return partes.join(' | ');
-}
-function coleccionHTML(c){
-  const u = parseInt(c.ultimoDesbloqueado) || 0;
-  let celdas = '';
-  for(let i=1; i<=6; i++){
-    const on = u >= i;
-    celdas += '<td align="center" style="padding:4px;">' +
-      '<img src="' + NIVELES[i].img + '" width="58" alt="Nivel ' + i + '" style="display:block;border-radius:8px;' + (on ? '' : 'opacity:0.22;') + '">' +
-      '<span style="font-size:11px;color:' + (on ? '#4E4BF7' : '#B4B3CE') + ';font-family:Arial,sans-serif;font-weight:bold;">' + (on ? '✅' : '🔒') + '</span></td>';
-  }
-  const radarOn = c.estado === 'Radar listo' || c.radarEnviado;
-  celdas += '<td align="center" style="padding:4px;"><div style="font-size:34px;line-height:58px;' + (radarOn ? '' : 'opacity:0.25;') + '">🐉</div>' +
-    '<span style="font-size:11px;color:' + (radarOn ? '#4E4BF7' : '#B4B3CE') + ';font-family:Arial,sans-serif;font-weight:bold;">' + (radarOn ? '✅' : '🔒') + '</span></td>';
-  return '<table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr>' + celdas + '</tr></table>';
+function alertas(c){
+  const a = [];
+  if(c.activo !== 'Sí') return a;
+  if(c.proximoSeguimiento && c.proximoSeguimiento < hoy()) a.push('⏰ Seguimiento vencido desde el ' + c.proximoSeguimiento);
+  if(pagoPendiente(c) && diasDesde(c.ultimoContacto) >= 4) a.push('💳 Pago pendiente hace ' + diasDesde(c.ultimoContacto) + ' días desde el último contacto');
+  if(c.estadoDashboard === 'entregado' && (c.estadoRevision === 'pendiente' || !c.estadoRevision) && grupoDe(c.estadoProceso) <= 4 && c.estadoProceso !== 'Revisión agendada' && c.estadoProceso !== 'Revisión realizada') a.push('📊 Dashboard entregado pero la revisión no está agendada');
+  if(c.fechaRecomendaciones && !c.rutaElegida && grupoDe(c.estadoProceso) === 5 && ['Recomendaciones de asesores enviadas','Activación ofrecida'].includes(c.estadoProceso)) a.push('🧭 Recomendaciones enviadas pero el cliente no ha elegido ruta');
+  if(c.estadoPagoAct === 'confirmado' && c.estadoActivacion !== 'entregada') a.push('🚀 Activación pagada pero todavía no entregada');
+  return a;
 }
 
 /* ═══════════ SUSTITUCIÓN DE VARIABLES ═══════════ */
-function sustituir(texto, c, modo){
-  const n = parseInt(c.nivel) || 1;
-  const nv = NIVELES[Math.min(Math.max(n,1),6)];
-  const sig = NIVELES[n+1];
-  const insigniaTxt = 'Insignia "' + nv.insignia + '" ' + nv.emoji;
-  return texto
-    .replaceAll('{NOMBRE}', c.nombre || '')
-    .replaceAll('{EMPRESA}', c.empresa || '')
-    .replaceAll('{N}', n)
-    .replaceAll('{LINK_NIVEL}', nv.link)
-    .replaceAll('{LINK_SIGUIENTE}', sig ? sig.link : '')
-    .replaceAll('{INSIGNIA}', modo === 'html' ? '' : insigniaTxt)
-    .replaceAll('{MOTOR}', c.motor || '[Pendiente: mensaje del Motor]')
-    .replaceAll('{PREGUNTAS}', c.preguntas || '[Pendiente: preguntas de afinación]')
-    .replaceAll('{LINK_RADAR}', c.linkRadar || '[Pendiente: link del Radar]')
-    .replaceAll('{LINK_COMUNIDAD}', config.comunidad || '[Pendiente: configurar link de comunidad]')
-    .replaceAll('{WHATSAPP_ORDY}', config.wa ? 'https://wa.me/' + config.wa : '[Pendiente: configurar WhatsApp de Ordy]');
-}
+let extrasTmp = {}; // valores escritos a mano en la vista de plantillas
 
-function mensajeWA(c, tplKey){
-  let texto = sustituir(TPL[tplKey].wa, c, 'texto');
-  if(tplKey.startsWith('DESBLOQUEO') || tplKey === 'RADAR'){
-    texto += '\n\nTu colección Ordy hasta ahora:\n' + coleccionTexto(c);
+function valorVar(nombre, c, tpl){
+  const reunionRev = tpl && tpl.reunion === 'revision';
+  switch(nombre){
+    case 'NOMBRE': return c.nombre;
+    case 'EMPRESA': return c.empresa;
+    case 'WHATSAPP': return c.whatsapp;
+    case 'CORREO': return c.correo;
+    case 'CANAL_PREFERIDO': return c.canal;
+    case 'ESTADO_PROCESO': return c.estadoProceso;
+    case 'LINK_AGENDAR_INICIAL': return c.linkAgendaInicial || config.linkAgendaInicial;
+    case 'LINK_AGENDAR_REVISION': return c.linkAgendaRevision || config.linkAgendaRevision;
+    case 'FECHA_REUNION': return reunionRev ? c.fechaRevision : c.fechaLlamada;
+    case 'HORA_REUNION': return reunionRev ? c.horaRevision : c.horaLlamada;
+    case 'LINK_DASHBOARD': return c.linkDashboard;
+    case 'CONTRASEÑA_DASHBOARD': return c.passDashboard;
+    case 'MONTO_DASHBOARD': return c.montoDashboard;
+    case 'MONTO_ACTIVACION': return c.montoActivacion;
+    case 'SINPE': return config.sinpe;
+    case 'CUENTA_IBAN': return config.iban;
+    case 'BANCO': return config.banco;
+    case 'CORREO_COMPROBANTE': return config.correoComprobante;
+    case 'RUTA_RECOMENDADA': return c.rutaElegida || c.rutaPrincipal;
+    case 'RUTAS_SUGERIDAS': return c.rutasSugeridas;
+    case 'LINK_DOCUMENTO_ACTIVACION': return c.linkActivacion;
+    case 'LINK_SOYMAJO': return config.linkSoyMajo;
+    case 'NOTAS_PERSONALIZADAS': return extrasTmp.NOTAS_PERSONALIZADAS;
+    case 'CONCEPTO_DE_PAGO': return extrasTmp.CONCEPTO_DE_PAGO;
+    case 'MONTO_PENDIENTE': return extrasTmp.MONTO_PENDIENTE;
+    case 'MONTO_PAGADO': return extrasTmp.MONTO_PAGADO;
+    case 'SIGUIENTE_PASO': return extrasTmp.SIGUIENTE_PASO;
+    default: return '';
   }
-  return texto;
 }
 
-/* ═══════════ CORREO BONITO (HTML) ═══════════ */
-function correoHTML(c, tplKey){
-  const n = parseInt(c.nivel) || 1;
-  const nv = NIVELES[Math.min(Math.max(n,1),6)];
-  const esDesbloqueo = tplKey.startsWith('DESBLOQUEO');
-  const esRadar = tplKey === 'RADAR';
-  const asunto = sustituir(TPL[tplKey].asunto, c, 'texto');
+function sustituir(texto, c, tpl){
+  return texto.replace(/\[([A-ZÁÉÍÓÚÑ_]+)\]/g, function(todo, nombre){
+    const v = valorVar(nombre, c, tpl);
+    return (v && String(v).trim()) ? String(v).trim() : todo; // si está vacía, queda el placeholder visible
+  });
+}
 
-  // Cuerpo: cada párrafo del texto se convierte en <p>; el bloque {MOTOR} se resalta
-  const crudo = TPL[tplKey].correo;
-  let parrafos = '';
-  crudo.split('\n\n').forEach(p => {
-    const pSust = sustituir(p, c, 'html').trim();
-    if(!pSust) return;
-    if(p.includes('{MOTOR}') && (c.motor || '').trim()){
-      parrafos += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#EFEFFF;border-left:4px solid #4E4BF7;border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.6;color:#3A3870;font-style:italic;">' + esc(sustituir('{MOTOR}', c, 'texto')).replace(/\n/g,'<br>') + '</td></tr></table><div style="height:16px;"></div>';
-    } else if(p.includes('{PREGUNTAS}')){
-      parrafos += '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="background:#FFF6F6;border-left:4px solid #F94646;border-radius:10px;padding:14px 16px;font-size:15px;line-height:1.7;color:#5A2020;">' + esc(sustituir('{PREGUNTAS}', c, 'texto')).replace(/\n/g,'<br>') + '</td></tr></table><div style="height:16px;"></div>';
-    } else if(p.trim().startsWith('Insignia')){
-      // La insignia se muestra como imagen, no como texto
-    } else if(p.includes('Mensaje del Motor')){
-      parrafos += '<p style="margin:0 0 8px;font-size:13px;font-weight:bold;color:#4E4BF7;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">Mensaje del Motor de Interpretación</p>';
+/* ═══════════ CORREO BONITO (HTML para Gmail) ═══════════ */
+function textoAHtmlCorreo(texto){
+  const bloques = texto.split('\n\n');
+  let html = '';
+  bloques.forEach(b => {
+    const lineas = b.split('\n');
+    if(lineas.every(l => l.trim().startsWith('* '))){
+      html += '<ul style="margin:0 0 16px;padding-left:22px;color:#23214A;font-size:15px;line-height:1.7;">' +
+        lineas.map(l => '<li>' + esc(l.trim().slice(2)) + '</li>').join('') + '</ul>';
     } else {
-      const linea = esc(pSust).replace(/\n/g,'<br>');
-      parrafos += '<p style="margin:0 0 16px;font-size:15px;line-height:1.65;color:#3A3870;">' + linea + '</p>';
+      const esLink = lineas.length === 1 && (/^https?:\/\//.test(b.trim()) || /^\[LINK_[A-ZÁÉÍÓÚÑ_]*\]$/.test(b.trim()));
+      if(esLink && /^https?:\/\//.test(b.trim())){
+        html += '<p style="margin:0 0 16px;text-align:center;"><a href="' + esc(b.trim()) + '" style="display:inline-block;background:#4E4BF7;color:#FFFFFF;text-decoration:none;font-weight:bold;padding:12px 26px;border-radius:12px;font-size:15px;">Abrir enlace 🌊</a><br><span style="font-size:12px;color:#6B6A8A;">' + esc(b.trim()) + '</span></p>';
+      } else {
+        html += '<p style="margin:0 0 16px;color:#23214A;font-size:15px;line-height:1.7;">' + lineas.map(l => esc(l)).join('<br>') + '</p>';
+      }
     }
   });
-
-  // Botón principal
-  let botonUrl = '', botonTxt = '';
-  if(tplKey === 'BIENVENIDA' || tplKey.startsWith('RECORDATORIO')){ botonUrl = nv.link; botonTxt = 'Completar mi Nivel ' + n + ' →'; }
-  else if(esDesbloqueo && n < 6 && NIVELES[n+1]){ botonUrl = NIVELES[n+1].link; botonTxt = 'Ir a mi Nivel ' + (n+1) + ' →'; }
-  else if(tplKey === 'DESBLOQUEO_6' && config.wa){ botonUrl = 'https://wa.me/' + config.wa; botonTxt = 'Quiero activar mi Radar 🐉'; }
-  else if(esRadar && c.linkRadar){ botonUrl = c.linkRadar; botonTxt = 'Ver mi Radar Ordy →'; }
-  const boton = botonUrl ? '<table role="presentation" cellpadding="0" cellspacing="0" align="center"><tr><td style="background:#F94646;border-radius:12px;"><a href="' + botonUrl + '" style="display:inline-block;padding:14px 34px;color:#FFFFFF;font-weight:bold;font-size:15px;text-decoration:none;font-family:Arial,sans-serif;">' + botonTxt + '</a></td></tr></table>' : '';
-
-  // Insignia grande (solo en desbloqueos)
-  const insigniaImg = esDesbloqueo ? '<img src="' + nv.img + '" width="190" alt="Insignia Nivel ' + n + ': ' + esc(nv.insignia) + '" style="display:block;margin:0 auto 6px;"><p style="text-align:center;margin:0 0 20px;font-size:14px;font-weight:bold;color:#4E4BF7;font-family:Arial,sans-serif;">Insignia desbloqueada: ' + esc(nv.insignia) + ' ' + nv.emoji + '</p>' : '';
-
-  const coleccion = (esDesbloqueo || esRadar) ? '<div style="height:10px;"></div><p style="text-align:center;margin:0 0 10px;font-size:13px;font-weight:bold;color:#4E4BF7;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">Mi colección Ordy</p>' + coleccionHTML(c) + '<div style="height:6px;"></div>' : '';
-
+  return html;
+}
+function correoHTML(c, tplId){
+  const tpl = TPL[tplId];
+  const asunto = sustituir(tpl.asunto, c, tpl);
+  const cuerpo = sustituir(tpl.correo, c, tpl);
   return {
     asunto,
+    texto: cuerpo,
     html:
 '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F3F2FF;padding:26px 12px;"><tr><td align="center">' +
 '<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#FFFFFF;border-radius:18px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;">' +
 '<tr><td style="background:#4E4BF7;padding:22px;text-align:center;"><img src="' + IMG_BASE + 'ordy-logo.png" width="150" alt="Ordy · orden y plan" style="background:#FFFFFF;border-radius:12px;padding:10px 18px;"></td></tr>' +
-'<tr><td style="padding:30px 34px 10px;">' +
-'<h1 style="margin:0 0 20px;font-size:23px;line-height:1.3;color:#23214A;font-family:Georgia,\'Times New Roman\',serif;text-align:center;">' + esc(asunto) + '</h1>' +
-insigniaImg + parrafos + boton + coleccion +
+'<tr><td style="padding:30px 34px 14px;">' +
+'<h1 style="margin:0 0 20px;font-size:22px;line-height:1.35;color:#23214A;font-family:Georgia,\'Times New Roman\',serif;text-align:center;">' + esc(asunto) + '</h1>' +
+textoAHtmlCorreo(cuerpo) +
 '</td></tr>' +
-'<tr><td style="background:#EFEFFF;padding:18px;text-align:center;font-size:12px;color:#6B6A8A;">Ordy · orden y plan 🌊 · <a href="https://www.ordenyplan.com" style="color:#4E4BF7;text-decoration:none;font-weight:bold;">ordenyplan.com</a><br>Crecemos con propósito, un nivel a la vez.</td></tr>' +
+'<tr><td style="background:#EFEFFF;padding:18px;text-align:center;font-size:12px;color:#6B6A8A;">' + esc(config.nombreComercial || 'Ordy') + ' · orden y plan 🌊 · <a href="https://www.ordenyplan.com" style="color:#4E4BF7;text-decoration:none;font-weight:bold;">ordenyplan.com</a><br>El dashboard entrega claridad. La Activación entrega acción.</td></tr>' +
 '</table></td></tr></table>'
   };
 }
-</script>
-
-
-<script>
-/* ═══════════ INTERFAZ ═══════════ */
-let abiertaId = null;
-
-function mostrarTab(t){
-  document.getElementById('vista-clientes').style.display = t === 'clientes' ? '' : 'none';
-  document.getElementById('vista-registro').style.display = t === 'registro' ? '' : 'none';
-  document.getElementById('tab-clientes').classList.toggle('activo', t === 'clientes');
-  document.getElementById('tab-registro').classList.toggle('activo', t === 'registro');
-  if(t === 'registro') pintarRegistro();
+function mensajeWA(c, tplId){
+  const tpl = TPL[tplId];
+  return sustituir(tpl.wa, c, tpl);
+}
+function marcarTokens(html){
+  return html.replace(/\[([A-ZÁÉÍÓÚÑ_]+)\]/g, '<span class="token-vacio">[$1]</span>');
 }
 
-function pintarStats(){
-  const activos = clientes.filter(c => c.activo === 'Sí');
-  const conAccion = activos.filter(c => analizar(c).tpl);
-  const conAlerta = activos.filter(c => analizar(c).alerta && c.activo === 'Sí');
-  document.getElementById('stats').innerHTML =
-    '<div class="stat"><b>' + activos.length + '</b><span>Empresas activas</span></div>' +
-    '<div class="stat"><b>' + conAccion.length + '</b><span>Mensajes por enviar</span></div>' +
-    '<div class="stat alerta"><b>' + conAlerta.length + '</b><span>Alertas del Cerebro</span></div>' +
-    '<div class="stat"><b>' + registro.length + '</b><span>Envíos registrados</span></div>';
+/* ═══════════ COPIAR ═══════════ */
+async function copiarTexto(txt, msg){
+  await navigator.clipboard.writeText(txt);
+  toast(msg || 'Copiado ✅');
 }
-
-function pintarClientes(){
-  pintarStats();
-  const cont = document.getElementById('lista-clientes');
-  if(clientes.length === 0){
-    cont.innerHTML = '<div class="vacio"><span class="emoji">🐬</span>Todavía no hay empresas en el panel.<br>Agregá la primera con el botón <b>+ Nueva empresa</b>.</div>';
-    return;
-  }
-  // Orden: primero las que tienen acción pendiente
-  const orden = [...clientes].sort((a,b) => (analizar(b).tpl ? 1 : 0) - (analizar(a).tpl ? 1 : 0));
-  cont.innerHTML = orden.map(c => {
-    const an = analizar(c);
-    const n = parseInt(c.nivel) || 1;
-    const nv = NIVELES[Math.min(Math.max(n,1),6)];
-    const chipAccion = an.tpl
-      ? '<span class="chip accion">📣 ' + esc(an.accion) + '</span>'
-      : '<span class="chip espera">' + esc(an.accion) + '</span>';
-    const chipAlerta = an.alerta ? '<span class="chip aviso">' + esc(an.alerta.split(':')[0]) + '</span>' : '';
-    return '<div class="card ' + (an.tpl ? 'tiene-accion' : 'en-espera') + (abiertaId === c.id ? ' abierta' : '') + '" id="card-' + c.id + '">' +
-      '<div class="card-head" onclick="alternar(\'' + c.id + '\')">' +
-        '<div class="nombre"><b>' + esc(c.empresa) + '</b><span>' + esc(c.nombre) + ' · ' + esc(c.canal || 'Canal sin definir') + '</span></div>' +
-        '<span class="chip nivel">' + nv.emoji + ' Nivel ' + n + ' · ' + esc(c.estado) + '</span>' +
-        chipAlerta + chipAccion +
-      '</div>' +
-      '<div class="card-body">' + (abiertaId === c.id ? cuerpoCliente(c, an) : '') + '</div>' +
-    '</div>';
-  }).join('');
-}
-
-function alternar(id){
-  abiertaId = abiertaId === id ? null : id;
-  pintarClientes();
-  if(abiertaId){
-    const el = document.getElementById('card-' + id);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-  }
-}
-
-function cuerpoCliente(c, an){
-  let h = '<div class="grid2">' +
-    campo(c,'empresa','Empresa','text') +
-    campo(c,'nombre','Nombre de contacto','text') +
-    campo(c,'whatsapp','WhatsApp','text') +
-    campo(c,'correo','Correo','text') +
-    select(c,'canal','Canal preferido',['WhatsApp','Correo','Ambos']) +
-    select(c,'activo','Activo',['Sí','No']) +
-    select(c,'nivel','Nivel en proceso',[1,2,3,4,5,6]) +
-    select(c,'estado','Estado del nivel',ESTADOS) +
-    select(c,'ultimoDesbloqueado','Último nivel desbloqueado',[0,1,2,3,4,5,6]) +
-    select(c,'claridad','¿Claridad mínima? (N1–N3)',['Sí','No']) +
-    campo(c,'ultimoContacto','Último contacto','date') +
-    campo(c,'linkDashboard','Link del dashboard','text') +
-  '</div>' +
-  '<div class="grid2">' +
-    area(c,'motor','Mensaje del Motor de Interpretación') +
-    area(c,'preguntas','Preguntas de afinación') +
-  '</div>' +
-  '<div class="grid2">' +
-    campo(c,'linkRadar','Link del Radar (cuando exista)','text') +
-    area(c,'notas','Notas internas') +
-  '</div>';
-
-  if(an.alerta) h += '<div class="aviso-caja' + (an.alerta.startsWith('🚫') ? ' roja' : '') + '">' + esc(an.alerta) + '</div>';
-
-  h += '<div class="coleccion-mini"><b style="color:var(--morado)">Colección Ordy:</b><br>' + esc(coleccionTexto(c)) + '</div>';
-
-  if(an.tpl){
-    const wa = mensajeWA(c, an.tpl);
-    const mail = correoHTML(c, an.tpl);
-    h += '<div class="bloque"><h3>📱 WhatsApp listo para enviar</h3>' +
-      '<div class="msg-out">' + esc(wa) + '</div>' +
-      '<div class="botonera">' +
-        '<button class="btn verde" onclick="enviarWA(\'' + c.id + '\')" ' + (c.whatsapp ? '' : 'disabled') + '>Abrir WhatsApp</button>' +
-        '<button class="btn linea" onclick="copiarWA(\'' + c.id + '\')">Copiar texto</button>' +
-      '</div>' + (c.whatsapp ? '' : '<p class="nota-pie">Agregá el número de WhatsApp para activar el botón.</p>') +
-    '</div>';
-
-    h += '<div class="bloque"><h3>💌 Correo bonito</h3>' +
-      '<p style="font-size:.85rem;color:var(--gris)"><b>Asunto:</b> ' + esc(mail.asunto) + '</p>' +
-      '<div class="preview-mail">' + mail.html + '</div>' +
-      '<div class="botonera">' +
-        '<button class="btn morado" onclick="copiarCorreoHTML(\'' + c.id + '\')">Copiar correo con formato</button>' +
-        '<button class="btn linea" onclick="copiarAsunto(\'' + c.id + '\')">Copiar asunto</button>' +
-        '<button class="btn linea" onclick="abrirMailto(\'' + c.id + '\')" ' + (c.correo ? '' : 'disabled') + '>Correo rápido (texto)</button>' +
-      '</div>' +
-      '<p class="nota-pie">Flujo: abrí Gmail → mensaje nuevo → pegá el asunto → pegá el cuerpo con Ctrl+V (o Cmd+V) → revisá → enviar.</p>' +
-    '</div>';
-
-    h += '<div class="botonera" style="margin-top:14px">' +
-      '<button class="btn coral" onclick="marcarEnviado(\'' + c.id + '\')">✓ Marcar como enviado</button>';
-    if(c.estado === 'Desbloqueado' && parseInt(c.nivel) < 6){
-      h += '<button class="btn morado" onclick="avanzarNivel(\'' + c.id + '\')">↗ Avanzar al Nivel ' + (parseInt(c.nivel)+1) + '</button>';
-    }
-    h += '</div>';
-  } else {
-    h += '<div class="bloque"><h3>🌊 Sin mensaje pendiente</h3><p style="font-size:.9rem;color:var(--gris)">' + esc(an.accion) + '. Cuando cambiés el estado, el panel armará el mensaje que toca.</p></div>';
-  }
-
-  h += '<div class="botonera" style="margin-top:14px"><button class="btn gris" onclick="eliminarCliente(\'' + c.id + '\')">🗑 Eliminar empresa</button></div>';
-  return h;
-}
-
-function campo(c, k, label, tipo){
-  return '<div class="campo"><label>' + label + '</label><input type="' + tipo + '" value="' + esc(c[k] || '') + '" onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)"></div>';
-}
-function area(c, k, label){
-  return '<div class="campo"><label>' + label + '</label><textarea onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' + esc(c[k] || '') + '</textarea></div>';
-}
-function select(c, k, label, ops){
-  return '<div class="campo"><label>' + label + '</label><select onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' +
-    ops.map(o => '<option value="' + o + '"' + (String(c[k]) === String(o) ? ' selected' : '') + '>' + o + '</option>').join('') +
-  '</select></div>';
-}
-
-function editar(id, k, v){
+async function copiarHTMLcorreo(id, tplId){
   const c = clientes.find(x => x.id === id);
-  if(!c) return;
-  c[k] = v;
-  // Ayudita: al marcar Desbloqueado, actualizar el último nivel desbloqueado automáticamente
-  if(k === 'estado' && v === 'Desbloqueado'){
-    c.ultimoDesbloqueado = Math.max(parseInt(c.ultimoDesbloqueado)||0, parseInt(c.nivel)||1);
-  }
-  if(k === 'estado' && v === 'Radar listo'){ c.radarEnviado = false; }
-  guardar(); pintarClientes();
-}
-
-function abrirNuevoCliente(){
-  const c = { id:'c' + Date.now(), empresa:'Nueva empresa', nombre:'', whatsapp:'', correo:'',
-    canal:'Ambos', activo:'Sí', nivel:1, estado:'Nuevo', ultimoDesbloqueado:0, claridad:'No',
-    ultimoContacto:'', linkDashboard:'', motor:'', preguntas:'', linkRadar:'', notas:'' };
-  clientes.unshift(c); abiertaId = c.id;
-  guardar(); pintarClientes();
-  document.getElementById('card-' + c.id)?.scrollIntoView({behavior:'smooth'});
-}
-
-function eliminarCliente(id){
-  const c = clientes.find(x => x.id === id);
-  if(!confirm('¿Eliminar a "' + c.empresa + '" del panel? El historial del registro se mantiene.')) return;
-  clientes = clientes.filter(x => x.id !== id);
-  abiertaId = null; guardar(); pintarClientes();
-  toast('Empresa eliminada');
-}
-
-function avanzarNivel(id){
-  const c = clientes.find(x => x.id === id);
-  c.ultimoDesbloqueado = Math.max(parseInt(c.ultimoDesbloqueado)||0, parseInt(c.nivel)||1);
-  c.nivel = Math.min(6, (parseInt(c.nivel)||1) + 1);
-  c.estado = 'Pendiente';
-  c.claridad = 'No';
-  guardar(); pintarClientes();
-  toast('Avanzó al Nivel ' + c.nivel + ' 🌊');
-}
-
-/* ═══════════ ENVÍOS ═══════════ */
-function telCR(t){
-  let d = (t||'').replace(/\D/g,'');
-  if(d && !d.startsWith('506')) d = '506' + d;
-  return d;
-}
-function enviarWA(id){
-  const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  if(!an.tpl) return;
-  window.open('https://wa.me/' + telCR(c.whatsapp) + '?text=' + encodeURIComponent(mensajeWA(c, an.tpl)), '_blank');
-}
-async function copiarWA(id){
-  const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  await navigator.clipboard.writeText(mensajeWA(c, an.tpl));
-  toast('Mensaje de WhatsApp copiado ✅');
-}
-async function copiarAsunto(id){
-  const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  await navigator.clipboard.writeText(correoHTML(c, an.tpl).asunto);
-  toast('Asunto copiado ✅');
-}
-async function copiarCorreoHTML(id){
-  const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  const mail = correoHTML(c, an.tpl);
-  const textoPlano = sustituir(TPL[an.tpl].correo, c, 'texto');
+  const mail = correoHTML(c, tplId);
   try{
     await navigator.clipboard.write([ new ClipboardItem({
       'text/html': new Blob([mail.html], {type:'text/html'}),
-      'text/plain': new Blob([textoPlano], {type:'text/plain'})
+      'text/plain': new Blob([mail.texto], {type:'text/plain'})
     })]);
     toast('Correo con formato copiado 💌 Pegalo en Gmail');
   }catch(e){
-    // Respaldo para navegadores viejos
     const div = document.createElement('div');
     div.contentEditable = true; div.innerHTML = mail.html;
     div.style.position = 'fixed'; div.style.left = '-9999px';
@@ -1100,22 +1513,504 @@ async function copiarCorreoHTML(id){
     toast('Correo copiado 💌 Pegalo en Gmail');
   }
 }
-function abrirMailto(id){
+function copiarAsuntoTpl(id, tplId){
   const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  const asunto = correoHTML(c, an.tpl).asunto;
-  const cuerpo = sustituir(TPL[an.tpl].correo, c, 'texto');
-  location.href = 'mailto:' + c.correo + '?subject=' + encodeURIComponent(asunto) + '&body=' + encodeURIComponent(cuerpo);
+  copiarTexto(correoHTML(c, tplId).asunto, 'Asunto copiado ✅');
+}
+function copiarWATpl(id, tplId){
+  const c = clientes.find(x => x.id === id);
+  copiarTexto(mensajeWA(c, tplId), 'Mensaje de WhatsApp copiado ✅');
+}
+function abrirWATpl(id, tplId){
+  const c = clientes.find(x => x.id === id);
+  window.open('https://wa.me/' + telCR(c.whatsapp) + '?text=' + encodeURIComponent(mensajeWA(c, tplId)), '_blank');
+}
+function copiarDatosPago(){
+  const txt = 'Datos de pago · ' + (config.nombreComercial || 'Ordy') +
+    (config.nombreLegal ? '\nNombre legal: ' + config.nombreLegal : '') +
+    '\nSINPE Móvil: ' + (config.sinpe || '[SINPE]') +
+    '\nCuenta IBAN: ' + (config.iban || '[CUENTA IBAN]') +
+    '\nBanco: ' + (config.banco || '[BANCO]') +
+    '\nComprobantes a: ' + (config.correoComprobante || '[CORREO COMPROBANTE]');
+  copiarTexto(txt, 'Datos de pago copiados 💳');
 }
 
-function marcarEnviado(id){
-  const c = clientes.find(x => x.id === id);
-  const an = analizar(c);
-  registro.unshift({ fecha:hoy(), empresa:c.empresa, nivel:c.nivel, estado:c.estado, plantilla:an.tpl || '—', canal:c.canal || '—' });
+/* ═══════════ REGISTRO DE ENVÍOS ═══════════ */
+function registrarEnvio(c, tplId, canal, notas, aplicarEstado){
+  const tpl = TPL[tplId];
+  const anterior = c.estadoProceso;
+  registro.unshift({
+    fecha:hoy(), hora:ahora(), empresa:c.empresa,
+    plantilla:tpl ? tpl.nombre : tplId, canal:canal || c.canal || '—',
+    estadoAnterior:anterior, estadoSugerido:(tpl && tpl.sugerido) || '—', notas:notas || ''
+  });
   c.ultimoContacto = hoy();
-  if(an.tpl === 'RADAR') c.radarEnviado = true;
+  if(aplicarEstado && tpl && tpl.sugerido) c.estadoProceso = tpl.sugerido;
+  guardar();
+  pintarClientes();
+  toast(aplicarEstado && tpl && tpl.sugerido
+    ? 'Registrado ✅ Estado: ' + tpl.sugerido
+    : 'Registrado ✅ Último contacto: hoy');
+}
+
+/* ═══════════ NAVEGACIÓN ═══════════ */
+function mostrarTab(t){
+  ['clientes','plantillas','pagos','activaciones','registro'].forEach(x => {
+    document.getElementById('vista-' + x).style.display = t === x ? '' : 'none';
+    document.getElementById('tab-' + x).classList.toggle('activo', t === x);
+  });
+  if(t === 'registro') pintarRegistro();
+  if(t === 'plantillas') pintarSelectoresPlantillas();
+  if(t === 'pagos') pintarPagos();
+  if(t === 'activaciones') pintarActivaciones();
+}
+
+/* ═══════════ FILTROS Y ETAPAS ═══════════ */
+let filtros = {q:'', estado:'', grupo:-1, canal:'', activo:'', pagoPend:false, dashEnt:false, actProc:false, segVencido:false};
+
+function alternarFiltro(k){
+  filtros[k] = !filtros[k];
+  const ids = {pagoPend:'chip-pago', dashEnt:'chip-dash', actProc:'chip-act', segVencido:'chip-venc'};
+  document.getElementById(ids[k]).classList.toggle('activo', filtros[k]);
+  pintarClientes();
+}
+function elegirGrupo(g){
+  filtros.grupo = filtros.grupo === g ? -1 : g;
+  pintarClientes();
+}
+function pasaFiltros(c){
+  if(filtros.q && !((c.empresa||'') + ' ' + (c.nombre||'')).toLowerCase().includes(filtros.q.toLowerCase())) return false;
+  if(filtros.estado && c.estadoProceso !== filtros.estado) return false;
+  if(filtros.grupo >= 0 && grupoDe(c.estadoProceso) !== filtros.grupo) return false;
+  if(filtros.canal && c.canal !== filtros.canal) return false;
+  if(filtros.activo && c.activo !== filtros.activo) return false;
+  if(filtros.pagoPend && !pagoPendiente(c)) return false;
+  if(filtros.dashEnt && c.estadoDashboard !== 'entregado') return false;
+  if(filtros.actProc && c.estadoActivacion !== 'en proceso') return false;
+  if(filtros.segVencido && !(c.proximoSeguimiento && c.proximoSeguimiento < hoy())) return false;
+  return true;
+}
+
+/* ═══════════ VISTA GENERAL ═══════════ */
+let abiertaId = null;
+
+function pintarStats(){
+  const activos = clientes.filter(c => c.activo === 'Sí');
+  const vencidos = activos.filter(c => c.proximoSeguimiento && c.proximoSeguimiento < hoy());
+  const pagos = activos.filter(pagoPendiente);
+  const conAlerta = activos.filter(c => alertas(c).length > 0);
+  document.getElementById('stats').innerHTML =
+    '<div class="stat"><b>' + activos.length + '</b><span>Empresas activas</span></div>' +
+    '<div class="stat alerta"><b>' + vencidos.length + '</b><span>Seguimientos vencidos</span></div>' +
+    '<div class="stat alerta"><b>' + pagos.length + '</b><span>Pagos pendientes</span></div>' +
+    '<div class="stat alerta"><b>' + conAlerta.length + '</b><span>Empresas con alertas</span></div>' +
+    '<div class="stat"><b>' + registro.length + '</b><span>Envíos registrados</span></div>';
+}
+
+function pintarEtapas(){
+  const cont = document.getElementById('barra-etapas');
+  cont.innerHTML = GRUPOS.map((g,i) => {
+    const n = clientes.filter(c => c.activo === 'Sí' && grupoDe(c.estadoProceso) === i && pasaBusquedaSimple(c)).length;
+    return '<button class="' + (filtros.grupo === i ? 'activo' : '') + '" onclick="elegirGrupo(' + i + ')">' + g.emoji + ' ' + g.nombre + ' <b>' + n + '</b></button>';
+  }).join('');
+}
+function pasaBusquedaSimple(c){
+  return !filtros.q || ((c.empresa||'') + ' ' + (c.nombre||'')).toLowerCase().includes(filtros.q.toLowerCase());
+}
+
+function pintarSelectorEstados(){
+  const sel = document.getElementById('f-estado');
+  let h = '<option value="">Todos</option>';
+  GRUPOS.forEach((g,i) => {
+    h += '<optgroup label="' + g.emoji + ' ' + g.nombre + '">' +
+      ESTADOS.filter(e => e[1] === i).map(e => '<option' + (filtros.estado === e[0] ? ' selected' : '') + '>' + e[0] + '</option>').join('') +
+    '</optgroup>';
+  });
+  sel.innerHTML = h;
+}
+
+function pintarClientes(){
+  pintarStats();
+  pintarEtapas();
+  pintarSelectorEstados();
+  const cont = document.getElementById('lista-clientes');
+  if(clientes.length === 0){
+    cont.innerHTML = '<div class="vacio"><span class="emoji">🐬</span>Todavía no hay empresas en el panel.<br>Agregá la primera con el botón <b>+ Nueva empresa</b>.</div>';
+    return;
+  }
+  const lista = clientes.filter(pasaFiltros);
+  if(lista.length === 0){
+    cont.innerHTML = '<div class="vacio"><span class="emoji">🌊</span>Ninguna empresa coincide con estos filtros.</div>';
+    return;
+  }
+  // Primero las que tienen alertas, luego por seguimiento más cercano
+  const orden = [...lista].sort((a,b) => alertas(b).length - alertas(a).length);
+  cont.innerHTML = orden.map(c => tarjetaCliente(c)).join('');
+}
+
+function tarjetaCliente(c){
+  const g = grupoDe(c.estadoProceso);
+  const als = alertas(c);
+  let chips = '<span class="chip g' + g + '">' + GRUPOS[g].emoji + ' ' + esc(c.estadoProceso) + '</span>';
+  if(c.activo !== 'Sí') chips += '<span class="chip g6">Inactivo</span>';
+  if(pagoPendiente(c)) chips += '<span class="chip pago">💳 Pago pendiente</span>';
+  if(c.estadoDashboard === 'entregado') chips += '<span class="chip ok">📊 Dashboard entregado</span>';
+  if(c.estadoActivacion === 'en proceso') chips += '<span class="chip proceso">🚀 Activación en proceso</span>';
+  if(als.length) chips += '<span class="chip aviso">⚠ ' + als.length + (als.length === 1 ? ' alerta' : ' alertas') + '</span>';
+
+  const sub = [esc(c.nombre || 'Sin contacto'), esc(c.canal || '—'),
+    'Últ. contacto: ' + (c.ultimoContacto || '—'),
+    'Próx. seguimiento: ' + (c.proximoSeguimiento || '—')].join(' · ');
+
+  return '<div class="card' + (als.length ? ' con-alerta' : '') + (abiertaId === c.id ? ' abierta' : '') + '" id="card-' + c.id + '">' +
+    '<div class="card-head" onclick="alternar(\'' + c.id + '\')">' +
+      '<div class="nombre"><b>' + esc(c.empresa || 'Sin nombre') + '</b><span>' + sub + '</span></div>' + chips +
+    '</div>' +
+    '<div class="card-acciones">' +
+      '<button class="btn mini linea" onclick="event.stopPropagation(); alternar(\'' + c.id + '\')">✏️ Ver / editar</button>' +
+      '<button class="btn mini morado" onclick="event.stopPropagation(); irAPlantillas(\'' + c.id + '\')">💌 Plantillas</button>' +
+      '<button class="btn mini coral" onclick="event.stopPropagation(); abrirEnvioManual(\'' + c.id + '\')">✓ Registrar envío</button>' +
+    '</div>' +
+    '<div class="card-body">' + (abiertaId === c.id ? cuerpoCliente(c, als) : '') + '</div>' +
+  '</div>';
+}
+
+function alternar(id){
+  abiertaId = abiertaId === id ? null : id;
+  pintarClientes();
+  if(abiertaId){
+    const el = document.getElementById('card-' + id);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+}
+
+/* ── Cuerpo editable de la empresa ── */
+function campo(c,k,label,tipo){
+  return '<div class="campo"><label>' + label + '</label><input type="' + (tipo||'text') + '" value="' + esc(c[k]||'') + '" onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)"></div>';
+}
+function area(c,k,label){
+  return '<div class="campo"><label>' + label + '</label><textarea onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' + esc(c[k]||'') + '</textarea></div>';
+}
+function select(c,k,label,ops){
+  return '<div class="campo"><label>' + label + '</label><select onchange="editar(\'' + c.id + '\',\'' + k + '\',this.value)">' +
+    ops.map(o => '<option value="' + esc(o) + '"' + (String(c[k]) === String(o) ? ' selected' : '') + '>' + esc(o) + '</option>').join('') +
+  '</select></div>';
+}
+function selectEstadoProceso(c){
+  let h = '<div class="campo"><label>Estado del proceso</label><select onchange="editar(\'' + c.id + '\',\'estadoProceso\',this.value)">';
+  GRUPOS.forEach((g,i) => {
+    h += '<optgroup label="' + g.emoji + ' ' + g.nombre + '">' +
+      ESTADOS.filter(e => e[1] === i).map(e => '<option' + (c.estadoProceso === e[0] ? ' selected' : '') + '>' + e[0] + '</option>').join('') +
+    '</optgroup>';
+  });
+  return h + '</select></div>';
+}
+
+function cuerpoCliente(c, als){
+  let h = '';
+  if(als.length) h += als.map(a => '<div class="aviso-caja' + (a.startsWith('💳') || a.startsWith('⏰') ? ' roja' : '') + '" style="margin-top:0; margin-bottom:10px;">' + esc(a) + '</div>').join('');
+
+  const tplSug = ESTADO_TPL[c.estadoProceso];
+  if(tplSug) h += '<div class="sugerido-pill" style="margin:0 0 12px;">💡 Mensaje que toca: ' + esc(TPL[tplSug].nombre) + ' <button class="btn mini morado" style="margin-left:6px;" onclick="irAPlantillas(\'' + c.id + '\',\'' + tplSug + '\')">Abrir</button></div>';
+
+  h += '<details class="dgrupo" open><summary>🌊 Datos generales</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'empresa','Empresa') +
+    campo(c,'nombre','Nombre de contacto') +
+    campo(c,'whatsapp','WhatsApp') +
+    campo(c,'correo','Correo') +
+    select(c,'canal','Canal preferido',['Correo','WhatsApp','Ambos']) +
+    select(c,'activo','Activo',['Sí','No']) +
+    selectEstadoProceso(c) +
+    campo(c,'ultimoContacto','Último contacto','date') +
+    campo(c,'proximoSeguimiento','Próximo seguimiento','date') +
+  '</div><div style="margin-top:12px;">' + area(c,'notas','Notas internas') + '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>📞 Llamada inicial</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'linkAgendaInicial','Link para agendar (si es distinto al general)') +
+    campo(c,'fechaLlamada','Fecha llamada inicial','date') +
+    campo(c,'horaLlamada','Hora llamada inicial','time') +
+    select(c,'estadoLlamada','Estado llamada inicial',['pendiente','agendada','realizada','no asistió']) +
+  '</div><div style="margin-top:12px;">' + area(c,'notasLlamada','Notas llamada inicial') + '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>💳 Pago dashboard</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'planElegido','Plan / paquete elegido') +
+    campo(c,'montoDashboard','Monto dashboard') +
+    select(c,'estadoPagoDash','Estado pago dashboard',['pendiente','recordado','confirmado']) +
+    campo(c,'fechaPagoDash','Fecha de pago','date') +
+    select(c,'comprobanteDash','Comprobante recibido',['no','sí']) +
+    campo(c,'medioPagoDash','Medio de pago') +
+  '</div><div style="margin-top:12px;">' + area(c,'notasPagoDash','Notas de pago dashboard') + '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>📊 Dashboard</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'linkDashboard','Link del dashboard') +
+    campo(c,'passDashboard','Contraseña del dashboard') +
+    campo(c,'fechaEntregaDash','Fecha de entrega','date') +
+    select(c,'estadoDashboard','Estado dashboard',['no iniciado','en construcción','entregado']) +
+  '</div><div style="margin-top:12px;">' + area(c,'notasDashboard','Notas dashboard') + '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>🔍 Revisión del dashboard</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'linkAgendaRevision','Link para agendar revisión (si es distinto)') +
+    campo(c,'fechaRevision','Fecha revisión','date') +
+    campo(c,'horaRevision','Hora revisión','time') +
+    select(c,'estadoRevision','Estado revisión',['pendiente','agendada','realizada','no asistió']) +
+  '</div><div style="margin-top:12px;">' + area(c,'notasRevision','Notas revisión') + '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>🧭 Recomendaciones de asesores</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'rutaPrincipal','Ruta recomendada principal') +
+    campo(c,'fechaRecomendaciones','Fecha de envío de recomendaciones','date') +
+  '</div><div class="grid2" style="margin-top:12px;">' +
+    area(c,'rutasSugeridas','Rutas sugeridas por asesores') +
+    area(c,'notasRecomendaciones','Notas recomendaciones') +
+  '</div></div></details>';
+
+  h += '<details class="dgrupo"><summary>🚀 Activación Ordy</summary><div class="dgrupo-body"><div class="grid2">' +
+    campo(c,'rutaElegida','Ruta elegida por cliente') +
+    campo(c,'montoActivacion','Monto activación') +
+    select(c,'estadoPagoAct','Estado pago activación',['pendiente','recordado','confirmado']) +
+    campo(c,'fechaPagoAct','Fecha pago activación','date') +
+    select(c,'estadoActivacion','Estado activación',['ofrecida','aceptada','pagada','en proceso','entregada']) +
+    campo(c,'linkActivacion','Link documento activación') +
+    campo(c,'fechaEntregaAct','Fecha entrega activación','date') +
+    campo(c,'derivacion','Derivación recomendada') +
+  '</div><div style="margin-top:12px;">' + area(c,'notasActivacion','Notas activación') + '</div></div></details>';
+
+  h += '<div class="botonera" style="margin-top:14px;"><button class="btn gris" onclick="eliminarCliente(\'' + c.id + '\')">🗑 Eliminar empresa</button></div>';
+  return h;
+}
+
+function editar(id, k, v){
+  const c = clientes.find(x => x.id === id);
+  if(!c) return;
+  c[k] = v;
+  guardar();
+  if(k === 'estadoProceso' || k === 'activo' || k === 'estadoDashboard' || k === 'estadoActivacion' || k === 'estadoPagoDash' || k === 'estadoPagoAct' || k === 'proximoSeguimiento' || k === 'empresa' || k === 'nombre'){
+    pintarClientes();
+  } else {
+    pintarStats();
+  }
+}
+
+function abrirNuevoCliente(){
+  const c = nuevaEmpresaBase();
+  c.id = 'c' + Date.now();
+  c.empresa = 'Nueva empresa';
+  clientes.unshift(c);
+  abiertaId = c.id;
+  filtros = {q:'', estado:'', grupo:-1, canal:'', activo:'', pagoPend:false, dashEnt:false, actProc:false, segVencido:false};
+  ['chip-pago','chip-dash','chip-act','chip-venc'].forEach(i => document.getElementById(i).classList.remove('activo'));
+  document.getElementById('f-q').value = '';
+  mostrarTab('clientes');
   guardar(); pintarClientes();
-  toast('Registrado ✅ Último contacto: hoy');
+  document.getElementById('card-' + c.id)?.scrollIntoView({behavior:'smooth'});
+}
+
+function eliminarCliente(id){
+  const c = clientes.find(x => x.id === id);
+  if(!confirm('¿Eliminar a "' + (c.empresa || 'esta empresa') + '" del panel? El historial del registro se mantiene.')) return;
+  clientes = clientes.filter(x => x.id !== id);
+  abiertaId = null; guardar(); pintarClientes();
+  toast('Empresa eliminada');
+}
+
+/* ═══════════ VISTA PLANTILLAS ═══════════ */
+let tplEmpresaId = null, tplActual = null;
+
+function irAPlantillas(id, tplId){
+  tplEmpresaId = id;
+  tplActual = tplId || ESTADO_TPL[(clientes.find(x => x.id === id) || {}).estadoProceso] || 'T01';
+  mostrarTab('plantillas');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function pintarSelectoresPlantillas(){
+  const selE = document.getElementById('tpl-empresa');
+  if(clientes.length === 0){
+    selE.innerHTML = '<option value="">— No hay empresas —</option>';
+  } else {
+    if(!tplEmpresaId || !clientes.find(x => x.id === tplEmpresaId)) tplEmpresaId = clientes[0].id;
+    selE.innerHTML = clientes.map(c => '<option value="' + c.id + '"' + (c.id === tplEmpresaId ? ' selected' : '') + '>' + esc(c.empresa || 'Sin nombre') + ' — ' + esc(c.estadoProceso) + '</option>').join('');
+  }
+  const selT = document.getElementById('tpl-sel');
+  if(!tplActual) tplActual = 'T01';
+  let h = '';
+  GRUPOS.forEach((g,i) => {
+    const del = Object.keys(TPL).filter(k => TPL[k].etapa === i);
+    if(del.length){
+      h += '<optgroup label="' + g.emoji + ' ' + g.nombre + '">' +
+        del.map(k => '<option value="' + k + '"' + (k === tplActual ? ' selected' : '') + '>' + esc(TPL[k].nombre) + '</option>').join('') +
+      '</optgroup>';
+    }
+  });
+  selT.innerHTML = h;
+  pintarPlantilla();
+}
+
+function pintarPlantilla(){
+  tplEmpresaId = document.getElementById('tpl-empresa').value || tplEmpresaId;
+  tplActual = document.getElementById('tpl-sel').value || tplActual;
+  const salida = document.getElementById('tpl-salida');
+  const extrasCont = document.getElementById('tpl-extras');
+  const c = clientes.find(x => x.id === tplEmpresaId);
+  if(!c){
+    extrasCont.innerHTML = '';
+    salida.innerHTML = '<div class="vacio"><span class="emoji">🐬</span>Agregá una empresa primero para poder armar sus mensajes.</div>';
+    return;
+  }
+  const tpl = TPL[tplActual];
+
+  // Campos extra que se escriben a mano (solo los que usa esta plantilla)
+  const usados = VARS_EXTRA.filter(v => (tpl.asunto + tpl.correo + tpl.wa).includes('[' + v + ']'));
+  extrasCont.innerHTML = usados.map(v =>
+    '<div class="campo"><label>' + v.replaceAll('_',' ').toLowerCase() + ' (se inserta en [' + v + '])</label>' +
+    '<textarea style="min-height:52px;" oninput="extrasTmp[\'' + v + '\']=this.value; pintarSalidaPlantilla()">' + esc(extrasTmp[v] || '') + '</textarea></div>'
+  ).join('');
+
+  pintarSalidaPlantilla();
+}
+
+function pintarSalidaPlantilla(){
+  const c = clientes.find(x => x.id === tplEmpresaId);
+  if(!c) return;
+  const tpl = TPL[tplActual];
+  const mail = correoHTML(c, tplActual);
+  const wa = mensajeWA(c, tplActual);
+
+  let h = '';
+  if(tpl.sugerido) h += '<div class="sugerido-pill">➡ Estado sugerido al enviar: <b>' + esc(tpl.sugerido) + '</b></div>';
+
+  h += '<div class="bloque"><h3>💌 Correo</h3>' +
+    '<p style="font-size:.87rem;"><b>Asunto:</b> ' + marcarTokens(esc(mail.asunto)) + '</p>' +
+    '<div class="preview-mail">' + marcarTokens(mail.html) + '</div>' +
+    '<div class="botonera">' +
+      '<button class="btn morado" onclick="copiarHTMLcorreo(\'' + c.id + '\',\'' + tplActual + '\')">Copiar correo con formato</button>' +
+      '<button class="btn linea" onclick="copiarAsuntoTpl(\'' + c.id + '\',\'' + tplActual + '\')">Copiar asunto</button>' +
+      '<button class="btn linea" onclick="copiarDatosPago()">Copiar datos de pago</button>' +
+    '</div>' +
+    '<p class="nota-pie">Flujo: abrí Gmail → mensaje nuevo → pegá el asunto → pegá el cuerpo con Ctrl+V (o Cmd+V) → revisá los campos en rojo → enviar.</p>' +
+  '</div>';
+
+  h += '<div class="bloque"><h3>📱 WhatsApp</h3>' +
+    '<div class="msg-out">' + marcarTokens(esc(wa)) + '</div>' +
+    '<div class="botonera">' +
+      '<button class="btn verde" onclick="abrirWATpl(\'' + c.id + '\',\'' + tplActual + '\')" ' + (c.whatsapp ? '' : 'disabled') + '>Abrir WhatsApp</button>' +
+      '<button class="btn linea" onclick="copiarWATpl(\'' + c.id + '\',\'' + tplActual + '\')">Copiar WhatsApp</button>' +
+    '</div>' + (c.whatsapp ? '' : '<p class="nota-pie">Agregá el número de WhatsApp de la empresa para activar el botón.</p>') +
+  '</div>';
+
+  h += '<div class="bloque"><h3>✓ Registrar envío</h3>' +
+    '<div class="grid2">' +
+      '<div class="campo"><label>Canal usado</label><select id="tpl-canal"><option' + (c.canal === 'Correo' ? ' selected' : '') + '>Correo</option><option' + (c.canal === 'WhatsApp' ? ' selected' : '') + '>WhatsApp</option><option' + (c.canal === 'Ambos' ? ' selected' : '') + '>Ambos</option></select></div>' +
+      '<div class="campo"><label>Notas (opcional)</label><input id="tpl-notas" placeholder="Ej: respondió que la otra semana"></div>' +
+    '</div>' +
+    '<div class="botonera">' +
+      (tpl.sugerido
+        ? '<button class="btn coral" onclick="enviarDesdePlantilla(true)">✓ Marcar enviado y pasar a “' + esc(tpl.sugerido) + '”</button>' +
+          '<button class="btn linea" onclick="enviarDesdePlantilla(false)">Marcar enviado sin cambiar estado</button>'
+        : '<button class="btn coral" onclick="enviarDesdePlantilla(false)">✓ Marcar como enviado</button>') +
+    '</div>' +
+    '<p class="nota-pie">Esto guarda el envío en el registro y actualiza el último contacto a hoy.</p>' +
+  '</div>';
+
+  document.getElementById('tpl-salida').innerHTML = h;
+}
+
+function enviarDesdePlantilla(aplicar){
+  const c = clientes.find(x => x.id === tplEmpresaId);
+  if(!c) return;
+  registrarEnvio(c, tplActual, document.getElementById('tpl-canal').value, document.getElementById('tpl-notas').value, aplicar);
+  pintarSelectoresPlantillas();
+}
+
+/* ═══════════ REGISTRO MANUAL DESDE TARJETA ═══════════ */
+let envioClienteId = null;
+function abrirEnvioManual(id){
+  envioClienteId = id;
+  const c = clientes.find(x => x.id === id);
+  document.getElementById('envio-empresa').textContent = c.empresa || 'esta empresa';
+  const sel = document.getElementById('envio-tpl');
+  const sug = ESTADO_TPL[c.estadoProceso];
+  let h = '';
+  GRUPOS.forEach((g,i) => {
+    const del = Object.keys(TPL).filter(k => TPL[k].etapa === i);
+    if(del.length){
+      h += '<optgroup label="' + g.emoji + ' ' + g.nombre + '">' +
+        del.map(k => '<option value="' + k + '"' + (k === sug ? ' selected' : '') + '>' + esc(TPL[k].nombre) + '</option>').join('') +
+      '</optgroup>';
+    }
+  });
+  sel.innerHTML = h;
+  document.getElementById('envio-canal').value = c.canal || 'Correo';
+  document.getElementById('envio-notas').value = '';
+  document.getElementById('modal-envio').classList.add('visible');
+}
+function confirmarEnvioManual(){
+  const c = clientes.find(x => x.id === envioClienteId);
+  if(!c) return;
+  const tplId = document.getElementById('envio-tpl').value;
+  const aplicar = document.getElementById('envio-aplicar').value === 'si';
+  registrarEnvio(c, tplId, document.getElementById('envio-canal').value, document.getElementById('envio-notas').value, aplicar);
+  cerrarModal('modal-envio');
+}
+
+/* ═══════════ VISTA PAGOS ═══════════ */
+function pintarPagos(){
+  const dash = clientes.filter(c => c.montoDashboard || c.estadoPagoDash !== 'pendiente' || grupoDe(c.estadoProceso) >= 2);
+  const act = clientes.filter(c => c.montoActivacion || c.rutaElegida || grupoDe(c.estadoProceso) === 5);
+
+  const filaD = c => '<tr>' +
+    '<td><b>' + esc(c.empresa) + '</b><br><span style="font-size:.75rem;color:var(--gris)">' + esc(c.estadoProceso) + '</span></td>' +
+    '<td><input value="' + esc(c.montoDashboard) + '" onchange="editar(\'' + c.id + '\',\'montoDashboard\',this.value)" placeholder="₡"></td>' +
+    '<td><select onchange="editar(\'' + c.id + '\',\'estadoPagoDash\',this.value)">' + ['pendiente','recordado','confirmado'].map(o => '<option' + (c.estadoPagoDash === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select></td>' +
+    '<td><input type="date" value="' + esc(c.fechaPagoDash) + '" onchange="editar(\'' + c.id + '\',\'fechaPagoDash\',this.value)"></td>' +
+    '<td><select onchange="editar(\'' + c.id + '\',\'comprobanteDash\',this.value)">' + ['no','sí'].map(o => '<option' + (c.comprobanteDash === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select></td>' +
+    '<td><input value="' + esc(c.medioPagoDash) + '" onchange="editar(\'' + c.id + '\',\'medioPagoDash\',this.value)" placeholder="SINPE…"></td>' +
+    '<td><button class="btn mini morado" onclick="irAPlantillas(\'' + c.id + '\',\'' + (c.estadoPagoDash === 'confirmado' ? 'T10' : 'T09') + '\')">💌</button></td>' +
+  '</tr>';
+
+  const filaA = c => '<tr>' +
+    '<td><b>' + esc(c.empresa) + '</b><br><span style="font-size:.75rem;color:var(--gris)">' + esc(c.rutaElegida || c.rutaPrincipal || 'Sin ruta') + '</span></td>' +
+    '<td><input value="' + esc(c.montoActivacion) + '" onchange="editar(\'' + c.id + '\',\'montoActivacion\',this.value)" placeholder="₡"></td>' +
+    '<td><select onchange="editar(\'' + c.id + '\',\'estadoPagoAct\',this.value)">' + ['pendiente','recordado','confirmado'].map(o => '<option' + (c.estadoPagoAct === o ? ' selected' : '') + '>' + o + '</option>').join('') + '</select></td>' +
+    '<td><input type="date" value="' + esc(c.fechaPagoAct) + '" onchange="editar(\'' + c.id + '\',\'fechaPagoAct\',this.value)"></td>' +
+    '<td><button class="btn mini morado" onclick="irAPlantillas(\'' + c.id + '\',\'' + (c.estadoPagoAct === 'confirmado' ? 'T22' : 'T21') + '\')">💌</button></td>' +
+  '</tr>';
+
+  document.getElementById('tabla-pagos-dash').innerHTML = dash.length
+    ? '<div class="tabla-scroll"><table><thead><tr><th>Empresa</th><th>Monto</th><th>Estado pago</th><th>Fecha pago</th><th>Comprobante</th><th>Medio</th><th>Msj</th></tr></thead><tbody>' + dash.map(filaD).join('') + '</tbody></table></div>'
+    : '<div class="vacio"><span class="emoji">💳</span>Todavía no hay pagos de dashboard en juego.</div>';
+
+  document.getElementById('tabla-pagos-act').innerHTML = act.length
+    ? '<div class="tabla-scroll"><table><thead><tr><th>Empresa / ruta</th><th>Monto</th><th>Estado pago</th><th>Fecha pago</th><th>Msj</th></tr></thead><tbody>' + act.map(filaA).join('') + '</tbody></table></div>'
+    : '<div class="vacio"><span class="emoji">🚀</span>Todavía no hay Activaciones con pago en juego.</div>';
+}
+
+/* ═══════════ VISTA ACTIVACIONES ═══════════ */
+function pintarActivaciones(){
+  const cont = document.getElementById('lista-activaciones');
+  const lista = clientes.filter(c => c.rutaElegida || c.rutaPrincipal || c.montoActivacion || grupoDe(c.estadoProceso) === 5 || c.estadoActivacion === 'en proceso' || c.estadoActivacion === 'entregada');
+  if(lista.length === 0){
+    cont.innerHTML = '<div class="vacio"><span class="emoji">🚀</span>Todavía no hay Activaciones en marcha.<br>Cuando enviés recomendaciones de asesores, las empresas aparecerán aquí.</div>';
+    return;
+  }
+  cont.innerHTML = lista.map(c => {
+    return '<div class="card"><div class="card-head" style="cursor:default;">' +
+      '<div class="nombre"><b>' + esc(c.empresa) + '</b><span>' + esc(c.estadoProceso) + '</span></div>' +
+      '<span class="chip g5">🚀 ' + esc(c.estadoActivacion) + '</span>' +
+      (c.estadoPagoAct === 'confirmado' ? '<span class="chip ok">Pago confirmado</span>' : '<span class="chip pago">Pago ' + esc(c.estadoPagoAct) + '</span>') +
+    '</div>' +
+    '<div class="card-body" style="display:block;"><div class="grid2">' +
+      campo(c,'rutaElegida','Ruta elegida por cliente') +
+      campo(c,'montoActivacion','Monto activación') +
+      select(c,'estadoActivacion','Estado activación',['ofrecida','aceptada','pagada','en proceso','entregada']) +
+      campo(c,'linkActivacion','Link documento activación') +
+      campo(c,'fechaEntregaAct','Fecha entrega','date') +
+      campo(c,'derivacion','Derivación recomendada') +
+    '</div>' +
+    '<div class="botonera" style="margin-top:12px;">' +
+      '<button class="btn mini morado" onclick="irAPlantillas(\'' + c.id + '\',\'T24\')">💌 Mensaje de entrega</button>' +
+      '<button class="btn mini linea" onclick="irAPlantillas(\'' + c.id + '\',\'T25\')">💌 Derivar a Soy Majo</button>' +
+    '</div></div></div>';
+  }).join('');
 }
 
 /* ═══════════ REGISTRO ═══════════ */
@@ -1125,31 +2020,32 @@ function pintarRegistro(){
     cont.innerHTML = '<div class="vacio"><span class="emoji">📋</span>Todavía no hay envíos registrados.<br>Cada vez que marqués un mensaje como enviado, quedará guardado aquí.</div>';
     return;
   }
-  cont.innerHTML = '<table><thead><tr><th>Fecha</th><th>Empresa</th><th>Nivel</th><th>Estado</th><th>Plantilla</th><th>Canal</th></tr></thead><tbody>' +
-    registro.map(r => '<tr><td>' + r.fecha + '</td><td>' + esc(r.empresa) + '</td><td>N' + r.nivel + '</td><td>' + esc(r.estado) + '</td><td>' + esc(r.plantilla) + '</td><td>' + esc(r.canal) + '</td></tr>').join('') +
-  '</tbody></table>';
+  cont.innerHTML = '<div class="tabla-scroll"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Empresa</th><th>Plantilla</th><th>Canal</th><th>Estado anterior</th><th>Estado sugerido</th><th>Notas</th></tr></thead><tbody>' +
+    registro.map(r => '<tr><td>' + esc(r.fecha) + '</td><td>' + esc(r.hora || '—') + '</td><td>' + esc(r.empresa) + '</td><td>' + esc(r.plantilla) + '</td><td>' + esc(r.canal) + '</td><td>' + esc(r.estadoAnterior || '—') + '</td><td>' + esc(r.estadoSugerido || '—') + '</td><td>' + esc(r.notas || '') + '</td></tr>').join('') +
+  '</tbody></table></div>';
 }
 
 /* ═══════════ CONFIGURACIÓN Y RESPALDO ═══════════ */
+const CFG_KEYS = ['nombreComercial','nombreLegal','sinpe','iban','banco','correoComprobante','waOrdy','linkAgendaInicial','linkAgendaRevision','linkSoyMajo','firma'];
 function abrirConfig(){
-  document.getElementById('cfg-wa').value = config.wa || '';
-  document.getElementById('cfg-comunidad').value = config.comunidad || '';
+  CFG_KEYS.forEach(k => document.getElementById('cfg-' + k).value = config[k] || '');
   document.getElementById('modal-config').classList.add('visible');
 }
 function guardarConfig(){
-  config.wa = telCR(document.getElementById('cfg-wa').value);
-  config.comunidad = document.getElementById('cfg-comunidad').value.trim();
-  guardar(); cerrarModal('modal-config'); pintarClientes();
+  CFG_KEYS.forEach(k => config[k] = document.getElementById('cfg-' + k).value.trim());
+  config.waOrdy = telCR(config.waOrdy);
+  guardar(); cerrarModal('modal-config');
+  if(document.getElementById('vista-plantillas').style.display !== 'none') pintarSalidaPlantilla();
   toast('Configuración guardada ✅');
 }
 function cerrarModal(id){ document.getElementById(id).classList.remove('visible'); }
 
 function descargarRespaldo(){
-  const datos = { version:1, fecha:hoy(), clientes, registro, config };
+  const datos = { version:2, fecha:hoy(), clientes, registro, config };
   const blob = new Blob([JSON.stringify(datos, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'respaldo-ordy-' + hoy() + '.json';
+  a.download = 'respaldo-ordy-02-' + hoy() + '.json';
   a.click();
   toast('Respaldo descargado ⬇');
 }
@@ -1162,7 +2058,19 @@ function cargarRespaldo(input){
       const d = JSON.parse(r.result);
       if(!d.clientes) throw new Error();
       if(!confirm('Esto reemplaza los datos actuales del panel con el respaldo del ' + (d.fecha || '?') + '. ¿Continuar?')) return;
-      clientes = d.clientes; registro = d.registro || []; config = d.config || config;
+      if(d.version === 2){
+        clientes = d.clientes; registro = d.registro || []; config = Object.assign(config, d.config || {});
+      } else {
+        // Respaldo del panel 0.1: se convierte lo básico
+        clientes = d.clientes.map(v => Object.assign(nuevaEmpresaBase(), {
+          id:v.id || ('c' + Math.random().toString(36).slice(2) + Date.now()),
+          empresa:v.empresa || 'Empresa migrada', nombre:v.nombre || '', whatsapp:v.whatsapp || '',
+          correo:v.correo || '', canal:v.canal || 'Ambos', activo:v.activo || 'Sí',
+          ultimoContacto:v.ultimoContacto || '', linkDashboard:v.linkDashboard || '',
+          notas:((v.notas || '') + '\n[Migrado del panel 0.1 · nivel ' + (v.nivel || '?') + ' · estado ' + (v.estado || '?') + ']').trim()
+        }));
+        registro = [];
+      }
       guardar(); pintarClientes(); pintarRegistro();
       toast('Respaldo cargado ✅');
     }catch(e){ alert('Ese archivo no parece un respaldo válido de Ordy.'); }
