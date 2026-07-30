@@ -49,10 +49,10 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
         </Link>
 
         <div className="business-switcher">
-          <div className="business-avatar">GR</div>
+          <div className="business-avatar">NC</div>
           <div>
-            <span>Mi negocio</span>
-            <strong>GastroRed</strong>
+            <span>Espacio de muestra</span>
+            <strong>Navi Café</strong>
           </div>
           <ChevronDown size={16} />
         </div>
@@ -114,10 +114,10 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
               <LifeBuoy size={20} />
             </button>
             <Link href="/espacio/perfil" className="profile-chip">
-              <span>MJ</span>
+              <span>N</span>
               <div>
-                <strong>María José</strong>
-                <small>Administradora</small>
+                <strong>Navi</strong>
+                <small>Propietaria</small>
               </div>
             </Link>
           </div>
@@ -140,4 +140,3 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

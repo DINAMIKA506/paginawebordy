@@ -17,9 +17,9 @@ export default function SpaceHomePage() {
       <div className="workspace-page-heading">
         <div>
           <span>Jueves, 23 de julio</span>
-          <h1>Buenas tardes, María José.</h1>
+          <h1>Buenas tardes, Navi.</h1>
           <p>
-            Tu océano está en orden. Esta es la acción que sigue para GastroRed.
+            Tu océano está en orden. Esta es la acción que sigue para Navi Café.
           </p>
         </div>
         <div className="heading-ordy">
@@ -39,10 +39,10 @@ export default function SpaceHomePage() {
             Tu próxima acción
           </div>
           <span className="day-number">DÍA 9 DE 30</span>
-          <h2>Prepará el mensaje para proveedores</h2>
+          <h2>Costeá los cafés especiales y fríos</h2>
           <p>
-            Hoy vas a adaptar la propuesta principal para que un proveedor
-            entienda qué gana al formar parte de GastroRed.
+            Hoy vas a convertir ingredientes, tamaños y consumibles en el costo
+            real de cada bebida especial.
           </p>
           <div className="action-meta">
             <span>
@@ -50,12 +50,12 @@ export default function SpaceHomePage() {
             </span>
             <span>
               <Image
-                src="/characters/lumi.png"
-                alt="Lumi"
+                src="/characters/regi.png"
+                alt="Regi"
                 width={28}
                 height={28}
               />
-              Consejo de Lumi
+              Consejo de Regi
             </span>
           </div>
           <Link href="/espacio/rutas" className="button button-light">
@@ -127,9 +127,9 @@ export default function SpaceHomePage() {
               <CheckCircle2 size={18} />
             </span>
             <div>
-              <strong>Definiste la promesa principal de GastroRed</strong>
+              <strong>Completaste el costo base del combo principal</strong>
               <p>
-                “Conectamos empresas con proveedores gastronómicos compatibles…”
+                Combo Corriente Suave · café + repostería del día.
               </p>
             </div>
             <small>Hace 2 días</small>
@@ -149,4 +149,3 @@ export default function SpaceHomePage() {
     </>
   );
 }
-

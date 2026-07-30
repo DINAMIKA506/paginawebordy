@@ -8,7 +8,7 @@ export default function RoutesPage() {
       <div className="workspace-page-heading simple route-heading">
         <div>
           <span>Activación activa · 30 días</span>
-          <h1>Página web y embudo B2B</h1>
+          <h1>Costos y menú rentable</h1>
           <p>
             Cada día traduce tu Dashboard en una acción concreta: qué usar,
             dónde colocarlo y cómo saber si quedó listo.
@@ -16,7 +16,7 @@ export default function RoutesPage() {
         </div>
         <div className="route-team">
           <div>
-            {["lumi", "cabu", "pepe"].map((name) => (
+            {["regi", "carey", "cabu"].map((name) => (
               <Image
                 key={name}
                 src={`/characters/${name}.png`}
@@ -27,7 +27,7 @@ export default function RoutesPage() {
             ))}
           </div>
           <span>
-            <Users size={15} /> Lumi + Cabu + Pepe
+            <Users size={15} /> Regi + Carey + Cabu
           </span>
         </div>
       </div>
@@ -43,4 +43,3 @@ export default function RoutesPage() {
     </>
   );
 }
-

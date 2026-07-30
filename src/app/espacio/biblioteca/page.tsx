@@ -10,42 +10,42 @@ import {
 const resources = [
   {
     type: "Dashboard",
-    title: "Dashboard GastroRed · Versión 1.2",
+    title: "Dashboard Navi Café · Versión 1.2",
     description: "Lectura estratégica vigente del negocio.",
     date: "21 jul 2026",
     color: "purple",
   },
   {
-    type: "Texto listo",
-    title: "Promesa principal aprobada",
-    description: "Mensaje para página web, redes y WhatsApp.",
+    type: "Plantilla",
+    title: "Ficha de costos por receta",
+    description: "Estructura lista para copiar en la hoja de costos.",
     date: "20 jul 2026",
     color: "coral",
   },
   {
     type: "Consejo",
-    title: "Cómo explicar el modelo sin parecer un directorio",
-    description: "Respuesta de Lumi, Cabu y Pepe.",
+    title: "Qué ordenar antes de contratar apoyo",
+    description: "Respuesta de Regi, Carey y Glau.",
     date: "19 jul 2026",
     color: "sky",
   },
   {
     type: "Ruta",
-    title: "Página web y embudo B2B",
+    title: "Costos y menú rentable",
     description: "Activación actual de 30 días.",
     date: "15 jul 2026",
     color: "mint",
   },
   {
     type: "Documento",
-    title: "Respuestas iniciales de GastroRed",
+    title: "Respuestas iniciales de Navi Café",
     description: "Fuente original utilizada por Ordy.",
     date: "12 jul 2026",
     color: "yellow",
   },
   {
     type: "Historial",
-    title: "Dashboard GastroRed · Versión 1.1",
+    title: "Dashboard Navi Café · Versión 1.1",
     description: "Versión anterior conservada para consulta.",
     date: "10 jul 2026",
     color: "gray",
@@ -69,7 +69,7 @@ export default function LibraryPage() {
       <div className="library-toolbar">
         <label>
           <Search size={18} />
-          <input placeholder="Buscar en la memoria de GastroRed…" />
+          <input placeholder="Buscar en la memoria de Navi Café…" />
         </label>
         <button>
           <Filter size={17} /> Filtrar
@@ -103,4 +103,3 @@ export default function LibraryPage() {
     </>
   );
 }
-

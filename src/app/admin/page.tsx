@@ -22,7 +22,7 @@ export default function AdminPage() {
         />
         <div>
           <span>Panel operativo</span>
-          <strong>Hola, Majo</strong>
+          <strong>Hola, equipo Ordy</strong>
         </div>
       </header>
       <div className="admin-content">
@@ -81,8 +81,8 @@ export default function AdminPage() {
                 <AlertCircle size={18} />
               </span>
               <div>
-                <strong>GastroRed · Día 7</strong>
-                <p>“Siento que el texto todavía quedó muy largo…”</p>
+                <strong>Navi Café · Día 7</strong>
+                <p>“¿La merma también entra en el costo de la receta?”</p>
               </div>
               <small>
                 <Clock3 size={14} /> hace 2 h
@@ -96,8 +96,8 @@ export default function AdminPage() {
                 <MessageCircle size={18} />
               </span>
               <div>
-                <strong>Aura Diseño · Día 12</strong>
-                <p>“¿Puedo usar esta descripción también en Instagram?”</p>
+                <strong>Velas Regi · Día 12</strong>
+                <p>“¿Cómo registro el empaque dentro del costo?”</p>
               </div>
               <small>
                 <Clock3 size={14} /> hace 5 h
@@ -119,9 +119,9 @@ export default function AdminPage() {
           <div className="memory-approval">
             <CheckCircle2 size={22} />
             <div>
-              <strong>GastroRed actualizó su promesa principal</strong>
+              <strong>Navi Café actualizó el costo de su combo principal</strong>
               <p>
-                Compará la versión anterior con el nuevo texto antes de publicar
+                Compará la versión anterior con la nueva ficha antes de publicar
                 el Dashboard 1.3.
               </p>
             </div>
@@ -132,4 +132,3 @@ export default function AdminPage() {
     </main>
   );
 }
-

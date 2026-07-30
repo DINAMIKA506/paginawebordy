@@ -37,16 +37,15 @@ export default function CouncilPage() {
           </span>
         </div>
         <h2>
-          “¿Cómo explicamos GastroRed sin que parezca un directorio de
-          proveedores?”
+          “¿Qué necesita ordenar Navi Café antes de contratar apoyo?”
         </h2>
         <p>
-          El punto de entrada no debe ser la cantidad de contactos, sino la
-          compatibilidad que GastroRed ayuda a construir. La recomendación
-          combina marca, experiencia del cliente y tecnología.
+          La contratación conviene convertirse en consecuencia del orden
+          financiero. Primero se costean recetas, se actualizan precios y se
+          mide cuánto puede sostener la caja cada mes.
         </p>
         <div className="response-team">
-          {["ordy", "lumi", "cabu", "pepe"].map((name) => (
+          {["ordy", "regi", "carey", "glau"].map((name) => (
             <div key={name}>
               <Image
                 src={`/characters/${name}.png`}
@@ -56,7 +55,7 @@ export default function CouncilPage() {
               />
             </div>
           ))}
-          <span>Ordy + Lumi + Cabu + Pepe</span>
+          <span>Ordy + Regi + Carey + Glau</span>
         </div>
         <button className="inline-arrow">
           Leer respuesta completa <ArrowRight size={17} />
@@ -104,4 +103,3 @@ export default function CouncilPage() {
     </>
   );
 }
-

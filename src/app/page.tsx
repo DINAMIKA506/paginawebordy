@@ -101,7 +101,7 @@ export default function HomePage() {
                   <span />
                   <span />
                   <span />
-                  <small>Mi océano · GastroRed</small>
+                  <small>Mi océano · Navi Café</small>
                 </div>
                 <div className="window-body">
                   <div className="window-sidebar">
@@ -113,7 +113,7 @@ export default function HomePage() {
                   <div className="window-content">
                     <div className="mini-greeting">
                       <div>
-                        <small>Buenas tardes, María José</small>
+                        <small>Buenas tardes, Navi</small>
                         <strong>¿Por dónde continuamos?</strong>
                       </div>
                       <Image
@@ -127,7 +127,7 @@ export default function HomePage() {
                     <div className="mini-grid">
                       <div className="mini-card primary">
                         <span>RUTA ACTIVA</span>
-                        <strong>Página web y embudo B2B</strong>
+                        <strong>Costos y menú rentable</strong>
                         <div>
                           <i />
                         </div>
@@ -142,7 +142,7 @@ export default function HomePage() {
                     <div className="mini-activity">
                       <span>Día 9</span>
                       <div>
-                        <strong>Prepará el mensaje para proveedores</strong>
+                        <strong>Costeá los cafés especiales</strong>
                         <small>Consejo de Lumi · 12 min</small>
                       </div>
                       <ChevronRight size={18} />
@@ -412,4 +412,3 @@ export default function HomePage() {
     </>
   );
 }
-

@@ -1,18 +1,17 @@
 import {
   CheckCircle2,
+  Coffee,
   Edit3,
-  Globe2,
-  Mail,
   MapPin,
-  Phone,
   Sparkles,
+  Waves,
 } from "lucide-react";
 
 const fields = [
-  { label: "Nombre comercial", value: "GastroRed" },
-  { label: "Tipo de negocio", value: "Plataforma de conexión B2B" },
-  { label: "Etapa actual", value: "Validación y crecimiento" },
-  { label: "Mercado", value: "Costa Rica" },
+  { label: "Nombre comercial", value: "Navi Café de Ruta" },
+  { label: "Tipo de negocio", value: "Cafetería artesanal" },
+  { label: "Etapa actual", value: "Operación y orden financiero" },
+  { label: "Entorno", value: "Arrecife Ordy" },
 ];
 
 export default function MyBusinessPage() {
@@ -23,8 +22,8 @@ export default function MyBusinessPage() {
           <span>Identidad y momento actual</span>
           <h1>Mi negocio</h1>
           <p>
-            La información base que Ordy utiliza para entender a GastroRed y
-            mantener coherentes sus recomendaciones.
+            La información ficticia que Ordy utiliza para mostrar cómo se
+            conectan un Dashboard, el Consejo y una Activación.
           </p>
         </div>
         <button className="button button-secondary">
@@ -34,28 +33,25 @@ export default function MyBusinessPage() {
 
       <div className="business-profile-grid">
         <section className="profile-panel identity-panel">
-          <div className="business-mark">GR</div>
+          <div className="business-mark">NC</div>
           <div>
-            <h2>GastroRed</h2>
-            <p>Conexiones gastronómicas que sí hacen sentido.</p>
+            <h2>Navi Café de Ruta</h2>
+            <p>Café, repostería y pausa rica al borde del arrecife.</p>
             <span className="verified-chip">
               <CheckCircle2 size={15} /> Información revisada por Ordy
             </span>
           </div>
         </section>
         <section className="profile-panel contact-panel">
-          <h3>Contacto principal</h3>
+          <h3>Datos del ejemplo</h3>
           <p>
-            <Mail size={17} /> hola@gastrored.cr
+            <Coffee size={17} /> Cafetería artesanal ficticia
           </p>
           <p>
-            <Phone size={17} /> +506 8703 7656
+            <Waves size={17} /> Personaje del equipo Ordy
           </p>
           <p>
-            <MapPin size={17} /> San José, Costa Rica
-          </p>
-          <p>
-            <Globe2 size={17} /> gastrored.cr
+            <MapPin size={17} /> Al borde del arrecife
           </p>
         </section>
       </div>
@@ -64,7 +60,7 @@ export default function MyBusinessPage() {
         <div className="workspace-section-heading">
           <div>
             <span>Ficha base</span>
-            <h2>Lo que Ordy sabe de GastroRed</h2>
+            <h2>Lo que Ordy sabe de Navi Café</h2>
           </div>
         </div>
         <div className="business-fields">
@@ -84,8 +80,8 @@ export default function MyBusinessPage() {
         <div>
           <span>Propósito que guía las decisiones</span>
           <h2>
-            Reducir la fricción entre empresas que necesitan soluciones y
-            proveedores gastronómicos capaces de responder.
+            Ofrecer café, repostería artesanal y una pausa tranquila para
+            quienes necesitan cargar energía antes de seguir su ruta.
           </h2>
           <p>
             Esta frase fue confirmada el 18 de julio de 2026 y alimenta el

@@ -22,10 +22,10 @@ export default function ProfilePage() {
       <div className="profile-settings-grid">
         <section className="settings-card">
           <div className="settings-title">
-            <div className="profile-big-avatar">MJ</div>
+            <div className="profile-big-avatar">N</div>
             <div>
-              <h2>María José García</h2>
-              <p>Administradora de GastroRed</p>
+              <h2>Navi</h2>
+              <p>Propietaria de Navi Café de Ruta</p>
             </div>
             <button aria-label="Editar perfil">
               <Edit3 size={17} />
@@ -34,11 +34,11 @@ export default function ProfilePage() {
           <dl>
             <div>
               <dt>Correo</dt>
-              <dd>majo@gastrored.cr</dd>
+              <dd>Protegido en esta demostración</dd>
             </div>
             <div>
               <dt>WhatsApp</dt>
-              <dd>+506 8703 7656</dd>
+              <dd>Protegido en esta demostración</dd>
             </div>
             <div>
               <dt>Miembro desde</dt>
@@ -55,7 +55,7 @@ export default function ProfilePage() {
           </div>
           <div>
             <Check size={16} />
-            Activación web y embudo B2B
+            Activación de costos y menú rentable
           </div>
           <div>
             <Check size={16} />
@@ -121,4 +121,3 @@ export default function ProfilePage() {
     </>
   );
 }
-

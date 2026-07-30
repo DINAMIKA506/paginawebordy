@@ -119,84 +119,85 @@ export type DashboardSlide = {
 export const dashboardSlides: DashboardSlide[] = [
   {
     eyebrow: "Momento actual",
-    title: "GastroRed ya tiene una idea valiosa, pero todavía cuesta explicarla rápido.",
+    title:
+      "Navi Café de Ruta tiene encanto y ventas, pero sus dueños sostienen demasiadas tareas a la vez.",
     summary:
-      "La propuesta conecta empresas con proveedores gastronómicos compatibles. El reto no es inventar algo nuevo: es volver visible y fácil de entender lo que ya existe.",
+      "La cafetería combina café, repostería artesanal y una pausa tranquila al borde del arrecife. El siguiente salto consiste en ordenar costos y operación antes de sumar más carga.",
     points: [
-      "Existe una necesidad B2B concreta.",
-      "La explicación cambia según el canal.",
-      "WhatsApp recibe consultas sin suficiente contexto.",
+      "Cuatro tipos de café, repostería, combos y pedidos para llevar.",
+      "Instagram, WhatsApp, Google Maps y boca a boca ya generan movimiento.",
+      "Los precios siguen iguales desde la apertura.",
     ],
     note:
-      "El negocio necesita una misma historia en web, redes y conversación comercial.",
+      "La prioridad es costear cada receta y actualizar precios antes de pensar en contratar.",
     advisor: "Ordy",
     advisorImage: "/characters/ordy.png",
   },
   {
     eyebrow: "Lo que está funcionando",
-    title: "El valor aparece cuando la conexión se siente cuidada, no automática.",
+    title: "Navi no vende solo café: ofrece una pausa artesanal y cercana.",
     summary:
-      "GastroRed conoce el ecosistema y puede filtrar proveedores según la necesidad de cada empresa. Esa curaduría es parte central del servicio.",
+      "La combinación de café, repostería hecha en casa y atención cálida diferencia el negocio de una cadena grande. Los combos ya muestran una oportunidad para mejorar el ticket y el margen.",
     points: [
-      "Conocimiento del sector gastronómico.",
-      "Capacidad para leer necesidades distintas.",
-      "Relaciones que reducen tiempo de búsqueda.",
+      "Producto real con clientes frecuentes.",
+      "Repostería artesanal como diferenciador.",
+      "Combo Corriente Suave como oferta principal.",
     ],
     note:
-      "La marca debe vender compatibilidad y confianza, no solamente una lista de contactos.",
+      "El posicionamiento recomendado es: “Café, repostería y pausa rica al borde del arrecife”.",
     advisor: "Lumi",
     advisorImage: "/characters/lumi.png",
   },
   {
     eyebrow: "Lo que necesita atención",
-    title: "Cada consulta empieza casi desde cero.",
+    title: "Vender más todavía no garantiza ganar más.",
     summary:
-      "Cuando la información vive dispersa, el equipo repite explicaciones y las personas llegan a WhatsApp sin saber qué pedir ni qué esperar.",
+      "Sin costo por receta, Navi puede tener el local lleno y seguir sin saber cuánto deja cada café, postre o combo. La merma y las horas de trabajo también forman parte del costo real.",
     points: [
-      "Falta una puerta de entrada digital.",
-      "Las redes todavía no conducen a un paso claro.",
-      "No existe un formulario de calificación sencillo.",
+      "Falta una ficha de costo por producto.",
+      "La merma de repostería necesita registro.",
+      "La operación depende de Navi y su pareja.",
     ],
     note:
-      "Antes de sumar automatizaciones, conviene ordenar el recorrido básico del cliente.",
-    advisor: "Cabu",
-    advisorImage: "/characters/cabu.png",
+      "La contratación debe nacer de números claros y flujo suficiente, no solamente del cansancio.",
+    advisor: "Regi",
+    advisorImage: "/characters/regi.png",
   },
   {
     eyebrow: "Recomendación prioritaria",
-    title: "Construir una página breve que explique, filtre y conecte con WhatsApp.",
+    title: "Costear las recetas y actualizar precios por etapas.",
     summary:
-      "La página no necesita ser enorme. Debe explicar el modelo, mostrar para quién funciona y captar la información mínima antes de iniciar la conversación.",
+      "Conviene empezar por el Combo Corriente Suave y los productos de mayor demanda. Después, comparar precio, costo total y margen para decidir qué ajustar primero.",
     points: [
-      "Mensaje principal en una frase.",
-      "Dos recorridos: empresa y proveedor.",
-      "Formulario corto conectado con WhatsApp.",
+      "Ingredientes y costo por porción.",
+      "Empaque, merma y tiempo de preparación.",
+      "Precio actual y margen real.",
     ],
     note:
-      "Esta prioridad se convierte en una Activación Ordy de 30 días con Lumi, Cabu y Pepe.",
+      "Esta prioridad se convierte en una Activación Ordy de 30 días con Regi, Carey y Cabu.",
     advisor: "Navi",
     advisorImage: "/characters/navi.png",
     ready: {
-      label: "Mensaje listo para usar",
+      label: "Ficha lista para copiar",
       content:
-        "Conectamos empresas con proveedores gastronómicos compatibles para que encuentren soluciones confiables sin empezar la búsqueda desde cero.",
+        "Producto: Combo Corriente Suave · Precio actual: ₡4.200 · Incluye: café + repostería del día · Costo de bebida: ____ · Costo de repostería: ____ · Empaque: ____ · Merma: ____ · Costo total: ____ · Margen: ____",
     },
   },
   {
     eyebrow: "Próxima inmersión",
-    title: "Página web y embudo B2B en 30 días.",
+    title: "Costos y menú rentable en 30 días.",
     summary:
-      "La ruta traduce la información ya filtrada por Ordy en acciones concretas: qué copiar, dónde pegarlo y cómo revisar si está funcionando.",
+      "La ruta convierte la información del Dashboard en una tabla útil para costear recetas, revisar precios y comunicar los productos más sanos para el negocio.",
     points: [
-      "Semana 1: mensaje y estructura.",
-      "Semana 2: contenidos y formularios.",
-      "Semana 3: implementación y pruebas.",
-      "Semana 4: publicación y aprendizaje.",
+      "Semana 1: menú e ingredientes.",
+      "Semana 2: costos por receta.",
+      "Semana 3: precios y márgenes.",
+      "Semana 4: menú, prueba y seguimiento.",
     ],
     note:
       "El dashboard revela la ruta. La Activación acompaña la ejecución.",
-    advisor: "Pepe",
-    advisorImage: "/characters/pepe.png",
+    advisor: "Carey",
+    advisorImage: "/characters/carey.png",
   },
 ];
 
@@ -214,35 +215,35 @@ export type RouteDay = {
 };
 
 const routeTitles = [
-  "Aterrizá el objetivo de la página",
-  "Elegí a quién le hablás primero",
-  "Definí tu promesa principal",
-  "Ordená los beneficios clave",
-  "Revisá lo avanzado",
-  "Dibujá el recorrido del cliente",
-  "Actualizá la descripción del servicio",
-  "Prepará el mensaje para empresas",
-  "Prepará el mensaje para proveedores",
-  "Elegí la acción principal",
-  "Escribí la portada",
-  "Explicá cómo funciona",
-  "Ordená las preguntas frecuentes",
-  "Creá el formulario corto",
-  "Revisá claridad y longitud",
-  "Diseñá la versión móvil",
-  "Conectá el formulario",
-  "Prepará el mensaje de WhatsApp",
-  "Alineá la biografía de redes",
-  "Prepará tres historias de apoyo",
-  "Cargá el contenido final",
-  "Probá como empresa",
-  "Probá como proveedor",
-  "Corregí puntos de fricción",
-  "Publicá la primera versión",
-  "Compartí con cinco contactos",
-  "Registrá las preguntas recibidas",
-  "Ajustá el mensaje principal",
-  "Medí conversaciones útiles",
+  "Reuní el menú actual",
+  "Separá las categorías de venta",
+  "Elegí los productos prioritarios",
+  "Anotá cada ingrediente",
+  "Registrá las presentaciones de compra",
+  "Convertí el costo por porción",
+  "Costeá el Combo Corriente Suave",
+  "Costeá los cafés base",
+  "Costeá los cafés especiales y fríos",
+  "Costeá la repostería principal",
+  "Agregá empaques y consumibles",
+  "Calculá la merma promedio",
+  "Reconocé el tiempo de preparación",
+  "Sumá el costo completo por receta",
+  "Revisá los costos con Regi",
+  "Compará costo y precio actual",
+  "Calculá el margen por producto",
+  "Detectá productos que necesitan ajuste",
+  "Definí el primer cambio de precio",
+  "Ordená los cambios por etapas",
+  "Elegí los combos protagonistas",
+  "Actualizá el menú visible",
+  "Prepará la explicación de precios",
+  "Revisá las condiciones de pedidos",
+  "Probá el menú con clientes frecuentes",
+  "Registrá ventas por categoría",
+  "Medí la merma durante una semana",
+  "Compará el resultado real",
+  "Ajustá la ficha de costos",
   "Cerrá la ruta y actualizá tu memoria",
 ];
 
@@ -250,16 +251,16 @@ export const routeDays: RouteDay[] = routeTitles.map((title, index) => {
   const day = index + 1;
   const phase =
     day <= 5
-      ? "Claridad"
+      ? "Base"
       : day <= 10
-        ? "Recorrido"
+        ? "Costeo"
         : day <= 15
-          ? "Contenido"
+          ? "Costo real"
           : day <= 20
-            ? "Construcción"
+            ? "Precios"
             : day <= 25
-              ? "Pruebas"
-              : "Aprendizaje";
+              ? "Menú"
+              : "Seguimiento";
 
   return {
     day,
@@ -268,27 +269,26 @@ export const routeDays: RouteDay[] = routeTitles.map((title, index) => {
     status: day <= 5 ? "done" : day <= 8 ? "progress" : "todo",
     objective:
       day === 7
-        ? "Que una persona entienda qué ofrecés sin pedirte una explicación adicional."
+        ? "Conocer cuánto cuesta realmente preparar el combo principal antes de revisar su precio."
         : `Avanzar una pieza concreta de la fase ${phase.toLowerCase()} sin abrir tareas nuevas.`,
     action:
       day === 7
-        ? "Copiá el texto preparado por Ordy, adaptá únicamente las palabras que no usarías en una conversación real y pegalo en la descripción principal de tu servicio."
+        ? "Copiá la ficha preparada por Ordy en tu hoja de costos. Completá cada espacio con los montos de tus facturas y sumá el costo total del combo."
         : `Completá “${title.toLowerCase()}” usando la información que ya está filtrada en tu Dashboard Ordy.`,
     advice:
       day === 7
-        ? "Leelo en voz alta. Si tarda más de 20 segundos o necesita una segunda explicación, todavía puede simplificarse."
+        ? "Usá el costo de la porción que realmente servís, no el precio completo del paquete de ingredientes."
         : "Trabajá solamente esta acción hoy. El resto del recorrido ya está ordenado en el calendario.",
-    advisor: day <= 10 ? "Lumi" : day <= 20 ? "Cabu" : "Pepe",
+    advisor: day <= 15 ? "Regi" : day <= 20 ? "Carey" : "Cabu",
     advisorImage:
-      day <= 10
-        ? "/characters/lumi.png"
+      day <= 15
+        ? "/characters/regi.png"
         : day <= 20
-          ? "/characters/cabu.png"
-          : "/characters/pepe.png",
+          ? "/characters/carey.png"
+          : "/characters/cabu.png",
     readyContent:
       day === 7
-        ? "Conectamos empresas con proveedores gastronómicos compatibles para que encuentren soluciones confiables sin empezar la búsqueda desde cero."
+        ? "Producto: Combo Corriente Suave\nPrecio actual: ₡4.200\nIncluye: café + repostería del día\nCosto de bebida: ____\nCosto de repostería: ____\nEmpaque: ____\nMerma: ____\nCosto total: ____\nMargen: ____"
         : undefined,
   };
 });
-

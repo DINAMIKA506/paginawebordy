@@ -32,12 +32,12 @@ export function RouteCalendar() {
     7: [
       {
         from: "client",
-        text: "Ya cambié el texto, pero siento que todavía quedó largo.",
+        text: "Ya sumé ingredientes y empaque. ¿La merma también entra en el costo?",
         time: "Hoy, 10:14",
       },
       {
         from: "ordy",
-        text: "Compartímelo por acá y lo revisamos. La meta de este día es que pueda leerse en menos de 20 segundos.",
+        text: "Sí. Agregá el porcentaje de merma que realmente observás para que el margen no se vea más alto de lo que es.",
         time: "Hoy, 10:32",
       },
     ],
@@ -282,4 +282,3 @@ export function RouteCalendar() {
     </div>
   );
 }
-
