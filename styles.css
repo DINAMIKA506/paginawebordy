@@ -570,3 +570,12 @@ h1, h2, h3, h4, h5, h6, .btn, .brand { font-family: "Nunito Sans", "Open Sans", 
   .conversation-panel { min-height: 480px; }
   .admin-table-wrap { padding: 8px; }
 }
+/* ===== Ordy ya no se monta sobre la escala ===== */
+.entry-copy  { position: relative; }
+.entry-ordy  { z-index: 0; right: -18px; bottom: -46px; width: 190px; }
+.depth-scale { position: relative; z-index: 1; padding-right: 168px; }
+
+@media (max-width: 900px) {
+  .entry-ordy  { right: 50%; bottom: -28px; width: 175px; transform: translateX(50%); }
+  .depth-scale { padding-right: 0; }
+}
