@@ -1,9 +1,40 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
+    { "source": "/api/admin/conversations/:id", "destination": "/api/admin/conversation?id=:id" },
+    { "source": "/api/admin/contacts/:id", "destination": "/api/admin/contact?id=:id" },
+    { "source": "/api/admin/users/:id/reset", "destination": "/api/admin/reset?id=:id" },
+    { "source": "/info", "destination": "/info/index.html" },
+    { "source": "/admin", "destination": "/index.html" },
+    { "source": "/reset", "destination": "/index.html" },
     { "source": "/dashboards/navi", "destination": "/dashboard-navi.html" },
     { "source": "/dashboards/regi", "destination": "/dashboard-regi.html" },
     { "source": "/dashboards/cabu", "destination": "/dashboard-cabu.html" },
     { "source": "/dashboard/soy-majo", "destination": "https://soy-majo.vercel.app" },
     { "source": "/dashboard/gastroredcr", "destination": "https://gastro-red1-0.vercel.app" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    },
+    {
+      "source": "/reset",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, max-age=0" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" }
+      ]
+    }
   ]
 }
