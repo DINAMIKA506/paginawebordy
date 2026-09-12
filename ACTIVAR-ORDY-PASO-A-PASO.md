@@ -26,7 +26,7 @@ No volver a introducir Cloudflare D1 ni archivos adicionales dentro de `api/`.
 - Plantillas iniciales: General, Círculos 3:33, Avvo, Impronte y Dialá.
 - Selección de módulos desde Administración.
 - PWA instalable.
-- Siete pruebas automáticas aprobadas.
+- Ocho pruebas automáticas aprobadas.
 - Preview correcto del proyecto `paginawebordy`.
 
 Preview fijo de la rama:
@@ -58,7 +58,7 @@ No copiar los valores a este documento.
 1. Abrir el Preview fijo y entrar a `/admin`.
 2. En el primer ingreso usar el correo completo configurado en `ORDY_ADMIN_EMAILS`, no solo el nombre de usuario.
 3. Usar la contraseña de esa cuenta de Supabase.
-4. Si no entra, cambiar la contraseña de esa cuenta desde Supabase Authentication; no crear otra arquitectura ni otra base de datos.
+4. Si no entra, elegir **Crear una contraseña nueva**, escribir el correo de la cuenta y usar el enlace seguro que envía Supabase.
 
 ## Prueba completa antes de publicar
 

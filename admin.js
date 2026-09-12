@@ -103,7 +103,20 @@ function openChangePassword() {
 }
 
 function openForgotPassword() {
-  openModal(`${modalHeader("Recuperemos tu acceso", "La creadora de Ordy puede verificar tu cuenta y enviarte un enlace seguro para cambiar la contraseña.")}<div class="modal-body"><div class="human-note"><img src="/brand-avatar.png" alt="Ordy" /><div><b>Escribime por el chat</b><p>Indicame tu nombre y el usuario que necesitás recuperar. Nunca te voy a pedir tu contraseña actual.</p></div></div><button class="btn btn-primary request-wide" data-action="open-chat">Hablar con la creadora</button></div>`, true);
+  openModal(`${modalHeader("Recuperemos tu acceso", "Te enviaremos un enlace seguro para crear una contraseña nueva.")}<form class="modal-body entry-form" data-form="recover-access"><label>Correo de tu cuenta Ordy<input class="field" name="email" type="email" required autocomplete="email" placeholder="tu@correo.com" /></label><p class="form-hint">No necesitás escribir tu contraseña actual. Por seguridad, el mensaje será igual aunque el correo no esté registrado.</p><button class="btn btn-primary request-wide" type="submit">Enviarme el enlace</button><button class="text-link" type="button" data-action="open-chat">Necesito hablar con la creadora</button></form>`, true);
+}
+
+async function requestPasswordRecovery(data, button) {
+  button.disabled = true;
+  button.textContent = "Enviando…";
+  try {
+    const result = await api("/api/auth/recover", { method: "POST", body: JSON.stringify({ email: data.email }) });
+    openModal(`${modalHeader("Revisá tu correo", result.message)}<div class="modal-body"><div class="human-note"><img src="/brand-avatar.png" alt="Ordy" /><div><b>El enlace te llevará de vuelta a Ordy</b><p>Desde ahí podrás crear una contraseña nueva de al menos 10 caracteres.</p></div></div><a class="btn btn-primary request-wide" href="/">Volver a Ordy</a></div>`, true);
+  } catch (error) {
+    toast(error.message);
+    button.disabled = false;
+    button.textContent = "Enviarme el enlace";
+  }
 }
 
 function syncOcean(immediate = false) {
@@ -291,7 +304,7 @@ function renderAdmin() {
     return;
   }
   if (adminData.bootstrapRequired || adminData.authRequired) {
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form><button class="text-link forgot-link" data-action="forgot-password">Crear una contraseña nueva</button>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
     return;
   }
   if (adminData.error && !Array.isArray(adminData.conversations)) {

@@ -592,6 +592,7 @@ document.addEventListener("submit", (event) => {
   if (form.dataset.form === "create-user") saveAdminUser(data, submitter);
   if (form.dataset.form === "reset-password") saveResetPassword(data, submitter);
   if (form.dataset.form === "change-password") saveChangedPassword(data, submitter);
+  if (form.dataset.form === "recover-access") requestPasswordRecovery(data, submitter);
   if (form.dataset.form === "folder") saveFolder(form, data);
   if (form.dataset.form === "subfolder") saveSubfolder(form, data);
   if (form.dataset.form === "link") saveLink(form, data);

@@ -35,6 +35,7 @@ const RUTAS = {
   "auth/logout":        () => require("../lib/auth/logout.js"),
   "auth/me":            () => require("../lib/auth/me.js"),
   "auth/password":      () => require("../lib/auth/password.js"),
+  "auth/recover":       () => require("../lib/auth/recover.js"),
   "admin/dashboard":    () => require("../lib/admin/dashboard.js"),
   "admin/contact":      () => require("../lib/admin/contact.js"),
   "admin/conversation": () => require("../lib/admin/conversation.js"),

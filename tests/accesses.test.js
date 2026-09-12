@@ -123,3 +123,24 @@ test("crear un acceso también crea su océano privado", async () => {
     assert.doesNotMatch(JSON.stringify(createdOcean), /Majo|ONUDI|LESCO/);
   });
 });
+
+test("la recuperación solo envía correo a cuentas Ordy activas", async () => {
+  let recoveryCall = null;
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    const target = String(url);
+    if (target.includes("rpc/ordy_consume_rate_limit")) return response(true);
+    if (target.includes("ordy_profiles?email=eq.ordenyplan%40gmail.com")) return response([{ id: "admin-1" }]);
+    if (target.includes("/auth/v1/recover?redirect_to=")) {
+      recoveryCall = { target, body: JSON.parse(options.body) };
+      return response({});
+    }
+    return response({ message: `Ruta inesperada: ${url}` }, 500);
+  }, async () => {
+    const handler = require("../lib/auth/recover");
+    const res = vercelResponse();
+    await handler(request({ email: "ordenyplan@gmail.com" }), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(recoveryCall.body.email, "ordenyplan@gmail.com");
+    assert.match(decodeURIComponent(recoveryCall.target), /https:\/\/ordy\.test\/reset/);
+  });
+});
