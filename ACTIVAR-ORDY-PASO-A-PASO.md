@@ -1,59 +1,78 @@
-# Activar Ordy sin tocar todavía la página pública
+# Ordy 2.0 — estado y activación
 
-Esta versión integra Ordy en `paginawebordy`, conserva la web anterior en `/info` y utiliza el mismo patrón Vercel + Supabase de Impronte.
+Actualizado: 12 de septiembre de 2026.
 
-## Antes de comenzar
+Este documento es el punto de encuentro para continuar el proyecto con Codex o Claude sin mezclar arquitecturas ni tocar producción antes de tiempo.
 
-- No subás contraseñas ni llaves a GitHub.
-- Trabajá primero en una rama o Preview Deployment.
-- No reemplaces producción hasta completar todas las comprobaciones.
+## Decisión técnica vigente
 
-## 1. Subir la versión a una rama
+- Repositorio: `DINAMIKA506/paginawebordy`.
+- Rama de trabajo: `codex-migrar-ordy`.
+- Alojamiento: Vercel, proyecto **paginawebordy**.
+- Base de datos y autenticación: Supabase, compartido con Impronte pero separado mediante tablas `ordy_*`.
+- Producción: `main` permanece intacta hasta terminar las pruebas.
+- API: una sola función de Vercel, `api/ordy.js`; los manejadores viven en `lib/`.
 
-En GitHub creá una rama llamada `codex/migrar-ordy` y subí allí el contenido completo del paquete. Vercel debe generar una Preview Deployment, no sustituir todavía el dominio principal.
+No volver a introducir Cloudflare D1 ni archivos adicionales dentro de `api/`.
 
-## 2. Crear las tablas de Ordy
+## Lo que ya está listo
 
-Abrí el proyecto de Supabase que utiliza Impronte, entrá a **SQL Editor**, copiá todo el contenido de `supabase/ordy.sql` y presioná **Run**.
+- Entrada pública con inicio de sesión, solicitud de espacio y chat humano.
+- Web informativa anterior conservada en `/info`.
+- Administración de chats, solicitudes, seguimiento, pagos y clientes.
+- Creación de usuarios con contraseña temporal y cambio obligatorio.
+- Restablecimiento, pausa y reactivación de accesos.
+- Un océano privado por usuario, creado en el mismo momento que el acceso.
+- Plantillas iniciales: General, Círculos 3:33, Avvo, Impronte y Dialá.
+- Selección de módulos desde Administración.
+- PWA instalable.
+- Siete pruebas automáticas aprobadas.
+- Preview correcto del proyecto `paginawebordy`.
 
-Las tablas nuevas empiezan con `ordy_`; el script no modifica ni elimina las tablas de Impronte.
+Preview fijo de la rama:
 
-## 3. Conectar `paginawebordy` con Supabase
+`https://paginawebordy-git-codex-migrar-ordy-ordy-s-projects.vercel.app`
 
-En Vercel abrí el proyecto `paginawebordy` y entrá a **Settings → Environment Variables**. Configurá estas variables con los valores del mismo proyecto Supabase de Impronte:
+## Seguridad importante
+
+- Ningún secreto debe guardarse en GitHub.
+- Cada cuenta nueva recibe un océano limpio; no se copian datos de Majo ni de otros clientes.
+- La llave `SUPABASE_SECRET_KEY` existe solo en Vercel.
+- Las tablas de Ordy tienen RLS habilitado y no se exponen directamente al navegador.
+- El proyecto viejo de Vercel **ordy-2-beta** todavía puede mostrar un despliegue rojo. No es el proyecto vigente; el despliegue que importa es **paginawebordy**. No eliminarlo sin una decisión explícita.
+
+## Variables esperadas en Vercel
+
+Deben existir para Preview y, antes de publicar, para Production:
 
 - `SUPABASE_URL`
 - `SUPABASE_SECRET_KEY`
 - `SUPABASE_PUBLISHABLE_KEY`
-- `ORDY_ADMIN_EMAILS`: el correo de Supabase que usarás para administrar Ordy.
-- `ORDY_SITE_URL`: la URL de la Preview mientras se prueba; después será `https://ordenyplan.com`.
+- `ORDY_ADMIN_EMAILS`
+- `ORDY_SITE_URL`
 
-Configurá los valores para **Preview** primero. La llave secreta nunca lleva el prefijo `NEXT_PUBLIC_` y nunca se copia a un archivo del repositorio.
+No copiar los valores a este documento.
 
-## 4. Autorizar el enlace de recuperación
+## Lo único que requiere a la creadora ahora
 
-En Supabase abrí **Authentication → URL Configuration** y agregá la URL de Preview terminada en `/reset` a las direcciones de redirección permitidas. Cuando se publique, agregá también `https://ordenyplan.com/reset`.
+1. Abrir el Preview fijo y entrar a `/admin`.
+2. En el primer ingreso usar el correo completo configurado en `ORDY_ADMIN_EMAILS`, no solo el nombre de usuario.
+3. Usar la contraseña de esa cuenta de Supabase.
+4. Si no entra, cambiar la contraseña de esa cuenta desde Supabase Authentication; no crear otra arquitectura ni otra base de datos.
 
-## 5. Volver a desplegar la Preview
+## Prueba completa antes de publicar
 
-Después de configurar las variables, en Vercel abrí el deployment de la rama y elegí **Redeploy**.
+1. Enviar una solicitud desde `/#pedir`.
+2. Iniciar un chat público y responder desde `/admin`.
+3. Crear un acceso de prueba indicando océano, plantilla y módulos.
+4. Copiar la contraseña temporal una sola vez.
+5. Entrar con el nuevo usuario y cambiar la contraseña temporal.
+6. Confirmar que solo aparecen las carpetas de su propia plantilla.
+7. Crear una carpeta y una tarea, recargar y confirmar que permanecen.
+8. Pausar el usuario desde Administración y comprobar que pierde el acceso.
+9. Reactivarlo y generar un enlace de recuperación.
+10. Abrir `/info` y confirmar que la web informativa anterior sigue intacta.
 
-## 6. Activar la primera administradora
+## Publicación
 
-Abrí `/admin` dentro de la Preview e ingresá con el correo y la contraseña de la cuenta Supabase indicada en `ORDY_ADMIN_EMAILS`. Ordy creará su perfil administrativo separado al validar el primer acceso.
-
-## 7. Probar antes de publicar
-
-Comprobá estas acciones:
-
-1. enviar una solicitud desde `/#pedir`;
-2. iniciar un chat y responderlo desde `/admin`;
-3. crear un acceso de prueba;
-4. entrar con ese usuario y cambiar la contraseña temporal;
-5. crear una carpeta o tarea y recargar para confirmar que permanece;
-6. generar y abrir un enlace de recuperación;
-7. abrir `/info` y revisar la web anterior.
-
-## 8. Publicar
-
-Solo cuando todo funcione en Preview, integrá la rama a `main`. Vercel actualizará el dominio conectado a la rama de producción.
+Solo después de completar toda la prueba se integra `codex-migrar-ordy` a `main`. El dominio `ordenyplan.com` no debe moverse antes de esa aprobación.
