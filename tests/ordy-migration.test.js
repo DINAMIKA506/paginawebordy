@@ -27,8 +27,21 @@ test("la migración usa Supabase y mantiene separado a Impronte", () => {
 });
 
 test("la API no conserva dependencias de Cloudflare D1", () => {
-  const files = fs.readdirSync(path.join(root, "api"), { recursive: true }).filter((name) => name.endsWith(".js"));
-  const source = files.map((name) => read(path.join("api", name))).join("\n");
+  const apiFiles = fs.readdirSync(path.join(root, "api"), { recursive: true }).filter((name) => name.endsWith(".js"));
+  assert.deepEqual(apiFiles, ["ordy.js"]);
+  const files = ["api/ordy.js", ...fs.readdirSync(path.join(root, "lib"), { recursive: true }).filter((name) => name.endsWith(".js")).map((name) => path.join("lib", name))];
+  const source = files.map(read).join("\n");
   assert.match(source, /SUPABASE/);
   assert.doesNotMatch(source, /env\.DB|\.prepare\(|db\.batch/);
+});
+
+test("cada acceso recibe un océano propio y limpio", () => {
+  const { buildOceanTemplate } = require("../lib/templates");
+  const avvo = buildOceanTemplate({ displayName: "Cliente", spaceName: "Océano Avvo", templateKey: "avvo" });
+  assert.equal(avvo.settings.spaceName, "Océano Avvo");
+  assert.ok(avvo.modules.includes("clients"));
+  assert.deepEqual(avvo.tasks, []);
+  assert.doesNotMatch(JSON.stringify(avvo), /Majo|ONUDI|LESCO/);
+  const second = buildOceanTemplate({ displayName: "Otra persona", templateKey: "general" });
+  assert.notStrictEqual(avvo.folders, second.folders);
 });

@@ -1,6 +1,26 @@
 let oceanSaveTimer;
 let installPrompt;
 
+const ACCESS_MODULES = [
+  ["library", "Biblioteca"],
+  ["tasks", "Tareas"],
+  ["quick", "Accesos rápidos"],
+  ["content", "Contenido"],
+  ["team", "Equipo"],
+  ["clients", "Clientes internos"],
+  ["stock", "Stock de piezas"],
+  ["portfolio", "Portafolio"],
+  ["impronte", "Acceso Impronte"]
+];
+
+const ACCESS_TEMPLATE_MODULES = {
+  general: ["library", "tasks", "quick"],
+  circulos333: ["content", "team", "library", "tasks"],
+  avvo: ["content", "team", "clients", "stock", "library", "tasks", "portfolio"],
+  impronte: ["impronte", "library", "tasks"],
+  diala: ["library", "tasks", "quick"]
+};
+
 async function api(path, options = {}) {
   const response = await fetch(path, {
     credentials: "same-origin",
@@ -224,10 +244,20 @@ async function saveAdminUser(data, button) {
   button.disabled = true;
   button.textContent = "Generando…";
   try {
-    const result = await api("/api/admin/users", { method: "POST", body: JSON.stringify(data) });
+    const modules = ACCESS_MODULES.filter(([key]) => data[`module_${key}`]).map(([key]) => key);
+    const result = await api("/api/admin/users", { method: "POST", body: JSON.stringify({ ...data, modules }) });
     openSecretResult("Acceso creado", "Compartí la contraseña temporal únicamente con la persona dueña del océano.", result.temporaryPassword, result.username);
     adminData = await api("/api/admin/dashboard");
   } catch (error) { toast(error.message); button.disabled = false; button.textContent = "Generar acceso"; }
+}
+
+async function toggleAdminUser(userId, active) {
+  if (!active && !confirm("¿Pausar este acceso? La persona dejará de entrar a su océano hasta que lo reactivés.")) return;
+  try {
+    await api("/api/admin/users", { method: "PATCH", body: JSON.stringify({ userId, active }) });
+    await loadAdminDashboard();
+    toast(active ? "Acceso reactivado" : "Acceso pausado");
+  } catch (error) { toast(error.message); }
 }
 
 async function saveResetPassword(data, button) {
@@ -261,7 +291,7 @@ function renderAdmin() {
     return;
   }
   if (adminData.bootstrapRequired || adminData.authRequired) {
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Usuario administrador<input class="field" name="username" required autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
     return;
   }
   if (adminData.error && !Array.isArray(adminData.conversations)) {
@@ -315,7 +345,12 @@ function renderAdminRequests() {
 }
 
 function renderAdminAccess() {
-  return `<header class="view-head"><div><h2>Accesos y pagos</h2><p>Creá usuarios, recuperá contraseñas y mantené visibles los pagos.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Crear acceso</button></div></header><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Usuarios</h3></header>${adminData.users.length ? `<div class="user-list">${adminData.users.map((user) => `<div><span class="contact-avatar">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.display_name)}</b><small>@${esc(user.username)} · ${user.active ? "Activo" : "Pausado"}</small></section><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Restablecer</button></div>`).join("")}</div>` : adminEmpty("No hay usuarios", "Creá el primer acceso cuando entregués un océano.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
+  const users = adminData.users.filter((user) => user.role === "user");
+  return `<header class="view-head"><div><h2>Accesos y pagos</h2><p>Creá cada océano, recuperá contraseñas y controlá quién puede entrar.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Crear acceso</button></div></header><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Océanos entregados</h3></header>${users.length ? `<div class="user-list">${users.map((user) => `<div><span class="contact-avatar">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.space_name)}</b><small>${esc(user.display_name)} · @${esc(user.username)} · ${user.active ? "Activo" : "Pausado"}</small><small>${esc(user.template_label)} · ${(user.modules || []).map(moduleLabel).map(esc).join(", ") || "Sin módulos"}</small></section><span class="user-actions"><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Restablecer</button><button class="btn ${user.active ? "btn-danger" : "btn-quiet"} btn-small" data-action="toggle-user-access" data-id="${user.id}" data-active="${user.active ? "false" : "true"}">${user.active ? "Pausar" : "Activar"}</button></span></div>`).join("")}</div>` : adminEmpty("No hay accesos de clientes", "Creá el primero cuando entregués un océano.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
+}
+
+function moduleLabel(value) {
+  return ACCESS_MODULES.find(([key]) => key === value)?.[1] || value;
 }
 
 function stageLabel(value) {
@@ -337,7 +372,16 @@ function openContactEditor(contactId) {
 }
 
 function openCreateUser() {
-  openModal(`${modalHeader("Crear acceso", "Ordy generará una contraseña temporal que la persona deberá cambiar al ingresar.")}<form class="modal-body" data-form="create-user"><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId"><option value="">Sin vincular</option>${adminData.contacts.map((contact) => `<option value="${contact.id}">${esc(contact.name)} · ${esc(contact.email)}</option>`).join("")}</select></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required placeholder="nombre.apellido" /></div></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+  openModal(`${modalHeader("Crear acceso y océano", "Ordy preparará un espacio privado y una contraseña temporal para esta persona.")}<form class="modal-body" data-form="create-user"><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId"><option value="">Sin vincular</option>${adminData.contacts.map((contact) => `<option value="${contact.id}">${esc(contact.name)} · ${esc(contact.email)}</option>`).join("")}</select></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required placeholder="nombre.apellido" /></div><div class="field-group full"><label>Plantilla inicial</label><select class="field" name="templateKey" data-action="access-template"><option value="general">General</option><option value="circulos333">Círculos 3:33</option><option value="avvo">Avvo</option><option value="impronte">Impronte</option><option value="diala">Dialá</option></select><p class="form-hint">La plantilla prepara carpetas limpias; nunca copia datos de otro cliente.</p></div><fieldset class="field-group full module-fieldset"><legend>Módulos del océano</legend><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${ACCESS_TEMPLATE_MODULES.general.includes(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+}
+
+function updateAccessTemplate(select) {
+  const form = select.closest("form");
+  const selected = ACCESS_TEMPLATE_MODULES[select.value] || ACCESS_TEMPLATE_MODULES.general;
+  ACCESS_MODULES.forEach(([key]) => {
+    const checkbox = form?.elements[`module_${key}`];
+    if (checkbox) checkbox.checked = selected.includes(key);
+  });
 }
 
 async function createResetLink(userId) {

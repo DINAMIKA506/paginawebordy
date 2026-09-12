@@ -50,13 +50,16 @@ function isoOffset(days) {
 
 function nowIso() { return new Date().toISOString(); }
 
-function initialState() {
+function initialState(displayName = "Vos", spaceName = "Mi océano") {
   const createdAt = nowIso();
   return {
-    version: 2,
+    version: 3,
+    templateKey: "general",
+    templateLabel: "General",
+    modules: ["library", "tasks", "quick"],
     settings: {
-      userName: "Vos",
-      spaceName: "Mi océano",
+      userName: displayName,
+      spaceName,
       spacePhrase: "Orden personal y empresarial",
       welcome: "Acá vive lo importante para que no tengás que recordarlo todo.",
       avatar: "🌊",
@@ -65,82 +68,26 @@ function initialState() {
     },
     folders: [
       {
-        id: "folder-avvo", name: "Avvo", icon: "◫", color: "#b1b1fc", createdAt,
+        id: "folder-library-biblioteca",
+        module: "library",
+        name: "Biblioteca",
+        icon: "▣",
+        color: "#4e4bf7",
+        createdAt,
         subfolders: [
-          { id: "sub-welldone", name: "Welldone", links: [
-            { id: "link-welldone-canva", title: "Canva stock de diseños", url: "https://www.canva.com/", note: "Diseños base y piezas aprobadas del cliente.", importance: "Alta", createdAt, updatedAt: createdAt },
-            { id: "link-welldone-drive", title: "Drive materiales", url: "https://drive.google.com/", note: "Fotos, logos y entregables del mes.", importance: "Media", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-mauricio", name: "Mauricio Fisioterapia", links: [
-            { id: "link-mauricio-canva", title: "Canva del cliente", url: "https://www.canva.com/", note: "Stock y adaptaciones para redes.", importance: "Alta", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-impronte", name: "Impronte", links: [] },
-          { id: "sub-cranium", name: "Cranium Clinic", links: [
-            { id: "link-cranium-fotos", title: "Sesión de fotos", url: "https://drive.google.com/", note: "Selección original de la última sesión.", importance: "Media", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-vision", name: "Doctor Visión", links: [] },
-        ],
-      },
-      {
-        id: "folder-ordy", name: "Ordy", icon: "🌊", color: "#4e4bf7", createdAt,
-        subfolders: [
-          { id: "sub-ordy-plataforma", name: "Plataforma", links: [
-            { id: "link-ordy-github", title: "GitHub Ordy", url: "https://github.com/", note: "Código y versiones de la plataforma.", importance: "Alta", createdAt, updatedAt: createdAt },
-            { id: "link-ordy-vercel", title: "Vercel", url: "https://vercel.com/", note: "Publicaciones y configuración del dominio.", importance: "Alta", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-ordy-diseno", name: "Identidad y diseños", links: [
-            { id: "link-ordy-stock", title: "Stock Ordy", url: "https://www.canva.com/", note: "Personajes, marca y recursos visuales.", importance: "Media", createdAt, updatedAt: createdAt },
-          ]},
-        ],
-      },
-      {
-        id: "folder-lesco", name: "LESCO x CR", icon: "✦", color: "#f94446", createdAt,
-        subfolders: [
-          { id: "sub-lesco-web", name: "Página web", links: [
-            { id: "link-lesco-web", title: "Sitio principal", url: "https://example.com/", note: "Referencia temporal del sitio.", importance: "Alta", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-lesco-aula", name: "Aula virtual", links: [] },
-          { id: "sub-lesco-blogs", name: "Blogs", links: [] },
-        ],
-      },
-      {
-        id: "folder-onudi", name: "ONUDI", icon: "◎", color: "#31aebb", createdAt,
-        subfolders: [
-          { id: "sub-onudi-plataforma", name: "Plataforma", links: [] },
-          { id: "sub-onudi-crm", name: "CRM", links: [
-            { id: "link-onudi-crm", title: "Acceso CRM", url: "https://example.com/", note: "Acceso general para seguimiento del proyecto.", importance: "Alta", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-onudi-cronos", name: "Cronogramas", links: [] },
-        ],
-      },
-      {
-        id: "folder-personal", name: "Documentos personales", icon: "▤", color: "#2bbd8a", createdAt,
-        subfolders: [
-          { id: "sub-identificacion", name: "Identificación", links: [] },
-          { id: "sub-estudios", name: "Estudios", links: [] },
-          { id: "sub-cv", name: "CV", links: [
-            { id: "link-cv", title: "CV actualizado", url: "https://drive.google.com/", note: "Versión editable y PDF más reciente.", importance: "Alta", createdAt, updatedAt: createdAt },
-          ]},
-          { id: "sub-certificados", name: "Certificados", links: [] },
-          { id: "sub-viajes", name: "Viajes", links: [] },
-        ],
-      },
-      {
-        id: "folder-soy-majo", name: "Soy Majo", icon: "☀", color: "#f0a735", createdAt,
-        subfolders: [
-          { id: "sub-portafolio", name: "Portafolio", links: [] },
-          { id: "sub-ideas", name: "Ideas y referencias", links: [] },
+          { id: "sub-library-general", name: "General", links: [] },
+          { id: "sub-library-documentos", name: "Documentos", links: [] },
+          { id: "sub-library-recursos", name: "Recursos", links: [] },
         ],
       },
     ],
-    tasks: [
-      { id: "task-1", project: "Avvo · Welldone", type: "Stock de diseños", title: "Crear stock de diseños para Welldone", dueDate: isoOffset(0), status: "En proceso", priority: "Alta", energy: "Alta", url: "https://www.canva.com/", note: "Empezar por las piezas aprobadas del mes.", createdAt, updatedAt: createdAt },
-      { id: "task-2", project: "Avvo · Mauricio Fisioterapia", type: "Entrega de materiales", title: "Subir links de Canva de Mauricio Fisioterapia", dueDate: isoOffset(1), status: "Pendiente", priority: "Media", energy: "Media", url: "https://www.canva.com/", note: "Revisar nombres antes de compartir.", createdAt, updatedAt: createdAt },
-      { id: "task-3", project: "LESCO x CR", type: "Aula virtual", title: "Revisar estructura del aula virtual", dueDate: isoOffset(2), status: "Esperando respuesta", priority: "Alta", energy: "Alta", url: "", note: "Anotar los ajustes por módulo.", createdAt, updatedAt: createdAt },
-      { id: "task-4", project: "ONUDI", type: "Plataforma", title: "Revisar plataforma ONUDI", dueDate: isoOffset(-1), status: "Pendiente", priority: "Urgente", energy: "Alta", url: "", note: "Validar correcciones y dejar registro.", createdAt, updatedAt: createdAt },
-      { id: "task-5", project: "Ordy", type: "Plataforma", title: "Documentar pendientes del Espacio Majo", dueDate: isoOffset(4), status: "En proceso", priority: "Media", energy: "Baja", url: "https://github.com/", note: "Convertir hallazgos de uso en mejoras pequeñas.", createdAt, updatedAt: createdAt },
-      { id: "task-6", project: "Soy Majo", type: "Documentos", title: "Actualizar CV y carpeta de certificados", dueDate: isoOffset(-3), status: "Listo", priority: "Baja", energy: "Baja", url: "https://drive.google.com/", note: "Quedó listo para próximas postulaciones.", createdAt, updatedAt: createdAt },
-    ],
+    tasks: [],
+    contentItems: [],
+    team: [],
+    internalClients: [],
+    stockBatches: [],
+    portfolio: [],
+    createdAt,
   };
 }
 
@@ -155,7 +102,10 @@ function loadState() {
         if (folder.color === "#7451ee") folder.color = "#b1b1fc";
         if (folder.color === "#ff6b70") folder.color = "#f94446";
       });
-      saved.version = 2;
+      saved.version = 3;
+      if (!Array.isArray(saved.modules)) saved.modules = ["library", "tasks", "quick"];
+      if (!saved.templateKey) saved.templateKey = "general";
+      if (!saved.templateLabel) saved.templateLabel = "General";
       return saved;
     }
   } catch (error) { console.warn("No fue posible leer los datos guardados", error); }
@@ -561,6 +511,7 @@ app.addEventListener("click", (event) => {
   if (action === "edit-contact") openContactEditor(trigger.dataset.id);
   if (action === "open-create-user") openCreateUser();
   if (action === "create-reset") createResetLink(trigger.dataset.id);
+  if (action === "toggle-user-access") toggleAdminUser(trigger.dataset.id, trigger.dataset.active === "true");
   if (action === "copy-secret") navigator.clipboard.writeText(trigger.dataset.value).then(() => toast("Copiado de forma segura"));
   if (action === "logout") logout();
   if (action === "set-view") { ui.view = trigger.dataset.view; ui.selectedFolderId = null; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
@@ -607,6 +558,7 @@ window.addEventListener("hashchange", () => {
 
 document.addEventListener("input", (event) => {
   const action = event.target.dataset.action;
+  if (action === "access-template") updateAccessTemplate(event.target);
   if (action === "library-search") { ui.libraryQuery = event.target.value; render(); requestAnimationFrame(() => { const input = document.querySelector('[data-action="library-search"]'); input?.focus(); input?.setSelectionRange(ui.libraryQuery.length, ui.libraryQuery.length); }); }
   if (action === "task-search") { ui.taskQuery = event.target.value; render(); requestAnimationFrame(() => { const input = document.querySelector('[data-action="task-search"]'); input?.focus(); input?.setSelectionRange(ui.taskQuery.length, ui.taskQuery.length); }); }
   if (action === "global-search" && event.target.value.trim()) { const value = event.target.value.trim(); ui.libraryQuery = value; ui.taskQuery = value; }

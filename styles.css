@@ -192,6 +192,7 @@ h1, h2, h3, h4, h5, h6, .btn, .brand { font-family: "Nunito Sans", "Open Sans", 
 .user-list b, .user-list small { display: block; }
 .user-list b { font-size: 12px; }
 .user-list small { margin-top: 3px; color: var(--muted); font-size: 9px; }
+.user-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .payment-list > button { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; color: inherit; background: white; text-align: left; }
 .payment-list b, .payment-list small { display: block; }
 .payment-list b { font-size: 12px; }
@@ -204,6 +205,10 @@ h1, h2, h3, h4, h5, h6, .btn, .brand { font-family: "Nunito Sans", "Open Sans", 
 .secret-box code { align-self: center; min-width: 0; overflow-wrap: anywhere; color: var(--ink); font-size: 12px; }
 .check-field { align-self: end; padding: 10px 0; }
 .check-field label { display: flex; align-items: center; gap: 8px; }
+.module-fieldset { margin: 0; padding: 14px; border: 1px solid var(--line); border-radius: 15px; }
+.module-fieldset legend { padding: 0 6px; color: var(--ink-2); font-size: 12px; font-weight: 780; }
+.module-check-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px 14px; }
+.module-check-grid label { display: flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 12px; }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 900; letter-spacing: -.04em; text-decoration: none; }
 .brand-logo { display: block; width: 154px; height: auto; object-fit: contain; }
 .sidebar-logo { display: block; width: 142px; height: auto; object-fit: contain; filter: drop-shadow(0 7px 15px rgba(9, 15, 72, .18)); }
@@ -552,6 +557,10 @@ h1, h2, h3, h4, h5, h6, .btn, .brand { font-family: "Nunito Sans", "Open Sans", 
   .toolbar select { flex: 1; width: 100%; }
   .form-grid { grid-template-columns: 1fr; }
   .field-group.full { grid-column: auto; }
+  .module-check-grid { grid-template-columns: 1fr; }
+  .user-list > div { grid-template-columns: 42px 1fr; }
+  .user-actions { grid-column: 1 / -1; justify-content: stretch; }
+  .user-actions .btn { flex: 1; }
   .modal-backdrop { padding: 10px; align-items: end; }
   .modal { max-height: calc(100vh - 20px); border-radius: 23px 23px 12px 12px; }
   .request-human-help { grid-template-columns: 48px 1fr; }
