@@ -40,17 +40,19 @@ async function withSupabaseEnvironment(fakeFetch, action) {
     url: process.env.SUPABASE_URL,
     secret: process.env.SUPABASE_SECRET_KEY,
     publishable: process.env.SUPABASE_PUBLISHABLE_KEY,
-    admins: process.env.ORDY_ADMIN_EMAILS
+    admins: process.env.ORDY_ADMIN_EMAILS,
+    site: process.env.ORDY_SITE_URL
   };
   global.fetch = fakeFetch;
   process.env.SUPABASE_URL = "https://supabase.test";
   process.env.SUPABASE_SECRET_KEY = "sb_secret_service-test";
   process.env.SUPABASE_PUBLISHABLE_KEY = "sb_publishable_invalid-test";
   process.env.ORDY_ADMIN_EMAILS = "ordenyplan@gmail.com";
+  process.env.ORDY_SITE_URL = "paginawebordy-git-codex-migrar-ordy.vercel.app";
   try { await action(); }
   finally {
     global.fetch = previous.fetch;
-    for (const [key, value] of [["SUPABASE_URL", previous.url], ["SUPABASE_SECRET_KEY", previous.secret], ["SUPABASE_PUBLISHABLE_KEY", previous.publishable], ["ORDY_ADMIN_EMAILS", previous.admins]]) {
+    for (const [key, value] of [["SUPABASE_URL", previous.url], ["SUPABASE_SECRET_KEY", previous.secret], ["SUPABASE_PUBLISHABLE_KEY", previous.publishable], ["ORDY_ADMIN_EMAILS", previous.admins], ["ORDY_SITE_URL", previous.site]]) {
       if (value === undefined) delete process.env[key]; else process.env[key] = value;
     }
   }
@@ -144,6 +146,7 @@ test("la recuperación permite al administrador crear su perfil por primera vez"
     assert.equal(recoveryCall.body.email, "ordenyplan@gmail.com");
     assert.equal(recoveryCall.headers.apikey, "sb_secret_service-test");
     assert.match(decodeURIComponent(recoveryCall.target), /https:\/\/ordy\.test\/reset/);
+    assert.doesNotMatch(decodeURIComponent(recoveryCall.target), /paginawebordy-git/);
   });
 });
 
