@@ -44,8 +44,8 @@ async function withSupabaseEnvironment(fakeFetch, action) {
   };
   global.fetch = fakeFetch;
   process.env.SUPABASE_URL = "https://supabase.test";
-  process.env.SUPABASE_SECRET_KEY = "service-test";
-  process.env.SUPABASE_PUBLISHABLE_KEY = "anon-test";
+  process.env.SUPABASE_SECRET_KEY = "sb_secret_service-test";
+  process.env.SUPABASE_PUBLISHABLE_KEY = "sb_publishable_invalid-test";
   process.env.ORDY_ADMIN_EMAILS = "ordenyplan@gmail.com";
   try { await action(); }
   finally {
@@ -89,6 +89,7 @@ test("el administrador puede entrar por correo o por su usuario inicial", async 
   });
   const loginCall = calls.find((call) => call.url.includes("grant_type=password"));
   assert.equal(JSON.parse(loginCall.options.body).email, "ordenyplan@gmail.com");
+  assert.equal(loginCall.options.headers.apikey, "sb_secret_service-test");
 });
 
 test("crear un acceso también crea su océano privado", async () => {
@@ -131,7 +132,7 @@ test("la recuperación permite al administrador crear su perfil por primera vez"
     if (target.includes("rpc/ordy_consume_rate_limit")) return response(true);
     if (target.includes("ordy_profiles?email=eq.ordenyplan%40gmail.com")) return response([]);
     if (target.includes("/auth/v1/recover?redirect_to=")) {
-      recoveryCall = { target, body: JSON.parse(options.body) };
+      recoveryCall = { target, body: JSON.parse(options.body), headers: options.headers };
       return response({});
     }
     return response({ message: `Ruta inesperada: ${url}` }, 500);
@@ -141,6 +142,17 @@ test("la recuperación permite al administrador crear su perfil por primera vez"
     await handler(request({ email: "ordenyplan@gmail.com" }), res);
     assert.equal(res.statusCode, 200);
     assert.equal(recoveryCall.body.email, "ordenyplan@gmail.com");
+    assert.equal(recoveryCall.headers.apikey, "sb_secret_service-test");
     assert.match(decodeURIComponent(recoveryCall.target), /https:\/\/ordy\.test\/reset/);
+  });
+});
+
+test("la conexión del servidor no depende de una llave pública válida", async () => {
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    assert.equal(options.headers.apikey, "sb_secret_service-test");
+    return response([]);
+  }, async () => {
+    const { supabaseRequest } = require("../lib/_supabase");
+    await supabaseRequest("ordy_profiles?select=id", { method: "GET" });
   });
 });

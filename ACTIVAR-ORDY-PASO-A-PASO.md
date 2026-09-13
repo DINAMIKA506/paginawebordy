@@ -47,7 +47,6 @@ Deben existir para Preview y, antes de publicar, para Production:
 
 - `SUPABASE_URL`
 - `SUPABASE_SECRET_KEY`
-- `SUPABASE_PUBLISHABLE_KEY`
 - `ORDY_ADMIN_EMAILS`
 - `ORDY_SITE_URL`
 
