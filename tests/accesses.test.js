@@ -159,3 +159,25 @@ test("la conexión del servidor no depende de una llave pública válida", async
     await supabaseRequest("ordy_profiles?select=id", { method: "GET" });
   });
 });
+
+test("guardar una contraseña reintenta una falla temporal de Supabase", async () => {
+  let verifyAttempts = 0;
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    const target = String(url);
+    if (target.endsWith("/auth/v1/user") && !options.method) {
+      verifyAttempts += 1;
+      if (verifyAttempts === 1) return response({ message: "Gateway Timeout" }, 504);
+      return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
+    }
+    if (target.endsWith("/auth/v1/user") && options.method === "PUT") return response({ id: "admin-1" });
+    if (target.includes("ordy_profiles?id=eq.admin-1")) return response([]);
+    return response({ message: `Ruta inesperada: ${url}` }, 500);
+  }, async () => {
+    const handler = require("../lib/reset");
+    const res = vercelResponse();
+    await handler(request({ accessToken: "recovery-token", password: "una-clave-nueva-segura" }), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.payload.ok, true);
+    assert.equal(verifyAttempts, 2);
+  });
+});
