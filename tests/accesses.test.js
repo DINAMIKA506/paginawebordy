@@ -124,12 +124,12 @@ test("crear un acceso también crea su océano privado", async () => {
   });
 });
 
-test("la recuperación solo envía correo a cuentas Ordy activas", async () => {
+test("la recuperación permite al administrador crear su perfil por primera vez", async () => {
   let recoveryCall = null;
   await withSupabaseEnvironment(async (url, options = {}) => {
     const target = String(url);
     if (target.includes("rpc/ordy_consume_rate_limit")) return response(true);
-    if (target.includes("ordy_profiles?email=eq.ordenyplan%40gmail.com")) return response([{ id: "admin-1" }]);
+    if (target.includes("ordy_profiles?email=eq.ordenyplan%40gmail.com")) return response([]);
     if (target.includes("/auth/v1/recover?redirect_to=")) {
       recoveryCall = { target, body: JSON.parse(options.body) };
       return response({});
