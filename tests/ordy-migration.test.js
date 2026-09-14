@@ -45,3 +45,11 @@ test("cada acceso recibe un océano propio y limpio", () => {
   const second = buildOceanTemplate({ displayName: "Otra persona", templateKey: "general" });
   assert.notStrictEqual(avvo.folders, second.folders);
 });
+
+test("los clientes iniciales no aparecen como plantillas de acceso", () => {
+  const admin = read("admin.js");
+  assert.match(admin, /data-form="create-contact"/);
+  assert.match(admin, /name="templateKey" value="general"/);
+  assert.match(admin, /No se aplicará una plantilla de otra marca/);
+  assert.doesNotMatch(admin, /<option value="(?:circulos333|avvo|impronte|diala)"/);
+});

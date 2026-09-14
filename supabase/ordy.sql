@@ -145,3 +145,13 @@ grant execute on function public.ordy_consume_rate_limit(text, integer, integer)
 comment on table public.ordy_contacts is 'Personas que conversan o solicitan un océano en Ordy.';
 comment on table public.ordy_profiles is 'Perfil de acceso Ordy vinculado a Supabase Auth.';
 comment on table public.ordy_user_oceans is 'Contenido privado del océano de cada cuenta Ordy.';
+
+-- Clientes iniciales de la administración. Los correos .invalid son marcadores
+-- internos que nunca reciben mensajes y se reemplazan al completar cada ficha.
+insert into public.ordy_contacts (name, email, company, stage, tags, notes, active)
+values
+  ('Círculos 3:33', 'circulos333@clientes.ordy.invalid', 'Círculos 3:33', 'en_proceso', '["cliente inicial"]'::jsonb, 'Cliente preparado para vincular su acceso. Completá el correo y los datos de contacto cuando los tengás.', false),
+  ('Impronte', 'impronte@clientes.ordy.invalid', 'Impronte', 'en_proceso', '["cliente inicial"]'::jsonb, 'Cliente preparado para vincular su acceso. Completá el correo y los datos de contacto cuando los tengás.', false),
+  ('Avvo', 'avvo@clientes.ordy.invalid', 'Avvo', 'en_proceso', '["cliente inicial"]'::jsonb, 'Cliente preparado para vincular su acceso. Completá el correo y los datos de contacto cuando los tengás.', false),
+  ('Dialá', 'diala@clientes.ordy.invalid', 'Dialá', 'en_proceso', '["cliente inicial"]'::jsonb, 'Cliente preparado para vincular su acceso. Completá el correo y los datos de contacto cuando los tengás.', false)
+on conflict (email) do nothing;

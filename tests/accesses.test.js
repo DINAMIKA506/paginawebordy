@@ -96,16 +96,22 @@ test("el administrador puede entrar por correo o por su usuario inicial", async 
 
 test("crear un acceso también crea su océano privado", async () => {
   let createdOcean = null;
+  let linkedContact = null;
   await withSupabaseEnvironment(async (url, options = {}) => {
     const target = String(url);
     if (target.endsWith("/auth/v1/user")) return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
     if (target.includes("ordy_profiles?id=eq.admin-1")) return response([{ id: "admin-1", email: "ordenyplan@gmail.com", username: "ordenyplan", display_name: "Admin", role: "admin", active: true }]);
     if (target.includes("ordy_profiles?or=")) return response([]);
+    if (target.includes("ordy_contacts?id=eq.contact-1&select=id,email,delivered_at")) return response([{ id: "contact-1", email: "avvo@clientes.ordy.invalid", delivered_at: null }]);
     if (target.endsWith("/auth/v1/admin/users")) return response({ id: "client-1" });
     if (target.endsWith("/rest/v1/ordy_profiles")) return response([]);
     if (target.endsWith("/rest/v1/ordy_user_oceans")) {
       createdOcean = JSON.parse(options.body);
       return response([]);
+    }
+    if (target.includes("ordy_contacts?id=eq.contact-1") && options.method === "PATCH") {
+      linkedContact = JSON.parse(options.body);
+      return response();
     }
     return response({ message: `Ruta inesperada: ${url}` }, 500);
   }, async () => {
@@ -116,6 +122,7 @@ test("crear un acceso también crea su océano privado", async () => {
       spaceName: "Océano Avvo",
       email: "cliente@example.com",
       username: "cliente.avvo",
+      contactId: "contact-1",
       templateKey: "avvo",
       modules: ["content", "clients", "stock", "tasks"]
     }, "ordy_access=admin-token"), res);
@@ -123,7 +130,54 @@ test("crear un acceso también crea su océano privado", async () => {
     assert.equal(createdOcean.user_id, "client-1");
     assert.equal(createdOcean.data_json.settings.spaceName, "Océano Avvo");
     assert.deepEqual(createdOcean.data_json.modules, ["content", "clients", "stock", "tasks"]);
+    assert.equal(linkedContact.email, "cliente@example.com");
+    assert.equal(linkedContact.stage, "activo");
     assert.doesNotMatch(JSON.stringify(createdOcean), /Majo|ONUDI|LESCO/);
+  });
+});
+
+test("el panel prepara los cuatro clientes iniciales sin duplicarlos", async () => {
+  let inserted = null;
+  let reads = 0;
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    const target = String(url);
+    if (target.includes("ordy_contacts?select=")) {
+      reads += 1;
+      return response(reads === 1 ? [] : (inserted || []).map((contact, index) => ({ id: `contact-${index}`, ...contact })));
+    }
+    if (target.includes("ordy_contacts?on_conflict=email")) {
+      inserted = JSON.parse(options.body);
+      return response();
+    }
+    return response({ message: `Ruta inesperada: ${url}` }, 500);
+  }, async () => {
+    const { ensureStarterContacts } = require("../lib/admin/starter-contacts");
+    const contacts = await ensureStarterContacts();
+    assert.deepEqual(contacts.map((contact) => contact.name), ["Círculos 3:33", "Impronte", "Avvo", "Dialá"]);
+    assert.ok(inserted.every((contact) => contact.email.endsWith("@clientes.ordy.invalid")));
+    assert.ok(inserted.every((contact) => contact.stage === "en_proceso"));
+  });
+});
+
+test("la administradora puede crear un cliente antes de generar el acceso", async () => {
+  let createdContact = null;
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    const target = String(url);
+    if (target.endsWith("/auth/v1/user")) return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
+    if (target.includes("ordy_profiles?id=eq.admin-1")) return response([{ id: "admin-1", email: "ordenyplan@gmail.com", username: "ordenyplan", display_name: "Admin", role: "admin", active: true }]);
+    if (target.endsWith("/rest/v1/ordy_contacts") && options.method === "POST") {
+      createdContact = JSON.parse(options.body);
+      return response([{ id: "contact-new", ...createdContact }]);
+    }
+    return response({ message: `Ruta inesperada: ${url}` }, 500);
+  }, async () => {
+    const handler = require("../lib/admin/contact");
+    const res = vercelResponse();
+    await handler(request({ name: "Cliente nuevo", company: "Proyecto nuevo", email: "", phone: "8888-8888" }, "ordy_access=admin-token"), res);
+    assert.equal(res.statusCode, 201);
+    assert.equal(res.payload.contact.name, "Cliente nuevo");
+    assert.match(createdContact.email, /^manual-.+@clientes\.ordy\.invalid$/);
+    assert.equal(createdContact.stage, "en_proceso");
   });
 });
 

@@ -509,6 +509,7 @@ app.addEventListener("click", (event) => {
   if (action === "admin-section") { adminSection = trigger.dataset.section; selectedConversationId = null; renderAdmin(); }
   if (action === "select-conversation") selectAdminConversation(trigger.dataset.id);
   if (action === "edit-contact") openContactEditor(trigger.dataset.id);
+  if (action === "open-create-contact") openCreateContact(trigger.dataset.returnToAccess === "true");
   if (action === "open-create-user") openCreateUser();
   if (action === "create-reset") createResetLink(trigger.dataset.id);
   if (action === "toggle-user-access") toggleAdminUser(trigger.dataset.id, trigger.dataset.active === "true");
@@ -548,6 +549,7 @@ modalRoot.addEventListener("click", (event) => {
   if (action === "open-folder-form") { closeModal(); openFolderForm(); }
   if (action === "open-link-form") { closeModal(); openLinkForm(); }
   if (action === "open-task-form") { closeModal(); openTaskForm(); }
+  if (action === "open-create-contact") { closeModal(); openCreateContact(trigger.dataset.returnToAccess === "true"); }
 });
 
 document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
@@ -558,7 +560,6 @@ window.addEventListener("hashchange", () => {
 
 document.addEventListener("input", (event) => {
   const action = event.target.dataset.action;
-  if (action === "access-template") updateAccessTemplate(event.target);
   if (action === "library-search") { ui.libraryQuery = event.target.value; render(); requestAnimationFrame(() => { const input = document.querySelector('[data-action="library-search"]'); input?.focus(); input?.setSelectionRange(ui.libraryQuery.length, ui.libraryQuery.length); }); }
   if (action === "task-search") { ui.taskQuery = event.target.value; render(); requestAnimationFrame(() => { const input = document.querySelector('[data-action="task-search"]'); input?.focus(); input?.setSelectionRange(ui.taskQuery.length, ui.taskQuery.length); }); }
   if (action === "global-search" && event.target.value.trim()) { const value = event.target.value.trim(); ui.libraryQuery = value; ui.taskQuery = value; }
@@ -573,6 +574,7 @@ document.addEventListener("change", (event) => {
   if (action === "task-energy") { ui.taskEnergy = event.target.value; render(); }
   if (action === "inline-task-status") { const task = findTask(event.target.dataset.id); if (task) { task.status = event.target.value; task.updatedAt = nowIso(); persist("Estado actualizado"); render(); } }
   if (action === "link-folder-select") { const form = event.target.closest("form"); const subSelect = form?.querySelector('[name="subfolderId"]'); if (subSelect) subSelect.innerHTML = subfolderOptions(event.target.value); }
+  if (action === "access-contact") updateAccessContact(event.target);
 });
 
 document.addEventListener("submit", (event) => {
@@ -589,6 +591,7 @@ document.addEventListener("submit", (event) => {
   if (form.dataset.form === "chat-message") sendPublicChat(data, submitter);
   if (form.dataset.form === "admin-reply") submitAdminReply(form, data, submitter);
   if (form.dataset.form === "contact") saveAdminContact(form, data, submitter);
+  if (form.dataset.form === "create-contact") saveNewAdminContact(form, data, submitter);
   if (form.dataset.form === "create-user") saveAdminUser(data, submitter);
   if (form.dataset.form === "reset-password") saveResetPassword(data, submitter);
   if (form.dataset.form === "change-password") saveChangedPassword(data, submitter);

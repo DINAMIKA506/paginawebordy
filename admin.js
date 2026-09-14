@@ -13,14 +13,6 @@ const ACCESS_MODULES = [
   ["impronte", "Acceso Impronte"]
 ];
 
-const ACCESS_TEMPLATE_MODULES = {
-  general: ["library", "tasks", "quick"],
-  circulos333: ["content", "team", "library", "tasks"],
-  avvo: ["content", "team", "clients", "stock", "library", "tasks", "portfolio"],
-  impronte: ["impronte", "library", "tasks"],
-  diala: ["library", "tasks", "quick"]
-};
-
 async function api(path, options = {}) {
   const response = await fetch(path, {
     credentials: "same-origin",
@@ -192,6 +184,14 @@ function elapsed(start, end) {
   return `${Math.round(hours / 24)} días`;
 }
 
+function isInternalContactEmail(value) {
+  return String(value || "").toLowerCase().endsWith("@clientes.ordy.invalid");
+}
+
+function contactEmailLabel(contact) {
+  return isInternalContactEmail(contact?.email) ? "Correo pendiente" : contact?.email || "Correo pendiente";
+}
+
 async function loadAdminDashboard() {
   try {
     adminData = await api("/api/admin/dashboard");
@@ -253,11 +253,29 @@ async function saveAdminContact(form, data, button) {
   } catch (error) { toast(error.message); button.disabled = false; }
 }
 
+async function saveNewAdminContact(form, data, button) {
+  button.disabled = true;
+  button.textContent = "Guardando…";
+  try {
+    const result = await api("/api/admin/contact", { method: "POST", body: JSON.stringify(data) });
+    closeModal();
+    await loadAdminDashboard();
+    toast("Cliente creado");
+    if (form.dataset.returnToAccess === "true") openCreateUser(result.contact.id);
+  } catch (error) {
+    toast(error.message);
+    button.disabled = false;
+    button.textContent = "Crear cliente";
+  }
+}
+
 async function saveAdminUser(data, button) {
+  const modules = ACCESS_MODULES.filter(([key]) => data[`module_${key}`]).map(([key]) => key);
+  if (!data.contactId) { toast("Elegí el cliente al que pertenece este océano."); return; }
+  if (!modules.length) { toast("Elegí al menos un módulo para este océano."); return; }
   button.disabled = true;
   button.textContent = "Generando…";
   try {
-    const modules = ACCESS_MODULES.filter(([key]) => data[`module_${key}`]).map(([key]) => key);
     const result = await api("/api/admin/users", { method: "POST", body: JSON.stringify({ ...data, modules }) });
     openSecretResult("Acceso creado", "Compartí la contraseña temporal únicamente con la persona dueña del océano.", result.temporaryPassword, result.username);
     adminData = await api("/api/admin/dashboard");
@@ -326,7 +344,7 @@ function renderAdminSection() {
 function renderAdminSummary() {
   const s = adminData.stats;
   const latest = adminData.contacts.slice(0, 5);
-  return `<header class="view-head"><div><h2>Todo Ordy, en orden</h2><p>Conversaciones, océanos y clientes desde una sola entrada.</p></div></header><section class="stat-grid admin-stats">${statCard("◌", "CHATS", s.chats, "Conversaciones iniciadas")}${statCard("▤", "SOLICITUDES", s.requests, "Océanos pedidos")}${statCard("⇢", "EN PROCESO", s.inProgress, "Espacios en construcción")}${statCard("●", "CLIENTES ACTIVOS", s.active, `${s.pendingPayments} pagos por revisar`)}</section><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Movimiento reciente</h3><button class="text-link" data-action="admin-section" data-section="seguimiento">Ver seguimiento →</button></header>${latest.length ? `<div class="admin-list">${latest.map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><span class="contact-avatar">${esc(contact.name.slice(0, 1).toUpperCase())}</span><div><b>${esc(contact.name)}</b><small>${esc(contact.email)}</small></div><i class="stage-pill stage-${contact.stage}">${stageLabel(contact.stage)}</i></button>`).join("")}</div>` : adminEmpty("Todavía no hay contactos", "Los chats y solicitudes aparecerán acá.")}</article><article class="panel"><header class="panel-head"><h3>Próximo foco</h3></header><div class="focus-card"><span>1</span><div><b>Respondé los chats nuevos</b><p>${adminData.conversations.filter((item) => Number(item.unread)).length} conversaciones esperan lectura.</p></div></div><div class="focus-card"><span>2</span><div><b>Mové cada solicitud</b><p>El flujo mide cuánto tarda cada océano desde pedido hasta entrega.</p></div></div><div class="focus-card"><span>3</span><div><b>Entregá el acceso</b><p>Generá usuario, contraseña temporal y enlaces de recuperación.</p></div></div></article></section>`;
+  return `<header class="view-head"><div><h2>Todo Ordy, en orden</h2><p>Conversaciones, océanos y clientes desde una sola entrada.</p></div></header><section class="stat-grid admin-stats">${statCard("◌", "CHATS", s.chats, "Conversaciones iniciadas")}${statCard("▤", "SOLICITUDES", s.requests, "Océanos pedidos")}${statCard("⇢", "EN PROCESO", s.inProgress, "Espacios en construcción")}${statCard("●", "CLIENTES ACTIVOS", s.active, `${s.pendingPayments} pagos por revisar`)}</section><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Movimiento reciente</h3><button class="text-link" data-action="admin-section" data-section="seguimiento">Ver seguimiento →</button></header>${latest.length ? `<div class="admin-list">${latest.map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><span class="contact-avatar">${esc(contact.name.slice(0, 1).toUpperCase())}</span><div><b>${esc(contact.name)}</b><small>${esc(contactEmailLabel(contact))}</small></div><i class="stage-pill stage-${contact.stage}">${stageLabel(contact.stage)}</i></button>`).join("")}</div>` : adminEmpty("Todavía no hay contactos", "Los chats y solicitudes aparecerán acá.")}</article><article class="panel"><header class="panel-head"><h3>Próximo foco</h3></header><div class="focus-card"><span>1</span><div><b>Respondé los chats nuevos</b><p>${adminData.conversations.filter((item) => Number(item.unread)).length} conversaciones esperan lectura.</p></div></div><div class="focus-card"><span>2</span><div><b>Mové cada solicitud</b><p>El flujo mide cuánto tarda cada océano desde pedido hasta entrega.</p></div></div><div class="focus-card"><span>3</span><div><b>Entregá el acceso</b><p>Generá usuario, contraseña temporal y enlaces de recuperación.</p></div></div></article></section>`;
 }
 
 function renderAdminChats() {
@@ -350,7 +368,7 @@ async function selectAdminConversation(conversationId) {
 
 function renderAdminTracking() {
   const stages = ["chat", "solicitud", "en_proceso", "entregado", "activo", "pausado"];
-  return `<header class="view-head"><div><h2>Seguimiento</h2><p>Desde la primera conversación hasta el océano entregado y activo.</p></div></header><section class="pipeline">${stages.map((stage) => `<article><header><b>${stageLabel(stage)}</b><span>${adminData.contacts.filter((item) => item.stage === stage).length}</span></header>${adminData.contacts.filter((item) => item.stage === stage).map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><b>${esc(contact.name)}</b><small>${esc(contact.company || contact.email)}</small>${contact.requested_at ? `<i>${elapsed(contact.requested_at, contact.delivered_at)}</i>` : ""}</button>`).join("") || `<p>Sin personas</p>`}</article>`).join("")}</section>`;
+  return `<header class="view-head"><div><h2>Seguimiento</h2><p>Desde la primera conversación hasta el océano entregado y activo.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-contact">＋ Nuevo cliente</button></div></header><section class="pipeline">${stages.map((stage) => `<article><header><b>${stageLabel(stage)}</b><span>${adminData.contacts.filter((item) => item.stage === stage).length}</span></header>${adminData.contacts.filter((item) => item.stage === stage).map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><b>${esc(contact.name)}</b><small>${esc(contact.company || contactEmailLabel(contact))}</small>${contact.requested_at ? `<i>${elapsed(contact.requested_at, contact.delivered_at)}</i>` : ""}</button>`).join("") || `<p>Sin personas</p>`}</article>`).join("")}</section>`;
 }
 
 function renderAdminRequests() {
@@ -381,20 +399,29 @@ function openContactEditor(contactId) {
   if (!contact) return;
   let tags = [];
   try { tags = Array.isArray(contact.tags) ? contact.tags : JSON.parse(contact.tags || "[]"); } catch {}
-  openModal(`${modalHeader(contact.name, "Actualizá la etapa, etiquetas, notas y estado comercial.")}<form class="modal-body" data-form="contact" data-id="${contact.id}"><div class="form-grid"><div class="field-group"><label>Etapa</label><select class="field" name="stage">${["chat", "solicitud", "en_proceso", "entregado", "activo", "pausado"].map((stage) => `<option value="${stage}" ${contact.stage === stage ? "selected" : ""}>${stageLabel(stage)}</option>`).join("")}</select></div><div class="field-group"><label>Etiquetas separadas por coma</label><input class="field" name="tags" value="${esc(tags.join(", "))}" placeholder="empresa, prioritario" /></div><div class="field-group full"><label>Notas internas</label><textarea class="field" name="notes">${esc(contact.notes || "")}</textarea></div><div class="field-group"><label>Estado de pago</label><select class="field" name="paymentStatus">${["sin_definir", "pendiente", "al_dia", "atrasado"].map((status) => `<option value="${status}" ${contact.payment_status === status ? "selected" : ""}>${paymentLabel(status)}</option>`).join("")}</select></div><div class="field-group"><label>Monto</label><input class="field" name="paymentAmount" type="number" min="0" step="0.01" value="${contact.payment_amount ?? ""}" /></div><div class="field-group"><label>Próxima fecha</label><input class="field" name="paymentDue" type="date" value="${esc(contact.payment_due || "")}" /></div><div class="field-group check-field"><label><input name="active" type="checkbox" ${contact.active ? "checked" : ""} /> Cliente activo</label></div></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Guardar seguimiento</button></div></form>`);
+  const email = isInternalContactEmail(contact.email) ? "" : contact.email;
+  openModal(`${modalHeader(contact.name, "Completá los datos y actualizá su seguimiento comercial.")}<form class="modal-body" data-form="contact" data-id="${contact.id}"><div class="form-grid"><div class="field-group"><label>Nombre del cliente o contacto</label><input class="field" name="name" required value="${esc(contact.name)}" /></div><div class="field-group"><label>Empresa o proyecto</label><input class="field" name="company" value="${esc(contact.company || "")}" /></div><div class="field-group"><label>Correo</label><input class="field" name="email" type="email" value="${esc(email)}" placeholder="Podés completarlo después" /></div><div class="field-group"><label>WhatsApp o teléfono</label><input class="field" name="phone" value="${esc(contact.phone || "")}" /></div><div class="field-group"><label>Etapa</label><select class="field" name="stage">${["chat", "solicitud", "en_proceso", "entregado", "activo", "pausado"].map((stage) => `<option value="${stage}" ${contact.stage === stage ? "selected" : ""}>${stageLabel(stage)}</option>`).join("")}</select></div><div class="field-group"><label>Etiquetas separadas por coma</label><input class="field" name="tags" value="${esc(tags.join(", "))}" placeholder="empresa, prioritario" /></div><div class="field-group full"><label>Notas internas</label><textarea class="field" name="notes">${esc(contact.notes || "")}</textarea></div><div class="field-group"><label>Estado de pago</label><select class="field" name="paymentStatus">${["sin_definir", "pendiente", "al_dia", "atrasado"].map((status) => `<option value="${status}" ${contact.payment_status === status ? "selected" : ""}>${paymentLabel(status)}</option>`).join("")}</select></div><div class="field-group"><label>Monto</label><input class="field" name="paymentAmount" type="number" min="0" step="0.01" value="${contact.payment_amount ?? ""}" /></div><div class="field-group"><label>Próxima fecha</label><input class="field" name="paymentDue" type="date" value="${esc(contact.payment_due || "")}" /></div><div class="field-group check-field"><label><input name="active" type="checkbox" ${contact.active ? "checked" : ""} /> Cliente activo</label></div></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Guardar seguimiento</button></div></form>`);
 }
 
-function openCreateUser() {
-  openModal(`${modalHeader("Crear acceso y océano", "Ordy preparará un espacio privado y una contraseña temporal para esta persona.")}<form class="modal-body" data-form="create-user"><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId"><option value="">Sin vincular</option>${adminData.contacts.map((contact) => `<option value="${contact.id}">${esc(contact.name)} · ${esc(contact.email)}</option>`).join("")}</select></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required placeholder="nombre.apellido" /></div><div class="field-group full"><label>Plantilla inicial</label><select class="field" name="templateKey" data-action="access-template"><option value="general">General</option><option value="circulos333">Círculos 3:33</option><option value="avvo">Avvo</option><option value="impronte">Impronte</option><option value="diala">Dialá</option></select><p class="form-hint">La plantilla prepara carpetas limpias; nunca copia datos de otro cliente.</p></div><fieldset class="field-group full module-fieldset"><legend>Módulos del océano</legend><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${ACCESS_TEMPLATE_MODULES.general.includes(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+function openCreateContact(returnToAccess = false) {
+  openModal(`${modalHeader("Nuevo cliente", "Primero registrá a la persona, empresa o proyecto. Después podrás vincularle su océano.")}<form class="modal-body" data-form="create-contact" data-return-to-access="${returnToAccess}"><div class="form-grid"><div class="field-group"><label>Nombre del cliente o contacto</label><input class="field" name="name" required autocomplete="name" /></div><div class="field-group"><label>Empresa o proyecto</label><input class="field" name="company" /></div><div class="field-group"><label>Correo</label><input class="field" name="email" type="email" autocomplete="email" placeholder="Podés completarlo después" /></div><div class="field-group"><label>WhatsApp o teléfono</label><input class="field" name="phone" autocomplete="tel" /></div><div class="field-group full"><label>Notas internas</label><textarea class="field" name="notes" placeholder="Qué necesita, quién lo atiende o cualquier dato útil"></textarea></div></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Crear cliente</button></div></form>`);
 }
 
-function updateAccessTemplate(select) {
+function openCreateUser(selectedContactId = "") {
+  const selectedContact = adminData.contacts.find((contact) => contact.id === selectedContactId);
+  const initialEmail = selectedContact && !isInternalContactEmail(selectedContact.email) ? selectedContact.email : "";
+  const initialName = selectedContact?.name || "";
+  const initialSpace = selectedContact ? `Océano ${selectedContact.company || selectedContact.name}` : "";
+  openModal(`${modalHeader("Crear acceso y océano", "Primero vinculá el cliente y luego elegí manualmente qué tendrá su espacio.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Elegí los módulos de este océano</legend><p class="form-hint">No se aplicará una plantilla de otra marca. Marcá únicamente lo que este cliente necesita.</p><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+}
+
+function updateAccessContact(select) {
   const form = select.closest("form");
-  const selected = ACCESS_TEMPLATE_MODULES[select.value] || ACCESS_TEMPLATE_MODULES.general;
-  ACCESS_MODULES.forEach(([key]) => {
-    const checkbox = form?.elements[`module_${key}`];
-    if (checkbox) checkbox.checked = selected.includes(key);
-  });
+  const contact = adminData.contacts.find((item) => item.id === select.value);
+  if (!form || !contact) return;
+  form.elements.displayName.value = contact.name;
+  form.elements.spaceName.value = `Océano ${contact.company || contact.name}`;
+  form.elements.email.value = isInternalContactEmail(contact.email) ? "" : contact.email;
 }
 
 async function createResetLink(userId) {
