@@ -44,7 +44,7 @@ async function initializeOrdy() {
     authUser = session.user;
     sessionActive = true;
     const saved = await api("/api/ocean");
-    if (saved.ocean?.settings && Array.isArray(saved.ocean.folders) && Array.isArray(saved.ocean.tasks)) state = saved.ocean;
+    if (saved.ocean?.settings && Array.isArray(saved.ocean.folders) && Array.isArray(saved.ocean.tasks)) state = normalizeOceanState(saved.ocean);
     else {
       state = initialState();
       state.settings.userName = authUser.displayName;
@@ -68,7 +68,7 @@ async function handleLogin(data, button) {
     authUser = result.user;
     sessionActive = true;
     const saved = await api("/api/ocean");
-    state = saved.ocean || initialState();
+    state = saved.ocean ? normalizeOceanState(saved.ocean) : initialState();
     state.settings.userName = authUser.displayName;
     if (!saved.ocean) state.settings.spaceName = `Océano de ${authUser.displayName}`;
     closeModal();
@@ -190,6 +190,15 @@ function isInternalContactEmail(value) {
 
 function contactEmailLabel(contact) {
   return isInternalContactEmail(contact?.email) ? "Correo pendiente" : contact?.email || "Correo pendiente";
+}
+
+function isCirculosContact(contact) {
+  const identity = `${contact?.name || ""} ${contact?.company || ""}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return identity.includes("circulos 3:33");
+}
+
+function suggestedUsername(email = "") {
+  return String(email).split("@")[0].toLowerCase().replace(/[^a-z0-9._-]/g, "").slice(0, 40);
 }
 
 async function loadAdminDashboard() {
@@ -412,7 +421,8 @@ function openCreateUser(selectedContactId = "") {
   const initialEmail = selectedContact && !isInternalContactEmail(selectedContact.email) ? selectedContact.email : "";
   const initialName = selectedContact?.name || "";
   const initialSpace = selectedContact ? `Océano ${selectedContact.company || selectedContact.name}` : "";
-  openModal(`${modalHeader("Crear acceso y océano", "Primero vinculá el cliente y luego elegí manualmente qué tendrá su espacio.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Elegí los módulos de este océano</legend><p class="form-hint">No se aplicará una plantilla de otra marca. Marcá únicamente lo que este cliente necesita.</p><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+  const circulosModules = new Set(["library", "tasks", "content", "team"]);
+  openModal(`${modalHeader("Crear acceso y océano", "Primero vinculá el cliente y luego elegí manualmente qué tendrá su espacio.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required value="${esc(suggestedUsername(initialEmail))}" placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Elegí los módulos de este océano</legend><p class="form-hint">No se aplicará una plantilla de otra marca. Marcá únicamente lo que este cliente necesita.</p><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedContact && isCirculosContact(selectedContact) && circulosModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
 }
 
 function updateAccessContact(select) {
@@ -422,6 +432,9 @@ function updateAccessContact(select) {
   form.elements.displayName.value = contact.name;
   form.elements.spaceName.value = `Océano ${contact.company || contact.name}`;
   form.elements.email.value = isInternalContactEmail(contact.email) ? "" : contact.email;
+  form.elements.username.value = suggestedUsername(form.elements.email.value);
+  const circulosModules = new Set(["library", "tasks", "content", "team"]);
+  ACCESS_MODULES.forEach(([key]) => { form.elements[`module_${key}`].checked = isCirculosContact(contact) && circulosModules.has(key); });
 }
 
 async function createResetLink(userId) {

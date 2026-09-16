@@ -102,7 +102,7 @@ test("crear un acceso también crea su océano privado", async () => {
     if (target.endsWith("/auth/v1/user")) return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
     if (target.includes("ordy_profiles?id=eq.admin-1")) return response([{ id: "admin-1", email: "ordenyplan@gmail.com", username: "ordenyplan", display_name: "Admin", role: "admin", active: true }]);
     if (target.includes("ordy_profiles?or=")) return response([]);
-    if (target.includes("ordy_contacts?id=eq.contact-1&select=id,email,delivered_at")) return response([{ id: "contact-1", email: "avvo@clientes.ordy.invalid", delivered_at: null }]);
+    if (target.includes("ordy_contacts?id=eq.contact-1&select=id,name,company,email,delivered_at")) return response([{ id: "contact-1", name: "Avvo", company: "Avvo", email: "avvo@clientes.ordy.invalid", delivered_at: null }]);
     if (target.endsWith("/auth/v1/admin/users")) return response({ id: "client-1" });
     if (target.endsWith("/rest/v1/ordy_profiles")) return response([]);
     if (target.endsWith("/rest/v1/ordy_user_oceans")) {

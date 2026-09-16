@@ -53,3 +53,25 @@ test("los clientes iniciales no aparecen como plantillas de acceso", () => {
   assert.match(admin, /No se aplicará una plantilla de otra marca/);
   assert.doesNotMatch(admin, /<option value="(?:circulos333|avvo|impronte|diala)"/);
 });
+
+test("Círculos recibe calendario, equipo, tareas y biblioteca propios", () => {
+  const { buildOceanTemplate } = require("../lib/templates");
+  const ocean = buildOceanTemplate({
+    displayName: "Círculos 3:33",
+    spaceName: "Océano Círculos 3:33",
+    templateKey: "circulos333",
+    modules: ["content", "team", "tasks", "library"]
+  });
+  assert.deepEqual(ocean.team.map((member) => member.name), ["Debi", "Meme", "Pau", "Majo"]);
+  assert.deepEqual(ocean.modules, ["content", "team", "tasks", "library"]);
+  assert.deepEqual(ocean.folders.map((folder) => folder.name), ["Biblioteca"]);
+  assert.deepEqual(ocean.contentItems, []);
+});
+
+test("la interfaz de Círculos conecta contenidos, responsables y tareas", () => {
+  const app = read("app.js");
+  for (const feature of ["renderCalendar", "openSocialForm", "openNewsletterForm", "syncContentTask", "openMemberForm"]) assert.match(app, new RegExp(`function ${feature}`));
+  for (const member of ["Debi", "Meme", "Pau", "Majo"]) assert.match(read("lib/templates.js"), new RegExp(member));
+  assert.match(app, /calendarItemId/);
+  assert.match(app, /data-block-field="materialsUrl"/);
+});
