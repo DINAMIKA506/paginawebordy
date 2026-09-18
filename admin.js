@@ -103,7 +103,7 @@ async function requestPasswordRecovery(data, button) {
   button.textContent = "Enviando…";
   try {
     const result = await api("/api/auth/recover", { method: "POST", body: JSON.stringify({ email: data.email }) });
-    openModal(`${modalHeader("Revisá tu correo", result.message)}<div class="modal-body"><div class="human-note"><img src="/brand-avatar.png" alt="Ordy" /><div><b>El enlace te llevará de vuelta a Ordy</b><p>Desde ahí podrás crear una contraseña nueva de al menos 10 caracteres.</p></div></div><a class="btn btn-primary request-wide" href="/">Volver a Ordy</a></div>`, true);
+    openModal(`${modalHeader("Revisá tu correo", result.message)}<div class="modal-body"><div class="human-note"><img src="/assets/ordy/avatar.png" alt="Ordy" /><div><b>El enlace te llevará de vuelta a Ordy</b><p>Desde ahí podrás crear una contraseña nueva de al menos 10 caracteres.</p></div></div><a class="btn btn-primary request-wide" href="/">Volver a Ordy</a></div>`, true);
   } catch (error) {
     toast(error.message);
     button.disabled = false;
@@ -164,7 +164,7 @@ async function submitSpaceRequest(data, button) {
   button.textContent = "Enviando…";
   try {
     await api("/api/requests", { method: "POST", body: JSON.stringify({ ...data, chatToken: chatSession?.token || "" }) });
-    openModal(`${modalHeader("Solicitud recibida 🌊")}<div class="modal-body"><div class="pilot-card"><img class="pilot-ordy" src="/brand-avatar.png" alt="Ordy" /><h3>Tu océano ya tiene un primer mapa</h3><p>La creadora de Ordy revisará personalmente lo que necesitás. Si abriste un chat, la respuesta aparecerá en esa misma conversación.</p></div><button class="btn btn-primary request-wide" data-action="close-modal">Volver al inicio</button></div>`, true);
+    openModal(`${modalHeader("Solicitud recibida")}<div class="modal-body"><div class="pilot-card"><img class="pilot-ordy" src="/assets/ordy/avatar.png" alt="Ordy" /><h3>Tu océano ya tiene un primer mapa</h3><p>La creadora de Ordy revisará personalmente lo que necesitás. Si abriste un chat, la respuesta aparecerá en esa misma conversación.</p></div><button class="btn btn-primary request-wide" data-action="close-modal">Volver al inicio</button></div>`, true);
   } catch (error) {
     toast(error.message);
     button.disabled = false;
@@ -305,7 +305,7 @@ async function saveResetPassword(data, button) {
   button.disabled = true;
   try {
     await api("/api/reset", { method: "POST", body: JSON.stringify({ accessToken: data.accessToken, password: data.password }) });
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Acceso recuperado</span><h1>Tu contraseña ya cambió</h1><p>Ya podés entrar a tu océano con la nueva contraseña.</p><a class="btn btn-primary request-wide" href="/">Entrar a Ordy</a></section></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Acceso recuperado</span><h1>Tu contraseña ya cambió</h1><p>Ya podés entrar a tu océano con la nueva contraseña.</p><a class="btn btn-primary request-wide" href="/">Entrar a Ordy</a></section></main>`;
   } catch (error) { toast(error.message); button.disabled = false; }
 }
 
@@ -327,19 +327,19 @@ function adminNav(section, icon, label, badge = "") {
 function renderAdmin() {
   applyTheme();
   if (!adminData) {
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><div class="admin-loader">Ordenando el panel administrativo…</div></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><div class="admin-loader">Ordenando el panel administrativo…</div></main>`;
     return;
   }
   if (adminData.bootstrapRequired || adminData.authRequired) {
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form><button class="text-link forgot-link" data-action="forgot-password">Crear una contraseña nueva</button>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form><button class="text-link forgot-link" data-action="forgot-password">Crear una contraseña nueva</button>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
     return;
   }
   if (adminData.error && !Array.isArray(adminData.conversations)) {
-    app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>No pudimos abrir el panel</h1><p>${esc(adminData.error)}</p><button class="btn btn-primary request-wide" data-action="refresh-admin">Intentar de nuevo</button><a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+    app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>No pudimos abrir el panel</h1><p>${esc(adminData.error)}</p><button class="btn btn-primary request-wide" data-action="refresh-admin">Intentar de nuevo</button><a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
     return;
   }
   const unread = adminData.conversations.reduce((sum, item) => sum + Number(item.unread || 0), 0);
-  app.innerHTML = `<main class="admin-shell"><aside class="admin-sidebar"><img class="sidebar-logo" src="/brand-logo.png" alt="Ordy" /><span class="admin-label">ADMINISTRACIÓN</span><nav class="side-nav">${adminNav("resumen", "⌂", "Resumen")}${adminNav("chats", "◌", "Chats", unread || "")}${adminNav("seguimiento", "⇢", "Seguimiento")}${adminNav("solicitudes", "▤", "Solicitudes", adminData.requests.length || "")}${adminNav("accesos", "⚿", "Accesos y pagos")}</nav><div class="side-foot"><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="admin-logout">Cerrar sesión</button><a href="/">Ver página pública →</a></div></aside><section class="admin-main"><header class="admin-top"><div><span>Panel de la creadora</span><h1>Tu centro de control</h1></div><button class="btn btn-quiet btn-small" data-action="refresh-admin">↻ Actualizar</button></header><div class="admin-content">${renderAdminSection()}</div></section></main>`;
+  app.innerHTML = `<main class="admin-shell"><aside class="admin-sidebar"><img class="sidebar-logo" src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><span class="admin-label">ADMINISTRACIÓN</span><nav class="side-nav">${adminNav("resumen", "⌂", "Resumen")}${adminNav("chats", "◌", "Chats", unread || "")}${adminNav("seguimiento", "⇢", "Seguimiento")}${adminNav("solicitudes", "▤", "Solicitudes", adminData.requests.length || "")}${adminNav("accesos", "⚿", "Accesos y pagos")}</nav><div class="side-foot"><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="admin-logout">Cerrar sesión</button><a href="/">Ver página pública →</a></div></aside><section class="admin-main"><header class="admin-top"><div><span>Panel de la creadora</span><h1>Tu centro de control</h1></div><button class="btn btn-quiet btn-small" data-action="refresh-admin">↻ Actualizar</button></header><div class="admin-content">${renderAdminSection()}</div></section></main>`;
 }
 
 function renderAdminSection() {
@@ -401,7 +401,7 @@ function paymentLabel(value) {
   return ({ sin_definir: "Sin definir", pendiente: "Pendiente", al_dia: "Al día", atrasado: "Atrasado" })[value] || value;
 }
 
-function adminEmpty(title, copy) { return `<div class="empty-state"><span class="empty-icon">🌊</span><strong>${esc(title)}</strong><span>${esc(copy)}</span></div>`; }
+function adminEmpty(title, copy) { return `<div class="empty-state"><img class="empty-ordy" src="/assets/ordy/avatar.png" alt="Ordy" /><strong>${esc(title)}</strong><span>${esc(copy)}</span></div>`; }
 
 function openContactEditor(contactId) {
   const contact = adminData.contacts.find((item) => item.id === contactId);
@@ -452,7 +452,7 @@ function openSecretResult(title, copy, value, secondary = "") {
 function renderResetPassword() {
   const hash = new URLSearchParams(location.hash.replace(/^#/, ""));
   const accessToken = ["recovery", "invite"].includes(hash.get("type")) ? hash.get("access_token") || "" : "";
-  app.innerHTML = `<main class="admin-gate"><img src="/brand-logo.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Acceso seguro</span><h1>Nueva contraseña</h1><p>Elegí una contraseña de al menos 10 caracteres.</p><form class="entry-form" data-form="reset-password"><input type="hidden" name="accessToken" value="${esc(accessToken)}" /><label>Nueva contraseña<input class="field" name="password" type="password" minlength="10" required autocomplete="new-password" /></label><label>Confirmala<input class="field" name="confirmation" type="password" minlength="10" required autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Guardar contraseña</button></form><a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+  app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Acceso seguro</span><h1>Nueva contraseña</h1><p>Elegí una contraseña de al menos 10 caracteres.</p><form class="entry-form" data-form="reset-password"><input type="hidden" name="accessToken" value="${esc(accessToken)}" /><label>Nueva contraseña<input class="field" name="password" type="password" minlength="10" required autocomplete="new-password" /></label><label>Confirmala<input class="field" name="confirmation" type="password" minlength="10" required autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Guardar contraseña</button></form><a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
 }
 
 async function refreshChatBadge() {

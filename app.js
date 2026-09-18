@@ -11,16 +11,23 @@ const ENERGIES = ["Baja", "Media", "Alta"];
 const IMPORTANCE = ["Baja", "Media", "Alta"];
 const SOCIAL_CHANNELS = ["Instagram", "Facebook", "LinkedIn", "TikTok", "YouTube", "Otra"];
 const FOLDER_COLORS = ["#4e4bf7", "#b1b1fc", "#f94446", "#31aebb", "#2bbd8a", "#f0a735", "#a548b6"];
+const ORDY_ASSETS = {
+  avatar: "/assets/ordy/avatar.png",
+  logo: "/assets/ordy/logo-horizontal.png",
+  notes: "/assets/ordy/notas.png",
+};
+const ORDY_THEME = { primary: "#4e4bf7", secondary: "#b1b1fc", surface: "#f6f7fc", ink: "#172052" };
+const CIRCULOS_THEME = { primary: "#ff8aca", secondary: "#463755", surface: "#f9f1e9", ink: "#231f20" };
 
 const spaceTypes = [
-  ["👥", "Clientes y proyectos", "Seguimiento sin perder accesos ni próximos pasos."],
-  ["💸", "Finanzas", "Ingresos, gastos y fechas importantes en un solo lugar."],
-  ["✦", "Contenido", "Ideas, publicaciones y materiales listos para encontrar."],
-  ["📁", "Documentos personales", "Papeles personales y profesionales sin búsquedas eternas."],
-  ["✓", "Retos y seguimiento", "Próximas acciones pensadas para tu energía real."],
-  ["🔗", "Recursos", "Tus links frecuentes convertidos en un escritorio útil."],
-  ["◎", "Personas y seguimiento", "Tus contactos, conversaciones y próximos pasos en orden."],
-  ["🌊", "Espacio personalizado", "Una combinación hecha alrededor de tu propio océano."],
+  ["clientes", "Clientes y proyectos", "Seguimiento sin perder accesos ni próximos pasos."],
+  ["finanzas", "Finanzas", "Ingresos, gastos y fechas importantes en un solo lugar."],
+  ["contenido", "Contenido", "Ideas, publicaciones y materiales listos para encontrar."],
+  ["documentos", "Documentos personales", "Papeles personales y profesionales sin búsquedas eternas."],
+  ["tareas", "Retos y seguimiento", "Próximas acciones pensadas para tu energía real."],
+  ["recursos", "Recursos", "Tus links frecuentes convertidos en un escritorio útil."],
+  ["personas", "Personas y seguimiento", "Tus contactos, conversaciones y próximos pasos en orden."],
+  ["personalizado", "Espacio personalizado", "Una combinación hecha alrededor de tu propio océano."],
 ];
 
 const ui = {
@@ -56,7 +63,7 @@ function nowIso() { return new Date().toISOString(); }
 function initialState(displayName = "Vos", spaceName = "Mi océano") {
   const createdAt = nowIso();
   return {
-    version: 4,
+    version: 5,
     templateKey: "general",
     templateLabel: "Personalizada",
     modules: ["library", "tasks", "quick"],
@@ -65,9 +72,11 @@ function initialState(displayName = "Vos", spaceName = "Mi océano") {
       spaceName,
       spacePhrase: "Orden personal y empresarial",
       welcome: "Acá vive lo importante para que no tengás que recordarlo todo.",
-      avatar: "🌊",
+      avatar: ORDY_ASSETS.avatar,
       primary: "#4e4bf7",
       secondary: "#b1b1fc",
+      surface: "#f6f7fc",
+      ink: "#172052",
     },
     folders: [
       {
@@ -104,7 +113,7 @@ function normalizeOceanState(saved) {
   const previousVersion = Number(saved.version || 0);
   const identity = `${saved.templateKey || ""} ${saved.settings?.spaceName || ""}`.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
   if (identity.includes("circulos333") || identity.includes("circulos 3:33")) saved.templateKey = "circulos333";
-  saved.version = 4;
+  saved.version = 5;
   if (!Array.isArray(saved.modules)) saved.modules = ["library", "tasks", "quick"];
   if (!saved.templateKey) saved.templateKey = "general";
   if (!saved.templateLabel) saved.templateLabel = saved.templateKey === "circulos333" ? "Círculos 3:33" : "Personalizada";
@@ -121,6 +130,17 @@ function normalizeOceanState(saved) {
   if (saved.templateKey === "circulos333") {
     saved.modules = [...new Set([...saved.modules, "content", "team", "library", "tasks"])];
     if (previousVersion < 4 && !saved.team.length) saved.team = starterCirculosTeam();
+    saved.settings = { ...saved.settings, avatar: ORDY_ASSETS.avatar, ...CIRCULOS_THEME };
+    saved.folders.forEach((folder) => {
+      if (folder.module === "library") {
+        folder.icon = "B";
+        folder.color = CIRCULOS_THEME.primary;
+      }
+    });
+  } else {
+    saved.settings.avatar = ORDY_ASSETS.avatar;
+    saved.settings.surface ||= ORDY_THEME.surface;
+    saved.settings.ink ||= ORDY_THEME.ink;
   }
   return saved;
 }
@@ -209,9 +229,13 @@ function personOptions(selected = "") {
 }
 
 function applyTheme() {
-  document.documentElement.style.setProperty("--primary", state.settings.primary || "#4e4bf7");
-  document.documentElement.style.setProperty("--secondary", state.settings.secondary || "#b1b1fc");
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", state.settings.primary || "#4e4bf7");
+  const theme = sessionActive ? { ...ORDY_THEME, ...state.settings } : ORDY_THEME;
+  document.documentElement.style.setProperty("--primary", theme.primary);
+  document.documentElement.style.setProperty("--secondary", theme.secondary);
+  document.documentElement.style.setProperty("--wash", theme.surface);
+  document.documentElement.style.setProperty("--ink", theme.ink);
+  document.documentElement.style.setProperty("--ink-2", theme.ink);
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", theme.primary);
 }
 
 function toast(message) {
@@ -252,12 +276,12 @@ function renderLanding() {
   app.innerHTML = `
     <main class="public-shell">
       <nav class="public-nav" aria-label="Navegación principal">
-        <a class="brand" href="#inicio" aria-label="Ordy, inicio"><img class="brand-logo" src="/brand-logo.png" alt="Ordy — orden y plan" /></a>
+        <a class="brand" href="#inicio" aria-label="Ordy, inicio"><img class="brand-logo" src="${ORDY_ASSETS.logo}" alt="Ordy — orden y plan" /></a>
         <div class="nav-actions"><a class="text-link" href="/info">Conocer Ordy</a><button class="btn btn-quiet" data-action="open-request">Pedir mi espacio</button></div>
       </nav>
       <section class="entry-hero" id="inicio">
         <div class="entry-copy">
-          <span class="eyebrow">🌊 Un espacio hecho a tu medida</span>
+          <span class="eyebrow">Un espacio hecho a tu medida</span>
           <h1>Tu propio <span class="gradient-text">océano.</span></h1>
           <p>Personal o empresarial: reuní clientes, proyectos, documentos, pagos, tareas y todo lo que hoy vive regado.</p>
           <div class="ocean-examples"><span>Clientes</span><span>Proyectos</span><span>Finanzas</span><span>Vida personal</span></div>
@@ -266,7 +290,7 @@ function renderLanding() {
             <i aria-hidden="true">→</i>
             <div><b>200 m</b><span>Tu océano, conectado y a tu medida</span></div>
           </div>
-          <img class="entry-ordy" src="/ordy-desk.png" alt="Ordy trabajando en su escritorio digital" />
+          <img class="entry-ordy" src="/assets/ordy/laptop.png" alt="Ordy trabajando en su escritorio digital" />
         </div>
         <article class="entry-card" aria-label="Acceso a Ordy">
           <span class="entry-kicker">Bienvenido a Ordy</span>
@@ -284,7 +308,7 @@ function renderLanding() {
         </article>
       </section>
       <section class="ocean-grid" aria-label="Todo lo que podés ordenar con Ordy">
-        ${spaceTypes.slice(0, 6).map(([icon, title, copy]) => `<button class="space-card" data-action="space-choice" data-space="${esc(title)}"><span class="card-icon">${icon}</span><h3>${esc(title)}</h3><p>${esc(copy)}</p></button>`).join("")}
+        ${spaceTypes.slice(0, 6).map(([icon, title, copy]) => `<button class="space-card" data-action="space-choice" data-space="${esc(title)}"><span class="card-icon card-icon-${icon}" aria-hidden="true"></span><h3>${esc(title)}</h3><p>${esc(copy)}</p></button>`).join("")}
       </section>
       <section class="public-story">
         <div class="story-inner">
@@ -301,19 +325,19 @@ function renderLanding() {
         </div>
       </section>
       <section class="public-cta">
-        <img class="cta-ordy" src="/ordy-celebrate.png" alt="" aria-hidden="true" />
+        <img class="cta-ordy" src="/assets/ordy/celebra.png" alt="" aria-hidden="true" />
         <h2>Contanos qué necesitás ordenar.</h2>
         <p>Te ayudamos a convertirlo en un espacio claro, útil y tuyo.</p>
         <button class="btn btn-primary" data-action="open-request">Pedir mi espacio</button>
       </section>
       <button class="human-chat-launcher" data-action="open-chat" aria-label="Conversar con la creadora de Ordy">
-        <img src="/brand-avatar.png" alt="" /><span><b>¿Tenés alguna consulta?</b><small>No soy una IA. Soy la creadora de Ordy.</small></span><i>Chatear</i>
+        <img src="${ORDY_ASSETS.avatar}" alt="" /><span><b>¿Tenés alguna consulta?</b><small>No soy una IA. Soy la creadora de Ordy.</small></span><i>Chatear</i>
       </button>
     </main>`;
 }
 
-function navButton(view, glyph, label) {
-  return `<button class="${ui.view === view ? "active" : ""}" data-action="set-view" data-view="${view}"><span class="nav-glyph">${glyph}</span><span>${label}</span></button>`;
+function navButton(view, label) {
+  return `<button class="${ui.view === view ? "active" : ""}" data-action="set-view" data-view="${view}"><span class="nav-glyph nav-glyph-${view}" aria-hidden="true"></span><span>${label}</span></button>`;
 }
 
 function moduleEnabled(moduleKey) {
@@ -323,23 +347,24 @@ function moduleEnabled(moduleKey) {
 function renderWorkspace() {
   const s = state.settings;
   app.innerHTML = `
-    <main class="workspace">
+    <main class="workspace ${isCirculosOcean() ? "brand-circulos" : "brand-ordy"}">
       <aside class="sidebar">
-        <div class="brand sidebar-brand"><img class="sidebar-logo" src="/brand-logo.png" alt="Ordy — orden y plan" /></div>
+        <div class="brand sidebar-brand"><img class="sidebar-logo" src="${ORDY_ASSETS.logo}" alt="Ordy — orden y plan" /></div>
+        ${isCirculosOcean() ? `<div class="client-brand"><span>Espacio de</span><strong>Círculos 3:33</strong></div>` : ""}
         <nav class="side-nav workspace-nav" aria-label="Navegación del espacio">
-          ${navButton("home", "⌂", "Inicio")}
-          ${moduleEnabled("content") ? navButton("calendar", "▦", "Calendario") : ""}
-          ${moduleEnabled("tasks") ? navButton("tasks", "✓", "Tareas") : ""}
-          ${moduleEnabled("team") ? navButton("team", "◎", "Equipo") : ""}
-          ${moduleEnabled("library") ? navButton("library", "▣", "Biblioteca") : ""}
-          ${moduleEnabled("quick") ? navButton("quick", "⚡", "Accesos") : ""}
-          ${navButton("settings", "⚙", "Configurar")}
+          ${navButton("home", "Inicio")}
+          ${moduleEnabled("content") ? navButton("calendar", "Calendario") : ""}
+          ${moduleEnabled("tasks") ? navButton("tasks", "Tareas") : ""}
+          ${moduleEnabled("team") ? navButton("team", "Equipo") : ""}
+          ${moduleEnabled("library") ? navButton("library", "Biblioteca") : ""}
+          ${moduleEnabled("quick") ? navButton("quick", "Accesos") : ""}
+          ${navButton("settings", "Configurar")}
         </nav>
         <div class="side-foot"><div class="pilot-badge"><b>Tu océano</b><br />Los cambios se guardan en tu cuenta.</div><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="logout">Cerrar sesión</button></div>
       </aside>
       <section class="workspace-main">
         <header class="workspace-top">
-          <div class="space-title"><span class="avatar">${esc(s.avatar)}</span><div><h1>${esc(s.spaceName)}</h1><p>${esc(s.spacePhrase)}</p></div></div>
+          <div class="space-title"><span class="avatar"><img src="${esc(s.avatar || ORDY_ASSETS.avatar)}" alt="Ordy" /></span><div><h1>${esc(s.spaceName)}</h1><p>${esc(s.spacePhrase)}</p></div></div>
           <div class="top-controls"><span class="save-state">● Guardado en Ordy</span><button class="btn btn-quiet btn-small" data-action="quick-add">＋ Agregar</button></div>
         </header>
         <div class="content">${renderView()}</div>
@@ -365,13 +390,13 @@ function renderHome() {
   const upcoming = [...openTasks].filter((task) => task.dueDate).sort((a, b) => a.dueDate.localeCompare(b.dueDate)).slice(0, 5);
   const important = links.filter((link) => link.importance === "Alta");
   return `
-    <header class="view-head"><div><h2>Hola, ${esc(state.settings.userName)} 🌊</h2><p>${esc(state.settings.welcome)}</p></div><div class="head-actions"><button class="btn btn-quiet btn-small" data-action="open-link-form">＋ Guardar link</button><button class="btn btn-primary btn-small" data-action="open-task-form">＋ Nueva tarea</button></div></header>
+    <header class="view-head"><div><h2>Hola, ${esc(state.settings.userName)}</h2><p>${esc(state.settings.welcome)}</p></div><div class="head-actions"><button class="btn btn-quiet btn-small" data-action="open-link-form">＋ Guardar link</button><button class="btn btn-primary btn-small" data-action="open-task-form">＋ Nueva tarea</button></div></header>
     <label class="ocean-search"><span>⌕</span><input type="search" data-action="global-search" placeholder="¿Qué querés ordenar hoy? Buscá un link, cliente, proyecto o tarea…" aria-label="Buscar en todo el espacio" /></label>
     <section class="stat-grid" aria-label="Resumen del espacio">
-      ${statCard("▣", "CARPETAS", state.folders.length, `${links.length} links organizados`)}
-      ${statCard("✓", "TAREAS ABIERTAS", openTasks.length, `${state.tasks.filter(isDone).length} ya están listas`)}
-      ${statCard("!", "VENCIDAS", overdue.length, overdue.length ? "Necesitan una decisión" : "Tu océano está al día")}
-      ${statCard("⚡", "ACCESOS RÁPIDOS", important.length, "Links de importancia alta")}
+      ${statCard("library", "CARPETAS", state.folders.length, `${links.length} links organizados`)}
+      ${statCard("tasks", "TAREAS ABIERTAS", openTasks.length, `${state.tasks.filter(isDone).length} ya están listas`)}
+      ${statCard("alert", "VENCIDAS", overdue.length, overdue.length ? "Necesitan una decisión" : "Tu océano está al día")}
+      ${statCard("quick", "ACCESOS RÁPIDOS", important.length, "Links de importancia alta")}
     </section>
     <section class="home-grid">
       <article class="panel"><header class="panel-head"><h3>Próximas acciones</h3><button class="text-link" data-action="set-view" data-view="tasks">Ver todas →</button></header>${upcoming.length ? `<div class="next-list">${upcoming.map(renderNextTask).join("")}</div>` : emptyState("✓", "No hay tareas pendientes", "Podés respirar o crear tu próxima acción.")}</article>
@@ -390,21 +415,24 @@ function renderCirculosHome() {
   const newsletters = state.contentItems.filter((item) => item.type === "newsletter").length;
   const social = state.contentItems.filter((item) => item.type === "social").length;
   return `
-    <header class="view-head"><div><h2>Círculos 3:33</h2><p>${esc(state.settings.welcome)}</p></div><div class="head-actions"><button class="btn btn-quiet btn-small" data-action="open-social-form">＋ Publicación</button><button class="btn btn-primary btn-small" data-action="open-newsletter-form">＋ Newsletter</button></div></header>
+    <section class="circulos-hero">
+      <div class="circulos-hero-copy"><span class="circulos-kicker">CALENDARIO EDITORIAL</span><h2>Círculos 3:33</h2><p>${esc(state.settings.welcome)}</p><div class="head-actions"><button class="btn btn-quiet btn-small" data-action="open-social-form">＋ Publicación</button><button class="btn btn-primary btn-small" data-action="open-newsletter-form">＋ Newsletter</button></div></div>
+      <div class="circulos-ordy"><img src="${ORDY_ASSETS.notes}" alt="Ordy tomando notas" /><span>Ordy acompaña el orden; Círculos conserva su identidad.</span></div>
+    </section>
     <section class="stat-grid" aria-label="Resumen de Círculos 3:33">
-      ${statCard("▦", "CALENDARIO", state.contentItems.length, `${social} publicaciones · ${newsletters} newsletters`)}
-      ${statCard("✓", "TAREAS ABIERTAS", openTasks.length, `${state.tasks.filter(isDone).length} ya están listas`)}
-      ${statCard("◎", "INTEGRANTES", state.team.length, "Responsabilidades visibles")}
-      ${statCard("▣", "BIBLIOTECA", allLinks().length, "Links y materiales a mano")}
+      ${statCard("calendar", "CALENDARIO", state.contentItems.length, `${social} publicaciones · ${newsletters} newsletters`)}
+      ${statCard("tasks", "TAREAS ABIERTAS", openTasks.length, `${state.tasks.filter(isDone).length} ya están listas`)}
+      ${statCard("team", "INTEGRANTES", state.team.length, "Responsabilidades visibles")}
+      ${statCard("library", "BIBLIOTECA", allLinks().length, "Links y materiales a mano")}
     </section>
     <section class="home-grid">
-      <article class="panel"><header class="panel-head"><h3>Próximo en el calendario</h3><button class="text-link" data-action="set-view" data-view="calendar">Ver calendario →</button></header>${upcomingContent.length ? `<div class="content-agenda">${upcomingContent.map((item) => `<button data-action="edit-content-item" data-id="${item.id}"><span class="content-type type-${item.type}">${contentTypeLabel(item.type)}</span><div><b>${esc(item.title)}</b><small>${formatDate(item.date, true)} · ${esc(item.responsible || "Sin asignar")}</small></div><i>›</i></button>`).join("")}</div>` : emptyState("▦", "El calendario está vacío", "Creá la primera publicación o newsletter.", `<button class="btn btn-primary btn-small" data-action="open-social-form">Crear contenido</button>`)}</article>
+      <article class="panel"><header class="panel-head"><h3>Próximo en el calendario</h3><button class="text-link" data-action="set-view" data-view="calendar">Ver calendario →</button></header>${upcomingContent.length ? `<div class="content-agenda">${upcomingContent.map((item) => `<button data-action="edit-content-item" data-id="${item.id}"><span class="content-type type-${item.type}">${contentTypeLabel(item.type)}</span><div><b>${esc(item.title)}</b><small>${formatDate(item.date, true)} · ${esc(item.responsible || "Sin asignar")}</small></div><i>›</i></button>`).join("")}</div>` : emptyState(ORDY_ASSETS.notes, "El calendario está vacío", "Creá la primera publicación o newsletter.", `<button class="btn btn-primary btn-small" data-action="open-social-form">Crear contenido</button>`)}</article>
       <article class="panel"><header class="panel-head"><h3>Tareas por integrante</h3><button class="text-link" data-action="show-tasks-by-person">Ver tareas →</button></header><div class="people-workload">${state.team.map((member) => { const count = openTasks.filter((task) => task.assignee === member.name).length; return `<button data-action="filter-person-tasks" data-person="${esc(member.name)}"><span>${esc(member.name.slice(0, 1).toUpperCase())}</span><div><b>${esc(member.name)}</b><small>${count} ${count === 1 ? "tarea abierta" : "tareas abiertas"}</small></div><strong>${count}</strong></button>`; }).join("")}</div></article>
     </section>`;
 }
 
 function statCard(icon, label, value, copy) {
-  return `<article class="stat-card"><div class="stat-top"><small>${esc(label)}</small><span class="stat-icon">${icon}</span></div><strong>${value}</strong><span>${esc(copy)}</span></article>`;
+  return `<article class="stat-card"><div class="stat-top"><small>${esc(label)}</small><span class="stat-icon stat-icon-${esc(icon)}" aria-hidden="true"></span></div><strong>${value}</strong><span>${esc(copy)}</span></article>`;
 }
 
 function renderNextTask(task) {
@@ -420,7 +448,8 @@ function renderMiniFolder(folder) {
 }
 
 function emptyState(icon, title, copy, action = "") {
-  return `<div class="empty-state"><span class="empty-icon">${icon}</span><strong>${esc(title)}</strong><span>${esc(copy)}</span>${action}</div>`;
+  const visual = String(icon).endsWith(".png") ? `<img class="empty-ordy" src="${esc(icon)}" alt="Ordy" />` : `<span class="empty-icon">${icon}</span>`;
+  return `<div class="empty-state">${visual}<strong>${esc(title)}</strong><span>${esc(copy)}</span>${action}</div>`;
 }
 
 function renderLibrary() {
@@ -557,22 +586,25 @@ function renderTaskCard(task) {
 
 function renderQuick() {
   const links = allLinks().filter((link) => link.importance === "Alta").sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-  return `<header class="view-head"><div><h2>Accesos rápidos</h2><p>Lo más importante de tu océano, sin abrir cinco carpetas.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-link-form">＋ Guardar link</button></div></header>${links.length ? `<section class="quick-grid">${links.map((link) => `<article class="quick-card"><span class="quick-icon">↗</span><h3>${esc(link.title)}</h3><p>${esc(link.note || `${link.folderName} · ${link.subfolderName}`)}</p><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">Abrir ${esc(domain(link.url))} →</a></article>`).join("")}</section>` : emptyState("⚡", "Todavía no hay accesos rápidos", "Marcá un link con importancia alta y aparecerá acá.")}`;
+  return `<header class="view-head"><div><h2>Accesos rápidos</h2><p>Lo más importante de tu océano, sin abrir cinco carpetas.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-link-form">＋ Guardar link</button></div></header>${links.length ? `<section class="quick-grid">${links.map((link) => `<article class="quick-card"><span class="quick-icon">↗</span><h3>${esc(link.title)}</h3><p>${esc(link.note || `${link.folderName} · ${link.subfolderName}`)}</p><a href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">Abrir ${esc(domain(link.url))} →</a></article>`).join("")}</section>` : emptyState(ORDY_ASSETS.avatar, "Todavía no hay accesos rápidos", "Marcá un link con importancia alta y aparecerá acá.")}`;
 }
 
 function renderSettings() {
   const s = state.settings;
-  return `<header class="view-head"><div><h2>Configuración</h2><p>Personalizá la identidad básica de este espacio.</p></div></header><section class="settings-grid"><article class="preview-card"><div class="preview-avatar">${esc(s.avatar)}</div><h3>${esc(s.spaceName)}</h3><b>${esc(s.spacePhrase)}</b><p>${esc(s.welcome)}</p></article><form class="panel" data-form="settings"><div class="form-grid"><div class="field-group"><label for="userName">Nombre del usuario</label><input class="field" id="userName" name="userName" required value="${esc(s.userName)}" /></div><div class="field-group"><label for="avatar">Ícono o avatar</label><input class="field" id="avatar" name="avatar" maxlength="4" value="${esc(s.avatar)}" /></div><div class="field-group"><label for="spaceName">Nombre del espacio</label><input class="field" id="spaceName" name="spaceName" required value="${esc(s.spaceName)}" /></div><div class="field-group"><label for="spacePhrase">Frase del espacio</label><input class="field" id="spacePhrase" name="spacePhrase" required value="${esc(s.spacePhrase)}" /></div><div class="field-group full"><label for="welcome">Mensaje de bienvenida</label><textarea class="field" id="welcome" name="welcome" required>${esc(s.welcome)}</textarea></div><div class="field-group"><label for="primary">Color principal</label><div class="color-field"><input id="primary" name="primary" type="color" value="${esc(s.primary)}" /><input class="field" value="${esc(s.primary)}" disabled /></div></div><div class="field-group"><label for="secondary">Color secundario</label><div class="color-field"><input id="secondary" name="secondary" type="color" value="${esc(s.secondary)}" /><input class="field" value="${esc(s.secondary)}" disabled /></div></div></div><div class="settings-actions"><button class="btn btn-quiet" type="button" data-action="reset-space">Restaurar piloto</button><button class="btn btn-primary" type="submit">Guardar cambios</button></div></form></section>`;
+  const colorFields = isCirculosOcean()
+    ? `<div class="field-group full"><div class="brand-lock"><span class="brand-swatch" aria-hidden="true"></span><div><b>Identidad visual de Círculos aplicada</b><p>Rosa, berenjena y arena se mantienen vinculados a este espacio.</p></div></div><input type="hidden" name="primary" value="${CIRCULOS_THEME.primary}" /><input type="hidden" name="secondary" value="${CIRCULOS_THEME.secondary}" /></div>`
+    : `<div class="field-group"><label for="primary">Color principal</label><div class="color-field"><input id="primary" name="primary" type="color" value="${esc(s.primary)}" /><input class="field" value="${esc(s.primary)}" disabled /></div></div><div class="field-group"><label for="secondary">Color secundario</label><div class="color-field"><input id="secondary" name="secondary" type="color" value="${esc(s.secondary)}" /><input class="field" value="${esc(s.secondary)}" disabled /></div></div>`;
+  return `<header class="view-head"><div><h2>Configuración</h2><p>Personalizá la identidad básica de este espacio.</p></div></header><section class="settings-grid"><article class="preview-card"><div class="preview-avatar"><img src="${ORDY_ASSETS.avatar}" alt="Ordy" /></div><h3>${esc(s.spaceName)}</h3><b>${esc(s.spacePhrase)}</b><p>${esc(s.welcome)}</p></article><form class="panel" data-form="settings"><div class="form-grid"><div class="field-group"><label for="userName">Nombre del usuario</label><input class="field" id="userName" name="userName" required value="${esc(s.userName)}" /></div><div class="field-group"><label>Acompañante del espacio</label><div class="ordy-fixed"><img src="${ORDY_ASSETS.avatar}" alt="" /><span>Ordy oficial</span></div></div><div class="field-group"><label for="spaceName">Nombre del espacio</label><input class="field" id="spaceName" name="spaceName" required value="${esc(s.spaceName)}" /></div><div class="field-group"><label for="spacePhrase">Frase del espacio</label><input class="field" id="spacePhrase" name="spacePhrase" required value="${esc(s.spacePhrase)}" /></div><div class="field-group full"><label for="welcome">Mensaje de bienvenida</label><textarea class="field" id="welcome" name="welcome" required>${esc(s.welcome)}</textarea></div>${colorFields}</div><div class="settings-actions"><button class="btn btn-quiet" type="button" data-action="reset-space">Restaurar piloto</button><button class="btn btn-primary" type="submit">Guardar cambios</button></div></form></section>`;
 }
 
 function openHumanChat() {
   const existing = chatSession?.token;
-  openModal(`${modalHeader("Hablemos con calma", "Acá no responde una IA. Tu mensaje le llega directamente a la creadora de Ordy.")}<div class="modal-body"><div class="human-note"><img src="/brand-avatar.png" alt="Ordy" /><div><b>Hola, soy la humana detrás de Ordy 👋</b><p>Contame qué necesitás, qué te confunde o qué te gustaría ordenar. Yo misma te responderé por acá.</p></div></div>${existing ? `<div class="chat-thread" data-chat-thread><div class="chat-loading">Cargando la conversación…</div></div><form data-form="chat-message" class="chat-compose"><textarea class="field" name="message" required placeholder="Escribí tu mensaje…"></textarea><button class="btn btn-primary" type="submit">Enviar</button></form>` : `<form data-form="chat-start" class="entry-form"><label>Tu nombre<input class="field" name="name" required autocomplete="name" /></label><label>Correo para identificar tu conversación<input class="field" name="email" type="email" required autocomplete="email" /></label><label>¿En qué te puedo ayudar?<textarea class="field" name="message" required placeholder="Quiero ordenar…"></textarea></label><button class="btn btn-primary" type="submit">Iniciar conversación</button></form>`}</div>`);
+  openModal(`${modalHeader("Hablemos con calma", "Acá no responde una IA. Tu mensaje le llega directamente a la creadora de Ordy.")}<div class="modal-body"><div class="human-note"><img src="${ORDY_ASSETS.avatar}" alt="Ordy" /><div><b>Hola, soy la humana detrás de Ordy</b><p>Contame qué necesitás, qué te confunde o qué te gustaría ordenar. Yo misma te responderé por acá.</p></div></div>${existing ? `<div class="chat-thread" data-chat-thread><div class="chat-loading">Cargando la conversación…</div></div><form data-form="chat-message" class="chat-compose"><textarea class="field" name="message" required placeholder="Escribí tu mensaje…"></textarea><button class="btn btn-primary" type="submit">Enviar</button></form>` : `<form data-form="chat-start" class="entry-form"><label>Tu nombre<input class="field" name="name" required autocomplete="name" /></label><label>Correo para identificar tu conversación<input class="field" name="email" type="email" required autocomplete="email" /></label><label>¿En qué te puedo ayudar?<textarea class="field" name="message" required placeholder="Quiero ordenar…"></textarea></label><button class="btn btn-primary" type="submit">Iniciar conversación</button></form>`}</div>`);
   if (existing) loadPublicChat();
 }
 
 function openRequest(selected = "") {
-  openModal(`${modalHeader("Pedir mi espacio", "Contanos qué necesitás tener en un solo lugar. Cada solicitud la revisa personalmente la creadora de Ordy.")}<form class="modal-body" data-form="request"><div class="form-grid"><div class="field-group"><label for="request-name">Nombre</label><input class="field" id="request-name" name="name" required autocomplete="name" /></div><div class="field-group"><label for="request-project">Empresa, proyecto o espacio personal</label><input class="field" id="request-project" name="project" required /></div><div class="field-group"><label for="request-email">Correo</label><input class="field" id="request-email" name="email" type="email" required autocomplete="email" /></div><div class="field-group"><label for="request-phone">WhatsApp</label><input class="field" id="request-phone" name="phone" required autocomplete="tel" /></div><div class="field-group full"><label for="request-order">¿Qué querés ordenar?</label><textarea class="field" id="request-order" name="order" required>${esc(selected)}</textarea></div><div class="field-group"><label for="request-current">¿Qué usás actualmente?</label><input class="field" id="request-current" name="current" placeholder="Drive, WhatsApp, libretas…" /></div><div class="field-group"><label for="request-urgency">Nivel de urgencia</label><select class="field" id="request-urgency" name="urgency"><option>Baja</option><option selected>Media</option><option>Alta</option></select></div><div class="field-group full"><label for="request-wish">¿Qué te gustaría tener en un solo lugar?</label><textarea class="field" id="request-wish" name="wish"></textarea></div><div class="field-group full"><label for="request-comments">Comentarios adicionales</label><textarea class="field" id="request-comments" name="comments"></textarea></div></div><div class="request-human-help"><img src="/brand-avatar.png" alt="Ordy" /><div><b>¿Tenés alguna consulta antes de enviar?</b><span>No es una IA: podés hablar directamente con la creadora de Ordy.</span></div><button class="btn btn-quiet btn-small" type="button" data-action="open-chat">Chatear</button></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Enviar solicitud</button></div></form>`);
+  openModal(`${modalHeader("Pedir mi espacio", "Contanos qué necesitás tener en un solo lugar. Cada solicitud la revisa personalmente la creadora de Ordy.")}<form class="modal-body" data-form="request"><div class="form-grid"><div class="field-group"><label for="request-name">Nombre</label><input class="field" id="request-name" name="name" required autocomplete="name" /></div><div class="field-group"><label for="request-project">Empresa, proyecto o espacio personal</label><input class="field" id="request-project" name="project" required /></div><div class="field-group"><label for="request-email">Correo</label><input class="field" id="request-email" name="email" type="email" required autocomplete="email" /></div><div class="field-group"><label for="request-phone">WhatsApp</label><input class="field" id="request-phone" name="phone" required autocomplete="tel" /></div><div class="field-group full"><label for="request-order">¿Qué querés ordenar?</label><textarea class="field" id="request-order" name="order" required>${esc(selected)}</textarea></div><div class="field-group"><label for="request-current">¿Qué usás actualmente?</label><input class="field" id="request-current" name="current" placeholder="Drive, WhatsApp, libretas…" /></div><div class="field-group"><label for="request-urgency">Nivel de urgencia</label><select class="field" id="request-urgency" name="urgency"><option>Baja</option><option selected>Media</option><option>Alta</option></select></div><div class="field-group full"><label for="request-wish">¿Qué te gustaría tener en un solo lugar?</label><textarea class="field" id="request-wish" name="wish"></textarea></div><div class="field-group full"><label for="request-comments">Comentarios adicionales</label><textarea class="field" id="request-comments" name="comments"></textarea></div></div><div class="request-human-help"><img src="${ORDY_ASSETS.avatar}" alt="Ordy" /><div><b>¿Tenés alguna consulta antes de enviar?</b><span>No es una IA: podés hablar directamente con la creadora de Ordy.</span></div><button class="btn btn-quiet btn-small" type="button" data-action="open-chat">Chatear</button></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Enviar solicitud</button></div></form>`);
 }
 
 function openFolderForm(folder = null) {
@@ -945,11 +977,12 @@ function deleteTask(id) {
 
 function toggleTask(id) {
   const task = findTask(id); if (!task) return;
-  task.status = isDone(task) ? "Pendiente" : "Listo"; task.updatedAt = nowIso(); persist(isDone(task) ? "Tarea lista 🎉" : "Tarea reabierta"); render();
+  task.status = isDone(task) ? "Pendiente" : "Listo"; task.updatedAt = nowIso(); persist(isDone(task) ? "Tarea lista" : "Tarea reabierta"); render();
 }
 
 function saveSettings(data) {
-  state.settings = { userName: data.userName.trim(), spaceName: data.spaceName.trim(), spacePhrase: data.spacePhrase.trim(), welcome: data.welcome.trim(), avatar: data.avatar.trim() || "🌊", primary: data.primary, secondary: data.secondary };
+  const theme = isCirculosOcean() ? CIRCULOS_THEME : { ...ORDY_THEME, primary: data.primary, secondary: data.secondary };
+  state.settings = { ...state.settings, ...theme, userName: data.userName.trim(), spaceName: data.spaceName.trim(), spacePhrase: data.spacePhrase.trim(), welcome: data.welcome.trim(), avatar: ORDY_ASSETS.avatar };
   persist("Espacio personalizado"); render();
 }
 

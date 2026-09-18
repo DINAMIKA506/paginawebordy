@@ -66,6 +66,11 @@ test("Círculos recibe calendario, equipo, tareas y biblioteca propios", () => {
   assert.deepEqual(ocean.modules, ["content", "team", "tasks", "library"]);
   assert.deepEqual(ocean.folders.map((folder) => folder.name), ["Biblioteca"]);
   assert.deepEqual(ocean.contentItems, []);
+  assert.deepEqual(
+    { primary: ocean.settings.primary, secondary: ocean.settings.secondary, surface: ocean.settings.surface, ink: ocean.settings.ink },
+    { primary: "#ff8aca", secondary: "#463755", surface: "#f9f1e9", ink: "#231f20" }
+  );
+  assert.equal(ocean.settings.avatar, "/assets/ordy/avatar.png");
 });
 
 test("la interfaz de Círculos conecta contenidos, responsables y tareas", () => {
@@ -74,4 +79,6 @@ test("la interfaz de Círculos conecta contenidos, responsables y tareas", () =>
   for (const member of ["Debi", "Meme", "Pau", "Majo"]) assert.match(read("lib/templates.js"), new RegExp(member));
   assert.match(app, /calendarItemId/);
   assert.match(app, /data-block-field="materialsUrl"/);
+  assert.match(app, /brand-circulos/);
+  assert.doesNotMatch(`${app}\n${read("admin.js")}\n${read("lib/templates.js")}`, /🌊|🎉|👋|👥|💸|📁|🔗|⚡|📅|📚|✅|📝|📧|📱|📎|🤖|😊|🚀|💡|🔍|🔒/u);
 });
