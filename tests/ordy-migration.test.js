@@ -94,3 +94,13 @@ test("la interfaz de Círculos conecta contenidos, responsables y tareas", () =>
   assert.match(app, /brand-circulos/);
   assert.doesNotMatch(`${app}\n${read("admin.js")}\n${read("lib/templates.js")}`, /🌊|🎉|👋|👥|💸|📁|🔗|⚡|📅|📚|✅|📝|📧|📱|📎|🤖|😊|🚀|💡|🔍|🔒/u);
 });
+
+test("el dashboard móvil siempre permite abrir secciones y volver a Inicio", () => {
+  const app = read("app.js");
+  const css = read("styles.css");
+  assert.match(app, /mobile-workspace-tools/);
+  assert.match(app, /data-action="workspace-back"/);
+  assert.match(app, /mobile-nav-menu/);
+  assert.match(app, /window\.addEventListener\("popstate"/);
+  assert.match(css, /@media \(max-width: 680px\)[\s\S]*\.mobile-workspace-tools/);
+});

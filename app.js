@@ -340,6 +340,24 @@ function navButton(view, label) {
   return `<button class="${ui.view === view ? "active" : ""}" data-action="set-view" data-view="${view}"><span class="nav-glyph nav-glyph-${view}" aria-hidden="true"></span><span>${label}</span></button>`;
 }
 
+function workspaceNavButtons() {
+  return `${navButton("home", "Inicio")}${moduleEnabled("content") ? navButton("calendar", "Calendario") : ""}${moduleEnabled("tasks") ? navButton("tasks", "Tareas") : ""}${moduleEnabled("team") ? navButton("team", "Equipo") : ""}${moduleEnabled("library") ? navButton("library", "Biblioteca") : ""}${moduleEnabled("quick") ? navButton("quick", "Accesos") : ""}${navButton("settings", "Configurar")}`;
+}
+
+function setWorkspaceView(view, pushHistory = true) {
+  const nextView = String(view || "home");
+  if (pushHistory && nextView !== ui.view) history.pushState({ ordyView: nextView }, "");
+  ui.view = nextView;
+  ui.selectedFolderId = null;
+  render();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function goBackInWorkspace() {
+  if (history.state?.ordyView) history.back();
+  else setWorkspaceView("home", false);
+}
+
 function moduleEnabled(moduleKey) {
   return Array.isArray(state.modules) && state.modules.includes(moduleKey);
 }
@@ -352,18 +370,16 @@ function renderWorkspace() {
         <div class="brand sidebar-brand"><img class="sidebar-logo" src="${ORDY_ASSETS.logo}" alt="Ordy — orden y plan" /></div>
         ${isCirculosOcean() ? `<div class="client-brand"><span>Espacio de</span><strong>Círculos 3:33</strong></div>` : ""}
         <nav class="side-nav workspace-nav" aria-label="Navegación del espacio">
-          ${navButton("home", "Inicio")}
-          ${moduleEnabled("content") ? navButton("calendar", "Calendario") : ""}
-          ${moduleEnabled("tasks") ? navButton("tasks", "Tareas") : ""}
-          ${moduleEnabled("team") ? navButton("team", "Equipo") : ""}
-          ${moduleEnabled("library") ? navButton("library", "Biblioteca") : ""}
-          ${moduleEnabled("quick") ? navButton("quick", "Accesos") : ""}
-          ${navButton("settings", "Configurar")}
+          ${workspaceNavButtons()}
         </nav>
         <div class="side-foot"><div class="pilot-badge"><b>Tu océano</b><br />Los cambios se guardan en tu cuenta.</div><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="logout">Cerrar sesión</button></div>
       </aside>
       <section class="workspace-main">
         <header class="workspace-top">
+          <div class="mobile-workspace-tools">
+            ${ui.view !== "home" ? `<button class="mobile-back" data-action="workspace-back">← Inicio</button>` : `<span class="mobile-current">Inicio</span>`}
+            <details class="mobile-nav-menu"><summary>Secciones</summary><nav class="mobile-nav-list" aria-label="Secciones del espacio">${workspaceNavButtons()}</nav></details>
+          </div>
           <div class="space-title"><span class="avatar"><img src="${esc(s.avatar || ORDY_ASSETS.avatar)}" alt="Ordy" /></span><div><h1>${esc(s.spaceName)}</h1><p>${esc(s.spacePhrase)}</p></div></div>
           <div class="top-controls"><span class="save-state">● Guardado en Ordy</span><button class="btn btn-quiet btn-small" data-action="quick-add">＋ Agregar</button></div>
         </header>
@@ -698,7 +714,8 @@ app.addEventListener("click", (event) => {
   if (action === "toggle-user-access") toggleAdminUser(trigger.dataset.id, trigger.dataset.active === "true");
   if (action === "copy-secret") navigator.clipboard.writeText(trigger.dataset.value).then(() => toast("Copiado de forma segura"));
   if (action === "logout") logout();
-  if (action === "set-view") { ui.view = trigger.dataset.view; ui.selectedFolderId = null; render(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+  if (action === "set-view") setWorkspaceView(trigger.dataset.view);
+  if (action === "workspace-back") goBackInWorkspace();
   if (action === "quick-add") openQuickAdd();
   if (action === "open-folder-form") { closeModal(); openFolderForm(); }
   if (action === "edit-folder") openFolderForm(findFolder(trigger.dataset.id));
@@ -758,6 +775,11 @@ document.addEventListener("keydown", (event) => { if (event.key === "Escape") cl
 
 window.addEventListener("hashchange", () => {
   if (!sessionActive && location.pathname === "/" && location.hash === "#pedir") openRequest();
+});
+
+window.addEventListener("popstate", (event) => {
+  if (!sessionActive || location.pathname.startsWith("/admin") || location.pathname.startsWith("/admi") || location.pathname.startsWith("/reset")) return;
+  setWorkspaceView(event.state?.ordyView || "home", false);
 });
 
 document.addEventListener("input", (event) => {
