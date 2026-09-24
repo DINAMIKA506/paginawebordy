@@ -18,11 +18,11 @@
       "destination": "/api/ordy?ruta=:ruta*"
     },
     {
-      "source": "/info",
-      "destination": "/info/index.html"
+      "source": "/admin",
+      "destination": "/index.html"
     },
     {
-      "source": "/admin",
+      "source": "/admi",
       "destination": "/index.html"
     },
     {
@@ -70,6 +70,19 @@
     },
     {
       "source": "/admin",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store, max-age=0"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        }
+      ]
+    },
+    {
+      "source": "/admi",
       "headers": [
         {
           "key": "Cache-Control",
