@@ -277,7 +277,7 @@ function renderLanding() {
     <main class="public-shell">
       <nav class="public-nav" aria-label="Navegación principal">
         <a class="brand" href="#inicio" aria-label="Ordy, inicio"><img class="brand-logo" src="${ORDY_ASSETS.logo}" alt="Ordy — orden y plan" /></a>
-        <div class="nav-actions"><a class="text-link" href="/info">Conocer Ordy</a><button class="btn btn-quiet" data-action="open-request">Pedir mi espacio</button></div>
+        <div class="nav-actions"><button class="btn btn-quiet" data-action="open-request">Pedir mi espacio</button></div>
       </nav>
       <section class="entry-hero" id="inicio">
         <div class="entry-copy">
@@ -693,6 +693,7 @@ app.addEventListener("click", (event) => {
   if (action === "edit-contact") openContactEditor(trigger.dataset.id);
   if (action === "open-create-contact") openCreateContact(trigger.dataset.returnToAccess === "true");
   if (action === "open-create-user") openCreateUser();
+  if (action === "edit-platform") openPlatformEditor(trigger.dataset.id);
   if (action === "create-reset") createResetLink(trigger.dataset.id);
   if (action === "toggle-user-access") toggleAdminUser(trigger.dataset.id, trigger.dataset.active === "true");
   if (action === "copy-secret") navigator.clipboard.writeText(trigger.dataset.value).then(() => toast("Copiado de forma segura"));
@@ -795,6 +796,7 @@ document.addEventListener("submit", (event) => {
   if (form.dataset.form === "contact") saveAdminContact(form, data, submitter);
   if (form.dataset.form === "create-contact") saveNewAdminContact(form, data, submitter);
   if (form.dataset.form === "create-user") saveAdminUser(data, submitter);
+  if (form.dataset.form === "platform-user") saveAdminPlatform(data, submitter);
   if (form.dataset.form === "reset-password") saveResetPassword(data, submitter);
   if (form.dataset.form === "change-password") saveChangedPassword(data, submitter);
   if (form.dataset.form === "recover-access") requestPasswordRecovery(data, submitter);

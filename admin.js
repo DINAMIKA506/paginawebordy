@@ -12,6 +12,7 @@ const ACCESS_MODULES = [
   ["portfolio", "Portafolio"],
   ["impronte", "Acceso Impronte"]
 ];
+const BASE_PLATFORM_MODULES = new Set(["library", "tasks"]);
 
 async function api(path, options = {}) {
   const response = await fetch(path, {
@@ -30,7 +31,7 @@ async function api(path, options = {}) {
 }
 
 async function initializeOrdy() {
-  if (location.pathname.startsWith("/admin")) {
+  if (location.pathname.startsWith("/admin") || location.pathname.startsWith("/admi")) {
     renderAdmin();
     await loadAdminDashboard();
     return;
@@ -279,7 +280,7 @@ async function saveNewAdminContact(form, data, button) {
 }
 
 async function saveAdminUser(data, button) {
-  const modules = ACCESS_MODULES.filter(([key]) => data[`module_${key}`]).map(([key]) => key);
+  const modules = ACCESS_MODULES.filter(([key]) => BASE_PLATFORM_MODULES.has(key) || data[`module_${key}`]).map(([key]) => key);
   if (!data.contactId) { toast("Elegí el cliente al que pertenece este océano."); return; }
   if (!modules.length) { toast("Elegí al menos un módulo para este océano."); return; }
   button.disabled = true;
@@ -289,6 +290,25 @@ async function saveAdminUser(data, button) {
     openSecretResult("Acceso creado", "Compartí la contraseña temporal únicamente con la persona dueña del océano.", result.temporaryPassword, result.username);
     adminData = await api("/api/admin/dashboard");
   } catch (error) { toast(error.message); button.disabled = false; button.textContent = "Generar acceso"; }
+}
+
+async function saveAdminPlatform(data, button) {
+  const modules = ACCESS_MODULES.filter(([key]) => BASE_PLATFORM_MODULES.has(key) || data[`module_${key}`]).map(([key]) => key);
+  button.disabled = true;
+  button.textContent = "Guardando…";
+  try {
+    await api("/api/admin/users", {
+      method: "PATCH",
+      body: JSON.stringify({ ...data, platform: true, modules })
+    });
+    closeModal();
+    await loadAdminDashboard();
+    toast("Plataforma actualizada");
+  } catch (error) {
+    toast(error.message);
+    button.disabled = false;
+    button.textContent = "Guardar plataforma";
+  }
 }
 
 async function toggleAdminUser(userId, active) {
@@ -339,7 +359,7 @@ function renderAdmin() {
     return;
   }
   const unread = adminData.conversations.reduce((sum, item) => sum + Number(item.unread || 0), 0);
-  app.innerHTML = `<main class="admin-shell"><aside class="admin-sidebar"><img class="sidebar-logo" src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><span class="admin-label">ADMINISTRACIÓN</span><nav class="side-nav">${adminNav("resumen", "⌂", "Resumen")}${adminNav("chats", "◌", "Chats", unread || "")}${adminNav("seguimiento", "⇢", "Seguimiento")}${adminNav("solicitudes", "▤", "Solicitudes", adminData.requests.length || "")}${adminNav("accesos", "⚿", "Accesos y pagos")}</nav><div class="side-foot"><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="admin-logout">Cerrar sesión</button><a href="/">Ver página pública →</a></div></aside><section class="admin-main"><header class="admin-top"><div><span>Panel de la creadora</span><h1>Tu centro de control</h1></div><button class="btn btn-quiet btn-small" data-action="refresh-admin">↻ Actualizar</button></header><div class="admin-content">${renderAdminSection()}</div></section></main>`;
+  app.innerHTML = `<main class="admin-shell"><aside class="admin-sidebar"><img class="sidebar-logo" src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><span class="admin-label">ADMINISTRACIÓN</span><nav class="side-nav">${adminNav("resumen", "⌂", "Resumen")}${adminNav("chats", "◌", "Chats", unread || "")}${adminNav("seguimiento", "⇢", "Seguimiento")}${adminNav("solicitudes", "▤", "Solicitudes", adminData.requests.length || "")}${adminNav("accesos", "⚿", "Plataformas y accesos")}</nav><div class="side-foot"><button class="btn btn-small" data-action="install-app">Instalar Ordy</button><button class="btn btn-small" data-action="admin-logout">Cerrar sesión</button><a href="/">Ver página pública →</a></div></aside><section class="admin-main"><header class="admin-top"><div><span>Panel de la creadora</span><h1>Tu centro de control</h1></div><button class="btn btn-quiet btn-small" data-action="refresh-admin">↻ Actualizar</button></header><div class="admin-content">${renderAdminSection()}</div></section></main>`;
 }
 
 function renderAdminSection() {
@@ -386,7 +406,7 @@ function renderAdminRequests() {
 
 function renderAdminAccess() {
   const users = adminData.users.filter((user) => user.role === "user");
-  return `<header class="view-head"><div><h2>Accesos y pagos</h2><p>Creá cada océano, recuperá contraseñas y controlá quién puede entrar.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Crear acceso</button></div></header><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Océanos entregados</h3></header>${users.length ? `<div class="user-list">${users.map((user) => `<div><span class="contact-avatar">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.space_name)}</b><small>${esc(user.display_name)} · @${esc(user.username)} · ${user.active ? "Activo" : "Pausado"}</small><small>${esc(user.template_label)} · ${(user.modules || []).map(moduleLabel).map(esc).join(", ") || "Sin módulos"}</small></section><span class="user-actions"><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Restablecer</button><button class="btn ${user.active ? "btn-danger" : "btn-quiet"} btn-small" data-action="toggle-user-access" data-id="${user.id}" data-active="${user.active ? "false" : "true"}">${user.active ? "Pausar" : "Activar"}</button></span></div>`).join("")}</div>` : adminEmpty("No hay accesos de clientes", "Creá el primero cuando entregués un océano.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
+  return `<header class="view-head"><div><h2>Plataformas y accesos</h2><p>Generá una base Ordy y sumale solo los módulos que cada cliente necesita.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Nueva plataforma</button></div></header><section class="platform-base-note"><b>La base siempre incluye Biblioteca y Tareas.</b><span>Después podés agregar Contenido, Equipo, Clientes, Stock, Portafolio, accesos rápidos o la integración de Impronte. También podés cambiarlo más adelante.</span></section><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Plataformas entregadas</h3></header>${users.length ? `<div class="user-list">${users.map((user) => `<div><span class="contact-avatar" style="background:${esc(user.primary || "#4e4bf7")}22;color:${esc(user.primary || "#4e4bf7")}">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.space_name)}</b><small>${esc(user.display_name)} · @${esc(user.username)} · ${user.active ? "Activo" : "Pausado"}</small><small>${(user.modules || []).map(moduleLabel).map(esc).join(", ") || "Base Ordy"}</small></section><span class="user-actions"><button class="btn btn-primary btn-small" data-action="edit-platform" data-id="${user.id}">Personalizar</button><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Restablecer</button><button class="btn ${user.active ? "btn-danger" : "btn-quiet"} btn-small" data-action="toggle-user-access" data-id="${user.id}" data-active="${user.active ? "false" : "true"}">${user.active ? "Pausar" : "Activar"}</button></span></div>`).join("")}</div>` : adminEmpty("No hay plataformas de clientes", "Creá la primera desde la base Ordy.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
 }
 
 function moduleLabel(value) {
@@ -422,7 +442,14 @@ function openCreateUser(selectedContactId = "") {
   const initialName = selectedContact?.name || "";
   const initialSpace = selectedContact ? `Océano ${selectedContact.company || selectedContact.name}` : "";
   const circulosModules = new Set(["library", "tasks", "content", "team"]);
-  openModal(`${modalHeader("Crear acceso y océano", "Primero vinculá el cliente y luego elegí manualmente qué tendrá su espacio.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre del océano</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Océano Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required value="${esc(suggestedUsername(initialEmail))}" placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Elegí los módulos de este océano</legend><p class="form-hint">No se aplicará una plantilla de otra marca. Marcá únicamente lo que este cliente necesita.</p><div class="module-check-grid">${ACCESS_MODULES.map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedContact && isCirculosContact(selectedContact) && circulosModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar acceso</button></div></form>`);
+  openModal(`${modalHeader("Crear plataforma y acceso", "Vinculá el cliente, partí de la base Ordy y elegí los pluses de esta plataforma.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre de la plataforma</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Espacio Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required value="${esc(suggestedUsername(initialEmail))}" placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Base Ordy incluida</legend><div class="platform-base-grid"><span>Biblioteca</span><span>Tareas</span></div></fieldset><fieldset class="field-group full module-fieldset"><legend>Pluses para esta plataforma</legend><p class="form-hint">Cada plataforma es independiente. Podrás agregar o quitar pluses después, sin convertirla en plantilla para otros clientes.</p><div class="module-check-grid">${ACCESS_MODULES.filter(([key]) => !BASE_PLATFORM_MODULES.has(key)).map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedContact && isCirculosContact(selectedContact) && circulosModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar plataforma</button></div></form>`);
+}
+
+function openPlatformEditor(userId) {
+  const user = adminData.users.find((item) => item.id === userId && item.role === "user");
+  if (!user) return;
+  const selectedModules = new Set(user.modules || []);
+  openModal(`${modalHeader("Personalizar plataforma", "Los cambios se aplican solo a este cliente y conservan sus tareas, contenidos y enlaces.")}<form class="modal-body" data-form="platform-user"><input type="hidden" name="userId" value="${esc(user.id)}" /><div class="form-grid"><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required value="${esc(user.display_name)}" /></div><div class="field-group"><label>Nombre de la plataforma</label><input class="field" name="spaceName" required value="${esc(user.space_name)}" /></div><div class="field-group full"><label>Frase del espacio</label><input class="field" name="spacePhrase" value="${esc(user.space_phrase || "")}" /></div><div class="field-group full"><label>Mensaje de bienvenida</label><textarea class="field" name="welcome">${esc(user.welcome || "")}</textarea></div><fieldset class="field-group full module-fieldset"><legend>Base Ordy incluida</legend><div class="platform-base-grid"><span>Biblioteca</span><span>Tareas</span></div></fieldset><fieldset class="field-group full module-fieldset"><legend>Pluses activos</legend><div class="module-check-grid">${ACCESS_MODULES.filter(([key]) => !BASE_PLATFORM_MODULES.has(key)).map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset><fieldset class="field-group full module-fieldset"><legend>Colores de la marca</legend><div class="brand-color-grid"><label>Principal<input name="primary" type="color" value="${esc(user.primary || "#4e4bf7")}" /></label><label>Secundario<input name="secondary" type="color" value="${esc(user.secondary || "#b1b1fc")}" /></label><label>Fondo<input name="surface" type="color" value="${esc(user.surface || "#f6f7fc")}" /></label><label>Texto<input name="ink" type="color" value="${esc(user.ink || "#172052")}" /></label></div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Guardar plataforma</button></div></form>`);
 }
 
 function updateAccessContact(select) {
@@ -434,7 +461,10 @@ function updateAccessContact(select) {
   form.elements.email.value = isInternalContactEmail(contact.email) ? "" : contact.email;
   form.elements.username.value = suggestedUsername(form.elements.email.value);
   const circulosModules = new Set(["library", "tasks", "content", "team"]);
-  ACCESS_MODULES.forEach(([key]) => { form.elements[`module_${key}`].checked = isCirculosContact(contact) && circulosModules.has(key); });
+  ACCESS_MODULES.forEach(([key]) => {
+    const input = form.elements[`module_${key}`];
+    if (input) input.checked = isCirculosContact(contact) && circulosModules.has(key);
+  });
 }
 
 async function createResetLink(userId) {

@@ -6,17 +6,17 @@ const test = require("node:test");
 const root = path.resolve(__dirname, "..");
 const read = (file) => fs.readFileSync(path.join(root, file), "utf8");
 
-test("la raíz contiene Ordy y la web anterior vive en info", () => {
+test("la raíz contiene Ordy y no conserva la página info", () => {
   assert.match(read("index.html"), /Ordy — tu propio océano/);
-  assert.match(read("app.js"), /href="\/info"/);
-  assert.match(read("info/index.html"), /<base href="\/">/);
-  assert.ok(fs.statSync(path.join(root, "info/index.html")).size > 50000);
+  assert.doesNotMatch(read("app.js"), /href="\/info"/);
+  assert.equal(fs.existsSync(path.join(root, "info/index.html")), false);
 });
 
 test("Vercel conserva rutas públicas y dinámicas", () => {
   const config = JSON.parse(read("vercel.json"));
   const sources = config.rewrites.map((item) => item.source);
-  for (const route of ["/info", "/admin", "/reset", "/api/admin/conversations/:id", "/api/admin/contacts/:id", "/api/admin/users/:id/reset"]) assert.ok(sources.includes(route));
+  for (const route of ["/admin", "/admi", "/reset", "/api/admin/conversations/:id", "/api/admin/contacts/:id", "/api/admin/users/:id/reset"]) assert.ok(sources.includes(route));
+  assert.ok(!sources.includes("/info"));
 });
 
 test("la migración usa Supabase y mantiene separado a Impronte", () => {
@@ -50,8 +50,20 @@ test("los clientes iniciales no aparecen como plantillas de acceso", () => {
   const admin = read("admin.js");
   assert.match(admin, /data-form="create-contact"/);
   assert.match(admin, /name="templateKey" value="general"/);
-  assert.match(admin, /No se aplicará una plantilla de otra marca/);
+  assert.match(admin, /Base Ordy incluida/);
+  assert.match(admin, /data-form="platform-user"/);
+  assert.match(admin, /Personalizar/);
   assert.doesNotMatch(admin, /<option value="(?:circulos333|avvo|impronte|diala)"/);
+});
+
+test("la base Ordy conserva datos al sumar o quitar pluses", () => {
+  const { buildOceanTemplate, updateOceanConfiguration } = require("../lib/templates");
+  const base = buildOceanTemplate({ displayName: "Cliente", spaceName: "Mi plataforma", modules: ["library", "tasks"] });
+  base.tasks.push({ id: "task-1", title: "No borrar" });
+  const customized = updateOceanConfiguration(base, { modules: ["library", "tasks", "content", "impronte"], primary: "#123456" });
+  assert.deepEqual(customized.tasks, [{ id: "task-1", title: "No borrar" }]);
+  assert.deepEqual(customized.modules, ["library", "tasks", "content", "impronte"]);
+  assert.equal(customized.settings.primary, "#123456");
 });
 
 test("Círculos recibe calendario, equipo, tareas y biblioteca propios", () => {

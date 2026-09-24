@@ -18,13 +18,12 @@ No volver a introducir Cloudflare D1 ni archivos adicionales dentro de `api/`.
 ## Lo que ya está listo
 
 - Entrada pública con inicio de sesión, solicitud de espacio y chat humano.
-- Web informativa anterior conservada en `/info`.
 - Administración de chats, solicitudes, seguimiento, pagos y clientes.
 - Creación de usuarios con contraseña temporal y cambio obligatorio.
 - Restablecimiento, pausa y reactivación de accesos.
 - Un océano privado por usuario, creado en el mismo momento que el acceso.
-- Plantillas iniciales: General, Círculos 3:33, Avvo, Impronte y Dialá.
-- Selección de módulos desde Administración.
+- Constructor de plataformas desde `/admin` y `/admi`: base Ordy con Biblioteca y Tareas, más pluses configurables por cliente.
+- Personalización posterior de módulos, nombre, textos y colores sin borrar los datos de cada cliente.
 - PWA instalable.
 - Ocho pruebas automáticas aprobadas.
 - Preview correcto del proyecto `paginawebordy`.
@@ -63,14 +62,14 @@ No copiar los valores a este documento.
 
 1. Enviar una solicitud desde `/#pedir`.
 2. Iniciar un chat público y responder desde `/admin`.
-3. Crear un acceso de prueba indicando océano, plantilla y módulos.
+3. Crear una plataforma de prueba desde la base Ordy y elegir sus pluses.
 4. Copiar la contraseña temporal una sola vez.
 5. Entrar con el nuevo usuario y cambiar la contraseña temporal.
-6. Confirmar que solo aparecen las carpetas de su propia plantilla.
+6. Confirmar que solo aparecen los módulos elegidos para esa plataforma.
 7. Crear una carpeta y una tarea, recargar y confirmar que permanecen.
 8. Pausar el usuario desde Administración y comprobar que pierde el acceso.
 9. Reactivarlo y generar un enlace de recuperación.
-10. Abrir `/info` y confirmar que la web informativa anterior sigue intacta.
+10. Volver a Administración, personalizar la plataforma y confirmar que sus datos siguen intactos.
 
 ## Publicación
 

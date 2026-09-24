@@ -129,7 +129,7 @@ test("crear un acceso también crea su océano privado", async () => {
     assert.equal(res.statusCode, 201);
     assert.equal(createdOcean.user_id, "client-1");
     assert.equal(createdOcean.data_json.settings.spaceName, "Océano Avvo");
-    assert.deepEqual(createdOcean.data_json.modules, ["content", "clients", "stock", "tasks"]);
+    assert.deepEqual(createdOcean.data_json.modules, ["content", "clients", "stock", "tasks", "library"]);
     assert.equal(linkedContact.email, "cliente@example.com");
     assert.equal(linkedContact.stage, "activo");
     assert.doesNotMatch(JSON.stringify(createdOcean), /Majo|ONUDI|LESCO/);
