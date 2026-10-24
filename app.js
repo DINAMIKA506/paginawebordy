@@ -165,6 +165,7 @@ function loadState() {
 let state = loadState();
 let sessionActive = false;
 let authUser = null;
+let clientServiceUnavailable = false;
 let adminData = null;
 let adminSection = "resumen";
 let selectedConversationId = null;
@@ -293,18 +294,30 @@ function renderLanding() {
           <img class="entry-ordy" src="/assets/ordy/laptop.png" alt="Ordy trabajando en su escritorio digital" />
         </div>
         <article class="entry-card" aria-label="Acceso a Ordy">
-          <span class="entry-kicker">Bienvenido a Ordy</span>
-          <h2>Entrá a tu océano</h2>
-          <p>Ingresá con tu correo y la contraseña que vos elegiste.</p>
-          <form data-form="login" class="entry-form">
-            <label>Correo<input class="field" name="username" type="email" autocomplete="username" required placeholder="tu@correo.com" /></label>
-            <label>Contraseña<input class="field" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" /></label>
-            <button class="btn btn-primary" type="submit">Ingresar</button>
-          </form>
-          <button class="text-link forgot-link" data-action="forgot-password">¿Necesitás restablecer tu contraseña?</button>
-          <div class="entry-divider"><span>¿Todavía no tenés un océano?</span></div>
-          <button class="btn btn-quiet request-wide" data-action="open-request">Pedir mi espacio</button>
-          <a class="admin-link" href="/admin">Administración Ordy →</a>
+          ${clientServiceUnavailable ? `
+            <span class="entry-kicker">Estado de Ordy</span>
+            <h2>Estamos reconectando tu espacio</h2>
+            <p>Tu cuenta y tu contraseña siguen bien. En este momento Ordy no puede consultar los espacios, así que no necesitás cambiar tus datos de acceso.</p>
+            <div class="connection-note" role="status">
+              <img src="${ORDY_ASSETS.avatar}" alt="" />
+              <div><b>Es una falla de conexión general</b><span>Afecta también a administración; no es un problema de tu usuario.</span></div>
+            </div>
+            <button class="btn btn-primary request-wide" data-action="refresh-service">Comprobar conexión</button>
+            <button class="text-link forgot-link" data-action="open-chat">Avisarle a la creadora</button>
+          ` : `
+            <span class="entry-kicker">Bienvenido a Ordy</span>
+            <h2>Entrá a tu océano</h2>
+            <p>Ingresá con tu correo y la contraseña que vos elegiste.</p>
+            <form data-form="login" class="entry-form">
+              <label>Correo<input class="field" name="username" type="email" autocomplete="username" required placeholder="tu@correo.com" /></label>
+              <label>Contraseña<input class="field" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" /></label>
+              <button class="btn btn-primary" type="submit">Ingresar</button>
+            </form>
+            <button class="text-link forgot-link" data-action="forgot-password">¿Necesitás restablecer tu contraseña?</button>
+            <div class="entry-divider"><span>¿Todavía no tenés un océano?</span></div>
+            <button class="btn btn-quiet request-wide" data-action="open-request">Pedir mi espacio</button>
+            <a class="admin-link" href="/admin">Administración Ordy →</a>
+          `}
         </article>
       </section>
       <section class="ocean-grid" aria-label="Todo lo que podés ordenar con Ordy">
@@ -701,6 +714,11 @@ app.addEventListener("click", (event) => {
   }
   if (action === "space-choice") openRequest(trigger.dataset.space || "");
   if (action === "forgot-password") openForgotPassword();
+  if (action === "refresh-service") {
+    trigger.disabled = true;
+    trigger.textContent = "Comprobando…";
+    initializeOrdy();
+  }
   if (action === "install-app") installOrdy();
   if (action === "admin-logout") adminLogout();
   if (action === "refresh-admin") loadAdminDashboard();

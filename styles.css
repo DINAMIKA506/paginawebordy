@@ -799,3 +799,35 @@ h1, h2, h3, h4, h5, h6, .btn, .brand { font-family: "Nunito Sans", "Open Sans", 
   .entry-ordy  { right: 50%; bottom: -28px; width: 175px; transform: translateX(50%); }
   .depth-scale { padding-right: 0; }
 }
+.connection-note {
+  align-items: center;
+  background: linear-gradient(135deg, rgba(78, 75, 247, .08), rgba(177, 177, 252, .18));
+  border: 1px solid rgba(78, 75, 247, .14);
+  border-radius: 20px;
+  display: flex;
+  gap: 14px;
+  margin: 22px 0;
+  padding: 16px;
+}
+
+.connection-note img {
+  flex: 0 0 auto;
+  height: 48px;
+  object-fit: contain;
+  width: 48px;
+}
+
+.connection-note div {
+  display: grid;
+  gap: 3px;
+}
+
+.connection-note b {
+  color: var(--ink);
+}
+
+.connection-note span {
+  color: var(--muted);
+  font-size: .87rem;
+  line-height: 1.45;
+}

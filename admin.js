@@ -40,6 +40,7 @@ async function initializeOrdy() {
     renderResetPassword();
     return;
   }
+  clientServiceUnavailable = false;
   try {
     const session = await api("/api/auth/me");
     authUser = session.user;
@@ -55,6 +56,7 @@ async function initializeOrdy() {
   } catch (error) {
     sessionActive = false;
     authUser = null;
+    clientServiceUnavailable = error.code === "supabase_unavailable";
   }
   render();
   if (!sessionActive && location.pathname === "/" && location.hash === "#pedir") openRequest();
@@ -68,6 +70,7 @@ async function handleLogin(data, button) {
     const result = await api("/api/auth/login", { method: "POST", body: JSON.stringify(data) });
     authUser = result.user;
     sessionActive = true;
+    clientServiceUnavailable = false;
     const saved = await api("/api/ocean");
     state = saved.ocean ? normalizeOceanState(saved.ocean) : initialState();
     state.settings.userName = authUser.displayName;
@@ -76,6 +79,13 @@ async function handleLogin(data, button) {
     render();
     if (authUser.mustChangePassword) openChangePassword();
   } catch (error) {
+    if (error.code === "supabase_unavailable") {
+      sessionActive = false;
+      authUser = null;
+      clientServiceUnavailable = true;
+      render();
+      return;
+    }
     toast(error.message);
     button.disabled = false;
     button.textContent = "Ingresar";
@@ -106,6 +116,12 @@ async function requestPasswordRecovery(data, button) {
     const result = await api("/api/auth/recover", { method: "POST", body: JSON.stringify({ email: data.email }) });
     openModal(`${modalHeader("Revisá tu correo", result.message)}<div class="modal-body"><div class="human-note"><img src="/assets/ordy/avatar.png" alt="Ordy" /><div><b>El enlace te llevará de vuelta a Ordy</b><p>Desde ahí podrás crear una contraseña nueva de al menos 10 caracteres.</p></div></div><a class="btn btn-primary request-wide" href="/">Volver a Ordy</a></div>`, true);
   } catch (error) {
+    if (error.code === "supabase_unavailable") {
+      closeModal();
+      clientServiceUnavailable = true;
+      render();
+      return;
+    }
     toast(error.message);
     button.disabled = false;
     button.textContent = "Enviarme el enlace";
