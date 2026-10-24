@@ -57,6 +57,13 @@ async function initializeOrdy() {
     sessionActive = false;
     authUser = null;
     clientServiceUnavailable = error.code === "supabase_unavailable";
+    if (!clientServiceUnavailable) {
+      try {
+        await api("/api/health");
+      } catch (healthError) {
+        clientServiceUnavailable = healthError.code === "supabase_unavailable";
+      }
+    }
   }
   render();
   if (!sessionActive && location.pathname === "/" && location.hash === "#pedir") openRequest();

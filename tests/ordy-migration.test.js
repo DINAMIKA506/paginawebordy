@@ -12,6 +12,14 @@ test("la raíz contiene Ordy y no conserva la página info", () => {
   assert.equal(fs.existsSync(path.join(root, "info/index.html")), false);
 });
 
+test("una caída general se explica antes de culpar al acceso del cliente", () => {
+  const app = read("app.js");
+  const admin = read("admin.js");
+  assert.match(admin, /await api\("\/api\/health"\)/);
+  assert.match(app, /Tu cuenta y tu contraseña siguen bien/);
+  assert.match(app, /data-action="refresh-service"/);
+});
+
 test("Vercel conserva rutas públicas y dinámicas", () => {
   const config = JSON.parse(read("vercel.json"));
   const sources = config.rewrites.map((item) => item.source);
