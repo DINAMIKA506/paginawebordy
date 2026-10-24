@@ -97,13 +97,19 @@ test("el administrador puede entrar por correo o por su usuario inicial", async 
 test("crear un acceso también crea su océano privado", async () => {
   let createdOcean = null;
   let linkedContact = null;
+  let setupLinkRequest = null;
   await withSupabaseEnvironment(async (url, options = {}) => {
     const target = String(url);
     if (target.endsWith("/auth/v1/user")) return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
     if (target.includes("ordy_profiles?id=eq.admin-1")) return response([{ id: "admin-1", email: "ordenyplan@gmail.com", username: "ordenyplan", display_name: "Admin", role: "admin", active: true }]);
-    if (target.includes("ordy_profiles?or=")) return response([]);
+    if (target.includes("ordy_profiles?email=eq.cliente%40example.com")) return response([]);
+    if (target.includes("ordy_profiles?username=ilike.cliente.avvo")) return response([]);
     if (target.includes("ordy_contacts?id=eq.contact-1&select=id,name,company,email,delivered_at")) return response([{ id: "contact-1", name: "Avvo", company: "Avvo", email: "avvo@clientes.ordy.invalid", delivered_at: null }]);
     if (target.endsWith("/auth/v1/admin/users")) return response({ id: "client-1" });
+    if (target.endsWith("/auth/v1/admin/generate_link")) {
+      setupLinkRequest = JSON.parse(options.body);
+      return response({ action_link: "https://supabase.test/verify?token=setup" });
+    }
     if (target.endsWith("/rest/v1/ordy_profiles")) return response([]);
     if (target.endsWith("/rest/v1/ordy_user_oceans")) {
       createdOcean = JSON.parse(options.body);
@@ -132,7 +138,54 @@ test("crear un acceso también crea su océano privado", async () => {
     assert.deepEqual(createdOcean.data_json.modules, ["content", "clients", "stock", "tasks", "library"]);
     assert.equal(linkedContact.email, "cliente@example.com");
     assert.equal(linkedContact.stage, "activo");
+    assert.equal(res.payload.setupUrl, "https://supabase.test/verify?token=setup");
+    assert.equal(setupLinkRequest.type, "recovery");
+    assert.equal(setupLinkRequest.redirect_to, "https://ordy.test/reset");
+    assert.equal(Object.prototype.hasOwnProperty.call(res.payload, "temporaryPassword"), false);
     assert.doesNotMatch(JSON.stringify(createdOcean), /Majo|ONUDI|LESCO/);
+  });
+});
+
+test("crear un espacio nuevo registra cliente, acceso y enlace en una sola acción", async () => {
+  let createdContact = null;
+  let profile = null;
+  await withSupabaseEnvironment(async (url, options = {}) => {
+    const target = String(url);
+    if (target.endsWith("/auth/v1/user")) return response({ id: "admin-1", email: "ordenyplan@gmail.com" });
+    if (target.includes("ordy_profiles?id=eq.admin-1")) return response([{ id: "admin-1", email: "ordenyplan@gmail.com", username: "ordenyplan", display_name: "Admin", role: "admin", active: true }]);
+    if (target.includes("ordy_profiles?email=eq.nueva%40example.com")) return response([]);
+    if (target.includes("ordy_profiles?username=ilike.nueva")) return response([]);
+    if (target.includes("ordy_contacts?email=eq.nueva%40example.com")) return response([]);
+    if (target.endsWith("/rest/v1/ordy_contacts") && options.method === "POST") {
+      createdContact = JSON.parse(options.body);
+      return response([{ id: "contact-new", ...createdContact }]);
+    }
+    if (target.endsWith("/auth/v1/admin/users")) return response({ id: "client-new" });
+    if (target.endsWith("/rest/v1/ordy_profiles")) {
+      profile = JSON.parse(options.body);
+      return response([]);
+    }
+    if (target.endsWith("/rest/v1/ordy_user_oceans")) return response([]);
+    if (target.includes("ordy_contacts?id=eq.contact-new") && options.method === "PATCH") return response([]);
+    if (target.endsWith("/auth/v1/admin/generate_link")) return response({ action_link: "https://supabase.test/verify?token=new" });
+    return response({ message: `Ruta inesperada: ${url}` }, 500);
+  }, async () => {
+    const handler = require("../lib/admin/users");
+    const res = vercelResponse();
+    await handler(request({
+      displayName: "Proyecto Nuevo",
+      company: "Proyecto Nuevo",
+      phone: "8888-8888",
+      spaceName: "Océano Proyecto Nuevo",
+      email: "nueva@example.com",
+      templateKey: "general",
+      modules: ["library", "tasks", "content"]
+    }, "ordy_access=admin-token"), res);
+    assert.equal(res.statusCode, 201);
+    assert.equal(createdContact.email, "nueva@example.com");
+    assert.equal(profile.contact_id, "contact-new");
+    assert.equal(profile.username, "nueva");
+    assert.equal(res.payload.setupUrl, "https://supabase.test/verify?token=new");
   });
 });
 
@@ -211,6 +264,20 @@ test("la conexión del servidor no depende de una llave pública válida", async
   }, async () => {
     const { supabaseRequest } = require("../lib/_supabase");
     await supabaseRequest("ordy_profiles?select=id", { method: "GET" });
+  });
+});
+
+test("una caída de Supabase no se presenta como contraseña incorrecta", async () => {
+  await withSupabaseEnvironment(async () => {
+    const networkError = new TypeError("fetch failed");
+    networkError.cause = { code: "ENOTFOUND" };
+    throw networkError;
+  }, async () => {
+    const { supabaseRequest } = require("../lib/_supabase");
+    await assert.rejects(
+      () => supabaseRequest("ordy_profiles?select=id&limit=1", { method: "GET" }),
+      (error) => error.code === "supabase_unavailable" && error.statusCode === 503 && /contraseña no son el problema/.test(error.message)
+    );
   });
 });
 

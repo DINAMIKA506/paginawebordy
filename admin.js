@@ -198,15 +198,16 @@ function isCirculosContact(contact) {
   return identity.includes("circulos 3:33");
 }
 
-function suggestedUsername(email = "") {
-  return String(email).split("@")[0].toLowerCase().replace(/[^a-z0-9._-]/g, "").slice(0, 40);
-}
-
 async function loadAdminDashboard() {
   try {
     adminData = await api("/api/admin/dashboard");
   } catch (error) {
-    adminData = { bootstrapRequired: false, authRequired: ["oai_login_required", "auth_required"].includes(error.code), error: error.message };
+    adminData = {
+      bootstrapRequired: false,
+      authRequired: ["oai_login_required", "auth_required"].includes(error.code),
+      serviceUnavailable: error.code === "supabase_unavailable",
+      error: error.message
+    };
   }
   renderAdmin();
 }
@@ -219,6 +220,11 @@ async function bootstrapAdmin(data, button) {
     renderAdmin();
     await loadAdminDashboard();
   } catch (error) {
+    if (error.code === "supabase_unavailable") {
+      adminData = { serviceUnavailable: true, error: error.message };
+      renderAdmin();
+      return;
+    }
     toast(error.message);
     if (button) { button.disabled = false; button.textContent = "Activar administración de Ordy"; }
   }
@@ -281,15 +287,14 @@ async function saveNewAdminContact(form, data, button) {
 
 async function saveAdminUser(data, button) {
   const modules = ACCESS_MODULES.filter(([key]) => BASE_PLATFORM_MODULES.has(key) || data[`module_${key}`]).map(([key]) => key);
-  if (!data.contactId) { toast("Elegí el cliente al que pertenece este océano."); return; }
   if (!modules.length) { toast("Elegí al menos un módulo para este océano."); return; }
   button.disabled = true;
-  button.textContent = "Generando…";
+  button.textContent = "Creando…";
   try {
     const result = await api("/api/admin/users", { method: "POST", body: JSON.stringify({ ...data, modules }) });
-    openSecretResult("Acceso creado", "Compartí la contraseña temporal únicamente con la persona dueña del océano.", result.temporaryPassword, result.username);
+    openSecretResult("Espacio y acceso listos", "Compartí este enlace privado con la persona. Desde ahí elegirá su propia contraseña; vos no tenés que inventarla ni guardarla.", result.setupUrl);
     adminData = await api("/api/admin/dashboard");
-  } catch (error) { toast(error.message); button.disabled = false; button.textContent = "Generar acceso"; }
+  } catch (error) { toast(error.message); button.disabled = false; button.textContent = "Crear espacio y acceso"; }
 }
 
 async function saveAdminPlatform(data, button) {
@@ -350,6 +355,10 @@ function renderAdmin() {
     app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><div class="admin-loader">Ordenando el panel administrativo…</div></main>`;
     return;
   }
+  if (adminData.serviceUnavailable) {
+    app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Estado de Ordy</span><h1>La base está desconectada</h1><p>${esc(adminData.error)}</p><p class="form-hint">Esto afecta por igual al panel administrador y a los espacios de clientes. No necesitás cambiar contraseñas hasta recuperar la conexión.</p><button class="btn btn-primary request-wide" data-action="refresh-admin">Comprobar de nuevo</button><a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
+    return;
+  }
   if (adminData.bootstrapRequired || adminData.authRequired) {
     app.innerHTML = `<main class="admin-gate"><img src="/assets/ordy/logo-horizontal.png" alt="Ordy" /><section class="entry-card"><span class="entry-kicker">Administración privada</span><h1>${adminData.bootstrapRequired ? "Creá tu usuario administrador" : "Ingresá a administrar"}</h1><p>${esc(adminData.error)}</p>${adminData.bootstrapRequired ? `<form class="entry-form" data-form="admin-bootstrap"><label>Tu nombre<input class="field" name="displayName" required autocomplete="name" /></label><label>Usuario administrador<input class="field" name="username" required minlength="4" pattern="[a-zA-Z0-9._-]+" autocomplete="username" /></label><label>Contraseña<input class="field" name="password" type="password" required minlength="10" autocomplete="new-password" /></label><button class="btn btn-primary" type="submit">Activar administración de Ordy</button></form>` : `<form class="entry-form" data-form="admin-login"><label>Correo o usuario administrador<input class="field" name="username" required autocomplete="username" placeholder="ordenyplan@gmail.com" /></label><small class="form-hint">En el primer ingreso usá el correo completo.</small><label>Contraseña<input class="field" name="password" type="password" required minlength="8" autocomplete="current-password" /></label><button class="btn btn-primary" type="submit">Ingresar al panel</button></form><button class="text-link forgot-link" data-action="forgot-password">Crear una contraseña nueva</button>`}<a class="admin-back" href="/">← Volver a Ordy</a></section></main>`;
     return;
@@ -406,7 +415,7 @@ function renderAdminRequests() {
 
 function renderAdminAccess() {
   const users = adminData.users.filter((user) => user.role === "user");
-  return `<header class="view-head"><div><h2>Plataformas y accesos</h2><p>Generá una base Ordy y sumale solo los módulos que cada cliente necesita.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Nueva plataforma</button></div></header><section class="platform-base-note"><b>La base siempre incluye Biblioteca y Tareas.</b><span>Después podés agregar Contenido, Equipo, Clientes, Stock, Portafolio, accesos rápidos o la integración de Impronte. También podés cambiarlo más adelante.</span></section><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Plataformas entregadas</h3></header>${users.length ? `<div class="user-list">${users.map((user) => `<div><span class="contact-avatar" style="background:${esc(user.primary || "#4e4bf7")}22;color:${esc(user.primary || "#4e4bf7")}">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.space_name)}</b><small>${esc(user.display_name)} · @${esc(user.username)} · ${user.active ? "Activo" : "Pausado"}</small><small>${(user.modules || []).map(moduleLabel).map(esc).join(", ") || "Base Ordy"}</small></section><span class="user-actions"><button class="btn btn-primary btn-small" data-action="edit-platform" data-id="${user.id}">Personalizar</button><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Restablecer</button><button class="btn ${user.active ? "btn-danger" : "btn-quiet"} btn-small" data-action="toggle-user-access" data-id="${user.id}" data-active="${user.active ? "false" : "true"}">${user.active ? "Pausar" : "Activar"}</button></span></div>`).join("")}</div>` : adminEmpty("No hay plataformas de clientes", "Creá la primera desde la base Ordy.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
+  return `<header class="view-head"><div><h2>Espacios y accesos</h2><p>Creá la ficha del cliente, su espacio y su primer acceso en una sola acción.</p></div><div class="head-actions"><button class="btn btn-primary btn-small" data-action="open-create-user">＋ Crear espacio y acceso</button></div></header><section class="platform-base-note"><b>Vos solo completás los datos y compartís un enlace.</b><span>La persona elige su propia contraseña. La base incluye Biblioteca y Tareas; los demás módulos y colores se personalizan para cada cliente.</span></section><section class="admin-two"><article class="panel"><header class="panel-head"><h3>Espacios entregados</h3></header>${users.length ? `<div class="user-list">${users.map((user) => `<div><span class="contact-avatar" style="background:${esc(user.primary || "#4e4bf7")}22;color:${esc(user.primary || "#4e4bf7")}">${esc(user.display_name.slice(0, 1).toUpperCase())}</span><section><b>${esc(user.space_name)}</b><small>${esc(user.display_name)} · ${esc(user.email)} · ${user.active ? "Activo" : "Pausado"}</small><small>${(user.modules || []).map(moduleLabel).map(esc).join(", ") || "Base Ordy"}</small></section><span class="user-actions"><button class="btn btn-primary btn-small" data-action="edit-platform" data-id="${user.id}">Personalizar</button><button class="btn btn-quiet btn-small" data-action="create-reset" data-id="${user.id}">Nuevo enlace</button><button class="btn ${user.active ? "btn-danger" : "btn-quiet"} btn-small" data-action="toggle-user-access" data-id="${user.id}" data-active="${user.active ? "false" : "true"}">${user.active ? "Pausar" : "Activar"}</button></span></div>`).join("")}</div>` : adminEmpty("No hay espacios de clientes", "Creá el primero en un solo paso.")}</article><article class="panel"><header class="panel-head"><h3>Pagos</h3></header>${adminData.contacts.length ? `<div class="payment-list">${adminData.contacts.filter((contact) => contact.payment_status !== "sin_definir").map((contact) => `<button data-action="edit-contact" data-id="${contact.id}"><div><b>${esc(contact.name)}</b><small>${contact.payment_due ? `Próximo: ${formatDate(contact.payment_due)}` : "Sin fecha"}</small></div><span class="payment-${contact.payment_status}">${paymentLabel(contact.payment_status)}${contact.payment_amount ? ` · ₡${Number(contact.payment_amount).toLocaleString("es-CR")}` : ""}</span></button>`).join("") || `<div class="empty-inline">Todavía no hay pagos registrados.</div>`}</div>` : adminEmpty("No hay clientes", "Los pagos se registran desde cada cliente.")}</article></section>`;
 }
 
 function moduleLabel(value) {
@@ -442,7 +451,7 @@ function openCreateUser(selectedContactId = "") {
   const initialName = selectedContact?.name || "";
   const initialSpace = selectedContact ? `Océano ${selectedContact.company || selectedContact.name}` : "";
   const circulosModules = new Set(["library", "tasks", "content", "team"]);
-  openModal(`${modalHeader("Crear plataforma y acceso", "Vinculá el cliente, partí de la base Ordy y elegí los pluses de esta plataforma.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Vincular a un cliente</label><select class="field" name="contactId" data-action="access-contact" required><option value="" disabled ${selectedContact ? "" : "selected"}>Elegí un cliente</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">¿No aparece? <button class="text-link" type="button" data-action="open-create-contact" data-return-to-access="true">Creá el cliente primero</button>.</p></div><div class="field-group"><label>Nombre visible</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" /></div><div class="field-group"><label>Nombre de la plataforma</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Espacio Avvo" /></div><div class="field-group"><label>Correo de acceso</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" /></div><div class="field-group"><label>Usuario</label><input class="field" name="username" minlength="4" pattern="[a-zA-Z0-9._-]+" required value="${esc(suggestedUsername(initialEmail))}" placeholder="nombre.apellido" /></div><fieldset class="field-group full module-fieldset"><legend>Base Ordy incluida</legend><div class="platform-base-grid"><span>Biblioteca</span><span>Tareas</span></div></fieldset><fieldset class="field-group full module-fieldset"><legend>Pluses para esta plataforma</legend><p class="form-hint">Cada plataforma es independiente. Podrás agregar o quitar pluses después, sin convertirla en plantilla para otros clientes.</p><div class="module-check-grid">${ACCESS_MODULES.filter(([key]) => !BASE_PLATFORM_MODULES.has(key)).map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedContact && isCirculosContact(selectedContact) && circulosModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Generar plataforma</button></div></form>`);
+  openModal(`${modalHeader("Crear espacio y acceso", "Todo se crea en un solo paso. Si la persona ya existe en tu seguimiento, podés elegirla; si no, Ordy la registra automáticamente.")}<form class="modal-body" data-form="create-user"><input type="hidden" name="templateKey" value="general" /><div class="form-grid"><div class="field-group full"><label>Cliente existente (opcional)</label><select class="field" name="contactId" data-action="access-contact"><option value="" ${selectedContact ? "" : "selected"}>Es una persona o proyecto nuevo</option>${adminData.contacts.map((contact) => `<option value="${contact.id}" ${contact.id === selectedContactId ? "selected" : ""}>${esc(contact.name)}</option>`).join("")}</select><p class="form-hint">No necesitás crear una ficha aparte: con los datos de abajo Ordy prepara el cliente, su espacio y su acceso.</p></div><div class="field-group"><label>Nombre de la persona o equipo</label><input class="field" name="displayName" required autocomplete="name" value="${esc(initialName)}" placeholder="Ej. Círculos 3:33" /></div><div class="field-group"><label>Empresa o proyecto</label><input class="field" name="company" value="${esc(selectedContact?.company || "")}" placeholder="Puede ser el mismo nombre" /></div><div class="field-group"><label>Correo para ingresar</label><input class="field" name="email" type="email" required autocomplete="email" value="${esc(initialEmail)}" placeholder="persona@correo.com" /></div><div class="field-group"><label>WhatsApp o teléfono (opcional)</label><input class="field" name="phone" autocomplete="tel" value="${esc(selectedContact?.phone || "")}" /></div><div class="field-group full"><label>Nombre del espacio</label><input class="field" name="spaceName" required value="${esc(initialSpace)}" placeholder="Ej. Océano Círculos 3:33" /></div><fieldset class="field-group full module-fieldset"><legend>Base Ordy incluida</legend><div class="platform-base-grid"><span>Biblioteca</span><span>Tareas</span></div></fieldset><fieldset class="field-group full module-fieldset"><legend>¿Qué más necesita este espacio?</legend><p class="form-hint">Podrás agregar o quitar opciones después sin afectar a otros clientes.</p><div class="module-check-grid">${ACCESS_MODULES.filter(([key]) => !BASE_PLATFORM_MODULES.has(key)).map(([key, label]) => `<label><input type="checkbox" name="module_${key}" ${selectedContact && isCirculosContact(selectedContact) && circulosModules.has(key) ? "checked" : ""} /> ${esc(label)}</label>`).join("")}</div></fieldset></div><div class="modal-foot"><button class="btn btn-quiet" type="button" data-action="close-modal">Cancelar</button><button class="btn btn-primary" type="submit">Crear espacio y acceso</button></div></form>`);
 }
 
 function openPlatformEditor(userId) {
@@ -455,11 +464,24 @@ function openPlatformEditor(userId) {
 function updateAccessContact(select) {
   const form = select.closest("form");
   const contact = adminData.contacts.find((item) => item.id === select.value);
-  if (!form || !contact) return;
+  if (!form) return;
+  if (!contact) {
+    form.elements.displayName.value = "";
+    form.elements.company.value = "";
+    form.elements.spaceName.value = "";
+    form.elements.email.value = "";
+    form.elements.phone.value = "";
+    ACCESS_MODULES.forEach(([key]) => {
+      const input = form.elements[`module_${key}`];
+      if (input) input.checked = false;
+    });
+    return;
+  }
   form.elements.displayName.value = contact.name;
+  form.elements.company.value = contact.company || "";
   form.elements.spaceName.value = `Océano ${contact.company || contact.name}`;
   form.elements.email.value = isInternalContactEmail(contact.email) ? "" : contact.email;
-  form.elements.username.value = suggestedUsername(form.elements.email.value);
+  form.elements.phone.value = contact.phone || "";
   const circulosModules = new Set(["library", "tasks", "content", "team"]);
   ACCESS_MODULES.forEach(([key]) => {
     const input = form.elements[`module_${key}`];

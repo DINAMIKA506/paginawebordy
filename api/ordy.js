@@ -25,6 +25,7 @@
 // Nunca se arma la ruta del require con datos que vengan del navegador:
 // si alguien pide /api/../../algo, acá no encuentra nada y se va en 404.
 const RUTAS = {
+  "health":             () => require("../lib/health.js"),
   "chat":               () => require("../lib/chat.js"),
   "chat/start":         () => require("../lib/chat/start.js"),
   "chat/message":       () => require("../lib/chat/message.js"),

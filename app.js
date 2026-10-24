@@ -295,9 +295,9 @@ function renderLanding() {
         <article class="entry-card" aria-label="Acceso a Ordy">
           <span class="entry-kicker">Bienvenido a Ordy</span>
           <h2>Entrá a tu océano</h2>
-          <p>Usá los datos de acceso que recibiste al entregar tu espacio.</p>
+          <p>Ingresá con tu correo y la contraseña que vos elegiste.</p>
           <form data-form="login" class="entry-form">
-            <label>Usuario<input class="field" name="username" autocomplete="username" required placeholder="tu.usuario" /></label>
+            <label>Correo<input class="field" name="username" type="email" autocomplete="username" required placeholder="tu@correo.com" /></label>
             <label>Contraseña<input class="field" name="password" type="password" autocomplete="current-password" required placeholder="••••••••" /></label>
             <button class="btn btn-primary" type="submit">Ingresar</button>
           </form>
