@@ -27,6 +27,11 @@ test("Vercel conserva rutas públicas y dinámicas", () => {
   assert.ok(!sources.includes("/info"));
 });
 
+test("Vercel mantiene activa la base gratuita con un latido diario", () => {
+  const config = JSON.parse(read("vercel.json"));
+  assert.deepEqual(config.crons, [{ path: "/api/health", schedule: "0 13 * * *" }]);
+});
+
 test("la migración usa Supabase y mantiene separado a Impronte", () => {
   const sql = read("supabase/ordy.sql");
   for (const table of ["ordy_profiles", "ordy_contacts", "ordy_conversations", "ordy_messages", "ordy_space_requests", "ordy_user_oceans"]) assert.match(sql, new RegExp(table));
